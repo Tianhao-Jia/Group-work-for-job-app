@@ -34,4 +34,12 @@ public class EmployeeEspressoTest {
         onView(withId(R.id.appCompatTextView)).check(matches(isDisplayed()));
 
     }
+
+    @Test
+    public void testOpenEmployerActivity() {
+
+        onView(withId(R.id.debugGoToEmployerActivity)).perform(click());
+        onView(withId(R.id.appCompatTextView2)).check(matches(isDisplayed()));
+
+    }
 }
