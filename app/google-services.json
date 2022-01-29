@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1079669322399",
-    "project_id": "quick-cash-55715",
-    "storage_bucket": "quick-cash-55715.appspot.com"
+    "project_number": "496700615569",
+    "project_id": "myfirebase-8ca9f",
+    "storage_bucket": "myfirebase-8ca9f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1079669322399:android:6102d859944a2474d328aa",
+        "mobilesdk_app_id": "1:496700615569:android:99bbaf6701798201d6c830",
         "android_client_info": {
-          "package_name": "com.example.myapplication"
+          "package_name": "com.example.myfirebase"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1079669322399-8j75m69b9l1m43al6h67dn9tnkiq3jsm.apps.googleusercontent.com",
+          "client_id": "496700615569-q9odq7v7e50gmircq24vs3f7t3j3pk4p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDo-SvVdQPxj9Z4AftkJROedA9W3uIfyoo"
+          "current_key": "AIzaSyBQNvDNBbqhXJfsTjf8nGmyZ4w7UPr7n50"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1079669322399-8j75m69b9l1m43al6h67dn9tnkiq3jsm.apps.googleusercontent.com",
+              "client_id": "496700615569-q9odq7v7e50gmircq24vs3f7t3j3pk4p.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
