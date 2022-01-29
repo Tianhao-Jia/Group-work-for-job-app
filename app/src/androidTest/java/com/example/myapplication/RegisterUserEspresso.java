@@ -9,6 +9,7 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
@@ -40,10 +41,23 @@ public class RegisterUserEspresso {
         onView(withId(R.id.nameLN)).perform(typeText("Smith"));
         onView(withId(R.id.email)).perform(typeText("george.smith@dal.ca"));
         onView(withId(R.id.userType)).perform(typeText("Employee"));
+        Espresso.closeSoftKeyboard();
 
-        onView(withId(R.id.addBTN)).perform(click());
+        onView(withId(R.id.registerBtn)).perform(click());
 
         onView(withId(R.id.login)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void requiredFieldsNotFilled() {
+        onView(withId(R.id.nameFN)).perform(typeText("George"));
+        onView(withId(R.id.email)).perform(typeText("george.smith@dal.ca"));
+        onView(withId(R.id.userType)).perform(typeText("Employee"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.registerBtn)).perform(click());
+
+        onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
     }
 
     /**
@@ -57,11 +71,13 @@ public class RegisterUserEspresso {
         onView(withId(R.id.nameLN)).perform(typeText("Smith"));
         onView(withId(R.id.email)).perform(typeText("george.smith@dal.ca"));
         onView(withId(R.id.userType)).perform(typeText("Employee"));
+        Espresso.closeSoftKeyboard();
 
-        onView(withId(R.id.addBTN)).perform(click());
+        onView(withId(R.id.registerBtn)).perform(click());
 
         onView(withId(R.id.login)).check(matches(isDisplayed()));
     }
+
 
 
 

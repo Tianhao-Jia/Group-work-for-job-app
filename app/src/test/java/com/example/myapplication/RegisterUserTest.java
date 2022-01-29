@@ -37,7 +37,12 @@ public class RegisterUserTest {
     }
 
     @Test
-    public void invalidLastName() {
-        assertFalse(registerActivity.checkFirstName("$mith"));
+    public void validEmail() {
+        assertTrue(registerActivity.checkEmail("george.smith@dal.ca"));
+    }
+
+    @Test
+    public void invalidEmail() {
+        assertFalse(registerActivity.checkEmail("notAmEmail"));
     }
 }
