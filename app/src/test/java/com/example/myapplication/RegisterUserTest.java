@@ -20,9 +20,24 @@ public class RegisterUserTest {
     }
 
 
-    /* UAT-4 */
+
     @Test
-    public void checkAllRequiredFields() {
-        assertTrue(true);
+    public void validFirstName() {
+        assertTrue(registerActivity.checkFirstName("George"));
+    }
+
+    @Test
+    public void invalidFirstName() {
+        assertFalse(registerActivity.checkFirstName("GMoney$$$"));
+    }
+
+    @Test
+    public void validLastName() {
+        assertTrue(registerActivity.checkFirstName("Smith"));
+    }
+
+    @Test
+    public void invalidLastName() {
+        assertFalse(registerActivity.checkFirstName("$mith"));
     }
 }
