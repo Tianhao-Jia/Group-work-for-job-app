@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -37,6 +42,7 @@ public class RegisterUser extends AppCompatActivity {
                 String lastName = nameLNField.getText().toString();
                 String email = emailField.getText().toString();
                 if(checkFirstName(firstName) && checkLastName(lastName) && checkEmail(email)) {
+                    addRecord();
                     setContentView(R.layout.login_page);
                 }
                 else {
@@ -45,6 +51,37 @@ public class RegisterUser extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    // Function reads the existing values inputted to the fields and adds them to the database
+    //  as a hashmap record under the child "users"
+
+    protected void addRecord() {
+
+        // Finding all views by ID from the register page
+        EditText nameFNField = (EditText) findViewById(R.id.nameFN);
+        EditText nameLNField = (EditText) findViewById(R.id.nameLN);
+        EditText emailField = (EditText) findViewById(R.id.email);
+        EditText userTypeField = (EditText) findViewById(R.id.userType);
+
+        // Creating a HashMap of user information to store on firebase
+        Map<String, Object> map = new HashMap<>();
+        map.put("firstName", nameFNField.getText().toString());
+        map.put("lastName", nameLNField.getText().toString());
+        map.put("email", emailField.getText().toString());
+        map.put("userType", userTypeField.getText().toString());
+
+        // Getting an instance of the firebase realtime database
+        FirebaseDatabase.getInstance("https://quick-cash-55715-default-rtdb.firebaseio.com/")
+                .getReference()
+                .child("users")
+                .push()
+                .setValue(map)
+                .addOnSuccessListener(aVoid -> {
+                    Toast regToast = Toast.makeText(getApplicationContext(), "Registered!", Toast.LENGTH_LONG);
+                    regToast.show();
+                    finish();
+                });
     }
 
     protected boolean checkFirstName(String nameFN) {
