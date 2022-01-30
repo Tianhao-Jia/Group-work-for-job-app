@@ -1,4 +1,5 @@
-package com.example.myfirebase;
+package com.example.loginfinal;
+
 
 public class UserModel {
 
@@ -7,3 +8,4 @@ public class UserModel {
     public String imageurl;
     public String name;
 }
+

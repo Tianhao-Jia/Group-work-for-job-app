@@ -1,4 +1,4 @@
-package com.example.myfirebase;
+package com.example.loginfinal;
 
 import org.junit.Test;
 
