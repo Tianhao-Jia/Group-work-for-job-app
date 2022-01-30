@@ -26,27 +26,30 @@ public class RegisterUser extends AppCompatActivity {
         setContentView(R.layout.activity_register_user);
         Intent intent = getIntent();
 
-        EditText nameFNField = (EditText) findViewById(R.id.nameFN);
-        EditText nameLNField = (EditText) findViewById(R.id.nameLN);
-        EditText emailField = (EditText) findViewById(R.id.email);
-        EditText userTypeField = (EditText) findViewById(R.id.userType);
+        EditText nameFNField = findViewById(R.id.nameFN);
+        EditText nameLNField = findViewById(R.id.nameLN);
+        EditText emailField = findViewById(R.id.email);
+        EditText userTypeField = findViewById(R.id.userType);
 
-
-        Button registerBtn = (Button) findViewById(R.id.registerBtn);
+        Button registerBtn = findViewById(R.id.registerBtn);
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String firstName = nameFNField.getText().toString();
                 String lastName = nameLNField.getText().toString();
                 String email = emailField.getText().toString();
+
                 if(checkFirstName(firstName) && checkLastName(lastName) && checkEmail(email)) {
                     addRecord();
                     setContentView(R.layout.login_page);
                 }
                 else {
-                    Toast failRegAlert = Toast.makeText(getApplicationContext(), "Registration Failed!", Toast.LENGTH_LONG);
+                    Toast failRegAlert = Toast.makeText(
+                            getApplicationContext(),
+                            "Registration Failed!",
+                            Toast.LENGTH_LONG);
+
                     failRegAlert.show();
                 }
             }
@@ -59,10 +62,10 @@ public class RegisterUser extends AppCompatActivity {
     protected void addRecord() {
 
         // Finding all views by ID from the register page
-        EditText nameFNField = (EditText) findViewById(R.id.nameFN);
-        EditText nameLNField = (EditText) findViewById(R.id.nameLN);
-        EditText emailField = (EditText) findViewById(R.id.email);
-        EditText userTypeField = (EditText) findViewById(R.id.userType);
+        EditText nameFNField = findViewById(R.id.nameFN);
+        EditText nameLNField = findViewById(R.id.nameLN);
+        EditText emailField = findViewById(R.id.email);
+        EditText userTypeField = findViewById(R.id.userType);
 
         // Creating a HashMap of user information to store on firebase
         Map<String, Object> map = new HashMap<>();
@@ -105,5 +108,4 @@ public class RegisterUser extends AppCompatActivity {
         Matcher matcher = emailPattern.matcher(email.trim());
         return matcher.find();
     }
-
 }

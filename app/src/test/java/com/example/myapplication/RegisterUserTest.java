@@ -14,12 +14,11 @@ public class RegisterUserTest {
     public static void setup() {
         registerActivity = new RegisterUser();
     }
+
     @AfterClass
     public static void tearDown() {
         System.gc();
     }
-
-
 
     @Test
     public void validFirstName() {
