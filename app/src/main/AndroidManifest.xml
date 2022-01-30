@@ -13,6 +13,9 @@
             android:name=".EmployeeActivity"
             android:exported="false" />
         <activity
+            android:name=".EmployerActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
