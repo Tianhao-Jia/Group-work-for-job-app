@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class EmployeeEspressoTest {
+public class EmployerEspressoTest {
 
     @Rule
     public ActivityScenarioRule<MainActivity> myRule =
@@ -28,10 +28,10 @@ public class EmployeeEspressoTest {
 
 
     @Test
-    public void testOpenEmployeeActivity() {
-        onView(withId(R.id.debugGoToEmployeeActivity)).perform(click());
-        onView(withId(R.id.appCompatTextView)).check(matches(isDisplayed()));
+    public void testOpenEmployerActivity() {
+
+        onView(withId(R.id.debugGoToEmployerActivity)).perform(click());
+        onView(withId(R.id.appCompatTextView2)).check(matches(isDisplayed()));
 
     }
-
 }
