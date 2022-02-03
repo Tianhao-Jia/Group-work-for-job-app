@@ -12,11 +12,14 @@ import static org.hamcrest.Matchers.not;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.ViewAssertion;
+import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +31,12 @@ public class RegisterUserEspresso {
 
     @Rule
     public ActivityScenarioRule rule  = new ActivityScenarioRule<>(RegisterUser.class);
+
+
+    @BeforeClass
+    public static void setup() {
+        Intents.init();
+    }
 
     @Test
     public void activityInView() {
@@ -135,6 +144,11 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerBtn)).perform(click());
 
         onView(withId(R.id.login)).check(matches(isDisplayed()));
+    }
+
+    @AfterClass
+    public static void tearDown(){
+        System.gc();
     }
 
 
