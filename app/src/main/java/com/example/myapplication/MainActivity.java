@@ -10,6 +10,15 @@ import android.widget.Button;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * EmployeeActivity class that manages the EmployeeActivity
+ * @author: Nathanael Bowley, Nathan Horn, John Corsten,
+ *          Saher Anwar Ziauddin, Ted Graveson, Ding Ding, Jia Jia
+ * @course: CSCI3130 @ Dalhousie University.
+ * @semester: Winter 2022
+ * @group: Group 4
+ * @clientTA: Disha Malik
+ */
 public class MainActivity extends AppCompatActivity {
 
 
