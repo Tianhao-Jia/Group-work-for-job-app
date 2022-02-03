@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -19,19 +20,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+/**
+ * MainActivityTest class where the testing is done for the Intents of switching between
+ * different Employee and Employer activities are tested.
+ */
 @RunWith(AndroidJUnit4.class)
-public class EmployeeEspressoTest {
-
-    @Rule
-    public ActivityScenarioRule<MainActivity> myRule =
-            new ActivityScenarioRule<MainActivity>(MainActivity.class);
+public class MainActivityTest {
 
 
-//    @Test
-//    public void testOpenEmployeeActivity() {
-//        onView(withId(R.id.debugGoToEmployeeActivity)).perform(click());
-//        onView(withId(R.id.appCompatTextView)).check(matches(isDisplayed()));
-//
-//    }
 
 }

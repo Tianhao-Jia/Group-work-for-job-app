@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
         Button register = findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,27 +51,29 @@ public class MainActivity extends AppCompatActivity {
         firebaseDBRef = firebaseDB.getReference("message");
     }
 
-    private void writeToFirebaseRealTimeDB(){
+    private void writeToFirebaseRealTimeDB() {
         // Just a test, can delete
         firebaseDBRef.setValue("Hello Group 4");
-
-        employeeButton = (Button) findViewById(R.id.debugGoToEmployeeActivity);
-        employerButton = (Button) findViewById(R.id.debugGoToEmployerActivity);
-
-        employeeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        employerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EmployerActivity.class);
-                startActivity(intent);
-            }
-        });
     }
+//        employeeButton = (Button) findViewById(R.id.debugGoToEmployeeActivity);
+//        employerButton = (Button) findViewById(R.id.debugGoToEmployerActivity);
+//
+//
+//
+//        employeeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        employerButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, EmployerActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//    }
 }
