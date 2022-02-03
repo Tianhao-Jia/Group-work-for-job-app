@@ -33,10 +33,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        connectFirebase();
-        writeToFirebaseRealTimeDB();
-    }
 
+
+        Button register = findViewById(R.id.register);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // MainActivity is a substitute for the login page
+                Intent intent = new Intent(MainActivity.this, RegisterUser.class);
+                startActivity(intent);
+            }
+        });
+    }
     private void connectFirebase() {
         firebaseDB = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL);
         firebaseDBRef = firebaseDB.getReference("message");
