@@ -20,31 +20,34 @@
         android:id="@+id/register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="Create Account"
+        app:layout_constraintBottom_toTopOf="@id/displayTV"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/displayTV"
-        tools:layout_editor_absoluteY="287dp" />
-
-    <Button
-        android:id="@+id/debugGoToEmployeeActivity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        android:text="Go To Employee Activity"/>
+        app:layout_constraintVertical_bias="0.948" />
 
     <Button
         android:id="@+id/debugGoToEmployerActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/debugGoToEmployeeActivity"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        android:text="Go To Employer Activity"/>
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="244dp"
+        android:text="Employer Log-In"
+        app:layout_constraintLeft_toLeftOf="@id/debugGoToEmployeeActivity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/debugGoToEmployeeActivity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="244dp"
+        android:text="Employee Log-In"
+        app:layout_constraintRight_toLeftOf="@id/debugGoToEmployerActivity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
