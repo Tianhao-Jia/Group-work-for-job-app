@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDB;
     private DatabaseReference firebaseDBRef;
 
-    public Button employeeButton;
-    public Button employerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,40 +35,39 @@ public class MainActivity extends AppCompatActivity {
         connectFirebase();
         writeToFirebaseRealTimeDB();
 
-        Button register = findViewById(R.id.register);
-        register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // MainActivity is a substitute for the login page
-                Intent intent = new Intent(MainActivity.this, RegisterUser.class);
-                startActivity(intent);
-            }
-        });
+
+        Button employeeButton = (Button) findViewById(R.id.debugGoToEmployeeActivity);
+        setIntent(employeeButton, EmployeeActivity.class);
+
+        Button employerButton = (Button) findViewById(R.id.debugGoToEmployerActivity);
+        setIntent(employerButton, EmployerActivity.class);
+
+        Button register = (Button) findViewById(R.id.register);
+        setIntent(register, RegisterUser.class);
+
     }
+
     private void connectFirebase() {
         firebaseDB = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL);
         firebaseDBRef = firebaseDB.getReference("message");
     }
 
-    private void writeToFirebaseRealTimeDB(){
+    private void writeToFirebaseRealTimeDB() {
         // Just a test, can delete
         firebaseDBRef.setValue("Hello Group 4");
+    }
 
-        employeeButton = (Button) findViewById(R.id.debugGoToEmployeeActivity);
-        employerButton = (Button) findViewById(R.id.debugGoToEmployerActivity);
-
-        employeeButton.setOnClickListener(new View.OnClickListener() {
+    /**
+     * setIntent method that reduces code clutter and improves switching between intents of buttons.
+     * @author Nathanael Bowley
+     * @param button Button the button at which when pressed activates an Intent.
+     * @param className Class that represents the class linked to that the window will switch to.
+     */
+    private void setIntent(Button button, Class className) {
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        employerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, EmployerActivity.class);
+                Intent intent = new Intent(MainActivity.this, className);
                 startActivity(intent);
             }
         });
