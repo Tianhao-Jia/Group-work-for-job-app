@@ -10,16 +10,28 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import static org.hamcrest.Matchers.not;
 
+import android.widget.EditText;
+
+import androidx.annotation.NonNull;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.ViewAssertion;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(AndroidJUnit4.class)
 public class RegisterUserEspresso {
@@ -59,6 +71,25 @@ public class RegisterUserEspresso {
      */
     @Test
     public void AlreadyRegisteredTest(){
+        // Finding all views by ID from the register page
+        String nameFn = "John";
+        String lastName = "Adams";
+        String emailField = "john.adams@dal.ca";
+        String userType = "Employee";
+
+        // Creating a HashMap of user information to store on firebase
+        Map<String, Object> map = new HashMap<>();
+        map.put("firstName", nameFn);
+        map.put("lastName", lastName);
+        map.put("email", emailField);
+        map.put("userType", userType);
+
+        FirebaseDatabase.getInstance("https://quick-cash-55715-default-rtdb.firebaseio.com/")
+                .getReference()
+                .child("users")
+                .push()
+                .setValue(map);
+
         // Assume that an 'example' record already exists on Firebase with these details
         onView(withId(R.id.nameFN)).perform(typeText("John"));
         onView(withId(R.id.nameLN)).perform(typeText("Adams"));
@@ -68,7 +99,7 @@ public class RegisterUserEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerBtn)).perform(click());
 
-        onView(withId(R.id.registerUser)).check(matches(not(isDisplayed())));
+        onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
     }
 
     /**
@@ -137,7 +168,9 @@ public class RegisterUserEspresso {
         onView(withId(R.id.login)).check(matches(isDisplayed()));
     }
 
-
-
+    @Before
+    public void teardown(){
+        FirebaseDatabase.getInstance().getReference("users").setValue(null);
+    }
 
 }

@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        connectFirebase();
+        writeToFirebaseRealTimeDB();
 
         Button register = findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
