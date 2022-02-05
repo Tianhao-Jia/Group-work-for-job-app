@@ -53,8 +53,6 @@ public class RegisterUser extends AppCompatActivity {
 
     public void registerUser(){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
-        ((TextView) findViewById(R.id.test)).setText(emailField.toString());
-
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
@@ -118,6 +116,7 @@ public class RegisterUser extends AppCompatActivity {
                 .setValue(map)
                 .addOnSuccessListener(aVoid -> {
                     displayToast("Registered!");
+                    // TODO: commented out finish to run tests cases - find a fix for this
                     //finish();
                 });
     }
