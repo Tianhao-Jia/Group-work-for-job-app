@@ -11,8 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.loginfinal.R;
-import com.example.loginfinal.Register;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -39,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         id=findViewById(R.id.username);
         password=findViewById(R.id.password);
         signup=findViewById(R.id.signup);
-        login=findViewById(R.id.button);
+        login=findViewById(R.id.loginButton);
         mAuth=FirebaseAuth.getInstance();
         login.setOnClickListener(new View.OnClickListener() {
             @Override
