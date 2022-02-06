@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,8 @@ public class RegisterUser extends AppCompatActivity {
     private EditText nameLNField;
     private EditText emailField;
     private EditText userTypeField;
+    private final String EMPLOYEE = "Employee";
+    private final String EMPLOYER = "Employer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,23 @@ public class RegisterUser extends AppCompatActivity {
                 } else{
                     if(validateInput()) {
                         addRecord();
+
+                        //implementation of part of US-3
+                        String userType = userTypeField.getText().toString();
+
+                        if (userType.equalsIgnoreCase(EMPLOYEE)) {
+                            Intent intent = new Intent(RegisterUser.this, EmployeeActivity.class);
+                            startActivity(intent);
+                        }
+                        else if (userType.equalsIgnoreCase(EMPLOYER)) {
+                            Intent intent = new Intent(RegisterUser.this, EmployerActivity.class);
+                            startActivity(intent);
+                        }
+                        else {
+                            Log.e("ERROR", "This should never be possible that a user is not employer or emploee!");
+                            //force crash.
+                            System.exit(-1);
+                        }
                         setContentView(R.layout.login_page);
                     }
                     else {
@@ -101,24 +121,32 @@ public class RegisterUser extends AppCompatActivity {
         EditText emailField = findViewById(R.id.email);
         EditText userTypeField = findViewById(R.id.userType);
 
-        // Creating a HashMap of user information to store on firebase
-        Map<String, Object> map = new HashMap<>();
-        map.put("firstName", nameFNField.getText().toString());
-        map.put("lastName", nameLNField.getText().toString());
-        map.put("email", emailField.getText().toString());
-        map.put("userType", userTypeField.getText().toString());
+        //US-3 functionality forcing 2 types of users
+        String userType = userTypeField.getText().toString();
+        if (userType.equalsIgnoreCase(EMPLOYER) || userType.equalsIgnoreCase(EMPLOYEE)) {
+            // Creating a HashMap of user information to store on firebase
+            Map<String, Object> map = new HashMap<>();
+            map.put("firstName", nameFNField.getText().toString());
+            map.put("lastName", nameLNField.getText().toString());
+            map.put("email", emailField.getText().toString());
+            map.put("userType", userTypeField.getText().toString());
 
-        // Getting an instance of the firebase realtime database
-        FirebaseDatabase.getInstance("https://quick-cash-55715-default-rtdb.firebaseio.com/")
-                .getReference()
-                .child("users")
-                .push()
-                .setValue(map)
-                .addOnSuccessListener(aVoid -> {
-                    displayToast("Registered!");
-                    // TODO: commented out finish to run tests cases - find a fix for this
-                    //finish();
-                });
+            // Getting an instance of the firebase realtime database
+            FirebaseDatabase.getInstance("https://quick-cash-55715-default-rtdb.firebaseio.com/")
+                    .getReference()
+                    .child("users")
+                    .push()
+                    .setValue(map)
+                    .addOnSuccessListener(aVoid -> {
+                        displayToast("Registered!");
+                        // TODO: commented out finish to run tests cases - find a fix for this
+                        //finish();
+                    });
+        }
+        else {
+            Toast.makeText(getBaseContext(), "Please select from employee or employer", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     /**
