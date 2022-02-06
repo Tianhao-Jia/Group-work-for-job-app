@@ -42,7 +42,18 @@ public class MainActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginEvent();
+
+                //this can act as a temp band-aid fix but loginEvent should be responsible for handling
+                //any and all log in failures.
+                try {
+                    loginEvent();
+                } catch (Exception e) {
+
+                    //if the user leaves anything blank we tell them not to leave it blank
+                    if (id.getText().toString().equals("") || password.getText().toString().equals("")) {
+                        Toast.makeText(MainActivity.this, "You can not leave information blank when logging in.", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
         signup.setOnClickListener(new View.OnClickListener() {
