@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     EditText id,password;
     Button login,signup;
     FirebaseAuth mAuth;
+    TextView status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,10 +44,22 @@ public class MainActivity extends AppCompatActivity {
         password=findViewById(R.id.password);
         signup=findViewById(R.id.signup);
         login=findViewById(R.id.button);
+        status=findViewById(R.id.status);
         mAuth=FirebaseAuth.getInstance();
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String userName = id.getText().toString();
+                String pwd = password.getText().toString();
+                if (TextUtils.isEmpty(userName)){
+                    status.setText(getString(R.string.name_empty));
+                    return;
+                }
+                if (TextUtils.isEmpty(pwd)){
+                    status.setText(getString(R.string.pwd_empty));
+                    return;
+                }
+                status.setText("");
                 loginEvent();
             }
         });
