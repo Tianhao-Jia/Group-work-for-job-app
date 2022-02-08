@@ -29,6 +29,7 @@ public class RegisterUser extends AppCompatActivity {
     private EditText nameLNField;
     private EditText emailField;
     private EditText userTypeField;
+    private EditText passwordField;
     private final String EMPLOYEE = "Employee";
     private final String EMPLOYER = "Employer";
 
@@ -43,6 +44,7 @@ public class RegisterUser extends AppCompatActivity {
         nameLNField = findViewById(R.id.nameLN);
         emailField = findViewById(R.id.email);
         userTypeField = findViewById(R.id.userType);
+        passwordField = findViewById(R.id.passwordET);
 
         Button registerBtn = findViewById(R.id.registerBtn);
 
@@ -130,6 +132,7 @@ public class RegisterUser extends AppCompatActivity {
             map.put("lastName", nameLNField.getText().toString());
             map.put("email", emailField.getText().toString());
             map.put("userType", userTypeField.getText().toString());
+            map.put("password", passwordField.getText().toString());
 
             // Getting an instance of the firebase realtime database
             FirebaseDatabase.getInstance("https://quick-cash-55715-default-rtdb.firebaseio.com/")
