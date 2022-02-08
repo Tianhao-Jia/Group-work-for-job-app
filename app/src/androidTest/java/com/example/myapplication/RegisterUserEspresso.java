@@ -47,7 +47,7 @@ public class RegisterUserEspresso {
     }
 
     /**
-     * AT1:
+     * US2-AT1:
      *Given that the user is not registered, when the user inputs their details and clicks the
      * “register” button, the user should be registered.
      */
@@ -65,7 +65,7 @@ public class RegisterUserEspresso {
     }
 
     /**
-     * AT2:
+     * US2-AT2:
      * Given that the user is registered, when the user inputs their details and clicks “register”,
      * it should display an error: “You already have an account”
      */
@@ -103,7 +103,7 @@ public class RegisterUserEspresso {
     }
 
     /**
-     * AT3: Given that the user is not registered, when the user is inputting their details, then
+     * US2-AT3: Given that the user is not registered, when the user is inputting their details, then
      * we should throw an error if the required fields are not filled
      */
     @Test
@@ -119,7 +119,7 @@ public class RegisterUserEspresso {
     }
 
     /**
-     * AT4:
+     * US2-AT4:
      * Given that the user is not registered, when the user in inputting their details,
      * we should accept when the user has only filled the required fields
       */
@@ -151,7 +151,7 @@ public class RegisterUserEspresso {
     }
 
     /**
-     * AT5:
+     * US2-AT5:
      * Given that the user is not registered, when the user fills their details and clicks the ‘register button’,
      * then the user should be directed to the login page.
      */
