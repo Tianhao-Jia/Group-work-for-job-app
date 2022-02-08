@@ -51,6 +51,16 @@
         app:layout_constraintTop_toBottomOf="@id/nameLN" />
 
     <EditText
+        android:id="@+id/passwordET"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        android:layout_marginTop="16dp"
+        android:inputType="textPassword"
+        android:hint="Password"
+        />
+
+    <EditText
         android:id="@+id/userType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,7 +69,7 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email" />
+        app:layout_constraintTop_toBottomOf="@id/passwordET" />
 
     <Button
         android:id="@+id/registerBtn"

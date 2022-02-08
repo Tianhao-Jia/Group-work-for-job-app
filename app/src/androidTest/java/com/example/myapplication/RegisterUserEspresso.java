@@ -48,7 +48,7 @@ public class RegisterUserEspresso {
 
     /**
      * US2-AT1:
-     *Given that the user is not registered, when the user inputs their details and clicks the
+     * Given that the user is not registered, when the user inputs their details and clicks the
      * “register” button, the user should be registered.
      */
     @Test
@@ -61,7 +61,7 @@ public class RegisterUserEspresso {
 
         onView(withId(R.id.registerBtn)).perform(click());
 
-        onView(withId(R.id.login)).check(matches(isDisplayed()));
+        onView(withId(R.id.employee_view)).check(matches(isDisplayed()));
     }
 
     /**
@@ -126,7 +126,7 @@ public class RegisterUserEspresso {
     //Need to add optional fields to UI, covid check was broken so will try and add that back
     //Also will add database mocks to make sure user doesn't already exist
     @Test
-    public void allRequiredFieldsFilled() {
+    public void allRequiredFieldsFilledEmployee() {
         onView(withId(R.id.nameFN)).perform(typeText("George"));
         onView(withId(R.id.nameLN)).perform(typeText("Smith"));
         onView(withId(R.id.email)).perform(typeText("george.smith@dal.ca"));
@@ -135,7 +135,27 @@ public class RegisterUserEspresso {
 
         onView(withId(R.id.registerBtn)).perform(click());
 
-        onView(withId(R.id.login)).check(matches(isDisplayed()));
+        onView(withId(R.id.employee_view)).check(matches(isDisplayed()));
+    }
+
+    /**
+     * US2-AT4:
+     * Given that the user is not registered, when the user in inputting their details,
+     * we should accept when the user has only filled the required fields
+     */
+    //Need to add optional fields to UI, covid check was broken so will try and add that back
+    //Also will add database mocks to make sure user doesn't already exist
+    @Test
+    public void allRequiredFieldsFilledEmployer() {
+        onView(withId(R.id.nameFN)).perform(typeText("George"));
+        onView(withId(R.id.nameLN)).perform(typeText("Smith"));
+        onView(withId(R.id.email)).perform(typeText("george.smith@dal.ca"));
+        onView(withId(R.id.userType)).perform(typeText("Employer"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.registerBtn)).perform(click());
+
+        onView(withId(R.id.employer_view)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -165,7 +185,7 @@ public class RegisterUserEspresso {
 
         onView(withId(R.id.registerBtn)).perform(click());
 
-        onView(withId(R.id.login)).check(matches(isDisplayed()));
+        onView(withId(R.id.employee_view)).check(matches(isDisplayed()));
     }
 
     @Before
