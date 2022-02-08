@@ -96,7 +96,6 @@ public class RegisterUser extends AppCompatActivity {
                             //force crash.
                             System.exit(-1);
                         }
-                        setContentView(R.layout.login_page);
                     }
                     else {
                         displayToast("Registration Failed!");
