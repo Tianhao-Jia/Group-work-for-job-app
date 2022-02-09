@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.loginfinal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -178,9 +177,12 @@ public class RegisterUser extends AppCompatActivity {
      * @return boolean: if input is valid
      */
     protected boolean validateInput(){
-        if(checkFirstName(nameFNField.getText().toString())
-                && checkLastName(nameLNField.getText().toString())
-                && checkEmail(emailField.getText().toString())){
+
+        boolean firstNameValid = checkFirstName(nameFNField.getText().toString());
+        boolean lastNameValid = checkLastName(nameLNField.getText().toString());
+        boolean emailValid = checkEmail(emailField.getText().toString());
+
+        if(firstNameValid && lastNameValid && emailValid){
             return true;
         }
 

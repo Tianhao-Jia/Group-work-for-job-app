@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.loginfinal;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -16,13 +16,9 @@ import android.content.Context;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
-
-import com.example.myapplication.LoginActivity;
-import com.example.myapplication.Register;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

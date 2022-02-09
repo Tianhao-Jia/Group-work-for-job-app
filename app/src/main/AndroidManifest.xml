@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication">
+    package="com.example.loginfinal">
 
     <application
         android:allowBackup="true"
@@ -13,23 +13,23 @@
 
 
         <activity
-            android:name=".RegisterUser"
+            android:name="com.example.loginfinal.RegisterUser"
             android:exported="false" />
         <activity
-            android:name=".EmployeeActivity"
+            android:name="com.example.loginfinal.EmployeeActivity"
             android:exported="false" />
         <activity
-            android:name=".EmployerActivity"
+            android:name="com.example.loginfinal.EmployerActivity"
             android:exported="false" />
 
         <activity
-            android:name="com.example.myapplication.Newpage"
+            android:name="com.example.loginfinal.Newpage"
             android:exported="false" />
         <activity
-            android:name="com.example.myapplication.Register"
+            android:name="com.example.loginfinal.Register"
             android:exported="false" />
         <activity
-            android:name="com.example.myapplication.MainActivity"
+            android:name="com.example.loginfinal.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"/>
+        <activity android:name="com.example.loginfinal.LoginActivity"/>
     </application>
 
 </manifest>

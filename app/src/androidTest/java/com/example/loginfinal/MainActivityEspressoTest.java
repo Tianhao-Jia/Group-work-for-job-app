@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.loginfinal;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 

@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.loginfinal;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,21 +32,23 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        id=findViewById(R.id.username);
-        password=findViewById(R.id.password);
-        signup=findViewById(R.id.signup);
-        login=findViewById(R.id.button);
-        status=findViewById(R.id.status);
+
+        id = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        signup = findViewById(R.id.signup);
+        login = findViewById(R.id.button);
+        status = findViewById(R.id.status);
+
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userName = id.getText().toString();
-                String pwd = password.getText().toString();
-                if (TextUtils.isEmpty(userName)){
+                String username = id.getText().toString();
+                String password = LoginActivity.this.password.getText().toString();
+                if (TextUtils.isEmpty(username)){
                     status.setText(getString(R.string.name_empty));
                     return;
                 }
-                if (TextUtils.isEmpty(pwd)){
+                if (TextUtils.isEmpty(password)){
                     status.setText(getString(R.string.pwd_empty));
                     return;
                 }
@@ -75,16 +77,19 @@ public class LoginActivity extends AppCompatActivity {
 
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
 
+                    String email = dataSnapshot.child("email").getValue(String.class);
+                    String password = dataSnapshot.child("password").getValue(String.class);
+                    String passwordCompare = LoginActivity.this.password.getText().toString();
 
-                    String a = dataSnapshot.child("email").getValue(String.class);
-                    String b = dataSnapshot.child("password").getValue(String.class);
-                    String c = password.getText().toString();
-                    if(b!=null && a!=null && b.equals(c) && a.equals(id.getText().toString())){
+                    boolean passwordNotNull = password!=null;
+                    boolean emailNotNull = email!=null;
+                    boolean passwordIsSame = password.equals(passwordCompare);
+                    boolean emailIsSame = email.equals(id.getText().toString());
+
+                    if(passwordNotNull && emailNotNull && passwordIsSame && emailIsSame){
                         found = true;
                         startActivity(new Intent(LoginActivity.this,Newpage.class));
-
                     }
-
                 }
 
                 if (!found) {
@@ -125,10 +130,5 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-
 
 }

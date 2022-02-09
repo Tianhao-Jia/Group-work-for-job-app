@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.loginfinal;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -8,12 +8,8 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import android.content.ComponentName;
-
-import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.rule.ActivityTestRule;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,6 +26,7 @@ public class EmployerEspressoTest {
     @Test
     public void testOpenEmployerActivity() {
 
+        //previous merge broke this test. need to modify it.
         onView(withId(R.id.debugGoToEmployerActivity)).perform(click());
         onView(withId(R.id.appCompatTextView2)).check(matches(isDisplayed()));
 

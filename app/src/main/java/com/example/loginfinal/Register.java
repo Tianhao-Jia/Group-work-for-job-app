@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.loginfinal;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
@@ -23,70 +23,73 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class Register extends AppCompatActivity {
-    EditText id,name,passward;
+
+    EditText id,name, password;
     ImageView profile;
-    Button btn;
+    Button signupButton;
     Uri imageUri;
+
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView((R.layout.activity_register));
-        id=findViewById(R.id.id);
-        passward=findViewById(R.id.password);
-        name=findViewById(R.id.name);
-        btn=findViewById(R.id.signup);
+        id = findViewById(R.id.id);
+        password = findViewById(R.id.password);
+        name = findViewById(R.id.name);
+        signupButton = findViewById(R.id.signup);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+        signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signup();
             }
         });
-
-
-
-
     }
 
 
-
-
+    // warning to group: this method may be violating single responsibility principle.
     private void signup() {
+        String idText = id.getText().toString();
+        String passwordText = password.getText().toString();
 
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(id.getText().toString(),passward.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(idText, passwordText).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+
                     String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
                     StorageReference storageReference= FirebaseStorage.getInstance().getReference().child("users").child(uid);
+
                     storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             if(task.isSuccessful()){
+
                                 storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+
                                     @Override
                                     public void onComplete(@NonNull Task<Uri> task) {
-                                        String imageurl = task.toString();
+                                        String imageUrl = task.toString();
                                         UserModel userModel = new UserModel();
-                                        userModel.name=name.getText().toString();
-                                        userModel.uid=uid;
-                                        userModel.imageurl=imageurl;
+                                        userModel.name = name.getText().toString();
+                                        userModel.uid = uid;
+                                        userModel.imageUrl = imageUrl;
                                         FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
                                     }
                                 });
                             }
                         }
                     });
-                }else{
+                }
+                else{
                     Toast.makeText(Register.this,"Failed to create",Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-
     }
-
-
 
 }

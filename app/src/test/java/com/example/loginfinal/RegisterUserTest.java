@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.loginfinal;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
