@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,6 +81,8 @@ public class LoginActivity extends AppCompatActivity {
                     String email = dataSnapshot.child("email").getValue(String.class);
                     String password = dataSnapshot.child("password").getValue(String.class);
                     String passwordCompare = LoginActivity.this.password.getText().toString();
+                    String employType = dataSnapshot.child("userType").getValue(String.class);
+
 
                     boolean passwordNotNull = password!=null;
                     boolean emailNotNull = email!=null;
@@ -88,7 +91,18 @@ public class LoginActivity extends AppCompatActivity {
 
                     if(passwordNotNull && emailNotNull && passwordIsSame && emailIsSame){
                         found = true;
-                        startActivity(new Intent(LoginActivity.this,Newpage.class));
+
+                        if (employType.equalsIgnoreCase(Employee.EMPLOYEE)) {
+                            startActivity(new Intent(LoginActivity.this, EmployeeActivity.class));
+
+                        }
+                        else if (employType.equalsIgnoreCase(Employer.EMPLOYER)) {
+                            startActivity(new Intent(LoginActivity.this, EmployerActivity.class));
+                        }
+                        else {
+                            Log.e("Error", "User Type is neither Employee or Employer!");
+                            System.exit(-1);
+                        }
                     }
                 }
 
