@@ -26,19 +26,21 @@ public class LoginActivity extends AppCompatActivity {
     private DatabaseReference firebaseDBRef;
     private TextView textView;
     static Boolean found = false;
+
     EditText id,password;
     Button login,signup;
     TextView status;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        id = findViewById(R.id.username);
-        password = findViewById(R.id.password);
-        signup = findViewById(R.id.signup);
-        login = findViewById(R.id.button);
-        status = findViewById(R.id.status);
+        id = findViewById(R.id.loginUsernameET);
+        password = findViewById(R.id.loginPasswordET);
+        signup = findViewById(R.id.loginToSignupButton);
+        login = findViewById(R.id.loginButton);
+        status = findViewById(R.id.loginStatus);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

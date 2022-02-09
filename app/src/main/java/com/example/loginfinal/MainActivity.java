@@ -36,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
         writeToFirebaseRealTimeDB();
 
 
-        Button employeeButton = (Button) findViewById(R.id.debugGoToEmployeeActivity);
+        Button employeeButton = (Button) findViewById(R.id.goToEmployeeActivity);
         setIntent(employeeButton, LoginActivity.class);
 
-        Button employerButton = (Button) findViewById(R.id.debugGoToEmployerActivity);
+        Button employerButton = (Button) findViewById(R.id.goToEmployerActivity);
         setIntent(employerButton, LoginActivity.class);
 
         Button register = (Button) findViewById(R.id.register);

@@ -27,7 +27,7 @@ public class EmployerEspressoTest {
     public void testOpenEmployerActivity() {
 
         //previous merge broke this test. need to modify it.
-        onView(withId(R.id.debugGoToEmployerActivity)).perform(click());
+        onView(withId(R.id.goToEmployerActivity)).perform(click());
         onView(withId(R.id.appCompatTextView2)).check(matches(isDisplayed()));
 
     }

@@ -32,24 +32,24 @@
         app:layout_constraintVertical_bias="0.847" />
 
     <Button
-        android:id="@+id/debugGoToEmployerActivity"
+        android:id="@+id/goToEmployerActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="224dp"
         android:layout_marginTop="396dp"
         android:text="Employer Log-In"
-        app:layout_constraintLeft_toLeftOf="@id/debugGoToEmployeeActivity"
+        app:layout_constraintLeft_toLeftOf="@id/goToEmployeeActivity"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/debugGoToEmployeeActivity"
+        android:id="@+id/goToEmployeeActivity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="396dp"
         android:text="Employee Log-In"
-        app:layout_constraintRight_toLeftOf="@id/debugGoToEmployerActivity"
+        app:layout_constraintRight_toLeftOf="@id/goToEmployerActivity"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

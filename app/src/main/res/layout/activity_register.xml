@@ -24,7 +24,7 @@
         android:layout_width="160dp"
         android:layout_height="61dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintBottom_toTopOf="@+id/loginPasswordET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/id"
@@ -32,11 +32,11 @@
         tools:visibility="visible" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/loginPasswordET"
         android:layout_width="160dp"
         android:layout_height="61dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/signup"
+        app:layout_constraintBottom_toTopOf="@+id/loginToSignupButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name"
@@ -44,7 +44,7 @@
         tools:visibility="visible" />
 
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/loginToSignupButton"
         android:layout_width="162dp"
         android:layout_height="84dp"
         android:layout_marginTop="16dp"
@@ -52,7 +52,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/loginPasswordET"
         tools:ignore="MissingConstraints" />
 
     <ImageView

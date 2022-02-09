@@ -8,7 +8,7 @@
     tools:context=".RegisterUser">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/registerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="User Registration"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/nameFN"
+        android:id="@+id/registerFirstName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -26,10 +26,10 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/registerTitle" />
 
     <EditText
-        android:id="@+id/nameLN"
+        android:id="@+id/registerLastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -37,10 +37,10 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nameFN" />
+        app:layout_constraintTop_toBottomOf="@id/registerFirstName" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/registerEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -48,20 +48,20 @@
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nameLN" />
+        app:layout_constraintTop_toBottomOf="@id/registerLastName" />
 
     <EditText
-        android:id="@+id/passwordET"
+        android:id="@+id/registerPasswordET"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/email"
+        app:layout_constraintTop_toBottomOf="@id/registerEmail"
         android:layout_marginTop="16dp"
         android:inputType="textPassword"
         android:hint="Password"
         />
 
     <EditText
-        android:id="@+id/userType"
+        android:id="@+id/registerUserType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -69,10 +69,10 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwordET" />
+        app:layout_constraintTop_toBottomOf="@id/registerPasswordET" />
 
     <Button
-        android:id="@+id/registerBtn"
+        android:id="@+id/registerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"

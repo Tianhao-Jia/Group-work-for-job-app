@@ -39,13 +39,13 @@ public class RegisterUser extends AppCompatActivity {
         setContentView(R.layout.activity_register_user);
         Intent intent = getIntent();
 
-        nameFNField = findViewById(R.id.nameFN);
-        nameLNField = findViewById(R.id.nameLN);
-        emailField = findViewById(R.id.email);
-        userTypeField = findViewById(R.id.userType);
-        passwordField = findViewById(R.id.passwordET);
+        nameFNField = findViewById(R.id.registerFirstName);
+        nameLNField = findViewById(R.id.registerLastName);
+        emailField = findViewById(R.id.registerEmail);
+        userTypeField = findViewById(R.id.registerUserType);
+        passwordField = findViewById(R.id.registerPasswordET);
 
-        Button registerBtn = findViewById(R.id.registerBtn);
+        Button registerBtn = findViewById(R.id.registerButton);
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,10 +117,10 @@ public class RegisterUser extends AppCompatActivity {
     protected void addRecord() {
 
         // Finding all views by ID from the register page
-        EditText nameFNField = findViewById(R.id.nameFN);
-        EditText nameLNField = findViewById(R.id.nameLN);
-        EditText emailField = findViewById(R.id.email);
-        EditText userTypeField = findViewById(R.id.userType);
+        EditText nameFNField = findViewById(R.id.registerFirstName);
+        EditText nameLNField = findViewById(R.id.registerLastName);
+        EditText emailField = findViewById(R.id.registerEmail);
+        EditText userTypeField = findViewById(R.id.registerUserType);
 
         //US-3 functionality forcing 2 types of users
         String userType = userTypeField.getText().toString();

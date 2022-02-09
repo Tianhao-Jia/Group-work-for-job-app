@@ -53,33 +53,33 @@ public class LoginTest {
     /***sign up**/
     @Test
     public void testSignUpButtonClick() {
-        onView(withId(R.id.signup)).perform(click()).check(matches(isDisplayed()));
+        onView(withId(R.id.loginToSignupButton)).perform(click()).check(matches(isDisplayed()));
     }
     /***sign up**/
     @Test
     public void testSignUpActivity() {
-        onView(withId(R.id.signup)).perform(click());
+        onView(withId(R.id.loginToSignupButton)).perform(click());
         intended(hasComponent(RegisterUser.class.getName()));
     }
     @Test
     public void checkUserNameIsEmpty() {
-        onView(withId(R.id.username)).perform(typeText(""));
-        onView(withId(R.id.button)).perform(click());
+        onView(withId(R.id.loginUsernameET)).perform(typeText(""));
+        onView(withId(R.id.loginButton)).perform(click());
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.status)).check(matches(withText("username is empty")));
+        onView(withId(R.id.loginStatus)).check(matches(withText("username is empty")));
     }
 
     @Test
     public void checkPasswordIsEmpty() {
-        onView(withId(R.id.username)).perform(typeText("123456"), ViewActions.closeSoftKeyboard());
-        onView(withId(R.id.password)).perform(typeText(""), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.loginUsernameET)).perform(typeText("123456"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.loginPasswordET)).perform(typeText(""), ViewActions.closeSoftKeyboard());
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.button)).perform(click());
-        onView(withId(R.id.status)).check(matches(withText("password is empty")));
+        onView(withId(R.id.loginButton)).perform(click());
+        onView(withId(R.id.loginStatus)).check(matches(withText("password is empty")));
     }
     @Test
     public void login() {
-        onView(withId(R.id.signup)).perform(click());
+        onView(withId(R.id.loginToSignupButton)).perform(click());
         intended(hasComponent(RegisterUser.class.getName()));
     }
 }

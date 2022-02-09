@@ -7,6 +7,8 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import static org.junit.Assert.assertFalse;
+
 import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
@@ -70,7 +72,6 @@ public class MainActivityEspressoTest {
         rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
         rule.getScenario().close();
 
-
         ActivityScenario.launch(EmployerActivity.class);
         onView(withId(R.id.mainActivity)).check(matches(isDisplayed()));
 
@@ -84,34 +85,33 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void reopenAsEmployerWhenLoggedIn() {
-        onView(withId(R.id.nameFN)).perform(typeText("Eugene"));
-        onView(withId(R.id.nameLN)).perform(typeText("Krabs"));
-        onView(withId(R.id.email)).perform(typeText("eugene.krabs@dal.ca"));
-        onView(withId(R.id.userType)).perform(typeText("Employer"));
+
+        ActivityScenario.launch(RegisterUser.class);
+        onView(withId(R.id.registerFirstName)).perform(typeText("Eugene"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Krabs"));
+        onView(withId(R.id.registerEmail)).perform(typeText("eugene.krabs@dal.ca"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("MoneyMoneyMoney123"));
+        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
         Espresso.closeSoftKeyboard();
 
-        onView(withId(R.id.registerBtn)).perform(click());
+        onView(withId(R.id.registerButton)).perform(click());
 
         //force it back to MainActivity to login
         ActivityScenario.launch(MainActivity.class);
 
         //login --requires functionality from us-1
+        onView(withId(R.id.goToEmployeeActivity)).perform(click());
 
-
-
-        //it should move to new window
-        onView(withId(R.id.login)).perform(click());
+        onView(withId(R.id.loginUsernameET)).perform(typeText("eugene.krabs@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("MoneyMoneyMoney123"));
+        onView(withId(R.id.loginButton)).perform(click());
 
         //force it back to MainActivity
+        //see if it will redirect back to page since logged in
         ActivityScenario.launch(MainActivity.class);
 
-        //see if it will redirect back to page since logged in
-
-
         //check if its still MainActivity
-        onView(withId(R.id.employer_view)).check(matches(isDisplayed()));
-
-
+        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
 
     }
 
@@ -124,33 +124,31 @@ public class MainActivityEspressoTest {
     @Test
     public void reopenAsEmployeeWhenLoggedIn() {
 
-        onView(withId(R.id.nameFN)).perform(typeText("Larry"));
-        onView(withId(R.id.nameLN)).perform(typeText("Lobster"));
-        onView(withId(R.id.email)).perform(typeText("larry.lobster@dal.ca"));
-        onView(withId(R.id.userType)).perform(typeText("Employee"));
+        ActivityScenario.launch(RegisterUser.class);
+        onView(withId(R.id.registerFirstName)).perform(typeText("Larry"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Lobster"));
+        onView(withId(R.id.registerEmail)).perform(typeText("larry.lobster@dal.ca"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("RedLobster"));
+        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
         Espresso.closeSoftKeyboard();
 
-        onView(withId(R.id.registerBtn)).perform(click());
+        onView(withId(R.id.registerButton)).perform(click());
 
         //force it back to MainActivity to login
         ActivityScenario.launch(MainActivity.class);
 
         //login --requires functionality from us-1
+        onView(withId(R.id.goToEmployeeActivity)).perform(click());
 
-
-
-        //it should move to new window
-        onView(withId(R.id.login)).perform(click());
+        onView(withId(R.id.loginUsernameET)).perform(typeText("larry.lobster@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("RedLobster"));
+        onView(withId(R.id.loginButton)).perform(click());
 
         //force it back to MainActivity
+        //see if it will redirect back to page since logged in
         ActivityScenario.launch(MainActivity.class);
 
-        //see if it will redirect back to page since logged in
-
-
         //check if its still MainActivity
-        onView(withId(R.id.employee_view)).check(matches(isDisplayed()));
-
-
+        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
     }
 }

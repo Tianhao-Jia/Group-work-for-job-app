@@ -30,7 +30,7 @@ public class EmployeeEspressoTest {
 
 
 
-        onView(withId(R.id.debugGoToEmployeeActivity)).perform(click());
+        onView(withId(R.id.goToEmployeeActivity)).perform(click());
         onView(withId(R.id.appCompatTextView)).check(matches(isDisplayed()));
 
     }

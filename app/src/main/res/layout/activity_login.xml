@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/login_view"
+    android:id="@+id/loginView"
     tools:context="com.example.loginfinal.LoginActivity">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/loginButton"
         android:layout_width="133dp"
         android:layout_height="53dp"
         android:text="Login"
@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.73" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/loginUsernameET"
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:hint="Please enter your username"
@@ -32,7 +32,7 @@
         app:layout_constraintVertical_bias="0.246" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/loginPasswordET"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:hint="Please enter your password"
@@ -46,41 +46,41 @@
         app:layout_constraintVertical_bias="0.406" />
     <TextView
         android:layout_marginTop="16dp"
-        android:id="@+id/status"
+        android:id="@+id/loginStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:layout_marginStart="40dp"
         android:textColor="@color/design_default_color_primary_dark"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintTop_toBottomOf="@id/loginPasswordET"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/loginTextView"
         android:layout_width="186dp"
         android:layout_height="58dp"
         android:text="Log in here"
         android:textAlignment="center"
         android:textColor="@color/design_default_color_primary_dark"
         android:textSize="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintBottom_toTopOf="@+id/loginUsernameET"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
 
     <Button
-        android:id="@+id/signup"
+        android:id="@+id/loginToSignupButton"
         android:layout_width="133dp"
         android:layout_height="57dp"
         android:text="signup"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintTop_toBottomOf="@+id/loginPasswordET"
         app:layout_constraintVertical_bias="0.554" />
 
 
