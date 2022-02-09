@@ -3,12 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/38681/Documents/csci-3130-group-4-project/app/src/main/res/layout/activity_main.xml" value="0.30520833333333336" />
-        <entry key="..\:/Users/38681/Documents/csci-3130-group-4-project/app/src/main/res/layout/activity_register_user.xml" value="0.30520833333333336" />
+        <entry key="..\:/Users/natha/Documents/Quick Cash Project/csci-3130-group-4-project/app/src/main/res/layout/activity_employee.xml" value="0.5" />
+        <entry key="..\:/Users/natha/Documents/Quick Cash Project/csci-3130-group-4-project/app/src/main/res/layout/activity_employer.xml" value="0.23876404494382023" />
+        <entry key="..\:/Users/natha/Documents/Quick Cash Project/csci-3130-group-4-project/app/src/main/res/layout/activity_main.xml" value="0.2695035460992908" />
+        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/activity_employee.xml" value="0.1" />
+        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/login_page.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/saher/Dalhousie/Software Engineering/csci-3130-group-4-project/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/saher/Dalhousie/Software Engineering/csci-3130-group-4-project/app/src/main/res/layout/activity_register_user.xml" value="0.22" />
+        <entry key="..\:/Users/saher/Dalhousie/Software Engineering/csci-3130-group-4-project/app/src/main/res/layout/login_page.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/activity_main.xml" value="0.24270833333333333" />
+        <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/activity_register_user.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/activity_register_user_test.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/employee_landing.xml" value="0.4" />
+        <entry key="app/src/main/res/layout/activity_employee.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_employer.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.20697463768115942" />
+        <entry key="app/src/main/res/layout/activity_register_user.xml" value="0.3328804347826087" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="jbr-11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

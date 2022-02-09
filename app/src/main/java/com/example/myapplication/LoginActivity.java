@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,9 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDB;
     private DatabaseReference firebaseDBRef;
     private TextView textView;
+    static Boolean found = false;
     EditText id,password;
     Button login,signup;
-    FirebaseAuth mAuth;
     TextView status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
         signup=findViewById(R.id.signup);
         login=findViewById(R.id.button);
         status=findViewById(R.id.status);
-        mAuth=FirebaseAuth.getInstance();
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, Register.class));
+                startActivity(new Intent(LoginActivity.this, RegisterUser.class));
             }
         });
 
@@ -71,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
         connectFirebase();
         firebaseDBRef.getDatabase();
 
-
         firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -82,13 +79,17 @@ public class LoginActivity extends AppCompatActivity {
                     String a = dataSnapshot.child("email").getValue(String.class);
                     String b = dataSnapshot.child("password").getValue(String.class);
                     String c = password.getText().toString();
-                    if(b!=null&&a!=null&&b.equals(c)&&a.equals(id.getText().toString().trim())){
+                    if(b!=null && a!=null && b.equals(c) && a.equals(id.getText().toString())){
+                        found = true;
                         startActivity(new Intent(LoginActivity.this,Newpage.class));
-                    }else{
-                        Toast.makeText(LoginActivity.this,"login failed",Toast.LENGTH_SHORT).show();
+
                     }
+
                 }
 
+                if (!found) {
+                    Toast.makeText(LoginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
+                }
 
             }
 

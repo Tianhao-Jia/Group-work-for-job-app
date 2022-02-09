@@ -1,4 +1,4 @@
-package com.example.loginfinal;
+package com.example.myapplication;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -13,6 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 import android.content.Context;
 
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
@@ -38,7 +39,6 @@ import org.junit.runner.RunWith;
 public class LoginTest {
     @Rule
     public ActivityScenarioRule<LoginActivity> myRule = new ActivityScenarioRule<>(LoginActivity.class);
-    public IntentsTestRule<LoginActivity> myIntentRule = new IntentsTestRule<>(LoginActivity.class);
     @BeforeClass
     public static void setup() {
         Intents.init();
@@ -63,25 +63,27 @@ public class LoginTest {
     @Test
     public void testSignUpActivity() {
         onView(withId(R.id.signup)).perform(click());
-        intended(hasComponent(Register.class.getName()));
+        intended(hasComponent(RegisterUser.class.getName()));
     }
     @Test
     public void checkUserNameIsEmpty() {
         onView(withId(R.id.username)).perform(typeText(""));
         onView(withId(R.id.button)).perform(click());
-        onView(withId(R.id.status)).check(matches(withText(R.string.name_empty)));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.status)).check(matches(withText("username is empty")));
     }
 
     @Test
     public void checkPasswordIsEmpty() {
         onView(withId(R.id.username)).perform(typeText("123456"), ViewActions.closeSoftKeyboard());
         onView(withId(R.id.password)).perform(typeText(""), ViewActions.closeSoftKeyboard());
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.button)).perform(click());
-        onView(withId(R.id.status)).check(matches(withText(R.string.pwd_empty)));
+        onView(withId(R.id.status)).check(matches(withText("password is empty")));
     }
     @Test
     public void login() {
         onView(withId(R.id.signup)).perform(click());
-        intended(hasComponent(Register.class.getName()));
+        intended(hasComponent(RegisterUser.class.getName()));
     }
 }
