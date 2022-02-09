@@ -8,13 +8,10 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
-<!--        <activity-->
-<!--            android:name=".EmployeeActivity"-->
-<!--            android:exported="false" />-->
-<!--        <activity-->
-<!--            android:name=".EmployerActivity"-->
-<!--            android:exported="false" />-->
+
+        android:theme="@style/Theme.LoginFinal">
+
+
         <activity
             android:name="com.example.loginfinal.RegisterUser"
             android:exported="false" />
@@ -23,6 +20,13 @@
             android:exported="false" />
         <activity
             android:name="com.example.loginfinal.EmployerActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.loginfinal.Newpage"
+            android:exported="false" />
+        <activity
+            android:name="com.example.loginfinal.Register"
             android:exported="false" />
         <activity
             android:name="com.example.loginfinal.MainActivity"
@@ -33,6 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.loginfinal.LoginActivity"/>
     </application>
 
 </manifest>

@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button employeeButton = (Button) findViewById(R.id.debugGoToEmployeeActivity);
-        setIntent(employeeButton, EmployeeActivity.class);
+        setIntent(employeeButton, LoginActivity.class);
 
         Button employerButton = (Button) findViewById(R.id.debugGoToEmployerActivity);
-        setIntent(employerButton, EmployerActivity.class);
+        setIntent(employerButton, LoginActivity.class);
 
         Button register = (Button) findViewById(R.id.register);
         setIntent(register, RegisterUser.class);

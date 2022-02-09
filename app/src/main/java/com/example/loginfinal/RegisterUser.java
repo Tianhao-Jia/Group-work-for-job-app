@@ -177,13 +177,12 @@ public class RegisterUser extends AppCompatActivity {
      * @return boolean: if input is valid
      */
     protected boolean validateInput(){
-        if(checkFirstName(nameFNField.getText().toString())
-                && checkLastName(nameLNField.getText().toString())
-                && checkEmail(emailField.getText().toString())){
-            return true;
-        }
 
-        return false;
+        boolean firstNameValid = checkFirstName(nameFNField.getText().toString());
+        boolean lastNameValid = checkLastName(nameLNField.getText().toString());
+        boolean emailValid = checkEmail(emailField.getText().toString());
+
+        return firstNameValid && lastNameValid && emailValid;
     }
 
     /**
