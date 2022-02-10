@@ -3,7 +3,9 @@ package com.example.loginfinal;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         connectFirebase();
         writeToFirebaseRealTimeDB();
 
+        checkForLogin();
 
         Button employeeButton = (Button) findViewById(R.id.goToEmployeeActivity);
         setIntent(employeeButton, LoginActivity.class);
@@ -71,5 +74,32 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    /**
+     * checkForLogin method that checks the SharedPreferences for previously stored login credentials.
+     * If credentials are found and are valid, take user to corresponding activity (employer or employee).
+     * @author Nathan Horne
+     */
+    private void checkForLogin() {
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
+        String emailPref = sharedPref.getString("Key_email", "INVALID EMAIL");
+        String passwordPref = sharedPref.getString("Key_password", "INVALID PASSWORD");
+        String typePref = sharedPref.getString("Key_type", "INVALID TYPE");
+
+        if (!emailPref.equals("INVALID EMAIL") && !passwordPref.equals("INVALID PASSWORD") && typePref.equals(Employee.EMPLOYEE)) {
+            Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
+            intent.putExtra("Login Email", emailPref);
+            intent.putExtra("Login Password", passwordPref);
+            intent.putExtra("Login Type", typePref);
+            startActivity(intent);
+        }
+        else if (!emailPref.equals("INVALID EMAIL") && !passwordPref.equals("INVALID PASSWORD") && typePref.equals(Employer.EMPLOYER)) {
+            Intent intent = new Intent(MainActivity.this, EmployerActivity.class);
+            intent.putExtra("Login Email", emailPref);
+            intent.putExtra("Login Password", passwordPref);
+            intent.putExtra("Login Type", typePref);
+            startActivity(intent);
+        }
     }
 }

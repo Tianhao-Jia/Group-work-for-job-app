@@ -95,11 +95,19 @@ public class LoginActivity extends AppCompatActivity {
                         found = true;
 
                         if (employType.equalsIgnoreCase(Employee.EMPLOYEE)) {
-                            startActivity(new Intent(LoginActivity.this, EmployeeActivity.class));
+                            Intent intent = new Intent(LoginActivity.this, EmployeeActivity.class);
+                            intent.putExtra("Login Email", email);
+                            intent.putExtra("Login Password", password);
+                            intent.putExtra("User Type", Employee.EMPLOYEE);
+                            startActivity(intent);
 
                         }
                         else if (employType.equalsIgnoreCase(Employer.EMPLOYER)) {
-                            startActivity(new Intent(LoginActivity.this, EmployerActivity.class));
+                            Intent intent = new Intent(LoginActivity.this, EmployerActivity.class);
+                            intent.putExtra("Login Email", email);
+                            intent.putExtra("Login Password", password);
+                            intent.putExtra("User Type", Employer.EMPLOYER);
+                            startActivity(intent);
                         }
                         else {
                             Log.e("Error", "User Type is neither Employee or Employer!");
