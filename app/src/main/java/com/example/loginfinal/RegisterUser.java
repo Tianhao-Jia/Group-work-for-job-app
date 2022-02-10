@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +30,7 @@ public class RegisterUser extends AppCompatActivity {
     private EditText emailField;
     private EditText userTypeField;
     private EditText passwordField;
+    private ImageView imageView;
     private final String EMPLOYEE = "Employee";
     private final String EMPLOYER = "Employer";
 
@@ -45,9 +47,13 @@ public class RegisterUser extends AppCompatActivity {
         userTypeField = findViewById(R.id.registerUserType);
         passwordField = findViewById(R.id.registerPasswordET);
 
-        Button registerBtn = findViewById(R.id.registerButton);
+        imageView = (ImageView) findViewById(R.id.registerProfile);
+        imageView.setVisibility(View.VISIBLE);
+        imageView.bringToFront();
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
+        Button registerButton = findViewById(R.id.registerButton);
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 registerUser();

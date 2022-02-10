@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile"
+        app:layout_constraintTop_toBottomOf="@+id/registerProfile"
         tools:ignore="MissingConstraints"
         tools:visibility="visible" />
 
@@ -56,7 +56,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/profile"
+        android:id="@+id/registerProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
