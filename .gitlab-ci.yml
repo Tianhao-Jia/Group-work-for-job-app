@@ -80,7 +80,7 @@ assembleDebug:
 
 unit_tests:
   stage: test
-  scipt:
+  script:
   - ./gradlew test
   artifacts: 
     when: always
