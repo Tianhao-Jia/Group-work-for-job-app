@@ -81,6 +81,7 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void reopenAsEmployerWhenLoggedIn() {
+
         ActivityScenario.launch(RegisterUser.class);
         onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
         onView(withId(R.id.registerFirstName)).perform(typeText("EmployerFirstName\n"));
@@ -113,6 +114,7 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void reopenAsEmployeeWhenLoggedIn() {
+
         ActivityScenario.launch(RegisterUser.class);
         onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
         onView(withId(R.id.registerFirstName)).perform(typeText("EmployeeFirstName\n"));
