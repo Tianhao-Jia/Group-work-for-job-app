@@ -24,6 +24,7 @@ public class MainActivityEspressoTest {
 
     @Rule
     public ActivityScenarioRule<MainActivity> rule = new ActivityScenarioRule<>(MainActivity.class);
+    //ActivityScenario<MainActivity> scenario;
 
 
     /**
@@ -86,16 +87,65 @@ public class MainActivityEspressoTest {
     @Test
     public void reopenAsEmployerWhenLoggedIn() {
 
+        //Assumes the sign-in values belong to a user that is already registered
+        ActivityScenario.launch(LoginActivity.class);
+        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
+        onView(withId(R.id.loginUsernameET)).perform(typeText("eugene.krabs@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("MoneyMoneyMoney123"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.loginButton)).perform(click());
+        //Close app then reopen
+        rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
+        rule.getScenario().close();
+        ActivityScenario.launch(MainActivity.class);
+        //Verify the app has opened to the EmployerActivity
+        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
+
+        /*
         ActivityScenario.launch(RegisterUser.class);
-        onView(withId(R.id.registerFirstName)).perform(typeText("Eugene"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Krabs"));
-        onView(withId(R.id.registerEmail)).perform(typeText("eugene.krabs@dal.ca"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("MoneyMoneyMoney123"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
+        onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
+        onView(withId(R.id.registerFirstName)).perform(typeText("Eugene\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Krabs\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("eugene.krabs@dal.ca\n"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("MoneyMoneyMoney123\n"));
+        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
 
+        //User should now be logged in and at EmployerActivity
+        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
+
+        //Close app then reopen
+        rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
+        rule.getScenario().close();
+
+        ActivityScenario.launch(MainActivity.class);
+
+
+       // onView(withId(R.id.mainActivity)).check(matches(isDisplayed()));
+        //onView(withId(R.id.employerView)).check(matches(isDisplayed()));
+ */
+
+
+       // scenario.moveToState(Lifecycle.State.RESUMED);
+        //scenario.recreate();
+        //rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
+       // rule.getScenario().close();
+
+        //rule.getScenario().moveToState(Lifecycle.State.CREATED);
+       // rule.getScenario().launch(MainActivity.class);
+        //rule.getScenario().recreate();
+
+        //rule.getScenario().launch(MainActivity.class);
+
+        //Verify user is on employerActivity
+        //onView(withId(R.id.employerView)).check(matches(isDisplayed()));
+
+
+
+        /*
         //force it back to MainActivity to login
         ActivityScenario.launch(MainActivity.class);
 
@@ -112,7 +162,7 @@ public class MainActivityEspressoTest {
 
         //check if its still MainActivity
         onView(withId(R.id.employerView)).check(matches(isDisplayed()));
-
+        */
     }
 
     /**
@@ -143,6 +193,13 @@ public class MainActivityEspressoTest {
         onView(withId(R.id.loginUsernameET)).perform(typeText("larry.lobster@dal.ca"));
         onView(withId(R.id.loginPasswordET)).perform(typeText("RedLobster"));
         onView(withId(R.id.loginButton)).perform(click());
+
+        ///
+        //close application
+        rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
+        rule.getScenario().close();
+        ///
+
 
         //force it back to MainActivity
         //see if it will redirect back to page since logged in

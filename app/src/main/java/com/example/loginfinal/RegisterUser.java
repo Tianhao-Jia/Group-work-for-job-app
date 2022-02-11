@@ -90,10 +90,16 @@ public class RegisterUser extends AppCompatActivity {
 
                         if (userType.equalsIgnoreCase(EMPLOYEE)) {
                             Intent intent = new Intent(RegisterUser.this, EmployeeActivity.class);
+                            intent.putExtra("Login Email", emailField.getText().toString());
+                            intent.putExtra("Login Password", passwordField.getText().toString());
+                            intent.putExtra("User Type", Employee.EMPLOYEE);
                             startActivity(intent);
                         }
                         else if (userType.equalsIgnoreCase(EMPLOYER)) {
                             Intent intent = new Intent(RegisterUser.this, EmployerActivity.class);
+                            intent.putExtra("Login Email", emailField.getText().toString());
+                            intent.putExtra("Login Password", passwordField.getText().toString());
+                            intent.putExtra("User Type", Employer.EMPLOYER);
                             startActivity(intent);
                         }
                         else {
@@ -127,6 +133,7 @@ public class RegisterUser extends AppCompatActivity {
         EditText nameLNField = findViewById(R.id.registerLastName);
         EditText emailField = findViewById(R.id.registerEmail);
         EditText userTypeField = findViewById(R.id.registerUserType);
+        //fEditText passwordField = findViewById(R.id.registerPasswordET);
 
         //US-3 functionality forcing 2 types of users
         String userType = userTypeField.getText().toString();

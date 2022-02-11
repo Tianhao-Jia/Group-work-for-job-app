@@ -21,6 +21,7 @@ import android.widget.TextView;
 public class EmployeeActivity extends AppCompatActivity {
 
     TextView loginDisplay;
+    Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,7 @@ public class EmployeeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_employee);
 
         loginDisplay = (TextView) findViewById(R.id.employeeLoginDisplay);
+        logoutButton = (Button) findViewById(R.id.employeeLogoutButton);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -38,7 +40,30 @@ public class EmployeeActivity extends AppCompatActivity {
             editor.putString("Key_type", extras.getString("User Type"));
             editor.apply();
 
-            loginDisplay.setText("Welcome, " + extras.getString("Login Email"));
+            //loginDisplay.setText("Welcome, " + extras.getString("Login Email"));
         }
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
+    }
+
+    /**
+     * logout method removes credentials added to SharedPreferences. Will take user to MainActivity
+     * instead of EmployeeActivity on applications start.
+     * @author Nathan Horne
+     */
+    private void logout()
+    {
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove("Key_email");
+        editor.remove("Key_password");
+        editor.remove("Key_type");
+        editor.apply();
+        startActivity( new Intent( EmployeeActivity.this, MainActivity.class));
     }
 }
