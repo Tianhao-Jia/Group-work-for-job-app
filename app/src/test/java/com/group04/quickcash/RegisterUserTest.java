@@ -1,4 +1,4 @@
-package com.example.loginfinal;
+package com.group04.quickcash;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
