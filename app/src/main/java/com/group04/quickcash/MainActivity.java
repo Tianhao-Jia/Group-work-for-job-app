@@ -87,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
         String passwordPref = sharedPref.getString("Key_password", "INVALID PASSWORD");
         String typePref = sharedPref.getString("Key_type", "INVALID TYPE");
 
+        //this wont actually check if the user is in loginState == true but will just use SharedPreferences
+        //to redirect them, login state should still be true however so long as they didn't log out
+        //but this may log them in when they've logged out previously.
         if (!emailPref.equals("INVALID EMAIL") && !passwordPref.equals("INVALID PASSWORD") && typePref.equals(Employee.EMPLOYEE)) {
             Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
             intent.putExtra("Login Email", emailPref);

@@ -19,6 +19,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Iterator;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String FIREBASE_DATABASE_URL = "https://quick-cash-55715-default-rtdb.firebaseio.com/";
@@ -99,6 +101,8 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("Login Email", email);
                             intent.putExtra("Login Password", password);
                             intent.putExtra("User Type", Employee.EMPLOYEE);
+
+                            dataSnapshot.child("loginState").getRef().setValue(true);
                             startActivity(intent);
 
                         }
@@ -107,6 +111,8 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("Login Email", email);
                             intent.putExtra("Login Password", password);
                             intent.putExtra("User Type", Employer.EMPLOYER);
+
+                            dataSnapshot.child("loginState").getRef().setValue(true);
                             startActivity(intent);
                         }
                         else {
@@ -131,13 +137,17 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    public void changeDataOnFirebase() {
+
+    }
+
     private void connectFirebase(){
         firebaseDB = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL);
         firebaseDBRef = firebaseDB.getReference("users");
 
     }
 
-    private  void listenToDataChanges(){
+    private void listenToDataChanges(){
         firebaseDBRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

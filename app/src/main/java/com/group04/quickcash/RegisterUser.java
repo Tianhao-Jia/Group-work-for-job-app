@@ -31,8 +31,6 @@ public class RegisterUser extends AppCompatActivity {
     private EditText userTypeField;
     private EditText passwordField;
     private ImageView imageView;
-    private final String EMPLOYEE = "Employee";
-    private final String EMPLOYER = "Employer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +45,9 @@ public class RegisterUser extends AppCompatActivity {
         userTypeField = findViewById(R.id.registerUserType);
         passwordField = findViewById(R.id.registerPasswordET);
 
-        imageView = (ImageView) findViewById(R.id.registerProfile);
-        imageView.setVisibility(View.VISIBLE);
-        imageView.bringToFront();
+//        imageView = (ImageView) findViewById(R.id.registerProfile);
+//        imageView.setVisibility(View.VISIBLE);
+//        imageView.bringToFront();
 
         Button registerButton = findViewById(R.id.registerButton);
 
@@ -88,14 +86,14 @@ public class RegisterUser extends AppCompatActivity {
                         //implementation of part of US-3
                         String userType = userTypeField.getText().toString();
 
-                        if (userType.equalsIgnoreCase(EMPLOYEE)) {
+                        if (userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
                             Intent intent = new Intent(RegisterUser.this, EmployeeActivity.class);
                             intent.putExtra("Login Email", emailField.getText().toString());
                             intent.putExtra("Login Password", passwordField.getText().toString());
                             intent.putExtra("User Type", Employee.EMPLOYEE);
                             startActivity(intent);
                         }
-                        else if (userType.equalsIgnoreCase(EMPLOYER)) {
+                        else if (userType.equalsIgnoreCase(Employer.EMPLOYER)) {
                             Intent intent = new Intent(RegisterUser.this, EmployerActivity.class);
                             intent.putExtra("Login Email", emailField.getText().toString());
                             intent.putExtra("Login Password", passwordField.getText().toString());
@@ -137,7 +135,7 @@ public class RegisterUser extends AppCompatActivity {
 
         //US-3 functionality forcing 2 types of users
         String userType = userTypeField.getText().toString();
-        if (userType.equalsIgnoreCase(EMPLOYER) || userType.equalsIgnoreCase(EMPLOYEE)) {
+        if (userType.equalsIgnoreCase(Employer.EMPLOYER) || userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
             // Creating a HashMap of user information to store on firebase
             Map<String, Object> map = new HashMap<>();
             map.put("firstName", nameFNField.getText().toString());
@@ -145,6 +143,9 @@ public class RegisterUser extends AppCompatActivity {
             map.put("email", emailField.getText().toString());
             map.put("userType", userTypeField.getText().toString());
             map.put("password", passwordField.getText().toString());
+            //potentially dangerous af to declare it true off the bat but we don't have to worry
+            //security right?
+            map.put("loginState", true);
 
             // Getting an instance of the firebase realtime database
             FirebaseDatabase.getInstance("https://quick-cash-55715-default-rtdb.firebaseio.com/")
