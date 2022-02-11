@@ -1,4 +1,4 @@
-package com.example.loginfinal;
+package com.group04.quickcash;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

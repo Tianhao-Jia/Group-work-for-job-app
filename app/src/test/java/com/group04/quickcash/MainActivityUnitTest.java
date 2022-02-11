@@ -1,11 +1,8 @@
-package com.example.loginfinal;
+package com.group04.quickcash;
 
 import static org.junit.Assert.assertFalse;
 
-import android.widget.Button;
-
 import org.junit.AfterClass;
-import org.junit.Test;
 
 public class MainActivityUnitTest {
 

@@ -1,4 +1,4 @@
-package com.example.loginfinal;
+package com.group04.quickcash;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;

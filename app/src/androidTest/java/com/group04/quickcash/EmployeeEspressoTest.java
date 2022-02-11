@@ -1,4 +1,4 @@
-package com.example.loginfinal;
+package com.group04.quickcash;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class EmployerEspressoTest {
+public class EmployeeEspressoTest {
 
     @Rule
     public ActivityScenarioRule<MainActivity> myRule =
@@ -24,11 +24,15 @@ public class EmployerEspressoTest {
 
 
     @Test
-    public void testOpenEmployerActivity() {
+    public void testOpenEmployeeActivity() {
 
         //previous merge broke this test. need to modify it.
-        onView(withId(R.id.goToEmployerActivity)).perform(click());
-        onView(withId(R.id.appCompatTextView2)).check(matches(isDisplayed()));
+
+
+
+        onView(withId(R.id.goToEmployeeActivity)).perform(click());
+        onView(withId(R.id.appCompatTextView)).check(matches(isDisplayed()));
 
     }
+
 }

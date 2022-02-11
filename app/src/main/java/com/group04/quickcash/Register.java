@@ -1,4 +1,4 @@
-package com.example.loginfinal;
+package com.group04.quickcash;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
