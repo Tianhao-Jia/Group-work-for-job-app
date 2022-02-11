@@ -15,6 +15,7 @@ import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,8 +25,6 @@ public class MainActivityEspressoTest {
 
     @Rule
     public ActivityScenarioRule<MainActivity> rule = new ActivityScenarioRule<>(MainActivity.class);
-    //ActivityScenario<MainActivity> scenario;
-
 
     /**
      * US5-AT1: Given that the user is not logged in, when the user closes their application, and
@@ -34,7 +33,6 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void requireLoginWhenAppReopen() {
-
         ActivityScenario<RegisterUser> activityScenario = ActivityScenario.launch(RegisterUser.class);
 
         activityScenario.moveToState(Lifecycle.State.DESTROYED);
@@ -42,7 +40,6 @@ public class MainActivityEspressoTest {
 
         ActivityScenario.launch(MainActivity.class);
         onView(withId(R.id.mainActivity)).check(matches(isDisplayed()));
-
     }
 
 
@@ -53,13 +50,12 @@ public class MainActivityEspressoTest {
      *
      */
     @Test
-    public void reopenToMainActivityWhenLoggedOut() {
+    public void reopenToMainActivityWhenLoggedOutEmployee() {
         rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
         rule.getScenario().close();
 
-        ActivityScenario.launch(EmployeeActivity.class);
+        ActivityScenario.launch(MainActivity.class);
         onView(withId(R.id.mainActivity)).check(matches(isDisplayed()));
-
     }
 
     /**
@@ -73,9 +69,8 @@ public class MainActivityEspressoTest {
         rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
         rule.getScenario().close();
 
-        ActivityScenario.launch(EmployerActivity.class);
+        ActivityScenario.launch(MainActivity.class);
         onView(withId(R.id.mainActivity)).check(matches(isDisplayed()));
-
     }
 
     /**
@@ -86,83 +81,28 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void reopenAsEmployerWhenLoggedIn() {
-
-        //Assumes the sign-in values belong to a user that is already registered
-        ActivityScenario.launch(LoginActivity.class);
-        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
-        onView(withId(R.id.loginUsernameET)).perform(typeText("eugene.krabs@dal.ca"));
-        onView(withId(R.id.loginPasswordET)).perform(typeText("MoneyMoneyMoney123"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.loginButton)).perform(click());
-        //Close app then reopen
-        rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
-        rule.getScenario().close();
-        ActivityScenario.launch(MainActivity.class);
-        //Verify the app has opened to the EmployerActivity
-        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
-
-        /*
         ActivityScenario.launch(RegisterUser.class);
         onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
-        onView(withId(R.id.registerFirstName)).perform(typeText("Eugene\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Krabs\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("eugene.krabs@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("MoneyMoneyMoney123\n"));
+        onView(withId(R.id.registerFirstName)).perform(typeText("EmployerFirstName\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("EmployerLastName\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("erfirst.erlast@dal.ca\n"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("employer1\n"));
         onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
         Espresso.closeSoftKeyboard();
 
+        //User is now registered and automatically logged in
         onView(withId(R.id.registerButton)).perform(click());
 
-        //User should now be logged in and at EmployerActivity
+        //Verify user at the EmployerActivity
         onView(withId(R.id.employerView)).check(matches(isDisplayed()));
 
         //Close app then reopen
         rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
         rule.getScenario().close();
-
         ActivityScenario.launch(MainActivity.class);
 
-
-       // onView(withId(R.id.mainActivity)).check(matches(isDisplayed()));
-        //onView(withId(R.id.employerView)).check(matches(isDisplayed()));
- */
-
-
-       // scenario.moveToState(Lifecycle.State.RESUMED);
-        //scenario.recreate();
-        //rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
-       // rule.getScenario().close();
-
-        //rule.getScenario().moveToState(Lifecycle.State.CREATED);
-       // rule.getScenario().launch(MainActivity.class);
-        //rule.getScenario().recreate();
-
-        //rule.getScenario().launch(MainActivity.class);
-
-        //Verify user is on employerActivity
-        //onView(withId(R.id.employerView)).check(matches(isDisplayed()));
-
-
-
-        /*
-        //force it back to MainActivity to login
-        ActivityScenario.launch(MainActivity.class);
-
-        //login --requires functionality from us-1
-        onView(withId(R.id.goToEmployeeActivity)).perform(click());
-
-        onView(withId(R.id.loginUsernameET)).perform(typeText("eugene.krabs@dal.ca"));
-        onView(withId(R.id.loginPasswordET)).perform(typeText("MoneyMoneyMoney123"));
-        onView(withId(R.id.loginButton)).perform(click());
-
-        //force it back to MainActivity
-        //see if it will redirect back to page since logged in
-        ActivityScenario.launch(MainActivity.class);
-
-        //check if its still MainActivity
+        //Verify the app has opened to EmployerActivity instead of MainActivity
         onView(withId(R.id.employerView)).check(matches(isDisplayed()));
-        */
     }
 
     /**
@@ -173,39 +113,27 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void reopenAsEmployeeWhenLoggedIn() {
-
         ActivityScenario.launch(RegisterUser.class);
-        onView(withId(R.id.registerFirstName)).perform(typeText("Larry"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Lobster"));
-        onView(withId(R.id.registerEmail)).perform(typeText("larry.lobster@dal.ca"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("RedLobster"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
+        onView(withId(R.id.registerFirstName)).perform(typeText("EmployeeFirstName\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("EmployeeLastName\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("eefirst.eelast@dal.ca\n"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("employee1\n"));
+        onView(withId(R.id.registerUserType)).perform(typeText("Employee\n"));
         Espresso.closeSoftKeyboard();
 
+        //User is now registered and automatically logged in
         onView(withId(R.id.registerButton)).perform(click());
 
-        //force it back to MainActivity to login
-        ActivityScenario.launch(MainActivity.class);
+        //Verify user at the EmployeeActivity
+        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
 
-        //login --requires functionality from us-1
-        onView(withId(R.id.goToEmployeeActivity)).perform(click());
-
-        onView(withId(R.id.loginUsernameET)).perform(typeText("larry.lobster@dal.ca"));
-        onView(withId(R.id.loginPasswordET)).perform(typeText("RedLobster"));
-        onView(withId(R.id.loginButton)).perform(click());
-
-        ///
-        //close application
+        //Close app then reopen
         rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
         rule.getScenario().close();
-        ///
-
-
-        //force it back to MainActivity
-        //see if it will redirect back to page since logged in
         ActivityScenario.launch(MainActivity.class);
 
-        //check if its still MainActivity
+        //Verify the app has opened to EmployeeActivity instead of MainActivity
         onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
     }
 }
