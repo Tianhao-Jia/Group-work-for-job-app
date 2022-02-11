@@ -31,12 +31,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+        checkForLogin();
 
         connectFirebase();
         writeToFirebaseRealTimeDB();
-
-        checkForLogin();
 
         Button employeeButton = (Button) findViewById(R.id.goToEmployeeActivity);
         setIntent(employeeButton, LoginActivity.class);
