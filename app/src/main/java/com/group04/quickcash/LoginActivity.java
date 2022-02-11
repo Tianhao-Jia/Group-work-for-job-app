@@ -98,6 +98,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (employType.equalsIgnoreCase(Employee.EMPLOYEE)) {
                             Intent intent = new Intent(LoginActivity.this, EmployeeActivity.class);
+
+                            intent.putExtra("User Hash", dataSnapshot.getRef().getKey());
                             intent.putExtra("Login Email", email);
                             intent.putExtra("Login Password", password);
                             intent.putExtra("User Type", Employee.EMPLOYEE);
@@ -108,6 +110,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else if (employType.equalsIgnoreCase(Employer.EMPLOYER)) {
                             Intent intent = new Intent(LoginActivity.this, EmployerActivity.class);
+
+                            intent.putExtra("User Hash", dataSnapshot.getRef().getKey());
                             intent.putExtra("Login Email", email);
                             intent.putExtra("Login Password", password);
                             intent.putExtra("User Type", Employer.EMPLOYER);
@@ -134,10 +138,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-    }
-
-    public void changeDataOnFirebase() {
 
     }
 

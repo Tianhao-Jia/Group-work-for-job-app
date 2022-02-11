@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * EmployerActivity class that manages the EmployerActivity
  * @author: Nathan Horne and Nathanael Bowley
@@ -19,6 +22,10 @@ import android.widget.TextView;
  * @clientTA: Disha Malik
  */
 public class EmployerActivity extends AppCompatActivity {
+
+    private static final String FIREBASE_DATABASE_URL = "https://quick-cash-55715-default-rtdb.firebaseio.com/";
+    private FirebaseDatabase firebaseDB;
+    private DatabaseReference firebaseDBRef;
 
     TextView loginDisplay;
     Button logoutButton;
@@ -38,7 +45,9 @@ public class EmployerActivity extends AppCompatActivity {
             editor.putString("Key_email", extras.getString("Login Email"));
             editor.putString("Key_password", extras.getString("Login Password"));
             editor.putString("Key_type", extras.getString("User Type"));
+            editor.putString("Key_hash", extras.getString("User Hash"));
             editor.apply();
+
 
             //loginDisplay.setText("Welcome, " + extras.getString("Login Email"));
         }
@@ -60,10 +69,26 @@ public class EmployerActivity extends AppCompatActivity {
     {
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
+
+        String userHash = sharedPref.getString("Key_hash", "INVALID HASH");
+
+        if (!userHash.equals("INVALID HASH")) {
+            connectFirebase();
+            firebaseDBRef.child(userHash).getRef().child("loginState").setValue(false);
+        }
+
         editor.remove("Key_email");
         editor.remove("Key_password");
         editor.remove("Key_type");
         editor.apply();
+
+
         startActivity( new Intent( EmployerActivity.this, MainActivity.class));
+    }
+
+    private void connectFirebase(){
+        firebaseDB = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL);
+        firebaseDBRef = firebaseDB.getReference("users");
+
     }
 }
