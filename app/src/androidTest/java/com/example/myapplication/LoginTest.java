@@ -20,7 +20,10 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -43,6 +46,9 @@ public class LoginTest {
     @AfterClass
     public static void tearDown() {
         Intents.release();
+        FirebaseDatabase.getInstance().getReference("users").setValue(null);
+
+
     }
     @Test
     public void useAppContext() {
@@ -79,14 +85,20 @@ public class LoginTest {
     public void login() {
 
         ActivityScenario.launch(RegisterUser.class);
-        onView(withId(R.id.loginUsernameET)).perform(typeText("tn608503@dal.ca"));
-        onView(withId(R.id.loginPasswordET)).perform(typeText("123456"));
-        onView(withId(R.id.login)).perform(typeText("tn608503@dal.ca"));
+        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerButton)).perform(click());
 
 
-
-        onView(withId(R.id.loginUsernameET)).perform(typeText("tn608503@dal.ca"));
-        onView(withId(R.id.loginPasswordET)).perform(typeText("123456"));
+        ActivityScenario.launch(LoginActivity.class);
+        onView(withId(R.id.loginUsernameET)).perform(typeText("george.smith@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("123abc123"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.loginButton)).perform(click());
         intended(hasComponent(EmployeeActivity.class.getName()));
