@@ -45,11 +45,11 @@ public class EmployerEspressoTest {
     }
 
     @Test
-    public void testOpenEmployeeActivity() {
+    public void testOpenEmployerActivity() {
 
         //previous merge broke this test. need to modify it.
 
-        onView(withId(R.id.goToEmployeeActivity)).perform(click());
+        onView(withId(R.id.goToEmployerActivity)).perform(click());
         intended(hasComponent(LoginActivity.class.getName()));
 
     }
