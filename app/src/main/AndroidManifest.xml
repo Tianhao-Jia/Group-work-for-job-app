@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.myapplication">
+    package="com.group04.quickcash">
 
     <application
         android:allowBackup="true"
@@ -8,24 +8,28 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
-<!--        <activity-->
-<!--            android:name=".EmployeeActivity"-->
-<!--            android:exported="false" />-->
-<!--        <activity-->
-<!--            android:name=".EmployerActivity"-->
-<!--            android:exported="false" />-->
+
+        android:theme="@style/Theme.LoginFinal">
+
+
         <activity
-            android:name=".RegisterUser"
+            android:name="com.group04.quickcash.RegisterUser"
             android:exported="false" />
         <activity
-            android:name=".EmployeeActivity"
+            android:name="com.group04.quickcash.EmployeeActivity"
             android:exported="false" />
         <activity
-            android:name=".EmployerActivity"
+            android:name="com.group04.quickcash.EmployerActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.group04.quickcash.Newpage"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.group04.quickcash.Register"
+            android:exported="false" />
+        <activity
+            android:name="com.group04.quickcash.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,6 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.group04.quickcash.LoginActivity"/>
     </application>
 
 </manifest>

@@ -1,8 +1,9 @@
-package com.example.myapplication;
+package com.group04.quickcash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,17 +31,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
+        checkForLogin();
 
         connectFirebase();
         writeToFirebaseRealTimeDB();
 
+        Button employeeButton = (Button) findViewById(R.id.goToEmployeeActivity);
+        setIntent(employeeButton, LoginActivity.class);
 
-        Button employeeButton = (Button) findViewById(R.id.debugGoToEmployeeActivity);
-        setIntent(employeeButton, EmployeeActivity.class);
-
-        Button employerButton = (Button) findViewById(R.id.debugGoToEmployerActivity);
-        setIntent(employerButton, EmployerActivity.class);
+        Button employerButton = (Button) findViewById(R.id.goToEmployerActivity);
+        setIntent(employerButton, LoginActivity.class);
 
         Button register = (Button) findViewById(R.id.register);
         setIntent(register, RegisterUser.class);
@@ -71,5 +74,35 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    /**
+     * checkForLogin method that checks the SharedPreferences for previously stored login credentials.
+     * If credentials are found and are valid, take user to corresponding activity (employer or employee).
+     * @author Nathan Horne
+     */
+    private void checkForLogin() {
+        SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
+        String emailPref = sharedPref.getString("Key_email", "INVALID EMAIL");
+        String passwordPref = sharedPref.getString("Key_password", "INVALID PASSWORD");
+        String typePref = sharedPref.getString("Key_type", "INVALID TYPE");
+
+        //this wont actually check if the user is in loginState == true but will just use SharedPreferences
+        //to redirect them, login state should still be true however so long as they didn't log out
+        //but this may log them in when they've logged out previously.
+        if (!emailPref.equals("INVALID EMAIL") && !passwordPref.equals("INVALID PASSWORD") && typePref.equals(Employee.EMPLOYEE)) {
+            Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
+            intent.putExtra("Login Email", emailPref);
+            intent.putExtra("Login Password", passwordPref);
+            intent.putExtra("Login Type", typePref);
+            startActivity(intent);
+        }
+        else if (!emailPref.equals("INVALID EMAIL") && !passwordPref.equals("INVALID PASSWORD") && typePref.equals(Employer.EMPLOYER)) {
+            Intent intent = new Intent(MainActivity.this, EmployerActivity.class);
+            intent.putExtra("Login Email", emailPref);
+            intent.putExtra("Login Password", passwordPref);
+            intent.putExtra("Login Type", typePref);
+            startActivity(intent);
+        }
     }
 }

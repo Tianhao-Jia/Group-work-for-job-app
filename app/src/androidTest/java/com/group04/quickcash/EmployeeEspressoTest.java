@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.group04.quickcash;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -8,13 +8,17 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
-import android.content.ComponentName;
+import static org.junit.Assert.assertEquals;
+
+import android.content.Context;
 
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.rule.ActivityTestRule;
+import androidx.test.platform.app.InstrumentationRegistry;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,12 +29,30 @@ public class EmployeeEspressoTest {
     @Rule
     public ActivityScenarioRule<MainActivity> myRule =
             new ActivityScenarioRule<MainActivity>(MainActivity.class);
+    @BeforeClass
+    public static void setup() {
+        Intents.init();
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        Intents.release();
+    }
+    @Test
+    public void useAppContext() {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        assertEquals("com.example.loginfinal", appContext.getPackageName());
+    }
 
 
     @Test
     public void testOpenEmployeeActivity() {
-        onView(withId(R.id.debugGoToEmployeeActivity)).perform(click());
-        onView(withId(R.id.appCompatTextView)).check(matches(isDisplayed()));
+
+        //previous merge broke this test. need to modify it.
+
+        onView(withId(R.id.goToEmployeeActivity)).perform(click());
+        intended(hasComponent(LoginActivity.class.getName()));
 
     }
 
