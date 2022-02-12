@@ -12,6 +12,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
@@ -26,15 +27,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-/**
- * Instrumented test, which will execute on an Android device.
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
 @RunWith(AndroidJUnit4.class)
-public class LoginTest {
+public class LogoutforEmpolyerTest {
     @Rule
-    public ActivityScenarioRule<LoginActivity> myRule = new ActivityScenarioRule<>(LoginActivity.class);
+    public ActivityScenarioRule<EmployerActivity> myRule = new ActivityScenarioRule<>(EmployerActivity.class);
+
     @BeforeClass
     public static void setup() {
         Intents.init();
@@ -50,37 +47,26 @@ public class LoginTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.example.loginfinal", appContext.getPackageName());
     }
-    /***sign up**/
 
-    /***sign up**/
     @Test
-    public void testSignUpActivity() {
-        onView(withId(R.id.loginToSignupButton)).perform(click());
-        intended(hasComponent(RegisterUser.class.getName()));
-    }
-    @Test
-    public void checkUserNameIsEmpty() {
-        onView(withId(R.id.loginUsernameET)).perform(typeText(""));
-        onView(withId(R.id.loginButton)).perform(click());
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.loginStatus)).check(matches(withText("username is empty")));
+    // run isolate
+    public void logOutWithIntent() {
+        onView(withId(R.id.employerLogoutButton)).perform(click());
+        intended(hasComponent(MainActivity.class.getName()));
     }
 
     @Test
-    public void checkPasswordIsEmpty() {
-        onView(withId(R.id.loginUsernameET)).perform(typeText("123456"), ViewActions.closeSoftKeyboard());
-        onView(withId(R.id.loginPasswordET)).perform(typeText(""), ViewActions.closeSoftKeyboard());
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.loginButton)).perform(click());
-        onView(withId(R.id.loginStatus)).check(matches(withText("password is empty")));
+    public void testLogOutSp() {
+        onView(withId(R.id.employerLogoutButton)).perform(click());
+        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        SharedPreferences sharedPref = appContext.getSharedPreferences("pref", Context.MODE_PRIVATE);
+        assertEquals("", sharedPref.getString("Key_email",""));
     }
-    @Test
-    // the information have to in the realtime database
-    public void login() {
-        onView(withId(R.id.loginUsernameET)).perform(typeText("tn608503@dal.ca"));
-        onView(withId(R.id.loginPasswordET)).perform(typeText("123456"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.loginButton)).perform(click());
-        intended(hasComponent(EmployeeActivity.class.getName()));
-    }
+
+
+
+
+
+
 }
+
