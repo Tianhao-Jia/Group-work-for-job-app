@@ -34,4 +34,11 @@ public class EmployeeEspressoTest {
 
     }
 
+    @Test
+    public void fail(){
+        onView(withId(R.id.appCompatTextView)).check(matches(isDisplayed()));
+    }
+
+
+
 }
