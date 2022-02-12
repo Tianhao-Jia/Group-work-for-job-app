@@ -51,10 +51,7 @@ public class LoginTest {
         assertEquals("com.example.loginfinal", appContext.getPackageName());
     }
     /***sign up**/
-    @Test
-    public void testSignUpButtonClick() {
-        onView(withId(R.id.loginToSignupButton)).perform(click()).check(matches(isDisplayed()));
-    }
+
     /***sign up**/
     @Test
     public void testSignUpActivity() {
@@ -78,8 +75,12 @@ public class LoginTest {
         onView(withId(R.id.loginStatus)).check(matches(withText("password is empty")));
     }
     @Test
+    // the information have to in the realtime database
     public void login() {
-        onView(withId(R.id.loginToSignupButton)).perform(click());
-        intended(hasComponent(RegisterUser.class.getName()));
+        onView(withId(R.id.loginUsernameET)).perform(typeText("tn608503@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("123456"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.loginButton)).perform(click());
+        intended(hasComponent(EmployeeActivity.class.getName()));
     }
 }
