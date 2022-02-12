@@ -1,4 +1,4 @@
-package com.group04.quickcash;
+package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -30,7 +30,8 @@ public class RegisterUser extends AppCompatActivity {
     private EditText emailField;
     private EditText userTypeField;
     private EditText passwordField;
-    private ImageView imageView;
+    private final String EMPLOYEE = "Employee";
+    private final String EMPLOYER = "Employer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +40,15 @@ public class RegisterUser extends AppCompatActivity {
         setContentView(R.layout.activity_register_user);
         Intent intent = getIntent();
 
-        nameFNField = findViewById(R.id.registerFirstName);
-        nameLNField = findViewById(R.id.registerLastName);
-        emailField = findViewById(R.id.registerEmail);
-        userTypeField = findViewById(R.id.registerUserType);
-        passwordField = findViewById(R.id.registerPasswordET);
+        nameFNField = findViewById(R.id.nameFN);
+        nameLNField = findViewById(R.id.nameLN);
+        emailField = findViewById(R.id.email);
+        userTypeField = findViewById(R.id.userType);
+        passwordField = findViewById(R.id.passwordET);
 
-//        imageView = (ImageView) findViewById(R.id.registerProfile);
-//        imageView.setVisibility(View.VISIBLE);
-//        imageView.bringToFront();
+        Button registerBtn = findViewById(R.id.registerBtn);
 
-        Button registerButton = findViewById(R.id.registerButton);
-
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 registerUser();
@@ -86,18 +83,12 @@ public class RegisterUser extends AppCompatActivity {
                         //implementation of part of US-3
                         String userType = userTypeField.getText().toString();
 
-                        if (userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
+                        if (userType.equalsIgnoreCase(EMPLOYEE)) {
                             Intent intent = new Intent(RegisterUser.this, EmployeeActivity.class);
-                            intent.putExtra("Login Email", emailField.getText().toString());
-                            intent.putExtra("Login Password", passwordField.getText().toString());
-                            intent.putExtra("User Type", Employee.EMPLOYEE);
                             startActivity(intent);
                         }
-                        else if (userType.equalsIgnoreCase(Employer.EMPLOYER)) {
+                        else if (userType.equalsIgnoreCase(EMPLOYER)) {
                             Intent intent = new Intent(RegisterUser.this, EmployerActivity.class);
-                            intent.putExtra("Login Email", emailField.getText().toString());
-                            intent.putExtra("Login Password", passwordField.getText().toString());
-                            intent.putExtra("User Type", Employer.EMPLOYER);
                             startActivity(intent);
                         }
                         else {
@@ -127,15 +118,14 @@ public class RegisterUser extends AppCompatActivity {
     protected void addRecord() {
 
         // Finding all views by ID from the register page
-        EditText nameFNField = findViewById(R.id.registerFirstName);
-        EditText nameLNField = findViewById(R.id.registerLastName);
-        EditText emailField = findViewById(R.id.registerEmail);
-        EditText userTypeField = findViewById(R.id.registerUserType);
-        //fEditText passwordField = findViewById(R.id.registerPasswordET);
+        EditText nameFNField = findViewById(R.id.nameFN);
+        EditText nameLNField = findViewById(R.id.nameLN);
+        EditText emailField = findViewById(R.id.email);
+        EditText userTypeField = findViewById(R.id.userType);
 
         //US-3 functionality forcing 2 types of users
         String userType = userTypeField.getText().toString();
-        if (userType.equalsIgnoreCase(Employer.EMPLOYER) || userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
+        if (userType.equalsIgnoreCase(EMPLOYER) || userType.equalsIgnoreCase(EMPLOYEE)) {
             // Creating a HashMap of user information to store on firebase
             Map<String, Object> map = new HashMap<>();
             map.put("firstName", nameFNField.getText().toString());
@@ -143,9 +133,6 @@ public class RegisterUser extends AppCompatActivity {
             map.put("email", emailField.getText().toString());
             map.put("userType", userTypeField.getText().toString());
             map.put("password", passwordField.getText().toString());
-            //potentially dangerous af to declare it true off the bat but we don't have to worry
-            //security right?
-            map.put("loginState", true);
 
             // Getting an instance of the firebase realtime database
             FirebaseDatabase.getInstance("https://quick-cash-55715-default-rtdb.firebaseio.com/")
@@ -191,12 +178,13 @@ public class RegisterUser extends AppCompatActivity {
      * @return boolean: if input is valid
      */
     protected boolean validateInput(){
+        if(checkFirstName(nameFNField.getText().toString())
+                && checkLastName(nameLNField.getText().toString())
+                && checkEmail(emailField.getText().toString())){
+            return true;
+        }
 
-        boolean firstNameValid = checkFirstName(nameFNField.getText().toString());
-        boolean lastNameValid = checkLastName(nameLNField.getText().toString());
-        boolean emailValid = checkEmail(emailField.getText().toString());
-
-        return firstNameValid && lastNameValid && emailValid;
+        return false;
     }
 
     /**
