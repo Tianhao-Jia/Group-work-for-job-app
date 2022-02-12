@@ -1,14 +1,11 @@
-package com.group04.quickcash;
+package com.example.myapplication;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;

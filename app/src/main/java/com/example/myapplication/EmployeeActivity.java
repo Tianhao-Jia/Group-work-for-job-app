@@ -1,11 +1,10 @@
-package com.group04.quickcash;
+package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,14 +13,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * EmployerActivity class that manages the EmployerActivity
+ * EmployeeActivity class that manages the EmployeeActivity
  * @author: Nathan Horne and Nathanael Bowley
  * @course: CSCI3130 @ Dalhousie University.
  * @semester: Winter 2022
  * @group: Group 4
  * @clientTA: Disha Malik
  */
-public class EmployerActivity extends AppCompatActivity {
+public class EmployeeActivity extends AppCompatActivity {
+
 
     private static final String FIREBASE_DATABASE_URL = "https://quick-cash-55715-default-rtdb.firebaseio.com/";
     private FirebaseDatabase firebaseDB;
@@ -33,10 +33,10 @@ public class EmployerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employer);
+        setContentView(R.layout.activity_employee);
 
-        loginDisplay = (TextView) findViewById(R.id.employerLoginDisplay);
-        logoutButton = (Button) findViewById(R.id.employerLogoutButton);
+        loginDisplay = (TextView) findViewById(R.id.employeeLoginDisplay);
+        logoutButton = (Button) findViewById(R.id.employeeLogoutButton);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -48,14 +48,13 @@ public class EmployerActivity extends AppCompatActivity {
             editor.putString("Key_hash", extras.getString("User Hash"));
             editor.apply();
 
-
             //loginDisplay.setText("Welcome, " + extras.getString("Login Email"));
         }
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout();
+                logoutAndChangeLoginState();
             }
         });
     }
@@ -65,7 +64,7 @@ public class EmployerActivity extends AppCompatActivity {
      * instead of EmployeeActivity on applications start.
      * @author Nathan Horne
      */
-    private void logout()
+    private void logoutAndChangeLoginState()
     {
         SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -83,7 +82,7 @@ public class EmployerActivity extends AppCompatActivity {
         editor.apply();
 
 
-        startActivity( new Intent( EmployerActivity.this, MainActivity.class));
+        startActivity( new Intent( EmployeeActivity.this, MainActivity.class));
     }
 
     private void connectFirebase(){

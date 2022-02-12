@@ -1,21 +1,15 @@
-package com.group04.quickcash;
+package com.example.myapplication;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.typeText;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
 import static org.junit.Assert.assertEquals;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
-import androidx.test.espresso.Espresso;
-import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -28,10 +22,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class LogoutforEmpolyerTest {
-    @Rule
-    public ActivityScenarioRule<EmployerActivity> myRule = new ActivityScenarioRule<>(EmployerActivity.class);
+public class EmployeeEspressoTest {
 
+    @Rule
+    public ActivityScenarioRule<MainActivity> myRule =
+            new ActivityScenarioRule<MainActivity>(MainActivity.class);
     @BeforeClass
     public static void setup() {
         Intents.init();
@@ -48,25 +43,15 @@ public class LogoutforEmpolyerTest {
         assertEquals("com.example.loginfinal", appContext.getPackageName());
     }
 
-    @Test
-    // run isolate
-    public void logOutWithIntent() {
-        onView(withId(R.id.employerLogoutButton)).perform(click());
-        intended(hasComponent(MainActivity.class.getName()));
-    }
 
     @Test
-    public void testLogOutSp() {
-        onView(withId(R.id.employerLogoutButton)).perform(click());
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        SharedPreferences sharedPref = appContext.getSharedPreferences("pref", Context.MODE_PRIVATE);
-        assertEquals("", sharedPref.getString("Key_email",""));
+    public void testOpenEmployeeActivity() {
+
+        //previous merge broke this test. need to modify it.
+
+        onView(withId(R.id.goToEmployeeActivity)).perform(click());
+        intended(hasComponent(LoginActivity.class.getName()));
+
     }
-
-
-
-
-
 
 }
-

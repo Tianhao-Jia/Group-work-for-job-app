@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/loginView"
-    tools:context="com.group04.quickcash.LoginActivity">
+    tools:context="com.example.myapplication.LoginActivity">
 
     <Button
         android:id="@+id/loginButton"
