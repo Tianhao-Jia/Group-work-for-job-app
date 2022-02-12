@@ -12,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 
 import android.content.Context;
 
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
@@ -76,6 +77,14 @@ public class LoginTest {
     @Test
     // the information have to in the realtime database
     public void login() {
+
+        ActivityScenario.launch(RegisterUser.class);
+        onView(withId(R.id.loginUsernameET)).perform(typeText("tn608503@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("123456"));
+        onView(withId(R.id.login)).perform(typeText("tn608503@dal.ca"));
+
+
+
         onView(withId(R.id.loginUsernameET)).perform(typeText("tn608503@dal.ca"));
         onView(withId(R.id.loginPasswordET)).perform(typeText("123456"));
         Espresso.closeSoftKeyboard();
