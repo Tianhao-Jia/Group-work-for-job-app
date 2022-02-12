@@ -1,5 +1,3 @@
 <resources>
-    <string name="app_name">LoginFinal</string>
-    <string name="name_empty">username is empty</string>
-    <string name="pwd_empty">password is empty</string>
+    <string name="app_name">My Application</string>
 </resources>
