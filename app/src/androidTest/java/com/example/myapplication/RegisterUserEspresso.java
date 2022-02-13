@@ -48,6 +48,7 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
         onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
         Espresso.closeSoftKeyboard();
 
