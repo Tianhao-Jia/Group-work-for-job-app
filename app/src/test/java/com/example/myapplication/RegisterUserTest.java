@@ -49,4 +49,14 @@ public class RegisterUserTest {
     public void invalidEmail() {
         assertFalse(registerActivity.checkEmail("notAmEmail"));
     }
+
+    @Test
+    public void validPassword(){
+        assertTrue(registerActivity.checkPassword("1234"));
+    }
+
+    @Test
+    public void invalidPassword(){
+        assertFalse(registerActivity.checkPassword("f g"));
+    }
 }

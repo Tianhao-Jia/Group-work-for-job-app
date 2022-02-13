@@ -171,6 +171,25 @@ public class RegisterUserEspresso {
     }
 
     /**
+     * US2-AT4:
+     * Given that the user is not registered, when the user in inputting their details,
+     * we should accept when the user has only filled the required fields
+     */
+    @Test
+    public void requiredFieldsNotFilledPassword() {
+        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.registerButton)).perform(click());
+
+        onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
+    }
+
+    /**
      * US2-AT5:
      * Given that the user is not registered, when the user fills their details and clicks the ‘register button’,
      * then the user should be directed to the correct landing page.
