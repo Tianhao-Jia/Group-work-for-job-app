@@ -229,24 +229,7 @@ public class RegisterUserEspresso {
 
 
 
-    /**
-     * US6-AT1:
-     * Given that the user is not registered, when the user fills their details and clicks the ‘register button’,
-     * then the user should be directed to the correct landing page.
-     */
-    @Test
-    public void redirectToLandingPageEmployer() {
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
-        Espresso.closeSoftKeyboard();
 
-        onView(withId(R.id.registerButton)).perform(click());
-
-        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
-    }
 
     @Before
     public void teardown(){
