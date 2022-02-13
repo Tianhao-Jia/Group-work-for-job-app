@@ -6,6 +6,7 @@ import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
@@ -20,6 +21,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.junit.AfterClass;
@@ -28,6 +30,9 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -41,6 +46,31 @@ public class LoginTest {
     @BeforeClass
     public static void setup() {
         Intents.init();
+
+        // Creating a HashMap of user information to store on firebase
+        Map<String, Object> employee = new HashMap<>();
+        employee.put("firstName", "Test");
+        employee.put("lastName", "Employee");
+        employee.put("email", "testEmployee@dal.ca");
+        employee.put("userType", "Employee");
+        employee.put("password", "1234");
+        employee.put("loginState", false);
+
+        Map<String, Object> employer = new HashMap<>();
+        employer.put("firstName", "Test");
+        employer.put("lastName", "Employer");
+        employer.put("email", "testEmployer@dal.ca");
+        employer.put("userType", "Employer");
+        employer.put("password", "1234");
+        employer.put("loginState", false);
+
+        // Getting an instance of the firebase realtime database
+        DatabaseReference dbRef = FirebaseDatabase.getInstance("https://quick-cash-55715-default-rtdb.firebaseio.com/")
+                .getReference()
+                .child("users");
+
+        dbRef.push().setValue(employee);
+        dbRef.push().setValue(employer);
     }
 
     @AfterClass
@@ -54,7 +84,7 @@ public class LoginTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.loginfinal", appContext.getPackageName());
+        assertEquals("com.example.myapplication", appContext.getPackageName());
     }
     /***sign up**/
 
@@ -105,4 +135,33 @@ public class LoginTest {
 //        onView(withId(R.id.loginButton)).perform(click());
 //        intended(hasComponent(EmployeeActivity.class.getName()));
 //    }
+
+    /**
+     * US6-AT1:
+     * Given that I am an employee, when I login to the app then I should see a map interface unique
+     * to employees.
+     */
+    @Test
+    public void checkLandingPageEmployee() {
+        onView(withId(R.id.loginUsernameET)).perform(typeText("testEmployee@dal.ca"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.loginPasswordET)).perform(typeText("1234"), ViewActions.closeSoftKeyboard());
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.loginButton)).perform(click());
+        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
+    }
+
+    /**
+     * US6-AT2:
+     * Given that I am an employer, when I login to the app then I should see an interface unique to
+     * employers.
+     */
+    @Test
+    public void checkLandingPageEmployer() {
+        onView(withId(R.id.loginUsernameET)).perform(typeText("testEmployer@dal.ca"), ViewActions.closeSoftKeyboard());
+        onView(withId(R.id.loginPasswordET)).perform(typeText("1234"), ViewActions.closeSoftKeyboard());
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.loginButton)).perform(click());
+        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
+    }
+
 }

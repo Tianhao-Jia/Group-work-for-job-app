@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -195,8 +196,9 @@ public class RegisterUser extends AppCompatActivity {
         boolean firstNameValid = checkFirstName(nameFNField.getText().toString());
         boolean lastNameValid = checkLastName(nameLNField.getText().toString());
         boolean emailValid = checkEmail(emailField.getText().toString());
+        boolean passwordValid = checkPassword(passwordField.getText().toString());
 
-        return firstNameValid && lastNameValid && emailValid;
+        return firstNameValid && lastNameValid && emailValid && passwordValid;
     }
 
     /**
@@ -223,13 +225,28 @@ public class RegisterUser extends AppCompatActivity {
     }
 
     /**
-     * checkEmail(): checks if string has an @ symbol
+     * checkEmail(): checks if string is an email
      * @param email : email input to verify
      * @return boolean : true if email is valid; false otherwise
      */
+    //Was using library functions to check email, however we ran into errors with pipeline
+    // TODO: Email checking will be fixed in next iteration!
     protected boolean checkEmail(String email) {
-        Pattern emailPattern = Pattern.compile(".*@.*$", Pattern.CASE_INSENSITIVE);
+        Pattern emailPattern = Pattern.compile("^.*@.*$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPattern.matcher(email.trim());
         return matcher.find();
+
+    }
+
+    /**
+     * checkPassword(): checks if password is at least 4 characters
+     * @param password : password input to verify
+     * @return boolean : true if password is valid, false otherwise
+     */
+    protected boolean checkPassword(String password) {
+        Pattern pw = Pattern.compile("^.{4,}$", Pattern.CASE_INSENSITIVE);
+        Matcher pwMatch = pw.matcher(password);
+
+        return pwMatch.find();
     }
 }
