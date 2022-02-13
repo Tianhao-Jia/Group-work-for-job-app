@@ -238,10 +238,6 @@ public class RegisterUserEspresso {
         onView(withId(R.id.employerView)).check(matches(isDisplayed()));
     }
 
-
-
-
-
     @Before
     public void teardown(){
         FirebaseDatabase.getInstance().getReference("users").setValue(null);
