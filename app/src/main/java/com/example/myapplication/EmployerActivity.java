@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -49,6 +50,12 @@ public class EmployerActivity extends AppCompatActivity {
 
 
             //loginDisplay.setText("Welcome, " + extras.getString("Login Email"));
+        }
+        //this shouldn't be possible so that means that the user is in the wrong spot
+        else {
+            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
+            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
+            startActivity(intent);
         }
 
         logoutButton.setOnClickListener(new View.OnClickListener() {

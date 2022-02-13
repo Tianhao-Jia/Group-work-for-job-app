@@ -41,8 +41,10 @@ import java.util.Map;
  */
 @RunWith(AndroidJUnit4.class)
 public class LoginTest {
+
     @Rule
     public ActivityScenarioRule<LoginActivity> myRule = new ActivityScenarioRule<>(LoginActivity.class);
+
     @BeforeClass
     public static void setup() {
         Intents.init();
@@ -78,8 +80,8 @@ public class LoginTest {
         Intents.release();
         FirebaseDatabase.getInstance().getReference("users").setValue(null);
 
-
     }
+
     @Test
     public void useAppContext() {
         // Context of the app under test.

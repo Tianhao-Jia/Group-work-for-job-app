@@ -7,6 +7,8 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import android.app.Activity;
+
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -48,9 +50,17 @@ public class RedirectEmploymentTest {
 
         onView(withId(R.id.registerButton)).perform(click());
 
+        ActivityScenario.launch(LoginActivity.class);
+
+        onView(withId(R.id.loginUsernameET)).perform(typeText("her.majesty@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("password123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.loginButton)).perform(click());
+
+
         ActivityScenario.launch(EmployeeActivity.class);
 
-        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
+        onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
 
 
     }
@@ -70,16 +80,24 @@ public class RedirectEmploymentTest {
         onView(withId(R.id.registerLastName)).perform(typeText("Ogre"));
         onView(withId(R.id.registerEmail)).perform(typeText("shrek.orge@dal.ca"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("123"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("password123"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
 
+        ActivityScenario.launch(LoginActivity.class);
+
+        onView(withId(R.id.loginUsernameET)).perform(typeText("shrek.ogre@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("password123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.loginButton)).perform(click());
+
+
         ActivityScenario.launch(EmployerActivity.class);
 
-        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
+        onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
     }
 
     /**
@@ -95,14 +113,12 @@ public class RedirectEmploymentTest {
         onView(withId(R.id.registerLastName)).perform(typeText("Elizabeth"));
         onView(withId(R.id.registerEmail)).perform(typeText("her.majesty@dal.ca"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("123"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("password123"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
-
-        ActivityScenario.launch(EmployerActivity.class);
 
         onView(withId(R.id.employerView)).check(matches(isDisplayed()));
 
@@ -121,14 +137,12 @@ public class RedirectEmploymentTest {
         onView(withId(R.id.registerLastName)).perform(typeText("Ogre"));
         onView(withId(R.id.registerEmail)).perform(typeText("shrek.orge@dal.ca"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("123"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("password123"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
-
-        ActivityScenario.launch(EmployeeActivity.class);
 
         onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
 
