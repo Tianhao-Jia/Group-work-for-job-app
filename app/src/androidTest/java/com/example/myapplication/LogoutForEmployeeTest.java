@@ -40,7 +40,7 @@ public class LogoutForEmployeeTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.loginfinal", appContext.getPackageName());
+        assertEquals("com.example.myapplication", appContext.getPackageName());
     }
 
     /** TODO: Currently failing */

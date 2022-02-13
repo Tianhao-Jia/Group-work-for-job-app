@@ -123,6 +123,8 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
         Espresso.closeSoftKeyboard();
 
@@ -144,6 +146,8 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
         Espresso.closeSoftKeyboard();
 
@@ -163,6 +167,7 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerFirstName)).perform(typeText("George"));
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
+
         onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
         Espresso.closeSoftKeyboard();
 
@@ -201,6 +206,8 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
         Espresso.closeSoftKeyboard();
 
@@ -220,6 +227,8 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
         Espresso.closeSoftKeyboard();
 
@@ -227,10 +236,6 @@ public class RegisterUserEspresso {
 
         onView(withId(R.id.employerView)).check(matches(isDisplayed()));
     }
-
-
-
-
 
     @Before
     public void teardown(){
