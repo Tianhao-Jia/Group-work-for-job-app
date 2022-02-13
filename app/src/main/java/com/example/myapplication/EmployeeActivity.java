@@ -35,6 +35,7 @@ public class EmployeeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
 
+
         loginDisplay = (TextView) findViewById(R.id.employeeLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employeeLogoutButton);
 
@@ -62,7 +63,7 @@ public class EmployeeActivity extends AppCompatActivity {
     /**
      * logout method removes credentials added to SharedPreferences. Will take user to MainActivity
      * instead of EmployeeActivity on applications start.
-     * @author Nathan Horne
+     * @author Nathan Horne and Nathanael Bowley (hash functionality)
      */
     private void logoutAndChangeLoginState()
     {
