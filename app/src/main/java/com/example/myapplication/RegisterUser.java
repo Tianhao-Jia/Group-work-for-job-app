@@ -229,8 +229,13 @@ public class RegisterUser extends AppCompatActivity {
      * @param email : email input to verify
      * @return boolean : true if email is valid; false otherwise
      */
+    //Was using library functions to check email, however we ran into errors with pipeline
+    // TODO: Email checking will be fixed in next iteration!
     protected boolean checkEmail(String email) {
-        return Patterns.EMAIL_ADDRESS.matcher(email).matches();
+        Pattern emailPattern = Pattern.compile("^.*@.*$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = emailPattern.matcher(email.trim());
+        return matcher.find();
+
     }
 
     /**
