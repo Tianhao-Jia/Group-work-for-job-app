@@ -116,8 +116,6 @@ public class RegisterUserEspresso {
      * Given that the user is not registered, when the user in inputting their details,
      * we should accept when the user has only filled the required fields
       */
-    //Need to add optional fields to UI, covid check was broken so will try and add that back
-    //Also will add database mocks to make sure user doesn't already exist
     @Test
     public void allRequiredFieldsFilledEmployee() {
         onView(withId(R.id.registerFirstName)).perform(typeText("George"));
@@ -153,6 +151,12 @@ public class RegisterUserEspresso {
         onView(withId(R.id.employerView)).check(matches(isDisplayed()));
     }
 
+
+    /**
+     * US2-AT4:
+     * Given that the user is not registered, when the user in inputting their details,
+     * we should accept when the user has only filled the required fields
+     */
     @Test
     public void requiredFieldsNotFilled() {
         onView(withId(R.id.registerFirstName)).perform(typeText("George"));
@@ -169,10 +173,10 @@ public class RegisterUserEspresso {
     /**
      * US2-AT5:
      * Given that the user is not registered, when the user fills their details and clicks the ‘register button’,
-     * then the user should be directed to the login page.
+     * then the user should be directed to the correct landing page.
      */
     @Test
-    public void redirectToLoginPage() {
+    public void redirectToLandingPageEmployee() {
         onView(withId(R.id.registerFirstName)).perform(typeText("George"));
         onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
@@ -183,6 +187,25 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerButton)).perform(click());
 
         onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
+    }
+
+    /**
+     * US2-AT5:
+     * Given that the user is not registered, when the user fills their details and clicks the ‘register button’,
+     * then the user should be directed to the correct landing page.
+     */
+    @Test
+    public void redirectToLandingPageEmployer() {
+        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.registerButton)).perform(click());
+
+        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
     }
 
     @Before
