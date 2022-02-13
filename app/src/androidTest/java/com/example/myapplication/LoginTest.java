@@ -7,9 +7,12 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import android.content.Context;
 
@@ -17,6 +20,7 @@ import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.intent.Intents;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -96,6 +100,13 @@ public class LoginTest {
         onView(withId(R.id.loginToSignupButton)).perform(click());
         intended(hasComponent(RegisterUser.class.getName()));
     }
+
+    /**
+     * US1-AT1:
+     *
+     * Given that I am an employee or employer, when I try to log in without entering a username,
+     * then I should be told to enter a username and I will not be logged in.
+     */
     @Test
     public void checkUserNameIsEmpty() {
         onView(withId(R.id.loginUsernameET)).perform(typeText(""));
@@ -104,6 +115,12 @@ public class LoginTest {
         onView(withId(R.id.loginStatus)).check(matches(withText("username is empty")));
     }
 
+    /**
+     * US1-AT2:
+     *
+     * Given that I am an employee or employer, when I try to log in without entering a password,
+     * then I should be told to enter a password and I will not be logged in.
+     */
     @Test
     public void checkPasswordIsEmpty() {
         onView(withId(R.id.loginUsernameET)).perform(typeText("123456"), ViewActions.closeSoftKeyboard());
@@ -113,30 +130,96 @@ public class LoginTest {
         onView(withId(R.id.loginStatus)).check(matches(withText("password is empty")));
     }
 
-    /** TODO: Currently failing */
-//    @Test
-//    // the information have to in the realtime database
-//    public void login() {
-//
-//        ActivityScenario.launch(RegisterUser.class);
-//        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-//        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-//        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
-//        Espresso.closeSoftKeyboard();
-//        onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
-//        Espresso.closeSoftKeyboard();
-//        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
-//        Espresso.closeSoftKeyboard();
-//        onView(withId(R.id.registerButton)).perform(click());
-//
-//
-//        ActivityScenario.launch(LoginActivity.class);
-//        onView(withId(R.id.loginUsernameET)).perform(typeText("george.smith@dal.ca"));
-//        onView(withId(R.id.loginPasswordET)).perform(typeText("123abc123"));
-//        Espresso.closeSoftKeyboard();
-//        onView(withId(R.id.loginButton)).perform(click());
-//        intended(hasComponent(EmployeeActivity.class.getName()));
-//    }
+    /**
+     * US1-AT3:
+     *
+     * Given that am an employee, when I try to log in with a username
+     * and password that matches an existing account, then I will be logged in.
+     */
+    @Test
+    public void checkIfLoggedInEmployee() {
+
+        ActivityScenario.launch(RegisterUser.class);
+        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerButton)).perform(click());
+
+
+        ActivityScenario.launch(LoginActivity.class);
+        onView(withId(R.id.loginUsernameET)).perform(typeText("george.smith@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("123abc123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.loginButton)).perform(click());
+        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
+
+    }
+
+    /**
+     * US1-AT3:
+     *
+     * Given that am an employer, when I try to log in with a username
+     * and password that matches an existing account, then I will be logged in.
+     */
+    @Test
+    public void checkIfLoggedInEmployer() {
+
+        ActivityScenario.launch(RegisterUser.class);
+        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerButton)).perform(click());
+
+
+        ActivityScenario.launch(LoginActivity.class);
+        onView(withId(R.id.loginUsernameET)).perform(typeText("george.smith@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("123abc123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.loginButton)).perform(click());
+        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
+
+    }
+
+    /**
+     * US1-AT4:
+     *
+     * Given that I am an employee or employer, when I try to log in with a username and password
+     * that does not match an existing account, then I will not be logged in.
+     */
+    @Test
+    public void checkIfAccountExists() {
+
+        ActivityScenario.launch(RegisterUser.class);
+        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerButton)).perform(click());
+
+
+        ActivityScenario.launch(LoginActivity.class);
+        onView(withId(R.id.loginUsernameET)).perform(typeText("peorge.swift@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("123abc123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.loginButton)).perform(click());
+        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
+
+    }
+
 
     /**
      * US6-AT1:
@@ -154,8 +237,8 @@ public class LoginTest {
 
     /**
      * US6-AT2:
-     * Given that I am an employer, when I login to the app then I should see an interface unique to
-     * employers.
+     * Given that I am an employer, when I login to the app then
+     * I should see an interface unique to employers.
      */
     @Test
     public void checkLandingPageEmployer() {
