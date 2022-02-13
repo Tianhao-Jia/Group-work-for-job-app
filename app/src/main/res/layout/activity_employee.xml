@@ -27,6 +27,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/dummyMap"
+        android:layout_width="285dp"
+        android:layout_height="472dp"
+        android:layout_marginTop="68dp"
+        android:src="@drawable/dummy_map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <Button
         android:id="@+id/employeeLogoutButton"
         android:layout_width="wrap_content"
@@ -36,6 +47,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/dummyMap"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
