@@ -47,8 +47,6 @@ public class EmployeeEspressoTest {
     @Test
     public void testOpenEmployeeActivity() {
 
-        //previous merge broke this test. need to modify it.
-
         onView(withId(R.id.goToEmployeeActivity)).perform(click());
         intended(hasComponent(LoginActivity.class.getName()));
 
