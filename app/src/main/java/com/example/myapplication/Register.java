@@ -37,74 +37,74 @@ import com.google.firebase.storage.UploadTask;
  * @group: Group 4
  * @clientTA: Disha Malik
  */
-//public class Register extends AppCompatActivity {
-//
-//    EditText id,name, password;
-//    ImageView profile;
-//    Button signupButton;
-//    Uri imageUri;
-//
-//    @SuppressLint("ResourceType")
-//    @Override
-//    protected void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView((R.layout.activity_register));
-//        id = findViewById(R.id.id);
-//        password = findViewById(R.id.loginPasswordET);
-//        name = findViewById(R.id.name);
-//        signupButton = findViewById(R.id.loginToSignupButton);
-//
-//        signupButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                signup();
-//            }
-//        });
-//    }
-//
-//
-//    // warning to group: this method may be violating single responsibility principle.
-//    private void signup() {
-//        String idText = id.getText().toString();
-//        String passwordText = password.getText().toString();
-//
-//        FirebaseAuth.getInstance().createUserWithEmailAndPassword(idText, passwordText).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if(task.isSuccessful()){
-//
-//                    String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-//                    StorageReference storageReference= FirebaseStorage.getInstance().getReference().child("users").child(uid);
-//
-//                    storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-//
-//                        @Override
-//                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                            if(task.isSuccessful()){
-//
-//                                storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-//
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Uri> task) {
-//                                        String imageUrl = task.toString();
-//                                        UserModel userModel = new UserModel();
-//                                        userModel.name = name.getText().toString();
-//                                        userModel.uid = uid;
-//                                        userModel.imageUrl = imageUrl;
-//                                        FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
-//                                    }
-//                                });
-//                            }
-//                        }
-//                    });
-//                }
-//                else{
-//                    Toast.makeText(Register.this,"Failed to create",Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
-//
-//    }
-//
-//}
+public class Register extends AppCompatActivity {
+
+    EditText id,name, password;
+    ImageView profile;
+    Button signupButton;
+    Uri imageUri;
+
+    @SuppressLint("ResourceType")
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView((R.layout.activity_register));
+        id = findViewById(R.id.id);
+        password = findViewById(R.id.loginPasswordET);
+        name = findViewById(R.id.name);
+        signupButton = findViewById(R.id.loginToSignupButton);
+
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signup();
+            }
+        });
+    }
+
+
+    // warning to group: this method may be violating single responsibility principle.
+    private void signup() {
+        String idText = id.getText().toString();
+        String passwordText = password.getText().toString();
+
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(idText, passwordText).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+
+                    String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                    StorageReference storageReference= FirebaseStorage.getInstance().getReference().child("users").child(uid);
+
+                    storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if(task.isSuccessful()){
+
+                                storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        String imageUrl = task.toString();
+                                        UserModel userModel = new UserModel();
+                                        userModel.setName(name.getText().toString());
+                                        userModel.setUid(uid);
+                                        userModel.setImageUrl(imageUrl);
+                                        FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+                else{
+                    Toast.makeText(Register.this,"Failed to create",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+    }
+
+}
