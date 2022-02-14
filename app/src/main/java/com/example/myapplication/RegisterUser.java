@@ -24,6 +24,23 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/**
+ * RegisterUser Activity that is responsible for allowing a user to signup their user details
+ * and submit it to a database to be stored for later login. The RegisterUser activity also
+ * redirects the user to the correct EmployeeActivity or EmployerActivity depending on their
+ * chosen Employment type.
+ * @authors: Nathanael Bowley,
+ *          John Corsten,
+ *          Nathan Horne,
+ *          Ted Graveson,
+ *          Hongzheng Ding,
+ *          Tianhao Jia,
+ *          Saher Anwar Ziauddin
+ * @course: CSCI3130 @ Dalhousie University.
+ * @semester: Winter 2022
+ * @group: Group 4
+ * @clientTA: Disha Malik
+ */
 public class RegisterUser extends AppCompatActivity {
 
     private EditText nameFNField;

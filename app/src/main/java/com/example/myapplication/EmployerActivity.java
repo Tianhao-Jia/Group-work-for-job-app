@@ -14,8 +14,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * EmployerActivity class that manages the EmployerActivity
- * @author: Nathan Horne and Nathanael Bowley
+ * EmployerActivity class that manages the EmployerActivity events.
+ * @authors: Nathanael Bowley,
+ *          John Corsten,
+ *          Nathan Horne,
+ *          Ted Graveson,
+ *          Hongzheng Ding,
+ *          Tianhao Jia,
+ *          Saher Anwar Ziauddin
  * @course: CSCI3130 @ Dalhousie University.
  * @semester: Winter 2022
  * @group: Group 4
@@ -49,7 +55,6 @@ public class EmployerActivity extends AppCompatActivity {
             editor.apply();
 
 
-            //loginDisplay.setText("Welcome, " + extras.getString("Login Email"));
         }
         //this shouldn't be possible so that means that the user is in the wrong spot
         else {

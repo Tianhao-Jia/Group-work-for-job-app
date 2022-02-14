@@ -12,9 +12,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * EmployeeActivity class that manages the EmployeeActivity
- * @author: Nathanael Bowley, Nathan Horn, John Corsten,
- *          Saher Anwar Ziauddin, Ted Graveson, Ding Ding, Jia Jia
+ * EmployeeActivity class that manages the EmployeeActivity events.
+ * @authors: Nathanael Bowley,
+ *          John Corsten,
+ *          Nathan Horne,
+ *          Ted Graveson,
+ *          Hongzheng Ding,
+ *          Tianhao Jia,
+ *          Saher Anwar Ziauddin
  * @course: CSCI3130 @ Dalhousie University.
  * @semester: Winter 2022
  * @group: Group 4

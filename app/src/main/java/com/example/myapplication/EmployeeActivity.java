@@ -14,8 +14,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * EmployeeActivity class that manages the EmployeeActivity
- * @author: Nathan Horne and Nathanael Bowley
+ * EmployeeActivity class that manages the EmployeeActivity events.
+ * @authors: Nathanael Bowley,
+ *          John Corsten,
+ *          Nathan Horne,
+ *          Ted Graveson,
+ *          Hongzheng Ding,
+ *          Tianhao Jia,
+ *          Saher Anwar Ziauddin
  * @course: CSCI3130 @ Dalhousie University.
  * @semester: Winter 2022
  * @group: Group 4
@@ -53,7 +59,6 @@ public class EmployeeActivity extends AppCompatActivity {
             editor.putString("Key_hash", extras.getString("User Hash"));
             editor.apply();
 
-            //loginDisplay.setText("Welcome, " + extras.getString("Login Email"));
         }
         //this shouldn't be possible so that means that the user is in the wrong spot
         else {

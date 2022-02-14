@@ -22,6 +22,21 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+/**
+ * Register class that has functionality for profile pictures which is intended to be implemented
+ * and merged with RegisterUser in iteration 2.
+ * @authors: Nathanael Bowley,
+ *          John Corsten,
+ *          Nathan Horne,
+ *          Ted Graveson,
+ *          Hongzheng Ding,
+ *          Tianhao Jia,
+ *          Saher Anwar Ziauddin
+ * @course: CSCI3130 @ Dalhousie University.
+ * @semester: Winter 2022
+ * @group: Group 4
+ * @clientTA: Disha Malik
+ */
 public class Register extends AppCompatActivity {
 
     EditText id,name, password;
