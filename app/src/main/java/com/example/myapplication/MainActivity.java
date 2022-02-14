@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseDBRef = firebaseDB.getReference("message");
     }
 
+
     private void writeToFirebaseRealTimeDB() {
         // Just a test, can delete
         firebaseDBRef.setValue("Hello Group 4");
