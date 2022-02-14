@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         checkForLogin();
 
         connectFirebase();
-        writeToFirebaseRealTimeDB();
 
         Button employeeButton = (Button) findViewById(R.id.goToEmployeeActivity);
         setIntent(employeeButton, LoginActivity.class);
@@ -55,16 +54,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * connectFirebase method that acts to connect the firebase using the firebase url
+     * @author: everyone
+     */
     private void connectFirebase() {
         firebaseDB = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL);
         firebaseDBRef = firebaseDB.getReference("message");
     }
 
-
-    private void writeToFirebaseRealTimeDB() {
-        // Just a test, can delete
-        firebaseDBRef.setValue("Hello Group 4");
-    }
 
     /**
      * setIntent method that reduces code clutter and improves switching between intents of buttons.

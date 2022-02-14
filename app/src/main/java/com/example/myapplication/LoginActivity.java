@@ -84,6 +84,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * loginEvent method that is responsible for managing the the login events by searching through
+     * dataSnapshot objects to find the correct child in the Firebase realtime database.
+     * @author: everyone
+     */
     private void loginEvent() {
         connectFirebase();
         firebaseDBRef.getDatabase();
@@ -152,29 +157,13 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-
+    /**
+     * connectFirebase method that acts to connect the firebase using the firebase url
+     * @author: everyone
+     */
     private void connectFirebase(){
         firebaseDB = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL);
         firebaseDBRef = firebaseDB.getReference("users");
-
-    }
-
-    private void listenToDataChanges(){
-        firebaseDBRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                final String valueRead = snapshot.getValue(String.class);
-                textView.setText("Success: "+ valueRead);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                final String errorRead = error.getMessage();
-                textView.setText("Error: "+ errorRead);
-
-            }
-        });
     }
 
 }
