@@ -63,10 +63,6 @@ public class RegisterUser extends AppCompatActivity {
         userTypeField = findViewById(R.id.registerUserType);
         passwordField = findViewById(R.id.registerPasswordET);
 
-//        imageView = (ImageView) findViewById(R.id.registerProfile);
-//        imageView.setVisibility(View.VISIBLE);
-//        imageView.bringToFront();
-
         Button registerButton = findViewById(R.id.registerButton);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +145,7 @@ public class RegisterUser extends AppCompatActivity {
         EditText nameLNField = findViewById(R.id.registerLastName);
         EditText emailField = findViewById(R.id.registerEmail);
         EditText userTypeField = findViewById(R.id.registerUserType);
-        //fEditText passwordField = findViewById(R.id.registerPasswordET);
+        EditText passwordField = findViewById(R.id.registerPasswordET);
 
         //US-3 functionality forcing 2 types of users
         String userType = userTypeField.getText().toString();
@@ -173,8 +169,6 @@ public class RegisterUser extends AppCompatActivity {
                     .setValue(map)
                     .addOnSuccessListener(aVoid -> {
                         displayToast("Registered!");
-                        // TODO: commented out finish to run tests cases - find a fix for this
-                        //finish();
                     });
         }
         else {

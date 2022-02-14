@@ -97,6 +97,11 @@ public class EmployerActivity extends AppCompatActivity {
         startActivity( new Intent( EmployerActivity.this, MainActivity.class));
     }
 
+    /**
+     * logout method removes credentials added to SharedPreferences. Will take user to MainActivity
+     * instead of EmployeeActivity on applications start.
+     * @author Nathan Horne and Nathanael Bowley (hash functionality)
+     */
     private void connectFirebase(){
         firebaseDB = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL);
         firebaseDBRef = firebaseDB.getReference("users");

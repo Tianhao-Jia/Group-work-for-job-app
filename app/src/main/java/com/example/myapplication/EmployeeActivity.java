@@ -101,6 +101,10 @@ public class EmployeeActivity extends AppCompatActivity {
         startActivity( new Intent( EmployeeActivity.this, MainActivity.class));
     }
 
+    /**
+     * connectFirebase method that acts to connect the firebase using the firebase url
+     * @author: everyone
+     */
     private void connectFirebase(){
         firebaseDB = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL);
         firebaseDBRef = firebaseDB.getReference("users");
