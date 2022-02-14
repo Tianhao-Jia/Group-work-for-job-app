@@ -49,8 +49,12 @@ public class LogoutForEmployeeTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.example.myapplication", appContext.getPackageName());
     }
+    /**
+     * US4-AT1:
+     *
+     * Register one user as an employee and then try click the logout button and test if it work.
+     */
 
-    /** TODO: Currently failing */
     @Test
     // run isolate
     public void logOutWithIntent() {
@@ -76,6 +80,12 @@ public class LogoutForEmployeeTest {
         onView(withId(R.id.employeeLogoutButton)).perform(click());
         intended(hasComponent(MainActivity.class.getName()));
     }
+
+    /**
+     * US4-AT1:
+     *
+     * test the logout button can worked after one user registered
+     */
 
     @Test
     public void testLogOutSp() {
