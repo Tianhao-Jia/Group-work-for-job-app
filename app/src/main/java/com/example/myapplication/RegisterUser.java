@@ -60,7 +60,12 @@ public class RegisterUser extends AppCompatActivity {
         });
     }
 
+    /**
+     * registerUser(): if the user doesn't already have an account, and the user inputs the correct
+     *                 details, then it successfully registers the user
+     */
     public void registerUser(){
+        // get the reference to the database
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -78,6 +83,8 @@ public class RegisterUser extends AppCompatActivity {
 
                 }
 
+                // if user already exists, then display an error message, otherwise validate user
+                // input
                 if(userAlreadyExists){
                     displayToast("You are already registered!");
                 } else{
@@ -87,6 +94,8 @@ public class RegisterUser extends AppCompatActivity {
                         //implementation of part of US-3
                         String userType = userTypeField.getText().toString();
 
+                        // if user registers as an Employee, they have essentially logged in as
+                        // an employee; if user type is Employer,  then log in as employer
                         if (userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
                             Intent intent = new Intent(RegisterUser.this, EmployeeActivity.class);
                             intent.putExtra("Login Email", emailField.getText().toString());
@@ -144,8 +153,6 @@ public class RegisterUser extends AppCompatActivity {
             map.put("email", emailField.getText().toString());
             map.put("userType", userTypeField.getText().toString());
             map.put("password", passwordField.getText().toString());
-            //potentially dangerous af to declare it true off the bat but we don't have to worry
-            //security right?
             map.put("loginState", true);
 
             // Getting an instance of the firebase realtime database
@@ -156,22 +163,12 @@ public class RegisterUser extends AppCompatActivity {
                     .setValue(map)
                     .addOnSuccessListener(aVoid -> {
                         displayToast("Registered!");
-                        // TODO: commented out finish to run tests cases - find a fix for this
-                        //finish();
                     });
         }
         else {
             Toast.makeText(getBaseContext(), "Please select from employee or employer", Toast.LENGTH_SHORT).show();
         }
 
-    }
-
-    /**
-     * clearDatabase(): clears the firebase database
-     * Note: main use is for testing
-     */
-    public void clearDatabase(){
-        FirebaseDatabase.getInstance().getReference("users").setValue(null);
     }
 
     /**
