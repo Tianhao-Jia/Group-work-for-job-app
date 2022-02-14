@@ -41,13 +41,11 @@ public class EmployerEspressoTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.loginfinal", appContext.getPackageName());
+        assertEquals("com.example.myapplication", appContext.getPackageName());
     }
 
     @Test
     public void testOpenEmployerActivity() {
-
-        //previous merge broke this test. need to modify it.
 
         onView(withId(R.id.goToEmployerActivity)).perform(click());
         intended(hasComponent(LoginActivity.class.getName()));

@@ -24,6 +24,23 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
+/**
+ * RegisterUser Activity that is responsible for allowing a user to signup their user details
+ * and submit it to a database to be stored for later login. The RegisterUser activity also
+ * redirects the user to the correct EmployeeActivity or EmployerActivity depending on their
+ * chosen Employment type.
+ * @authors: Nathanael Bowley,
+ *          John Corsten,
+ *          Nathan Horne,
+ *          Ted Graveson,
+ *          Hongzheng Ding,
+ *          Tianhao Jia,
+ *          Saher Anwar Ziauddin
+ * @course: CSCI3130 @ Dalhousie University.
+ * @semester: Winter 2022
+ * @group: Group 4
+ * @clientTA: Disha Malik
+ */
 public class RegisterUser extends AppCompatActivity {
 
     private EditText nameFNField;
@@ -45,10 +62,6 @@ public class RegisterUser extends AppCompatActivity {
         emailField = findViewById(R.id.registerEmail);
         userTypeField = findViewById(R.id.registerUserType);
         passwordField = findViewById(R.id.registerPasswordET);
-
-//        imageView = (ImageView) findViewById(R.id.registerProfile);
-//        imageView.setVisibility(View.VISIBLE);
-//        imageView.bringToFront();
 
         Button registerButton = findViewById(R.id.registerButton);
 
@@ -141,7 +154,7 @@ public class RegisterUser extends AppCompatActivity {
         EditText nameLNField = findViewById(R.id.registerLastName);
         EditText emailField = findViewById(R.id.registerEmail);
         EditText userTypeField = findViewById(R.id.registerUserType);
-        //fEditText passwordField = findViewById(R.id.registerPasswordET);
+        EditText passwordField = findViewById(R.id.registerPasswordET);
 
         //US-3 functionality forcing 2 types of users
         String userType = userTypeField.getText().toString();

@@ -30,9 +30,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class LogoutForEmployeeTest {
+public class LogoutForEmployerTest {
     @Rule
-    public ActivityScenarioRule<EmployeeActivity> myRule = new ActivityScenarioRule<>(EmployeeActivity.class);
+    public ActivityScenarioRule myRule = new ActivityScenarioRule<>(EmployerActivity.class);
 
     @BeforeClass
     public static void setup() {
@@ -49,10 +49,11 @@ public class LogoutForEmployeeTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.example.myapplication", appContext.getPackageName());
     }
+
     /**
      * US4-AT1:
      *
-     * Register one user as an employee and then try click the logout button and test if it work.
+     * Register one user as an employer and then try click the logout button and test if it work.
      */
     @Test
     // run isolate
@@ -64,7 +65,7 @@ public class LogoutForEmployeeTest {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerButton)).perform(click());
 
@@ -76,7 +77,7 @@ public class LogoutForEmployeeTest {
         onView(withId(R.id.loginButton)).perform(click());
 
 
-        onView(withId(R.id.employeeLogoutButton)).perform(click());
+        onView(withId(R.id.employerLogoutButton)).perform(click());
         intended(hasComponent(MainActivity.class.getName()));
     }
 
@@ -85,6 +86,7 @@ public class LogoutForEmployeeTest {
      *
      * test the logout button can worked after one user registered
      */
+
     @Test
     public void testLogOutSp() {
         ActivityScenario.launch(RegisterUser.class);
@@ -94,7 +96,7 @@ public class LogoutForEmployeeTest {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerButton)).perform(click());
 
@@ -106,7 +108,7 @@ public class LogoutForEmployeeTest {
         onView(withId(R.id.loginButton)).perform(click());
 
 
-        onView(withId(R.id.employeeLogoutButton)).perform(click());
+        onView(withId(R.id.employerLogoutButton)).perform(click());
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         SharedPreferences sharedPref = appContext.getSharedPreferences("pref", Context.MODE_PRIVATE);
         assertEquals("", sharedPref.getString("Key_email",""));
@@ -119,3 +121,4 @@ public class LogoutForEmployeeTest {
 
 
 }
+

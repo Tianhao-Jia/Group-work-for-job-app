@@ -19,6 +19,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * LoginActivity class that manages the LoginActivity events that are enacted by a user.
+ * @authors: Nathanael Bowley,
+ *          John Corsten,
+ *          Nathan Horne,
+ *          Ted Graveson,
+ *          Hongzheng Ding,
+ *          Tianhao Jia,
+ *          Saher Anwar Ziauddin
+ * @course: CSCI3130 @ Dalhousie University.
+ * @semester: Winter 2022
+ * @group: Group 4
+ * @clientTA: Disha Malik
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private static final String FIREBASE_DATABASE_URL = "https://quick-cash-55715-default-rtdb.firebaseio.com/";
