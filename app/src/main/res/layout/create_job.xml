@@ -8,6 +8,17 @@
     tools:context=".CreateJob">
 
     <TextView
+        android:id="@+id/createJobTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Job"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
         android:id="@+id/employerEmail"
         android:layout_width="160dp"
         android:layout_height="61dp"
@@ -16,6 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/createJobTitle"
         tools:ignore="MissingConstraints"
         tools:visibility="visible" />
 
@@ -59,5 +71,15 @@
         android:inputType="numberDecimal"
         tools:ignore="MissingConstraints"
         tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/submitJobButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Submit Job!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hourlyRate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
