@@ -34,7 +34,7 @@ public class EmployerActivity extends AppCompatActivity {
     private DatabaseReference firebaseDBRef;
 
     TextView loginDisplay;
-    Button logoutButton;
+    Button logoutButton, createJobButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class EmployerActivity extends AppCompatActivity {
 
         loginDisplay = (TextView) findViewById(R.id.employerLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employerLogoutButton);
+        createJobButton = (Button) findViewById(R.id.createJob);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -62,6 +63,13 @@ public class EmployerActivity extends AppCompatActivity {
             Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
             startActivity(intent);
         }
+
+        createJobButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, CreateJob.class));
+            }
+        });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

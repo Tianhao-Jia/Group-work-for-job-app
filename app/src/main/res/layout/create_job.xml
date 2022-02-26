@@ -7,11 +7,12 @@
     android:layout_height="match_parent"
     tools:context=".CreateJob">
 
-    <EditText
+    <TextView
         android:id="@+id/employerEmail"
         android:layout_width="160dp"
         android:layout_height="61dp"
         android:visibility="visible"
+        android:hint="Employer Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,6 +27,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/employerEmail"
+        android:hint="Job Title"
         tools:ignore="MissingConstraints"
         tools:visibility="visible" />
 
@@ -37,6 +40,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/jobTitle"
+        android:hint="Description"
+        android:inputType="text"
         tools:ignore="MissingConstraints"
         tools:visibility="visible" />
 
@@ -48,6 +54,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description"
+        android:hint="Hourly Rate"
         android:inputType="numberDecimal"
         tools:ignore="MissingConstraints"
         tools:visibility="visible" />

@@ -1,7 +1,22 @@
 package com.example.myapplication;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-public class CreateJob extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class CreateJob extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.create_job);
+    }
+
 
 }
