@@ -9,6 +9,7 @@ public class Job extends AppCompatActivity {
 
     private String employer_email;
     private String job_title;
+<<<<<<< Updated upstream
     private String description;
 
     /**
@@ -41,6 +42,8 @@ public class Job extends AppCompatActivity {
     public String getDescription() {
         return description;
     }
+=======
+>>>>>>> Stashed changes
 
     public void setDescription(String description) {
         this.description = description;
