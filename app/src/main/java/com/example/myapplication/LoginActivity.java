@@ -35,7 +35,6 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String FIREBASE_DATABASE_URL = "https://quick-cash-55715-default-rtdb.firebaseio.com/";
     private FirebaseDatabase firebaseDB;
     private DatabaseReference firebaseDBRef;
     private TextView textView;
@@ -162,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
      * @author: everyone
      */
     private void connectFirebase(){
-        firebaseDB = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL);
+        firebaseDB = FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL);
         firebaseDBRef = firebaseDB.getReference("users");
     }
 
