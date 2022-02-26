@@ -11,11 +11,17 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class CreateJob extends AppCompatActivity {
+    Data
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_job);
+    }
+
+
+    protected boolean pushJob(Job job) {
+
     }
 
 
