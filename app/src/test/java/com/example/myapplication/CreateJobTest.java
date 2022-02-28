@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 
 import android.text.TextUtils;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -17,8 +18,9 @@ import org.junit.Test;
 
 
 public class CreateJobTest {
-    private FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-    private DatabaseReference jobsRef = firebaseDB.getReference(FirebaseUtils.JOBS);
+
+//    private FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
+//    private DatabaseReference jobsRef = firebaseDB.getReference(FirebaseUtils.JOBS);
 
     static CreateJob createJobActivity;
 
@@ -32,11 +34,14 @@ public class CreateJobTest {
         System.gc();
     }
 
-    @Test
-    public void pushJobTest() {
-        Job test = new Job("rsmith@dal.ca", "TA", "Carry 2110");
-        assertTrue(createJobActivity.pushJob(test, jobsRef));
-    }
+//    @Test
+//    public void pushJobTest() {
+//        Job test = new Job("rsmith@dal.ca", "TA", "Carry 2110");
+//        FirebaseApp.initializeApp();
+//        FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
+//        DatabaseReference jobsRef = firebaseDB.getReference(FirebaseUtils.JOBS);
+//        assertTrue(createJobActivity.pushJob(test, jobsRef));
+//    }
 
 
 }

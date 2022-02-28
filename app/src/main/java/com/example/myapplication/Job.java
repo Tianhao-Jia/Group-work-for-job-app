@@ -1,11 +1,10 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
+
 
 import android.app.AppComponentFactory;
-import android.os.Bundle;
 
-public class Job extends AppCompatActivity {
+public class Job {
 
     private String employer_email;
     private String job_title;
