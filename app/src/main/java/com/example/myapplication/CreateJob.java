@@ -45,23 +45,33 @@ public class CreateJob extends AppCompatActivity {
         EditText wage = findViewById(R.id.hourlyRate);
 
         Job job = new Job("cityboi@dal.ca", jobTitle.getText().toString(),
-                jobDesc.getText().toString());
-        Toast.makeText(CreateJob.this,"Made Job", Toast.LENGTH_SHORT).show();
+                jobDesc.getText().toString(), Integer.parseInt(wage.getText().toString()));
 
+        job.setLocation(getLocation());
         return job;
     }
 
 
-    protected boolean pushJob(Job job, DatabaseReference jobsRef) {
+    protected String pushJob(Job job, DatabaseReference jobsRef) {
         //Push unique job details under "userID" node in jobs
         //userID needs to be mapped to logged in user
-        jobsRef.child("userID").push().setValue(job);
-        return true;
+        String jobID = jobsRef.child("userID").push().getKey();
+        jobsRef.child("userID").child(jobID).setValue(job);
+        return jobID;
     }
 
     protected String getEmployerEmail() {
         TextView empEmail = findViewById(R.id.employerEmail);
         return empEmail.getText().toString();
+    }
+
+    //This will need to be extended.
+    //Perhaps based on a google maps pin
+    //or address and then extract lat and long
+    //with gmaps API
+    protected Location getLocation() {
+        //Hard coded for now
+        return new Location(32.539555, 75.970955);
     }
 
 
