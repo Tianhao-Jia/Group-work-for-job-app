@@ -36,7 +36,7 @@ public class EmployeeActivity extends AppCompatActivity {
 
     TextView loginDisplay;
     Button logoutButton;
-
+    Button openmap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +44,7 @@ public class EmployeeActivity extends AppCompatActivity {
 
         connectFirebase();
 
-
+        openmap = findViewById(R.id.mapbutton);
         loginDisplay = (TextView) findViewById(R.id.employeeLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employeeLogoutButton);
 
@@ -70,6 +70,14 @@ public class EmployeeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logoutAndChangeLoginState();
+            }
+        });
+
+
+        openmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployeeActivity.this, MapsActivity.class));
             }
         });
     }
