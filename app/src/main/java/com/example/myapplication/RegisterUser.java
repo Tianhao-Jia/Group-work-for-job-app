@@ -169,7 +169,7 @@ public class RegisterUser extends AppCompatActivity {
             map.put("loginState", true);
 
             // Getting an instance of the firebase realtime database
-            FirebaseDatabase.getInstance("https://quick-cash-55715-default-rtdb.firebaseio.com/")
+            FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
                     .getReference()
                     .child("users")
                     .push()

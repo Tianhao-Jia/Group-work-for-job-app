@@ -29,12 +29,11 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class EmployerActivity extends AppCompatActivity {
 
-    private static final String FIREBASE_DATABASE_URL = "https://quick-cash-55715-default-rtdb.firebaseio.com/";
     private FirebaseDatabase firebaseDB;
     private DatabaseReference firebaseDBRef;
 
     TextView loginDisplay;
-    Button logoutButton;
+    Button logoutButton, createJobButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +42,7 @@ public class EmployerActivity extends AppCompatActivity {
 
         loginDisplay = (TextView) findViewById(R.id.employerLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employerLogoutButton);
+        createJobButton = (Button) findViewById(R.id.createJob);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -62,6 +62,13 @@ public class EmployerActivity extends AppCompatActivity {
             Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
             startActivity(intent);
         }
+
+        createJobButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, CreateJob.class));
+            }
+        });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,7 +110,7 @@ public class EmployerActivity extends AppCompatActivity {
      * @author Nathan Horne and Nathanael Bowley (hash functionality)
      */
     private void connectFirebase(){
-        firebaseDB = FirebaseDatabase.getInstance(FIREBASE_DATABASE_URL);
+        firebaseDB = FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL);
         firebaseDBRef = firebaseDB.getReference("users");
 
     }

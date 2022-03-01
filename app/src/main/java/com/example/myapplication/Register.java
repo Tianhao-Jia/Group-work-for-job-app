@@ -89,9 +89,9 @@ public class Register extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Uri> task) {
                                         String imageUrl = task.toString();
                                         UserModel userModel = new UserModel();
-                                        userModel.name = name.getText().toString();
-                                        userModel.uid = uid;
-                                        userModel.imageUrl = imageUrl;
+                                        userModel.setName(name.getText().toString());
+                                        userModel.setUid(uid);
+                                        userModel.setImageUrl(imageUrl);
                                         FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
                                     }
                                 });
