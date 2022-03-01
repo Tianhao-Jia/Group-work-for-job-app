@@ -33,15 +33,17 @@ public class EmployerActivity extends AppCompatActivity {
     private DatabaseReference firebaseDBRef;
 
     TextView loginDisplay;
-    Button logoutButton;
+    Button logoutButton, createJobButton;
+    Button openmaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer);
-
+        openmaps = findViewById(R.id.check);
         loginDisplay = (TextView) findViewById(R.id.employerLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employerLogoutButton);
+        createJobButton = (Button) findViewById(R.id.createJob);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -62,10 +64,24 @@ public class EmployerActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        createJobButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, CreateJob.class));
+            }
+        });
+
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 logout();
+            }
+        });
+
+        openmaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, MapsActivity.class));
             }
         });
     }
