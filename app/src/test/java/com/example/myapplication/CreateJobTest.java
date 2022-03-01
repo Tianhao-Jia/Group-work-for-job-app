@@ -19,9 +19,6 @@ import org.junit.Test;
 
 public class CreateJobTest {
 
-//    private FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-//    private DatabaseReference jobsRef = firebaseDB.getReference(FirebaseUtils.JOBS);
-
     static CreateJob createJobActivity;
 
     @BeforeClass
@@ -34,14 +31,35 @@ public class CreateJobTest {
         System.gc();
     }
 
-//    @Test
-//    public void pushJobTest() {
-//        Job test = new Job("rsmith@dal.ca", "TA", "Carry 2110");
-//        FirebaseApp.initializeApp();
-//        FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-//        DatabaseReference jobsRef = firebaseDB.getReference(FirebaseUtils.JOBS);
-//        assertTrue(createJobActivity.pushJob(test, jobsRef));
-//    }
+    @Test
+    public void validDesc() {
+        assertTrue(createJobActivity.validateJobDescription("This is a job description!"));
+    }
+
+    @Test
+    public void invalidDesc() {
+        assertFalse(createJobActivity.validateJobDescription(""));
+    }
+
+    @Test
+    public void validTitle() {
+        assertTrue(createJobActivity.validateTitle("A valid title!"));
+    }
+
+    @Test
+    public void invalidTitle() {
+        assertFalse(createJobActivity.validateTitle(""));
+    }
+
+    @Test
+    public void validWage() {
+        assertTrue(createJobActivity.validateWage("12345"));
+    }
+
+    @Test
+    public void invalidWage() {
+        assertFalse(createJobActivity.validateWage("-5"));
+    }
 
 
 }

@@ -9,6 +9,7 @@ public class Job {
     private String employer_email;
     private String job_title;
     private String description;
+    private double compensation = 0;
 
     /**
      * Default constructor for AppCompatActivity. All Activities must have a default constructor
@@ -43,5 +44,13 @@ public class Job {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getCompensation() {
+        return compensation;
+    }
+
+    public void setCompensation(double compensation) {
+        this.compensation = compensation;
     }
 }

@@ -17,11 +17,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CreateJob extends AppCompatActivity {
 
-    private FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-    private DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
+    private FirebaseDatabase firebaseDB;
+    private DatabaseReference jobsRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +35,32 @@ public class CreateJob extends AppCompatActivity {
         createJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Job job = getJob();
-                pushJob(job, jobsRef);
+                firebaseDB = FirebaseUtils.connectFirebase();
+                jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
+                Job job = createJob();
+                if (job != null) {
+                    pushJob(job, jobsRef);
+                }
+
             }
         });
     }
 
-    protected Job getJob() {
-        EditText jobTitle = findViewById(R.id.jobTitle);
-        EditText jobDesc = findViewById(R.id.description);
-        EditText wage = findViewById(R.id.hourlyRate);
+    protected Job createJob() {
+        if(validateInput()) {
+            EditText jobTitle = findViewById(R.id.jobTitle);
+            EditText jobDesc = findViewById(R.id.description);
+            EditText wage = findViewById(R.id.hourlyRate);
 
-        Job job = new Job("cityboi@dal.ca", jobTitle.getText().toString(),
-                jobDesc.getText().toString());
-        Toast.makeText(CreateJob.this,"Made Job", Toast.LENGTH_SHORT).show();
-
-        return job;
+            Job job = new Job(getEmployerEmail(), jobTitle.getText().toString(),
+                    jobDesc.getText().toString());
+            job.setCompensation(Integer.parseInt((wage.getText().toString())));
+            return job;
+        }
+        else {
+            Toast.makeText(CreateJob.this,"Invalid Input", Toast.LENGTH_SHORT).show();
+            return null;
+        }
     }
 
 
@@ -60,8 +72,43 @@ public class CreateJob extends AppCompatActivity {
     }
 
     protected String getEmployerEmail() {
-        TextView empEmail = findViewById(R.id.employerEmail);
-        return empEmail.getText().toString();
+//        TextView empEmail = findViewById(R.id.employerEmail);
+//        return empEmail.getText().toString();
+        return "cityboi@dal.ca";
+    }
+
+    protected boolean validateInput() {
+        EditText jobTitle = findViewById(R.id.jobTitle);
+        EditText jobDesc = findViewById(R.id.description);
+        EditText wage = findViewById(R.id.hourlyRate);
+
+        boolean validTitle =  validateTitle(jobTitle.getText().toString());
+        boolean validDesc = validateJobDescription(jobDesc.getText().toString());
+        boolean validWage = validateWage(wage.getText().toString());
+
+        return validTitle && validDesc && validWage;
+
+    }
+
+    protected boolean validateTitle(String jobTitle) {
+        Pattern fnPattern = Pattern.compile("^.{1,200}$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = fnPattern.matcher(jobTitle.trim());
+
+        return matcher.matches();
+    }
+
+    protected boolean validateJobDescription(String desc) {
+        Pattern fnPattern = Pattern.compile("^.{1,500}$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = fnPattern.matcher(desc.trim());
+
+        return matcher.matches();
+    }
+
+    protected boolean validateWage(String wage) {
+        Pattern fnPattern = Pattern.compile("^[0-9]{1,20}$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = fnPattern.matcher(wage.trim());
+
+        return matcher.matches();
     }
 
 
