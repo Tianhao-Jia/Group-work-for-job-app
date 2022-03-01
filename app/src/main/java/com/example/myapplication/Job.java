@@ -6,8 +6,8 @@ import android.app.AppComponentFactory;
 
 public class Job {
 
-    private String employer_email;
-    private String job_title;
+    private String employerEmail;
+    private String jobTitle;
     private String description;
     private double compensation = 0;
 
@@ -16,26 +16,26 @@ public class Job {
      * for API 27 and lower devices or when using the default
      * {@link AppComponentFactory}.
      */
-    public Job(String employer_email, String job_title, String description) {
-        this.employer_email = employer_email;
-        this.job_title = job_title;
+    public Job(String employerEmail, String jobTitle, String description) {
+        this.employerEmail = employerEmail;
+        this.jobTitle = jobTitle;
         this.description = description;
     }
 
-    public String getEmployer_email() {
-        return employer_email;
+    public String getEmployerEmail() {
+        return employerEmail;
     }
 
-    public void setEmployer_email(String employer_email) {
-        this.employer_email = employer_email;
+    public void setEmployerEmail(String employerEmail) {
+        this.employerEmail = employerEmail;
     }
 
-    public String getJob_title() {
-        return job_title;
+    public String getJobTitle() {
+        return jobTitle;
     }
 
-    public void setJob_title(String job_title) {
-        this.job_title = job_title;
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
     public String getDescription() {
