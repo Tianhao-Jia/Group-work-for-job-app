@@ -58,8 +58,8 @@ public class CreateJob extends AppCompatActivity {
             Job job = new Job(getEmployerEmail(), jobTitle.getText().toString(),
                     jobDesc.getText().toString());
             job.setCompensation(Integer.parseInt((wage.getText().toString())));
-            job.setLat(Integer.parseInt((lat.getText().toString())));
-            job.setLongitude(Integer.parseInt((longitude.getText().toString())));
+            job.setLat(Double.parseDouble((lat.getText().toString())));
+            job.setLongitude(Double.parseDouble((longitude.getText().toString())));
             return job;
         }
         else {
