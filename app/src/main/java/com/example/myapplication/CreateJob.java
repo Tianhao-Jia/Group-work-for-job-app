@@ -40,10 +40,16 @@ public class CreateJob extends AppCompatActivity {
                 Job job = createJob();
                 if (job != null) {
                     pushJob(job, jobsRef);
+                    setContentView(R.layout.activity_employer);
                 }
+
+
+
 
             }
         });
+
+
     }
 
     protected Job createJob() {

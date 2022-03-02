@@ -146,6 +146,11 @@ public class CreateJobEspresso {
         });
     }
 
+    @Test
+    public void allFieldsFilled(){
+
+    }
+
     //This method was always returning 0.
     //Might be due to some threading/asynch stuff
 
