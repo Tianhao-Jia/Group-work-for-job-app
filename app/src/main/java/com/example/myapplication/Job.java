@@ -5,6 +5,9 @@ package com.example.myapplication;
 import android.app.AppComponentFactory;
 
 public class Job {
+    public Job(){
+
+    }
 
     private String employer_email;
     private String job_title;
