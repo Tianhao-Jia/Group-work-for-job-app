@@ -146,9 +146,27 @@ public class CreateJobEspresso {
         });
     }
 
+    // Checks that user is redirected when all fields are filled
     @Test
     public void allFieldsFilled(){
+        onView(withId(R.id.jobTitle)).perform(typeText("Working and stuff."));
+        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.submitJobButton)).perform(click());
 
+        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
+    }
+
+    // Checks that user is not redirected when all fields are not filled
+    @Test
+    public void notAllFieldsFilled(){
+        onView(withId(R.id.jobTitle)).perform(typeText(""));
+        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJob)).check(matches(isDisplayed()));
     }
 
     //This method was always returning 0.

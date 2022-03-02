@@ -42,10 +42,6 @@ public class CreateJob extends AppCompatActivity {
                     pushJob(job, jobsRef);
                     setContentView(R.layout.activity_employer);
                 }
-
-
-
-
             }
         });
 
