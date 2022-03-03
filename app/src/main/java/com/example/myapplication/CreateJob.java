@@ -120,8 +120,11 @@ public class CreateJob extends AppCompatActivity {
     Method validates a given longitude or latitude (provided in degrees)
      */
     protected boolean validateLongLat(double coordinate){
-        // Not yet implemented
-        return false;
+        // Valid longitudes and latitudes are both between -180 degrees and 180 degrees
+        if (coordinate >= 180 || coordinate <= - 180){
+            return false;
+        }
+        return true;
     }
 
 }
