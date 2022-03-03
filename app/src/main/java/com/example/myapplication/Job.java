@@ -20,10 +20,12 @@ public class Job {
      * for API 27 and lower devices or when using the default
      * {@link AppComponentFactory}.
      */
-    public Job(String employer_email, String job_title, String description) {
+    public Job(String employer_email, String job_title, String description, double longitude, double latitude) {
         this.employer_email = employer_email;
         this.job_title = job_title;
         this.description = description;
+        this.lat = latitude;
+        this.longitude = longitude;
     }
 
     public double getLat() {

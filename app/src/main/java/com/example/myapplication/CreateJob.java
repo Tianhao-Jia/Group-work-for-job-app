@@ -53,9 +53,12 @@ public class CreateJob extends AppCompatActivity {
             EditText jobTitle = findViewById(R.id.jobTitle);
             EditText jobDesc = findViewById(R.id.description);
             EditText wage = findViewById(R.id.hourlyRate);
+            // Dummy values to be used until location functionality is added in another user story
+            double longitude = 100;
+            double latitude = 100;
 
             Job job = new Job(getEmployerEmail(), jobTitle.getText().toString(),
-                    jobDesc.getText().toString());
+                    jobDesc.getText().toString(), longitude, latitude);
             job.setCompensation(Integer.parseInt((wage.getText().toString())));
             return job;
         }
@@ -113,5 +116,12 @@ public class CreateJob extends AppCompatActivity {
         return matcher.matches();
     }
 
+    /**
+    Method validates a given longitude or latitude (provided in degrees)
+     */
+    protected boolean validateLongLat(double coordinate){
+        // Not yet implemented
+        return false;
+    }
 
 }
