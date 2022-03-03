@@ -32,7 +32,29 @@ public class GoogleMapsActivity extends AppCompatActivity{
         // this gets the entire xml file including buttons and other elements
         setContentView(binding.getRoot());
 
-        //checkMapPermission();
+        checkMapPermission();
     }
 
+    private void checkMapPermission() {
+        // need to check if permission is granted
+        // by default maps is only fine location permission so check if permission for FINE location is granted
+        // you can't check for course location before checking for Fine location
+        // you can only have Fine or both (coarse and fine)
+        if(ContextCompat.checkSelfPermission(getApplicationContext(), fineLocation)
+                == PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(getApplicationContext(), coarseLocation)
+                    == PackageManager.PERMISSION_GRANTED){
+                isLocationSet = true;
+                //initializeMap();
+            } else{
+                // permission not yet granted. Request for permission
+                ActivityCompat.requestPermissions(this, new String[]{fineLocation, coarseLocation}, 1234);
+            }
+        } else{
+            // permission not yet granted. Request for permission
+            ActivityCompat.requestPermissions(this, new String[]{fineLocation, coarseLocation}, 1234);
+            // ActivityCompat gets permission only when this Activity is launched
+            // ContextCompat will get the permission as soon as the app launches
+        }
+    }
 }
