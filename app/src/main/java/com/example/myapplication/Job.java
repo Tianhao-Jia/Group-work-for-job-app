@@ -10,6 +10,10 @@ public class Job {
     private String job_title;
     private String description;
     private double compensation = 0;
+    // Logitude and latitude representing the location of the job
+    private double lat;
+    private double longitude;
+
 
     /**
      * Default constructor for AppCompatActivity. All Activities must have a default constructor
@@ -20,6 +24,22 @@ public class Job {
         this.employer_email = employer_email;
         this.job_title = job_title;
         this.description = description;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude =longitude;
     }
 
     public String getEmployer_email() {
