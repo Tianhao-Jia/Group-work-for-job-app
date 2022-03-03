@@ -15,7 +15,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
-public class GoogleMapsActivity extends AppCompatActivity{
+public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap map;
     // binds activity to the fragment in xml
@@ -45,7 +45,7 @@ public class GoogleMapsActivity extends AppCompatActivity{
             if(ContextCompat.checkSelfPermission(getApplicationContext(), coarseLocation)
                     == PackageManager.PERMISSION_GRANTED){
                 isLocationSet = true;
-                //initializeMap();
+                initializeMap();
             } else{
                 // permission not yet granted. Request for permission
                 ActivityCompat.requestPermissions(this, new String[]{fineLocation, coarseLocation}, 1234);
@@ -56,5 +56,19 @@ public class GoogleMapsActivity extends AppCompatActivity{
             // ActivityCompat gets permission only when this Activity is launched
             // ContextCompat will get the permission as soon as the app launches
         }
+    }
+
+    private void initializeMap() {
+        // initializing the map to the fragment we created in the xml file
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.googleMap);
+        // fetching maps from google (internally calls OnMapReady())
+        mapFragment.getMapAsync(this);
+
+        // Note: if emulator doesn't have google play services, maps wont work
+    }
+
+    @Override
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+
     }
 }
