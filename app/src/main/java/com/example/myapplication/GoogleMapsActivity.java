@@ -17,8 +17,22 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 public class GoogleMapsActivity extends AppCompatActivity{
 
+    private GoogleMap map;
+    // binds activity to the fragment in xml
+    private ActivityGoogleMapsBinding binding; // TODO: is this same as ActivityMapBinding?
+    private String fineLocation = Manifest.permission.ACCESS_FINE_LOCATION;
+    private String coarseLocation = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private boolean isLocationSet = false;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // linking activity and layout together
+        binding = ActivityGoogleMapsBinding.inflate(getLayoutInflater());
+        // this gets the entire xml file including buttons and other elements
+        setContentView(binding.getRoot());
+
+        //checkMapPermission();
     }
+
 }
