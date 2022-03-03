@@ -40,6 +40,7 @@ public class EmployerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer);
 
+
         loginDisplay = (TextView) findViewById(R.id.employerLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employerLogoutButton);
         createJobButton = (Button) findViewById(R.id.createJob);

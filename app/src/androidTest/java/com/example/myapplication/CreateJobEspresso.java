@@ -16,11 +16,17 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.intent.Intents;
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -44,17 +50,28 @@ public class CreateJobEspresso {
     private static final FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
     private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
 
+
+
     @Rule
-    public ActivityScenarioRule myRule = new ActivityScenarioRule<>(CreateJob.class);
+    public ActivityScenarioRule<CreateJob> myRule = new ActivityScenarioRule<CreateJob>(CreateJob.class);
+
 
     @Before
     public void clearNode() {
+        Intents.init();
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), CreateJob.class);
+        intent.putExtra("Key_hash", "test");
+        intent.putExtra("Key_email", "email@dal.ca");
+        myRule = new ActivityScenarioRule<CreateJob>(intent);
+
         jobsRef.child("userID").setValue(null);
+
     }
 
     @BeforeClass
     public static void setup() {
-        Intents.init();
+//        Intents.init();
+
     }
 
     @AfterClass
@@ -64,6 +81,7 @@ public class CreateJobEspresso {
 
     @Test
     public void createJob(){
+
         onView(withId(R.id.jobTitle)).perform(typeText("Car Wash"));
         onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
         onView(withId(R.id.hourlyRate)).perform(typeText("25"));

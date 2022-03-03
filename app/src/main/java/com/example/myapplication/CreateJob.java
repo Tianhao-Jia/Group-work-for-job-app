@@ -31,16 +31,24 @@ public class CreateJob extends AppCompatActivity {
         setContentView(R.layout.create_job);
 
         Button createJobBtn = findViewById(R.id.submitJobButton);
+        Intent currentUser = getIntent();
+
 
         createJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 firebaseDB = FirebaseUtils.connectFirebase();
                 jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
-                Job job = createJob();
+                Job job = createJob(currentUser);
+
                 if (job != null) {
+<<<<<<< Updated upstream
                     pushJob(job, jobsRef);
                     setContentView(R.layout.activity_employer);
+=======
+                    pushJob(job, jobsRef.child(currentUser.getStringExtra("Key_hash")));
+                    Toast.makeText(CreateJob.this,"Sent job", Toast.LENGTH_SHORT).show();
+>>>>>>> Stashed changes
                 }
             }
         });
@@ -48,14 +56,14 @@ public class CreateJob extends AppCompatActivity {
 
     }
 
-    protected Job createJob() {
+    protected Job createJob(Intent currentUser) {
         if(validateInput()) {
             EditText jobTitle = findViewById(R.id.jobTitle);
             EditText jobDesc = findViewById(R.id.description);
             EditText wage = findViewById(R.id.hourlyRate);
 
-            Job job = new Job(getEmployerEmail(), jobTitle.getText().toString(),
-                    jobDesc.getText().toString());
+            Job job = new Job(currentUser.getStringExtra("Key_email"),
+                    jobTitle.getText().toString(), jobDesc.getText().toString());
             job.setCompensation(Integer.parseInt((wage.getText().toString())));
             return job;
         }
@@ -69,15 +77,10 @@ public class CreateJob extends AppCompatActivity {
     protected boolean pushJob(Job job, DatabaseReference jobsRef) {
         //Push unique job details under "userID" node in jobs
         //userID needs to be mapped to logged in user
-        jobsRef.child("userID").push().setValue(job);
+        jobsRef.push().setValue(job);
         return true;
     }
 
-    protected String getEmployerEmail() {
-//        TextView empEmail = findViewById(R.id.employerEmail);
-//        return empEmail.getText().toString();
-        return "cityboi@dal.ca";
-    }
 
     protected boolean validateInput() {
         EditText jobTitle = findViewById(R.id.jobTitle);
