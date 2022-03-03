@@ -69,6 +69,9 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-
+        if(isLocationSet){
+            // get current location of the device
+            // tell google maps services that maps is enabled (Set it to true)
+        }
     }
 }
