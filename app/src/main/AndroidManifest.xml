@@ -18,9 +18,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".GoogleMapsActivity"
-            android:exported="false" />
+<!--        <activity-->
+<!--            android:name=".GoogleMapsActivity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".RegisterUser"
             android:exported="false" />
@@ -39,8 +39,22 @@
         <activity
             android:name=".CreateJob"
             android:exported="false" />
+        <activity android:name=".LoginActivity" />
+
+        <!--        <activity-->
+<!--            android:name=".MainActivity"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
         <activity
             android:name=".MainActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".GoogleMapsActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -48,7 +62,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
+
     </application>
 
 </manifest>
