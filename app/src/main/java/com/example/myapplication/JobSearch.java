@@ -2,11 +2,19 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 public class JobSearch extends Activity {
 
     private EditText employerEmailEditText;
@@ -29,7 +37,7 @@ public class JobSearch extends Activity {
         init();
 
         firebaseDB = FirebaseUtils.connectFirebase();
-        jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
+        jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
 
         setSearchButtonListener();
 
@@ -57,7 +65,7 @@ public class JobSearch extends Activity {
     private void setSearchButtonListener() {
         searchButton.setOnClickListener(view -> {
             inputs[0] = employerEmailEditText.getText().toString();
-            inputs[1] = employerEmailEditText.getText().toString();
+            inputs[1] = jobTitleEditText.getText().toString();
             inputs[2] = descriptionEditText.getText().toString();
             inputs[3] = hourlyRateEditText.getText().toString();
 
@@ -86,7 +94,36 @@ public class JobSearch extends Activity {
      * @author: Nathanael Bowley
      */
     private void searchJobs(String[] searchPreferences) {
-        System.exit(0);
+
+        jobsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                Log.d("TESTING: ", snapshot.getValue().toString());
+
+                //citation based on code from csci3130 winter tutorial on march 2nd, 2022.
+                if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
+
+                    //searches among each child in jobs
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                        //TODO finish this method after implementing serializable interface on jobs.
+                        Log.d("TESTING: ", dataSnapshot.getValue().toString());
+
+                    }
+                    //end of citation
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        Log.d("value is: ", jobsRef.toString());
+
     }
 
 }

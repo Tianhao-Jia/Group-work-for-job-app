@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
@@ -16,14 +15,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,7 +38,7 @@ import org.junit.runner.RunWith;
 public class CreateJobEspresso {
 
     private static final FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-    private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
+    private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
 
     @Rule
     public ActivityScenarioRule myRule = new ActivityScenarioRule<>(CreateJob.class);
