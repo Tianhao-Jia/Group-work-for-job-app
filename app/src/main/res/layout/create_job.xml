@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <TextView
+    <EditText
         android:id="@+id/employerEmail"
         android:layout_width="160dp"
         android:layout_height="61dp"
