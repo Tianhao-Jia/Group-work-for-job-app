@@ -46,7 +46,7 @@ public class CreateJob extends AppCompatActivity {
      * createJob method that takes the EditText contents from create_job.xml and creates a Job
      * object to be returned.
      * @return Job object if input is valid, otherwise NULL.
-     * @author:
+     * @author: John Corsten
      * @refactorer: Nathanael Bowley
      */
     protected Job createJob() {
@@ -56,6 +56,10 @@ public class CreateJob extends AppCompatActivity {
             EditText jobTitleEditText = findViewById(R.id.createJobTitle);
             EditText jobDescEditText = findViewById(R.id.createJobDescription);
             EditText jobHourlyRateEditText = findViewById(R.id.createJobHourlyRate);
+
+            // Dummy values to be used until location functionality is added in another user story
+            double longitude = 100;
+            double latitude = 100;
 
             String jobEmail = jobEmailEditText.getText().toString();
             String jobTitle = jobTitleEditText.getText().toString();
@@ -68,7 +72,7 @@ public class CreateJob extends AppCompatActivity {
                 jobHourlyRate = 0;
             }
 
-            Job job = new Job(jobEmail, jobTitle, jobDesc);
+            Job job = new Job(jobEmail, jobTitle, jobDesc, latitude, longitude);
             job.setCompensation(jobHourlyRate);
             return job;
         }
@@ -120,5 +124,18 @@ public class CreateJob extends AppCompatActivity {
         return matcher.matches();
     }
 
+    /**
+     * Method validates a given longitude or latitude (provided in degrees)
+     * @param coordinate
+     * @return
+     * @author John Corsten
+     */
+    protected boolean validateLongLat(double coordinate){
+        // Valid longitudes and latitudes are both between -180 degrees and 180 degrees
+        if (coordinate >= 180 || coordinate <= - 180){
+            return false;
+        }
+        return true;
+    }
 
 }
