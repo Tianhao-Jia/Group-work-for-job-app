@@ -107,8 +107,16 @@ public class JobSearch extends Activity {
                     //searches among each child in jobs
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
+                        final Job job = dataSnapshot.getValue(Job.class);
+                        if (job != null) {
+
+                            Log.d("TEST OF JOB: ", job.getJobTitle() + " " + job.getDescription());
+
+                        }
                         //TODO finish this method after implementing serializable interface on jobs.
                         Log.d("TESTING: ", dataSnapshot.getValue().toString());
+
+
 
                     }
                     //end of citation

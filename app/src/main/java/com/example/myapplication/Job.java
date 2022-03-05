@@ -4,7 +4,9 @@ package com.example.myapplication;
 
 import android.app.AppComponentFactory;
 
-public class Job {
+import java.io.Serializable;
+
+public class Job implements Serializable {
 
     private String employerEmail;
     private String jobTitle;

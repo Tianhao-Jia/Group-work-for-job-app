@@ -24,7 +24,7 @@ public class CreateJob extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_job);
 
-        Button createJobBtn = findViewById(R.id.submitJobButton);
+        Button createJobBtn = findViewById(R.id.createJobSubmitButton);
 
         createJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,15 +42,34 @@ public class CreateJob extends AppCompatActivity {
 
     }
 
+    /**
+     * createJob method that takes the EditText contents from create_job.xml and creates a Job
+     * object to be returned.
+     * @return Job object if input is valid, otherwise NULL.
+     * @author:
+     * @refactorer: Nathanael Bowley
+     */
     protected Job createJob() {
         if(validateInput()) {
-            EditText jobTitle = findViewById(R.id.jobTitle);
-            EditText jobDesc = findViewById(R.id.description);
-            EditText wage = findViewById(R.id.hourlyRate);
 
-            Job job = new Job(getEmployerEmail(), jobTitle.getText().toString(),
-                    jobDesc.getText().toString());
-            job.setCompensation(Integer.parseInt((wage.getText().toString())));
+            EditText jobEmailEditText = findViewById(R.id.createJobEmail);
+            EditText jobTitleEditText = findViewById(R.id.createJobTitle);
+            EditText jobDescEditText = findViewById(R.id.createJobDescription);
+            EditText jobHourlyRateEditText = findViewById(R.id.createJobHourlyRate);
+
+            String jobEmail = jobEmailEditText.getText().toString();
+            String jobTitle = jobTitleEditText.getText().toString();
+            String jobDesc = jobDescEditText.getText().toString();
+            double jobHourlyRate;
+
+            try {
+                jobHourlyRate = Integer.parseInt(jobHourlyRateEditText.getText().toString());
+            } catch (NumberFormatException e) {
+                jobHourlyRate = 0;
+            }
+
+            Job job = new Job(jobEmail, jobTitle, jobDesc);
+            job.setCompensation(jobHourlyRate);
             return job;
         }
         else {
@@ -67,16 +86,10 @@ public class CreateJob extends AppCompatActivity {
         return true;
     }
 
-    protected String getEmployerEmail() {
-//        TextView empEmail = findViewById(R.id.employerEmail);
-//        return empEmail.getText().toString();
-        return "cityboi@dal.ca";
-    }
-
     protected boolean validateInput() {
-        EditText jobTitle = findViewById(R.id.jobTitle);
-        EditText jobDesc = findViewById(R.id.description);
-        EditText wage = findViewById(R.id.hourlyRate);
+        EditText jobTitle = findViewById(R.id.createJobTitle);
+        EditText jobDesc = findViewById(R.id.createJobDescription);
+        EditText wage = findViewById(R.id.createJobHourlyRate);
 
         boolean validTitle =  validateTitle(jobTitle.getText().toString());
         boolean validDesc = validateJobDescription(jobDesc.getText().toString());
