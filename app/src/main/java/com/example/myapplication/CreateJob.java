@@ -58,8 +58,9 @@ public class CreateJob extends AppCompatActivity {
             EditText jobHourlyRateEditText = findViewById(R.id.createJobHourlyRate);
 
             // Dummy values to be used until location functionality is added in another user story
-            double longitude = 100;
             double latitude = 100;
+            double longitude = 100;
+            Location location = new Location(latitude, longitude);
 
             String jobEmail = jobEmailEditText.getText().toString();
             String jobTitle = jobTitleEditText.getText().toString();
@@ -72,7 +73,7 @@ public class CreateJob extends AppCompatActivity {
                 jobHourlyRate = 0;
             }
 
-            Job job = new Job(jobEmail, jobTitle, jobDesc, latitude, longitude);
+            Job job = new Job(jobEmail, jobTitle, jobDesc, location);
             job.setCompensation(jobHourlyRate);
             return job;
         }

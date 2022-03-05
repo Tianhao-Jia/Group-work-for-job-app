@@ -12,9 +12,9 @@ public class Job implements Serializable {
     private String jobTitle;
     private String description;
     private double compensation = 0;
-    // Logitude and latitude representing the location of the job
-    private double lat;
-    private double longitude;
+
+
+    private Location location;
 
 
     /**
@@ -22,28 +22,11 @@ public class Job implements Serializable {
      * for API 27 and lower devices or when using the default
      * {@link AppComponentFactory}.
      */
-    public Job(String employerEmail, String jobTitle, String description, double longitude, double latitude) {
+    public Job(String employerEmail, String jobTitle, String description, Location location) {
         this.employerEmail = employerEmail;
         this.jobTitle = jobTitle;
         this.description = description;
-        this.lat = latitude;
-        this.longitude = longitude;
-    }
-
-    public double getLat() {
-        return lat;
-    }
-
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude =longitude;
+        this.location = location;
     }
 
     public String getEmployerEmail() {
@@ -76,5 +59,13 @@ public class Job implements Serializable {
 
     public void setCompensation(double compensation) {
         this.compensation = compensation;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
