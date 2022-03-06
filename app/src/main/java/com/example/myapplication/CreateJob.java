@@ -32,6 +32,10 @@ public class CreateJob extends AppCompatActivity {
 
         Button createJobBtn = findViewById(R.id.submitJobButton);
 
+        TextView email = findViewById(R.id.employerEmail);
+
+        email.setText(getEmployerEmail());
+
         createJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,14 +76,40 @@ public class CreateJob extends AppCompatActivity {
     protected boolean pushJob(Job job, DatabaseReference jobsRef) {
         //Push unique job details under "userID" node in jobs
         //userID needs to be mapped to logged in user
-        jobsRef.child("userID").push().setValue(job);
+
+        // Stores job in job node on realtime database, filed under the hash corresponding to the user
+            // that created the job
+        jobsRef.child(getUserHash()).push().setValue(job);
         return true;
+    }
+
+    protected String getUserHash(){
+        String hash;
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            hash = extras.getString("User Hash");;
+        }
+        else{
+            hash = "hasNotFound";
+        }
+        return hash;
     }
 
     protected String getEmployerEmail() {
 //        TextView empEmail = findViewById(R.id.employerEmail);
 //        return empEmail.getText().toString();
-        return "cityboi@dal.ca";
+
+        String employerEmail;
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            employerEmail = extras.getString("Login Email");;
+        }
+        else{
+            employerEmail = "notFound@dal.ca";
+        }
+        return employerEmail;
     }
 
     protected boolean validateInput() {
