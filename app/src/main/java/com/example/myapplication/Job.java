@@ -16,6 +16,14 @@ public class Job implements Serializable {
 
     private Location location;
 
+    /**
+     * REQUIRED FOR JOBSEARCH TO WORK. No args constructor
+     */
+    public Job() {
+
+        this.location = new Location(0,0);
+
+    }
 
     /**
      * Default constructor for AppCompatActivity. All Activities must have a default constructor

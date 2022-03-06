@@ -21,6 +21,13 @@ public class Location {
     private double latitude;
     private double longitude;
 
+    /**
+     * REQUIRED FOR JOBSEARCH - no args constructor
+     */
+    public Location() {
+
+    }
+
     public Location(double latitude, double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;

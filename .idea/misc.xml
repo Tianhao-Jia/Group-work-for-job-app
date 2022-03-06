@@ -22,7 +22,9 @@
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/activity_register.xml" value="0.1925925925925926" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/activity_register_user.xml" value="0.2" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/create_job.xml" value="0.2388888888888889" />
-        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/job_search.xml" value="0.2677165354330709" />
+        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/job_layout.xml" value="0.40714285714285714" />
+        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/job_search.xml" value="0.17647058823529413" />
+        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/layout.xml" value="0.13854166666666667" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/login_page.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/saher/Dalhousie/Software Engineering/csci-3130-group-4-project/app/src/main/res/layout/activity_employee.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/saher/Dalhousie/Software Engineering/csci-3130-group-4-project/app/src/main/res/layout/activity_employer.xml" value="0.20520833333333333" />
@@ -39,9 +41,6 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20697463768115942" />
       </map>
     </option>
-  </component>
-  <component name="PDMPlugin">
-    <option name="skipTestSources" value="false" />
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
