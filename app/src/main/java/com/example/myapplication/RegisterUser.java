@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+import java.util.Random;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -102,7 +103,7 @@ public class RegisterUser extends AppCompatActivity {
                     displayToast("You are already registered!");
                 } else{
                     if(validateInput()) {
-                        addRecord();
+                        String key = addRecord();
 
                         //implementation of part of US-3
                         String userType = userTypeField.getText().toString();
@@ -114,6 +115,7 @@ public class RegisterUser extends AppCompatActivity {
                             intent.putExtra("Login Email", emailField.getText().toString());
                             intent.putExtra("Login Password", passwordField.getText().toString());
                             intent.putExtra("User Type", Employee.EMPLOYEE);
+                            intent.putExtra("User Hash", key);
                             startActivity(intent);
                         }
                         else if (userType.equalsIgnoreCase(Employer.EMPLOYER)) {
@@ -121,6 +123,7 @@ public class RegisterUser extends AppCompatActivity {
                             intent.putExtra("Login Email", emailField.getText().toString());
                             intent.putExtra("Login Password", passwordField.getText().toString());
                             intent.putExtra("User Type", Employer.EMPLOYER);
+                            intent.putExtra("User Hash", key);
                             startActivity(intent);
                         }
                         else {
@@ -147,7 +150,7 @@ public class RegisterUser extends AppCompatActivity {
      * addRecord(): reads the existing values inputted to the fields and adds them to the database
      *              as a hashmap record under the child "users"
      */
-    protected void addRecord() {
+    protected String addRecord() {
 
         // Finding all views by ID from the register page
         EditText nameFNField = findViewById(R.id.registerFirstName);
@@ -155,6 +158,8 @@ public class RegisterUser extends AppCompatActivity {
         EditText emailField = findViewById(R.id.registerEmail);
         EditText userTypeField = findViewById(R.id.registerUserType);
         EditText passwordField = findViewById(R.id.registerPasswordET);
+        Random rand = new Random();
+        String key = Integer.toString(rand.nextInt(1000000000));
 
         //US-3 functionality forcing 2 types of users
         String userType = userTypeField.getText().toString();
@@ -168,19 +173,22 @@ public class RegisterUser extends AppCompatActivity {
             map.put("password", passwordField.getText().toString());
             map.put("loginState", true);
 
+
             // Getting an instance of the firebase realtime database
             FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
                     .getReference()
                     .child("users")
-                    .push()
+                    .child(key)
                     .setValue(map)
                     .addOnSuccessListener(aVoid -> {
                         displayToast("Registered!");
                     });
+            return key;
         }
         else {
             Toast.makeText(getBaseContext(), "Please select from employee or employer", Toast.LENGTH_SHORT).show();
         }
+        return "none";
 
     }
 

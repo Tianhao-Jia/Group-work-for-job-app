@@ -44,6 +44,18 @@ public class CreateJob extends AppCompatActivity {
                 Job job = createJob();
                 if (job != null) {
                     pushJob(job, jobsRef);
+
+                    Intent newIntent = new Intent(CreateJob.this, EmployerActivity.class);
+                    Bundle extras = getIntent().getExtras();
+                    if (extras != null) {
+                        newIntent.putExtra("User Hash", extras.getString("User Hash"));
+                        newIntent.putExtra("Login Email", extras.getString("Login Email"));
+                        newIntent.putExtra("Login Password", extras.getString("Login Password"));
+                        newIntent.putExtra("User Type", extras.getString("User Type"));
+                    }
+                    startActivity(newIntent);
+
+
                     setContentView(R.layout.activity_employer);
                 }
             }
@@ -76,10 +88,14 @@ public class CreateJob extends AppCompatActivity {
     protected boolean pushJob(Job job, DatabaseReference jobsRef) {
         //Push unique job details under "userID" node in jobs
         //userID needs to be mapped to logged in user
+        if (getUserHash() == null){
 
-        // Stores job in job node on realtime database, filed under the hash corresponding to the user
+        }
+        else{
+            // Stores job in job node on realtime database, filed under the hash corresponding to the user
             // that created the job
-        jobsRef.child(getUserHash()).push().setValue(job);
+            jobsRef.child(getUserHash()).push().setValue(job);
+        }
         return true;
     }
 
@@ -91,7 +107,7 @@ public class CreateJob extends AppCompatActivity {
             hash = extras.getString("User Hash");;
         }
         else{
-            hash = "hasNotFound";
+            hash = "hashNotFound";
         }
         return hash;
     }
