@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import static com.example.myapplication.ViewJobAdapter.getHolderArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class JobSearch extends Activity {
@@ -61,6 +64,7 @@ public class JobSearch extends Activity {
         firebaseDB = FirebaseUtils.connectFirebase();
         jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
 
+        //citation based on code from Dhrumils lab presentation on march 2nd in this course csci3130
         FirebaseRecyclerOptions<Job> options = new FirebaseRecyclerOptions.Builder<Job>()
                 .setQuery(FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
                         .getReference()
@@ -69,6 +73,7 @@ public class JobSearch extends Activity {
 
         viewJobAdapter = new ViewJobAdapter(options);
         recyclerView.setAdapter(viewJobAdapter);
+        //end citation
 
         setSearchButtonListener();
 
@@ -148,36 +153,27 @@ public class JobSearch extends Activity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                Log.d("TESTING: ", snapshot.getValue().toString());
-
                 //citation based on code from csci3130 winter tutorial on march 2nd, 2022.
                 if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
 
                     //searches among each child in jobs
 
-                    Log.d("testing: ", snapshot.getChildren().toString());
-                    Log.d("testing: ", snapshot.getValue().getClass().toString());
-
+                    //pretraverse and hide all
+                    ArrayList<ViewJobAdapter.JobViewHolder> viewHolders = ViewJobAdapter.getHolderArrayList();
+                    for (int i = 0; i< viewHolders.size(); i++) {
+                        viewJobAdapter.onBindViewHolder(viewHolders.get(i),true);
+                    }
 
 
                     int currPosition = 0;
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
+                        Job job = dataSnapshot.getValue(Job.class);
 
-                        Job job1 = dataSnapshot.getValue(Job.class);
-                        Log.d("testing: ", job1.getJobTitle());
-                        Log.d("test:", dataSnapshot.getClass().toString());
-
-                        //if somebody stores an int that is the size of a long this will crash
-//                        String employerEmail = dataSnapshot.child("employerEmail").getValue().toString();
-//                        String jobTitle = dataSnapshot.child("jobTitle").getValue().toString();
-//                        String description = dataSnapshot.child("description").getValue().toString();
-//                        String compensation = dataSnapshot.child("compensation").getValue().toString();
-
-                        String employerEmail = job1.getEmployerEmail();
-                        String jobTitle = job1.getJobTitle();
-                        String description = job1.getDescription();
-                        String compensation = String.valueOf(job1.getCompensation());
+                        String employerEmail = job.getEmployerEmail();
+                        String jobTitle = job.getJobTitle();
+                        String description = job.getDescription();
+                        String compensation = String.valueOf(job.getCompensation());
 
                         String[] currentJob = {employerEmail, jobTitle, description, compensation};
 
@@ -190,67 +186,14 @@ public class JobSearch extends Activity {
 
                         //if we want to save the job then we will can get the location and then output this job.
                         if (saveJob) {
-//                            Iterator<DataSnapshot> locationIterator = dataSnapshot.child("location").getChildren().iterator();
-//
-//                            double latitude = 0;
-//                            double longitude = 0;
-//                            if (locationIterator.hasNext()) {
-//                                latitude = Double.parseDouble(locationIterator.next().getValue().toString());
-//                            }
-//
-//                            if (locationIterator.hasNext()) {
-//                                longitude = Double.parseDouble(locationIterator.next().getValue().toString());
-//                            }
 
-                            //Location location = new Location(latitude, longitude);
-                           // Job job = new Job(employerEmail, jobTitle, description, location);
+                            //I need to implement a algorithm to shift the ones I want up I think
+                            Log.d("testing: ",viewJobAdapter.getRef(currPosition).toString());
+                            viewJobAdapter.onBindViewHolder(viewHolders.get(currPosition),currPosition, job);
 
-                            if (job1 != null) {
+                            currPosition++;
 
-
-
-                                viewJobAdapter.onBindViewHolder(viewJobAdapter.getHolder(),0, job1);
-
-                                //recyclerView.setAdapter(new );
-
-//                                jobLayoutJobTitle.setText(String.format("Job Title: %s", job1.getJobTitle()));
-//                                jobLayoutEmployerEmail.setText(String.format("Email: %s", job1.getEmployerEmail()));
-//                                jobLayoutDescription.setText(String.format("Description: %s", job1.getDescription()));
-//                                jobLayoutHourlyRate.setText(String.format("Hourly Rate: %s", job1.getCompensation()));
-//                                jobLayoutLatitude.setText(String.format("Latitude: %s", job1.getLocation().getLatitude()));
-//                                jobLayoutLongitude.setText(String.format("Longitude: %s", job1.getLocation().getLongitude()));
-                            }
-
-                            //leaving these here for if we want to implement them later
-                            //jobLayoutApply
-                            //jobLayoutViewOnMap
                         }
-
-
-
-
-
-                        Log.d("testing: ", dataSnapshot.getValue().toString());
-
-
-                        Log.d("test: ", dataSnapshot.getChildren().iterator().next().toString());
-                        Log.d("testing: ", dataSnapshot.getRef().toString());
-                        Log.d("testing: ", dataSnapshot.child("compensation").toString());
-                        Log.d("testing: ", dataSnapshot.child("location").getChildren().iterator().toString());
-
-                        Log.d("testing: ", dataSnapshot.getValue().toString());
-                       //Log.d("testing: ", ((Job)dataSnapshot.getValue(Job.class)).getJobTitle().toString());
-
-                        //getValue().toString());
-//                        if (job != null) {
-//
-//                            Log.d("TEST OF JOB: ", job.getJobTitle() + " " + job.getDescription());
-//
-//                        }
-                        //TODO finish this method after implementing serializable interface on jobs.
-                        //Log.d("TESTING: ", dataSnapshot.getValue().toString());
-
-
 
                     }
                     //end of citation

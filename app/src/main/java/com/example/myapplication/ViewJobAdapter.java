@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
+import java.util.ArrayList;
+
 
 /**
  * based on code from csci3130 lab on march 2nd that Dhrumil presented.
@@ -21,6 +24,8 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
 
 
 
+
+    private static ArrayList<JobViewHolder> holderArrayList = new ArrayList<>(10);
     private JobViewHolder holder;
     /**
      * Initialize a {@link RecyclerView.Adapter} that listens to a Firebase query. See
@@ -49,14 +54,41 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
         return new JobViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull JobViewHolder holder, int position, @NonNull Job job) {
-        holder.jobLayoutDescription.setText(job.getDescription());
-        holder.jobLayoutEmployerEmail.setText(job.getEmployerEmail());
-        holder.jobLayoutJobTitle.setText(job.getJobTitle());
-        holder.jobLayoutHourlyRate.setText(String.valueOf(job.getCompensation()));
-        holder.jobLayoutLatitude.setText(String.valueOf(job.getLocation().getLatitude()));
-        holder.jobLayoutLongitude.setText(String.valueOf(job.getLocation().getLongitude()));
+        holder.jobLayoutDescription.setText("Description: " + job.getDescription());
+        holder.jobLayoutEmployerEmail.setText("Email: " + job.getEmployerEmail());
+        holder.jobLayoutJobTitle.setText("Job Title: " + job.getJobTitle());
+        holder.jobLayoutHourlyRate.setText("Hourly Rate: " + String.valueOf(job.getCompensation()));
+        holder.jobLayoutLatitude.setText( "Latitude: " + String.valueOf(job.getLocation().getLatitude()));
+        holder.jobLayoutLongitude.setText("Longitude: " + String.valueOf(job.getLocation().getLongitude()));
+
+        holder.jobLayoutApply.setVisibility(View.VISIBLE);
+        holder.jobLayoutViewOnMap.setVisibility(View.VISIBLE);
+
+        this.holder = holder;
+        holderArrayList.add(holder);
+        //if I want to have the buttons do something this is where they need to be implemented
+
+
+
+    }
+
+
+    public void onBindViewHolder(@NonNull JobViewHolder holder, boolean state) {
+
+        //make everything go away
+        if (state) {
+            holder.jobLayoutDescription.setText("");
+            holder.jobLayoutEmployerEmail.setText("");
+            holder.jobLayoutJobTitle.setText("");
+            holder.jobLayoutHourlyRate.setText("");
+            holder.jobLayoutLatitude.setText("");
+            holder.jobLayoutLongitude.setText("");
+            holder.jobLayoutApply.setVisibility(View.GONE);
+            holder.jobLayoutViewOnMap.setVisibility(View.GONE);
+        }
 
         this.holder = holder;
         //if I want to have the buttons do something this is where they need to be implemented
@@ -68,13 +100,16 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
     public class JobViewHolder extends RecyclerView.ViewHolder {
         private TextView jobLayoutJobTitle;
         private TextView jobLayoutEmployerEmail;
-        private final TextView jobLayoutDescription;
-        private final TextView jobLayoutHourlyRate;
-        private final TextView jobLayoutLatitude;
-        private final TextView jobLayoutLongitude;
-        private final Button jobLayoutApply;
-        private final Button jobLayoutViewOnMap;
-        private final Context context;
+        private TextView jobLayoutDescription;
+        private TextView jobLayoutHourlyRate;
+        private TextView jobLayoutLatitude;
+
+
+
+        private TextView jobLayoutLongitude;
+        private Button jobLayoutApply;
+        private Button jobLayoutViewOnMap;
+        private Context context;
 
         public JobViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -92,6 +127,55 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
             context = itemView.getContext();
 
         }
+
+        public TextView getJobLayoutJobTitle() {
+            return jobLayoutJobTitle;
+        }
+
+        public void setJobLayoutJobTitle(TextView jobLayoutJobTitle) {
+            this.jobLayoutJobTitle = jobLayoutJobTitle;
+        }
+
+        public TextView getJobLayoutEmployerEmail() {
+            return jobLayoutEmployerEmail;
+        }
+
+        public void setJobLayoutEmployerEmail(TextView jobLayoutEmployerEmail) {
+            this.jobLayoutEmployerEmail = jobLayoutEmployerEmail;
+        }
+
+        public TextView getJobLayoutDescription() {
+            return jobLayoutDescription;
+        }
+
+        public void setJobLayoutDescription(TextView jobLayoutDescription) {
+            this.jobLayoutDescription = jobLayoutDescription;
+        }
+
+        public TextView getJobLayoutHourlyRate() {
+            return jobLayoutHourlyRate;
+        }
+
+        public void setJobLayoutHourlyRate(TextView jobLayoutHourlyRate) {
+            this.jobLayoutHourlyRate = jobLayoutHourlyRate;
+        }
+
+        public TextView getJobLayoutLatitude() {
+            return jobLayoutLatitude;
+        }
+
+        public void setJobLayoutLatitude(TextView jobLayoutLatitude) {
+            this.jobLayoutLatitude = jobLayoutLatitude;
+        }
+
+        public TextView getJobLayoutLongitude() {
+            return jobLayoutLongitude;
+        }
+
+        public void setJobLayoutLongitude(TextView jobLayoutLongitude) {
+            this.jobLayoutLongitude = jobLayoutLongitude;
+        }
+
     }
 
     public JobViewHolder getHolder() {
@@ -100,6 +184,14 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
 
     public void setHolder(JobViewHolder holder) {
         this.holder = holder;
+    }
+
+    public static ArrayList<JobViewHolder> getHolderArrayList() {
+        return holderArrayList;
+    }
+
+    public static void setHolderArrayList(ArrayList<JobViewHolder> holderArrayList) {
+        ViewJobAdapter.holderArrayList = holderArrayList;
     }
 }
 
