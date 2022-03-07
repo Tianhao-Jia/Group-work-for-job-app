@@ -188,7 +188,6 @@ public class JobSearch extends Activity {
                         if (saveJob) {
 
                             //I need to implement a algorithm to shift the ones I want up I think
-                            Log.d("testing: ",viewJobAdapter.getRef(currPosition).toString());
                             viewJobAdapter.onBindViewHolder(viewHolders.get(currPosition),currPosition, job);
 
                             currPosition++;
@@ -206,8 +205,6 @@ public class JobSearch extends Activity {
                 Log.e("Error:", error.getDetails());
             }
         });
-
-        Log.d("value is: ", jobsRef.toString());
 
     }
 

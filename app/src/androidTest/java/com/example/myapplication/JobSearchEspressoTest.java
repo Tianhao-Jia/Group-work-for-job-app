@@ -18,6 +18,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.junit.AfterClass;
@@ -41,28 +42,34 @@ public class JobSearchEspressoTest {
     @AfterClass
     public static void tearDown() {
         Intents.release();
+        FirebaseDatabase.getInstance().getReference("jobs").setValue(null);
     }
 
-//    @Test
-//    public void searchJob(){
-//        onView(withId(R.id.jobTitle)).perform(typeText("Car Wash"));
-//        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
-//        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
-//        Espresso.closeSoftKeyboard();
-//        onView(withId(R.id.submitJobButton)).perform(click());
-//
-//        jobsRef.child("userID").addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                assertEquals(snapshot.getChildrenCount(), 1);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                assertFalse(true);
-//            }
-//        });
-//    }
+    @Test
+    public void searchNoJobsExist(){
 
+
+        onView(withId(R.id.searchJobButton)).perform(click());
+
+    }
+
+    @Test
+    public void searchJobsExistNoJobsInfoProvided(){
+
+
+
+        onView(withId(R.id.searchJobButton)).perform(click());
+
+
+
+    }
+
+    @Test
+    public void searchJobsExistJobsInfoProvided(){
+
+
+        onView(withId(R.id.searchJobButton)).perform(click());
+
+    }
 
 }
