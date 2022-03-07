@@ -40,6 +40,18 @@
         app:layout_constraintVertical_bias="0.847" />
 
     <Button
+        android:id="@+id/employerSearchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search for Jobs"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/employerLogoutButton" />
+
+
+    <Button
         android:id="@+id/employerLogoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

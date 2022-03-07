@@ -36,6 +36,7 @@ public class EmployeeActivity extends AppCompatActivity {
 
     TextView loginDisplay;
     Button logoutButton;
+    Button searchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class EmployeeActivity extends AppCompatActivity {
 
         loginDisplay = (TextView) findViewById(R.id.employeeLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employeeLogoutButton);
+        searchButton = (Button) findViewById(R.id.employeeSearchButton);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -72,6 +74,8 @@ public class EmployeeActivity extends AppCompatActivity {
                 logoutAndChangeLoginState();
             }
         });
+
+
     }
 
     /**
