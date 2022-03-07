@@ -89,6 +89,20 @@ public class JobRadiusEspressoTest {
     @Test
     public void testUserGetsJobsWithinRadius()
     {
+        ActivityScenario.launch(RegisterUser.class);
+        onView(withId(R.id.registerFirstName)).perform(typeText("EmpFirstNameOne"));
+        onView(withId(R.id.registerLastName)).perform(typeText("EmpLastNameOne"));
+        onView(withId(R.id.registerEmail)).perform(typeText("employee1@dal.ca"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("employeepassword1"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerButton)).perform(click());
+        onView(withId(R.id.jobs)).perform(click());
+
+        onView(withId(R.id.recyclerview)).check(matches(isDisplayed()));
+
     }
 
     /**
