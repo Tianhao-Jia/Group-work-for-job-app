@@ -4,7 +4,7 @@
     android:id="@+id/searchJob"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_orange_light"
+    android:background="@android:color/white"
     tools:context=".JobSearch">
 
     <TextView
@@ -99,7 +99,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="508dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@android:color/holo_blue_light"
         android:text="Search Job!"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"

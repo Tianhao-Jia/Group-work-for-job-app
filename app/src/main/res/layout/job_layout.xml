@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/holo_orange_light"
+    android:background="@android:color/white"
     android:orientation="vertical">
 
     <TextView
@@ -79,7 +79,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@android:color/black"
+            android:backgroundTint="@android:color/holo_blue_light"
             android:text="Apply"
             android:textColor="@color/white"
             />
@@ -90,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:backgroundTint="@android:color/black"
+            android:backgroundTint="@android:color/holo_blue_light"
             android:text="View on map"
             android:textColor="@color/white" />
     </LinearLayout>
