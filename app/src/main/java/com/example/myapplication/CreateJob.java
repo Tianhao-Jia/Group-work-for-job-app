@@ -54,9 +54,6 @@ public class CreateJob extends AppCompatActivity {
                         newIntent.putExtra("User Type", extras.getString("User Type"));
                     }
                     startActivity(newIntent);
-
-
-                    setContentView(R.layout.activity_employer);
                 }
             }
         });
@@ -88,14 +85,11 @@ public class CreateJob extends AppCompatActivity {
     protected boolean pushJob(Job job, DatabaseReference jobsRef) {
         //Push unique job details under "userID" node in jobs
         //userID needs to be mapped to logged in user
-        if (getUserHash() == null){
 
-        }
-        else{
-            // Stores job in job node on realtime database, filed under the hash corresponding to the user
-            // that created the job
-            jobsRef.child(getUserHash()).push().setValue(job);
-        }
+        // Stores job in job node on realtime database, filed under the hash corresponding to the user
+        // that created the job
+        jobsRef.child(getUserHash()).push().setValue(job);
+
         return true;
     }
 
