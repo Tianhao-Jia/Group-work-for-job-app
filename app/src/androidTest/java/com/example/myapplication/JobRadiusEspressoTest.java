@@ -114,5 +114,17 @@ public class JobRadiusEspressoTest {
     @Test
     public void testUserDoesNotGetJobOutsideRadius()
     {
+        onView(withId(R.id.registerFirstName)).perform(typeText("EmpFirstNameTwo"));
+        onView(withId(R.id.registerLastName)).perform(typeText("EmpLastNameTwo"));
+        onView(withId(R.id.registerEmail)).perform(typeText("employee2@dal.ca"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("employeepassword2"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerButton)).perform(click());
+        onView(withId(R.id.jobs)).perform(click());
+
+        onView(withId(R.id.recyclerview)).check(matches(isDisplayed()));
     }
 }
