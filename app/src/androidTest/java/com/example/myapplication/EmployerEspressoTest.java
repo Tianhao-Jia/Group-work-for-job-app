@@ -56,7 +56,7 @@ public class EmployerEspressoTest {
     }
 
 
-    public void testOpenEmployeeSearchButton() {
+    public void testOpenEmployerSearchButton() {
 
         ActivityScenario.launch(EmployerActivity.class);
 
