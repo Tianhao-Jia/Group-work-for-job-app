@@ -75,6 +75,14 @@ public class EmployeeActivity extends AppCompatActivity {
             }
         });
 
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployeeActivity.this, JobSearch.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

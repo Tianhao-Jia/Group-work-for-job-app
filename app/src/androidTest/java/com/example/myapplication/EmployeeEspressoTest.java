@@ -18,7 +18,10 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -74,5 +77,11 @@ public class EmployeeEspressoTest {
         intended(hasComponent(JobSearch.class.getName()));
 
     }
+
+    @Before
+    public void teardown(){
+        FirebaseDatabase.getInstance().getReference("users").setValue(null);
+    }
+
 
 }
