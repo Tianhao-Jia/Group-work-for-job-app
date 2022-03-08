@@ -75,23 +75,23 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/employerJobAccept"
+            android:id="@+id/employerSeeApps"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_blue_light"
-            android:text="Accept"
+            android:text="See Applications"
             android:textColor="@color/white"
             />
 
         <Button
-            android:id="@+id/employerJobIgnore"
+            android:id="@+id/employerDelete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_blue_light"
-            android:text="Reject"
+            android:text="Delete"
             android:textColor="@color/white" />
     </LinearLayout>
 
