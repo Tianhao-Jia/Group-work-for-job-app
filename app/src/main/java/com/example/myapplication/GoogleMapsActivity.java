@@ -21,14 +21,13 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
-public class GoogleMapsActivity extends Fragment implements OnMapReadyCallback{
+public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap map;
     private MapView mapView;
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
     // binds activity to the fragment in xml
-    private ActivityGoogleMapsBinding binding; // TODO: is this same as ActivityMapBinding?
     private String fineLocation = Manifest.permission.ACCESS_FINE_LOCATION;
     private String coarseLocation = Manifest.permission.ACCESS_COARSE_LOCATION;
     private boolean isLocationSet = false;
@@ -36,26 +35,9 @@ public class GoogleMapsActivity extends Fragment implements OnMapReadyCallback{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Bundle mapViewBundle = null;
-        if (savedInstanceState != null) {
-            mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
-        }
-
-        mapView = (MapView) getView().findViewById(R.id.googleMap);
-        mapView.onCreate(mapViewBundle);
-        mapView.getMapAsync(this);
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_google_maps, container, false);
-        mapView = view.findViewById(R.id.googleMap);
+        setContentView(R.layout.activity_google_maps);
 
         initGoogleMap(savedInstanceState);
-
-        return view;
     }
 
     private void initGoogleMap(Bundle savedInstanceState) {
@@ -64,8 +46,8 @@ public class GoogleMapsActivity extends Fragment implements OnMapReadyCallback{
             mapViewBundle = savedInstanceState.getBundle(MAP_VIEW_BUNDLE_KEY);
         }
 
+        mapView = (MapView) findViewById(R.id.googleMap);
         mapView.onCreate(mapViewBundle);
-
         mapView.getMapAsync(this);
     }
 
