@@ -45,7 +45,6 @@ public class CreateJobEspresso {
 
     private static final FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
     private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
-    private static int jobCount;
 
 
     @Rule
@@ -160,8 +159,7 @@ public class CreateJobEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submitJobButton)).perform(click());
 
-        //TODO: this should be an employer activity
-        onView(isDisplayed()).check(matches(isDisplayed()));
+        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
     }
 
     // Checks that user is not redirected when all fields are not filled
