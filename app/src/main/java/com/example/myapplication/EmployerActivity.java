@@ -53,14 +53,6 @@ public class EmployerActivity extends AppCompatActivity {
             editor.putString("Key_type", extras.getString("User Type"));
             editor.putString("Key_hash", extras.getString("User Hash"));
             editor.apply();
-
-
-        }
-        //this shouldn't be possible so that means that the user is in the wrong spot
-        else {
-            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
-            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
-            startActivity(intent);
         }
 
         createJobButton.setOnClickListener(new View.OnClickListener() {
