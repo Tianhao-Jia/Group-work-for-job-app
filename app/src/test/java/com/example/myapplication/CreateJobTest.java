@@ -61,5 +61,19 @@ public class CreateJobTest {
         assertFalse(createJobActivity.validateWage("-5"));
     }
 
+    @Test
+    public void invalidLongLat() {
+        assertFalse(createJobActivity.validateLongLat(180.123));
+        assertFalse(createJobActivity.validateLongLat(-190.0));
+    }
+
+    @Test
+    public void validLongLat() {
+        assertTrue(createJobActivity.validateLongLat(98.09));
+        assertTrue(createJobActivity.validateLongLat(-170.98));
+    }
+
+
+
 
 }

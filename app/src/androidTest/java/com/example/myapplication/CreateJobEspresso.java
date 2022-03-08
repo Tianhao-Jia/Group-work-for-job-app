@@ -17,10 +17,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
+import android.content.Intent;
 
 import androidx.annotation.NonNull;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.intent.Intents;
+import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -44,12 +46,14 @@ public class CreateJobEspresso {
     private static final FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
     private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
 
+
     @Rule
     public ActivityScenarioRule myRule = new ActivityScenarioRule<>(CreateJob.class);
 
+
     @Before
     public void clearNode() {
-        jobsRef.child("userID").setValue(null);
+        jobsRef.child("hashNotFound").setValue(null);
     }
 
     @BeforeClass
@@ -70,7 +74,7 @@ public class CreateJobEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submitJobButton)).perform(click());
 
-        jobsRef.child("userID").addListenerForSingleValueEvent(new ValueEventListener() {
+        jobsRef.child("hashNotFound").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 assertEquals(snapshot.getChildrenCount(), 1);
@@ -112,7 +116,7 @@ public class CreateJobEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submitJobButton)).perform(click());
 
-        jobsRef.child("userID").addListenerForSingleValueEvent(new ValueEventListener() {
+        jobsRef.child("hashNotFound").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 assertEquals(snapshot.getChildrenCount(), 0);
@@ -133,7 +137,7 @@ public class CreateJobEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submitJobButton)).perform(click());
 
-        jobsRef.child("userID").addListenerForSingleValueEvent(new ValueEventListener() {
+        jobsRef.child("hashNotFound").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 assertEquals(snapshot.getChildrenCount(), 0);
