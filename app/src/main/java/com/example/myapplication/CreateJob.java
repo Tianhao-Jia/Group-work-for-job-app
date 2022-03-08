@@ -1,9 +1,13 @@
 package com.example.myapplication;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,6 +40,7 @@ public class CreateJob extends AppCompatActivity {
                 Job job = createJob();
                 if (job != null) {
                     pushJob(job, jobsRef);
+                    Toast.makeText(CreateJob.this,"Success", Toast.LENGTH_SHORT).show();
                     setContentView(R.layout.activity_employer);
                 }
             }
@@ -56,22 +63,29 @@ public class CreateJob extends AppCompatActivity {
             EditText jobTitleEditText = findViewById(R.id.createJobTitle);
             EditText jobDescEditText = findViewById(R.id.createJobDescription);
             EditText jobHourlyRateEditText = findViewById(R.id.createJobHourlyRate);
+            EditText latitudeEditText = findViewById(R.id.lat);
+            EditText longitudeEditText = findViewById(R.id.longitude);
 
-            // Dummy values to be used until location functionality is added in another user story
-            double latitude = 100;
-            double longitude = 100;
-            Location location = new Location(latitude, longitude);
+
+
 
             String jobEmail = jobEmailEditText.getText().toString();
             String jobTitle = jobTitleEditText.getText().toString();
             String jobDesc = jobDescEditText.getText().toString();
-            double jobHourlyRate;
+            double jobHourlyRate, latitude, longitude;
 
             try {
-                jobHourlyRate = Integer.parseInt(jobHourlyRateEditText.getText().toString());
+                jobHourlyRate = Double.parseDouble(jobHourlyRateEditText.getText().toString());
+                latitude = Double.parseDouble(latitudeEditText.getText().toString());
+                longitude = Double.parseDouble(longitudeEditText.getText().toString());
+
             } catch (NumberFormatException e) {
                 jobHourlyRate = 0;
+                latitude = 0;
+                longitude = 0;
             }
+
+            Location location = new Location(latitude, longitude);
 
             Job job = new Job(jobEmail, jobTitle, jobDesc, location);
             job.setCompensation(jobHourlyRate);
@@ -79,6 +93,8 @@ public class CreateJob extends AppCompatActivity {
         }
         else {
             Toast.makeText(CreateJob.this,"Invalid Input", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(CreateJob.this, EmployerActivity.class);
+            startActivity(intent);
             return null;
         }
     }
@@ -87,7 +103,7 @@ public class CreateJob extends AppCompatActivity {
     protected boolean pushJob(Job job, DatabaseReference jobsRef) {
         //Push unique job details under "userID" node in jobs
         //userID needs to be mapped to logged in user
-        jobsRef.child("userID").push().setValue(job);
+        jobsRef.push().setValue(job);
         return true;
     }
 

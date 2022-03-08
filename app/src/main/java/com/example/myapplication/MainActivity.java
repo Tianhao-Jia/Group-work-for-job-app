@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
         connectFirebase();
 
         Button employeeButton = (Button) findViewById(R.id.goToEmployeeActivity);
-        //setIntent(employeeButton, LoginActivity.class);
+        setIntent(employeeButton, LoginActivity.class);
 
-        setIntent(employeeButton, JobSearch.class);
+        //setIntent(employeeButton, JobSearch.class);
 
         Button employerButton = (Button) findViewById(R.id.goToEmployerActivity);
         setIntent(employerButton, LoginActivity.class);

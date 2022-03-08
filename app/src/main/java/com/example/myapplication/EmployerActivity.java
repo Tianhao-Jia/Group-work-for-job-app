@@ -34,12 +34,13 @@ public class EmployerActivity extends AppCompatActivity {
 
     TextView loginDisplay;
     Button logoutButton, createJobButton, searchButton;
+    Button openmaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer);
-
+        openmaps = findViewById(R.id.check);
         loginDisplay = (TextView) findViewById(R.id.employerLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employerLogoutButton);
         createJobButton = (Button) findViewById(R.id.createJob);
@@ -83,6 +84,13 @@ public class EmployerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(EmployerActivity.this, JobSearch.class);
                 startActivity(intent);
+            }
+        });
+
+        openmaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, MapsActivity.class));
             }
         });
     }
