@@ -10,23 +10,21 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import androidx.annotation.NonNull;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.util.ArrayList;
 
 @RunWith(AndroidJUnit4.class)
 public class JobSearchEspressoTest {
@@ -108,10 +106,65 @@ public class JobSearchEspressoTest {
     }
 
     @Test
-    public void searchJobsExistJobsInfoProvided(){
+    public void searchJobsExistJobsInfoProvidedEmail(){
+
+        ActivityScenario.launch(RegisterUser.class);
+
+        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
+        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.registerButton)).perform(click());
+
+        onView(withId(R.id.createJob)).perform(click());
+
+        onView(withId(R.id.createJobEmail)).perform(typeText("george.smith@dal.ca"));
+        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("15"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
+
+        onView(withId(R.id.createJob)).perform(click());
+
+        onView(withId(R.id.createJobEmail)).perform(typeText("george.smith@dal.ca"));
+        onView(withId(R.id.createJobTitle)).perform(typeText("Car Destroy"));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat Dirty"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("1"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
 
 
+
+        //for some reason this one causes it to crash but it doesn't in the previous test.
+        onView(withId(R.id.employerSearchButton)).perform(click());
+
+
+        onView(withId(R.id.searchEmployerEmail)).perform(typeText("george.smith@dal.ca"));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.searchJobButton)).perform(click());
+
+        //shows two jobs.
+        ArrayList<Job> jobArrayList = ViewJobAdapter.getJobArrayList();
+        for (int i = 0; i<jobArrayList.size(); i++) {
+            Job job = jobArrayList.get(i);
+            String currentEmail = job.getEmployerEmail();
+            assertEquals("george.smith@dal.ca", currentEmail);
+        }
+
+
+
+//        ArrayList<ViewJobAdapter.JobViewHolder> holder = ViewJobAdapter.getHolderArrayList();
+//        holder.get(0);
+//        int value = ViewJobAdapter.getHolderArrayList().size();
+
 
     }
 

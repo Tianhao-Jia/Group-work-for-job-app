@@ -22,9 +22,7 @@ import java.util.ArrayList;
  */
 public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.JobViewHolder> {
 
-
-
-
+    private static ArrayList<Job> jobArrayList = new ArrayList<>(10);
     private static ArrayList<JobViewHolder> holderArrayList = new ArrayList<>(10);
     private JobViewHolder holder;
     /**
@@ -69,6 +67,7 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
 
         this.holder = holder;
         holderArrayList.add(holder);
+        jobArrayList.add(job);
         //if I want to have the buttons do something this is where they need to be implemented
 
 
@@ -192,6 +191,14 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
 
     public static void setHolderArrayList(ArrayList<JobViewHolder> holderArrayList) {
         ViewJobAdapter.holderArrayList = holderArrayList;
+    }
+
+    public static ArrayList<Job> getJobArrayList() {
+        return jobArrayList;
+    }
+
+    public static void setJobArrayList(ArrayList<Job> jobArrayList) {
+        ViewJobAdapter.jobArrayList = jobArrayList;
     }
 }
 

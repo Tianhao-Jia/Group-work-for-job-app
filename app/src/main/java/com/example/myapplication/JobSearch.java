@@ -154,14 +154,23 @@ public class JobSearch extends Activity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 //citation based on code from csci3130 winter tutorial on march 2nd, 2022.
-                if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
+                int childrenCount = (int) snapshot.getChildrenCount();
+                if (snapshot.exists() && childrenCount > 0) {
 
                     //searches among each child in jobs
 
                     //pretraverse and hide all
+                    ViewJobAdapter.setJobArrayList(new ArrayList<Job>(10));
                     ArrayList<ViewJobAdapter.JobViewHolder> viewHolders = ViewJobAdapter.getHolderArrayList();
                     for (int i = 0; i< viewHolders.size(); i++) {
-                        viewJobAdapter.onBindViewHolder(viewHolders.get(i),true);
+
+                        if (i >= childrenCount) {
+                            viewHolders.remove(i);
+                        }
+                        else {
+                            viewJobAdapter.onBindViewHolder(viewHolders.get(i), true);
+                        }
+
                     }
 
 
