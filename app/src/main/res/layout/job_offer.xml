@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/employerJobTitle"
+        android:id="@+id/jobOfferJobTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -18,7 +18,7 @@
 
 
     <TextView
-        android:id="@+id/employerJobDescription"
+        android:id="@+id/jobOfferDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -28,7 +28,7 @@
         tools:text="Description: " />
 
     <TextView
-        android:id="@+id/employerHourlyRate"
+        android:id="@+id/jobOfferHourlyRate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -37,7 +37,7 @@
         android:textStyle="bold"
         tools:text="Hourly Rate: " />
     <TextView
-        android:id="@+id/employerJobLatitude"
+        android:id="@+id/jobOfferLatitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -47,7 +47,7 @@
         tools:text="Latitude: " />
 
     <TextView
-        android:id="@+id/employerJobLongitude"
+        android:id="@+id/jobOfferLongitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -64,24 +64,15 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/employerSeeApplications"
+            android:id="@+id/dismissOffer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_blue_light"
-            android:text="See Applications"
+            android:text="Dismiss"
             android:textColor="@color/white"
             />
 
-        <Button
-            android:id="@+id/employerJobDelete"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_blue_light"
-            android:text="Delete"
-            android:textColor="@color/white" />
     </LinearLayout>
 
     <View

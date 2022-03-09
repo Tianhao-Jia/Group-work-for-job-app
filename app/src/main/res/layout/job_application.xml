@@ -4,57 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/white"
+    android:id="@+id/job_application"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/employerJobTitle"
+        android:id="@+id/applicantName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
         android:textStyle="bold"
-        tools:text="Job Title: " />
+        tools:text="Applicant Name: " />
 
 
     <TextView
-        android:id="@+id/employerJobDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="Description: " />
-
-    <TextView
-        android:id="@+id/employerHourlyRate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="Hourly Rate: " />
-    <TextView
-        android:id="@+id/employerJobLatitude"
+        android:id="@+id/jobApplicationEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/black"
         android:textStyle="bold"
-        tools:text="Latitude: " />
+        tools:text="Email: " />
 
-    <TextView
-        android:id="@+id/employerJobLongitude"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="Longitude: " />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,23 +37,23 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/employerSeeApplications"
+            android:id="@+id/acceptApplication"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_blue_light"
-            android:text="See Applications"
+            android:text="Accept"
             android:textColor="@color/white"
             />
 
         <Button
-            android:id="@+id/employerJobDelete"
+            android:id="@+id/ignoreApplication"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_blue_light"
-            android:text="Delete"
+            android:text="Ignore"
             android:textColor="@color/white" />
     </LinearLayout>
 

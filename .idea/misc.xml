@@ -34,12 +34,18 @@
         <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/activity_register_user.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/activity_register_user_test.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/employee_landing.xml" value="0.4" />
+        <entry key="app/src/main/res/layout/activity_employee.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_employer.xml" value="0.1046254644256506" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20697463768115942" />
+        <entry key="app/src/main/res/layout/activity_newpage.xml" value="0.140625" />
+        <entry key="app/src/main/res/layout/applications_page.xml" value="0.140625" />
         <entry key="app/src/main/res/layout/create_job.xml" value="0.13221884498480244" />
         <entry key="app/src/main/res/layout/employer_job.xml" value="0.140625" />
         <entry key="app/src/main/res/layout/employer_jobs.xml" value="0.140625" />
+        <entry key="app/src/main/res/layout/job_application.xml" value="0.140625" />
         <entry key="app/src/main/res/layout/job_layout.xml" value="0.28531515268400853" />
+        <entry key="app/src/main/res/layout/job_offer.xml" value="0.140625" />
+        <entry key="app/src/main/res/layout/job_offers.xml" value="0.140625" />
         <entry key="app/src/main/res/layout/job_search.xml" value="0.3071090918900003" />
       </map>
     </option>
