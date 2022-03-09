@@ -1,31 +1,31 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.widget.Toast;
 
-import com.example.myapplication.databinding.ActivityGoogleMapsBinding;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.Task;
 
 public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap map;
     private MapView mapView;
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
+    private FusedLocationProviderClient client; // gets location of your device
 
     // binds activity to the fragment in xml
     private String fineLocation = Manifest.permission.ACCESS_FINE_LOCATION;
@@ -37,7 +37,9 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_maps);
 
+        client = LocationServices.getFusedLocationProviderClient(this); // does the preprocessor steps for maps
         initGoogleMap(savedInstanceState);
+        checkMapPermission();
     }
 
     private void initGoogleMap(Bundle savedInstanceState) {
@@ -51,45 +53,50 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         mapView.getMapAsync(this);
     }
 
-//    private void checkMapPermission() {
-//        // need to check if permission is granted
-//        // by default maps is only fine location permission so check if permission for FINE location is granted
-//        // you can't check for course location before checking for Fine location
-//        // you can only have Fine or both (coarse and fine)
-//        if(ContextCompat.checkSelfPermission(getApplicationContext(), fineLocation)
-//                == PackageManager.PERMISSION_GRANTED){
-//            if(ContextCompat.checkSelfPermission(getApplicationContext(), coarseLocation)
-//                    == PackageManager.PERMISSION_GRANTED){
-//                isLocationSet = true;
-//                //pinpointUserLocation(map == null, map);
-//            } else{
-//                // permission not yet granted. Request for permission
-//                ActivityCompat.requestPermissions(this, new String[]{fineLocation, coarseLocation}, 1234);
-//            }
-//        } else{
-//            // permission not yet granted. Request for permission
-//            ActivityCompat.requestPermissions(this, new String[]{fineLocation, coarseLocation}, 1234);
-//            // ActivityCompat gets permission only when this Activity is launched
-//            // ContextCompat will get the permission as soon as the app launches
-//        }
-//    }
-//
-//    private void pinpointUserLocation(boolean mapNotNull, GoogleMap googleMap) {
-//        if (mapNotNull) {
-////            map = googleMap;
-////            map.setMinZoomPreference(12);
-////            LatLng ny = new LatLng(40.7143528, -74.0059731);
-////            map.moveCamera(CameraUpdateFactory.newLatLng(ny));
-//        }
-//    }
-//
-//    private void initializeMap(Bundle mapViewBundle) {
-//        binding.googleMap.onCreate(mapViewBundle);
-//        // initializing the map to the fragment we created in the xml file
-//        binding.googleMap.getMapAsync(this);
-//
-//        // Note: if emulator doesn't have google play services, maps wont work
-//    }
+    private void checkMapPermission() {
+        // need to check if permission is granted
+        // by default maps is only fine location permission so check if permission for FINE location is granted
+        // you can't check for course location before checking for Fine location
+        // you can only have Fine or both (coarse and fine)
+        if(ContextCompat.checkSelfPermission(getApplicationContext(), fineLocation)
+                == PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(getApplicationContext(), coarseLocation)
+                    == PackageManager.PERMISSION_GRANTED){
+                isLocationSet = true;
+                getCurrentLocation();
+            } else{
+                // permission not yet granted. Request for permission
+                ActivityCompat.requestPermissions(this, new String[]{fineLocation, coarseLocation}, 1234);
+            }
+        } else{
+            // permission not yet granted. Request for permission
+            ActivityCompat.requestPermissions(this, new String[]{fineLocation, coarseLocation}, 1234);
+            // ActivityCompat gets permission only when this Activity is launched
+            // ContextCompat will get the permission as soon as the app launches
+        }
+    }
+
+    private void getCurrentLocation() {
+        if(ContextCompat.checkSelfPermission(this, coarseLocation) != PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(this,fineLocation) != PackageManager.PERMISSION_GRANTED){
+                return;
+            }
+        }
+
+        Task<Location> task = client.getLastLocation();
+        task.addOnSuccessListener(location -> {
+            Toast.makeText(this, "get curr location ", Toast.LENGTH_LONG).show();
+            if(location != null){
+                mapView.getMapAsync(googleMap -> {
+                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("You're here!");
+                    googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
+                    googleMap.addMarker(markerOptions).showInfoWindow();
+                    Toast.makeText(this,"You are at " + location.getLatitude() + " " +  location.getLongitude(), Toast.LENGTH_LONG).show();
+                });
+            }
+        });
+    }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -139,8 +146,10 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        map.setMinZoomPreference(12);
-        LatLng ny = new LatLng(40.7143528, -74.0059731);
-        map.moveCamera(CameraUpdateFactory.newLatLng(ny));
+        LatLng sydney = new LatLng(-34, 151);
+        map.addMarker(new MarkerOptions().position(sydney).title("Marker for Sydney"));
+        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        map.setMinZoomPreference(12f);
+
     }
 }
