@@ -149,7 +149,7 @@ public class JobSearch extends Activity {
      */
     private void searchJobs(String[] searchPreferences) {
 
-        jobsRef.child("userID").addListenerForSingleValueEvent(new ValueEventListener() {
+        jobsRef.child("userID").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
