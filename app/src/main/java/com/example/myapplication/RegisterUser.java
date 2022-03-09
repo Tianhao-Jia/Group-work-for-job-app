@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,6 +57,10 @@ public class RegisterUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
         Intent intent = getIntent();
+
+        // test
+        //LatLng userLocation = (LatLng) getIntent().getExtras().get("User location");
+        //Log.e("user location", userLocation.toString());
 
         nameFNField = findViewById(R.id.registerFirstName);
         nameLNField = findViewById(R.id.registerLastName);
@@ -156,6 +161,7 @@ public class RegisterUser extends AppCompatActivity {
         EditText userTypeField = findViewById(R.id.registerUserType);
         EditText passwordField = findViewById(R.id.registerPasswordET);
 
+
         //US-3 functionality forcing 2 types of users
         String userType = userTypeField.getText().toString();
         if (userType.equalsIgnoreCase(Employer.EMPLOYER) || userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
@@ -167,6 +173,8 @@ public class RegisterUser extends AppCompatActivity {
             map.put("userType", userTypeField.getText().toString());
             map.put("password", passwordField.getText().toString());
             map.put("loginState", true);
+            map.put("user location (latitude)", ((LatLng) getIntent().getExtras().get("User location")).latitude);
+            map.put("user location (longitude)", ((LatLng) getIntent().getExtras().get("User location")).longitude);
 
             // Getting an instance of the firebase realtime database
             FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)

@@ -48,9 +48,8 @@ public class MainActivity extends AppCompatActivity {
         Button employerButton = (Button) findViewById(R.id.goToEmployerActivity);
         setIntent(employerButton, LoginActivity.class);
 
-        Button register = (Button) findViewById(R.id.register);
-        setIntent(register, RegisterUser.class);
-
+        Button createAccountBtn = (Button) findViewById(R.id.createAccountBtn);
+        setIntent(createAccountBtn, GoogleMapsActivity.class);
     }
 
     /**

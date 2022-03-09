@@ -5,9 +5,12 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -19,6 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyCallback{
 
@@ -31,6 +35,7 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
     private String fineLocation = Manifest.permission.ACCESS_FINE_LOCATION;
     private String coarseLocation = Manifest.permission.ACCESS_COARSE_LOCATION;
     private boolean isLocationSet = false;
+    private LatLng currentUserLocation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,22 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
         client = LocationServices.getFusedLocationProviderClient(this); // does the preprocessor steps for maps
         initGoogleMap(savedInstanceState);
         checkMapPermission();
+
+        Button setLocationBtn = findViewById(R.id.setLocationBtn);
+        setLocationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // pass coordinate information to next activity
+
+                if(isLocationSet){
+                    // go to register page
+                    Intent intent = new Intent(GoogleMapsActivity.this, RegisterUser.class);
+                    intent.putExtra("User location", currentUserLocation);
+                    startActivity(intent);
+                }
+
+            }
+        });
     }
 
     private void initGoogleMap(Bundle savedInstanceState) {
@@ -93,6 +114,8 @@ public class GoogleMapsActivity extends AppCompatActivity implements OnMapReadyC
                     googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14));
                     googleMap.addMarker(markerOptions).showInfoWindow();
                     Toast.makeText(this,"You are at " + location.getLatitude() + " " +  location.getLongitude(), Toast.LENGTH_LONG).show();
+                    isLocationSet = true;
+                    currentUserLocation = latLng;
                 });
             }
         });
