@@ -132,7 +132,8 @@ public class CreateJobEspresso {
         jobsRef.child("userID").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                assertEquals(snapshot.getChildrenCount(), 0);
+
+                assertEquals(0, snapshot.getChildrenCount());
             }
 
             @Override

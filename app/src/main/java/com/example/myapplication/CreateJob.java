@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,12 +20,17 @@ public class CreateJob extends AppCompatActivity {
     private FirebaseDatabase firebaseDB;
     private DatabaseReference jobsRef;
 
+    Bundle extras;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_job);
 
         Button createJobBtn = findViewById(R.id.createJobSubmitButton);
+
+        Intent intent = getIntent();
+        extras = getIntent().getExtras();
 
         createJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +40,15 @@ public class CreateJob extends AppCompatActivity {
                 Job job = createJob();
                 if (job != null) {
                     pushJob(job, jobsRef);
-                    setContentView(R.layout.activity_employer);
+                    Intent intent = new Intent(CreateJob.this, EmployerActivity.class);
+
+                    intent.putExtra("User Hash", (String) extras.get("User Hash"));
+                    intent.putExtra("Login Email", (String) extras.get("Login Email"));
+                    intent.putExtra("Login Password", (String) extras.get("Login Password"));
+                    intent.putExtra("User Type", (String) extras.get("User Type"));
+
+                    startActivity(intent);
+                    //setContentView(R.layout.activity_employer);
                 }
             }
         });

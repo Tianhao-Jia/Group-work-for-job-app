@@ -37,6 +37,7 @@ public class EmployeeActivity extends AppCompatActivity {
     TextView loginDisplay;
     Button logoutButton;
     Button searchButton;
+    Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class EmployeeActivity extends AppCompatActivity {
         logoutButton = (Button) findViewById(R.id.employeeLogoutButton);
         searchButton = (Button) findViewById(R.id.employeeSearchButton);
 
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
         if (extras != null) {
             SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -79,6 +80,12 @@ public class EmployeeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EmployeeActivity.this, JobSearch.class);
+
+                intent.putExtra("User Hash", (String) extras.get("User Hash"));
+                intent.putExtra("Login Email", (String) extras.get("Login Email"));
+                intent.putExtra("Login Password", (String) extras.get("Login Password"));
+                intent.putExtra("User Type", (String) extras.get("User Type"));
+
                 startActivity(intent);
             }
         });
