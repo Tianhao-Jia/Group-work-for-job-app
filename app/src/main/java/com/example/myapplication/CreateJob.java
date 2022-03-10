@@ -84,6 +84,7 @@ public class CreateJob extends AppCompatActivity {
             String jobEmail = jobEmailEditText.getText().toString();
             String jobTitle = jobTitleEditText.getText().toString();
             String jobDesc = jobDescEditText.getText().toString();
+            String userHash = getUserHash();
             double jobHourlyRate;
 
             try {
@@ -92,7 +93,7 @@ public class CreateJob extends AppCompatActivity {
                 jobHourlyRate = 0;
             }
 
-            Job job = new Job(jobEmail, jobTitle, jobDesc, location);
+            Job job = new Job(jobEmail, jobTitle, jobDesc, location, userHash);
             job.setCompensation(jobHourlyRate);
             return job;
         }
@@ -110,7 +111,7 @@ public class CreateJob extends AppCompatActivity {
         // Stores job in job node on realtime database, filed under the hash corresponding to the user
         // that created the job
         //jobsRef.child(getUserHash()).push().setValue(job);
-        jobsRef.child("jobs").push().setValue(job);
+        jobsRef.push().setValue(job);
 
         return true;
     }
