@@ -109,7 +109,8 @@ public class CreateJob extends AppCompatActivity {
 
         // Stores job in job node on realtime database, filed under the hash corresponding to the user
         // that created the job
-        jobsRef.child(getUserHash()).push().setValue(job);
+        //jobsRef.child(getUserHash()).push().setValue(job);
+        jobsRef.child("jobs").push().setValue(job);
 
         return true;
     }

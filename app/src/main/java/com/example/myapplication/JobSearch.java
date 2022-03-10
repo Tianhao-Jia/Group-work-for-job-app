@@ -67,8 +67,7 @@ public class JobSearch extends Activity {
         //citation based on code from Dhrumils lab presentation on march 2nd in this course csci3130
         FirebaseRecyclerOptions<Job> options = new FirebaseRecyclerOptions.Builder<Job>()
                 .setQuery(FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
-                        .getReference()
-                        .child(FirebaseUtils.JOBS_COLLECTION).child("userID"), Job.class)
+                        .getReference().child("jobs"), Job.class)
                 .build();
 
         viewJobAdapter = new ViewJobAdapter(options);
@@ -149,7 +148,7 @@ public class JobSearch extends Activity {
      */
     private void searchJobs(String[] searchPreferences) {
 
-        jobsRef.child("userID").addValueEventListener(new ValueEventListener() {
+        firebaseDB.getReference().child("jobs").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
