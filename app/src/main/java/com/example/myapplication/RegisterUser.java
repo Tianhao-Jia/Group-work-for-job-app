@@ -224,7 +224,7 @@ public class RegisterUser extends AppCompatActivity {
      * @param nameFN : first name to compare using regex
      * @return boolean : true if first name is valid; false otherwise
      */
-    protected boolean checkFirstName(String nameFN) {
+    protected static boolean checkFirstName(String nameFN) {
         Pattern fnPattern = Pattern.compile("^[a-zA-z]{2,}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = fnPattern.matcher(nameFN.trim());
 
@@ -236,7 +236,7 @@ public class RegisterUser extends AppCompatActivity {
      * @param lastName : last name to compare using regex
      * @return boolean : true if last name is valid; false otherwise
      */
-    protected boolean checkLastName(String lastName) {
+    protected static boolean checkLastName(String lastName) {
         Pattern lnPattern = Pattern.compile("^[a-z-']{2,}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = lnPattern.matcher(lastName.trim());
         return matcher.find();
@@ -249,7 +249,7 @@ public class RegisterUser extends AppCompatActivity {
      */
     //Was using library functions to check email, however we ran into errors with pipeline
     // TODO: Email checking will be fixed in next iteration!
-    protected boolean checkEmail(String email) {
+    protected static boolean checkEmail(String email) {
         Pattern emailPattern = Pattern.compile("^.*@.*$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPattern.matcher(email.trim());
         return matcher.find();
@@ -261,7 +261,7 @@ public class RegisterUser extends AppCompatActivity {
      * @param password : password input to verify
      * @return boolean : true if password is valid, false otherwise
      */
-    protected boolean checkPassword(String password) {
+    protected static boolean checkPassword(String password) {
         Pattern pw = Pattern.compile("^.{4,}$", Pattern.CASE_INSENSITIVE);
         Matcher pwMatch = pw.matcher(password);
 

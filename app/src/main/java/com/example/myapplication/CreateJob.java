@@ -157,21 +157,21 @@ public class CreateJob extends AppCompatActivity {
 
     }
 
-    protected boolean validateTitle(String jobTitle) {
+    protected static boolean validateTitle(String jobTitle) {
         Pattern fnPattern = Pattern.compile("^.{1,200}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = fnPattern.matcher(jobTitle.trim());
 
         return matcher.matches();
     }
 
-    protected boolean validateJobDescription(String desc) {
+    protected static boolean validateJobDescription(String desc) {
         Pattern fnPattern = Pattern.compile("^.{1,500}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = fnPattern.matcher(desc.trim());
 
         return matcher.matches();
     }
 
-    protected boolean validateWage(String wage) {
+    protected static boolean validateWage(String wage) {
         Pattern fnPattern = Pattern.compile("^[0-9]{1,20}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = fnPattern.matcher(wage.trim());
 
@@ -184,7 +184,7 @@ public class CreateJob extends AppCompatActivity {
      * @return
      * @author John Corsten
      */
-    protected boolean validateLongLat(double coordinate){
+    protected static boolean validateLongLat(double coordinate){
         // Valid longitudes and latitudes are both between -180 degrees and 180 degrees
         if (coordinate >= 180 || coordinate <= - 180){
             return false;
