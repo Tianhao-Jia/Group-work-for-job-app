@@ -33,7 +33,8 @@ public class EmployerActivity extends AppCompatActivity {
     private DatabaseReference firebaseDBRef;
 
     TextView loginDisplay;
-    Button logoutButton, createJobButton;
+    Button logoutButton, createJobButton, searchButton;
+    Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,9 @@ public class EmployerActivity extends AppCompatActivity {
         loginDisplay = (TextView) findViewById(R.id.employerLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employerLogoutButton);
         createJobButton = (Button) findViewById(R.id.createJob);
+        searchButton = (Button) findViewById(R.id.employerSearchButton);
 
-        Bundle extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
         if (extras != null) {
             SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
@@ -53,23 +55,27 @@ public class EmployerActivity extends AppCompatActivity {
             editor.putString("Key_type", extras.getString("User Type"));
             editor.putString("Key_hash", extras.getString("User Hash"));
             editor.apply();
+
+
+        }
+        //this shouldn't be possible so that means that the user is in the wrong spot
+        else {
+            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
+            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
+            startActivity(intent);
         }
 
         createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(EmployerActivity.this, CreateJob.class);
 
-                Intent newIntent = new Intent(EmployerActivity.this, CreateJob.class);
-                Bundle extras = getIntent().getExtras();
-                if (extras != null) {
+                intent.putExtra("User Hash", (String) extras.get("User Hash"));
+                intent.putExtra("Login Email", (String) extras.get("Login Email"));
+                intent.putExtra("Login Password", (String) extras.get("Login Password"));
+                intent.putExtra("User Type", (String) extras.get("User Type"));
 
-                    newIntent.putExtra("User Hash", extras.getString("User Hash"));
-                    newIntent.putExtra("Login Email", extras.getString("Login Email"));
-                    newIntent.putExtra("Login Password", extras.getString("Login Password"));
-                    newIntent.putExtra("User Type", extras.getString("User Type"));
-                }
-                startActivity(newIntent);
-
+                startActivity(intent);
             }
         });
 
@@ -77,6 +83,20 @@ public class EmployerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logout();
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployerActivity.this, JobSearch.class);
+
+                intent.putExtra("User Hash", (String) extras.get("User Hash"));
+                intent.putExtra("Login Email", (String) extras.get("Login Email"));
+                intent.putExtra("Login Password", (String) extras.get("Login Password"));
+                intent.putExtra("User Type", (String) extras.get("User Type"));
+
+                startActivity(intent);
             }
         });
     }

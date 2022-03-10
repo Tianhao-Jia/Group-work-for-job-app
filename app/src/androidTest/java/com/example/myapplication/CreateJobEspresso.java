@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
@@ -25,7 +24,6 @@ import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,7 +42,7 @@ import org.junit.runner.RunWith;
 public class CreateJobEspresso {
 
     private static final FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-    private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
+    private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
 
 
     @Rule
@@ -68,11 +66,11 @@ public class CreateJobEspresso {
 
     @Test
     public void createJob(){
-        onView(withId(R.id.jobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
-        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("25"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
 
         jobsRef.child("hashNotFound").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -89,11 +87,11 @@ public class CreateJobEspresso {
 
     @Test
     public void invalidWage() {
-        onView(withId(R.id.jobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
-        onView(withId(R.id.hourlyRate)).perform(typeText(""));
+        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText(""));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
 
         jobsRef.child("userID").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -110,11 +108,11 @@ public class CreateJobEspresso {
 
     @Test
     public void invalidTitle() {
-        onView(withId(R.id.jobTitle)).perform(typeText(""));
-        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
-        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        onView(withId(R.id.createJobTitle)).perform(typeText(""));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("25"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
 
         jobsRef.child("hashNotFound").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -131,16 +129,17 @@ public class CreateJobEspresso {
 
     @Test
     public void invalidDesc() {
-        onView(withId(R.id.jobTitle)).perform(typeText("Title"));
-        onView(withId(R.id.description)).perform(typeText(""));
-        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        onView(withId(R.id.createJobTitle)).perform(typeText("Title"));
+        onView(withId(R.id.createJobDescription)).perform(typeText(""));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("25"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
 
         jobsRef.child("hashNotFound").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                assertEquals(snapshot.getChildrenCount(), 0);
+
+                assertEquals(0, snapshot.getChildrenCount());
             }
 
             @Override
@@ -153,11 +152,11 @@ public class CreateJobEspresso {
     // Checks that user is redirected when all fields are filled
     @Test
     public void allFieldsFilled(){
-        onView(withId(R.id.jobTitle)).perform(typeText("Working and stuff."));
-        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
-        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        onView(withId(R.id.createJobTitle)).perform(typeText("Working and stuff."));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("25"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
 
         onView(withId(R.id.employerView)).check(matches(isDisplayed()));
     }
@@ -165,11 +164,11 @@ public class CreateJobEspresso {
     // Checks that user is not redirected when all fields are not filled
     @Test
     public void notAllFieldsFilled(){
-        onView(withId(R.id.jobTitle)).perform(typeText(""));
-        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
-        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        onView(withId(R.id.createJobTitle)).perform(typeText(""));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("25"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
         onView(withId(R.id.createJob)).check(matches(isDisplayed()));
     }
 

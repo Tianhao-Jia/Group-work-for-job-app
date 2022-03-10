@@ -19,13 +19,6 @@ import org.junit.Test;
 
 public class CreateJobTest {
 
-    static CreateJob createJobActivity;
-
-    @BeforeClass
-    public static void setup() {
-        createJobActivity = new CreateJob();
-    }
-
     @AfterClass
     public static void tearDown() {
         System.gc();
@@ -33,47 +26,44 @@ public class CreateJobTest {
 
     @Test
     public void validDesc() {
-        assertTrue(createJobActivity.validateJobDescription("This is a job description!"));
+        assertTrue(CreateJob.validateJobDescription("This is a job description!"));
     }
 
     @Test
     public void invalidDesc() {
-        assertFalse(createJobActivity.validateJobDescription(""));
+        assertFalse(CreateJob.validateJobDescription(""));
     }
 
     @Test
     public void validTitle() {
-        assertTrue(createJobActivity.validateTitle("A valid title!"));
+        assertTrue(CreateJob.validateTitle("A valid title!"));
     }
 
     @Test
     public void invalidTitle() {
-        assertFalse(createJobActivity.validateTitle(""));
+        assertFalse(CreateJob.validateTitle(""));
     }
 
     @Test
     public void validWage() {
-        assertTrue(createJobActivity.validateWage("12345"));
+        assertTrue(CreateJob.validateWage("12345"));
     }
 
     @Test
     public void invalidWage() {
-        assertFalse(createJobActivity.validateWage("-5"));
+        assertFalse(CreateJob.validateWage("-5"));
     }
 
     @Test
     public void invalidLongLat() {
-        assertFalse(createJobActivity.validateLongLat(180.123));
-        assertFalse(createJobActivity.validateLongLat(-190.0));
+        assertFalse(CreateJob.validateLongLat(180.123));
+        assertFalse(CreateJob.validateLongLat(-190.0));
     }
 
     @Test
     public void validLongLat() {
-        assertTrue(createJobActivity.validateLongLat(98.09));
-        assertTrue(createJobActivity.validateLongLat(-170.98));
+        assertTrue(CreateJob.validateLongLat(98.09));
+        assertTrue(CreateJob.validateLongLat(-170.98));
     }
-
-
-
 
 }
