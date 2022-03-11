@@ -1,14 +1,11 @@
 package com.example.myapplication;
 
-import static com.example.myapplication.ViewJobAdapter.getHolderArrayList;
-
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,15 +22,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class JobSearch extends Activity {
 
-    private EditText employerEmailEditText;
-    private EditText jobTitleEditText;
-    private EditText descriptionEditText;
-    private EditText hourlyRateEditText;
-    private Button searchButton;
+    private EditText searchJobEmailET;
+    private EditText searchJobTitleET;
+    private EditText searchJobDescriptionET;
+    private EditText searchJobHourlyRateET;
+    private Button searchJobButton;
 
     private RecyclerView recyclerView;
     private ViewJobAdapter viewJobAdapter;
@@ -48,6 +44,8 @@ public class JobSearch extends Activity {
     private Button jobLayoutViewOnMap;
 
 
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
     private FirebaseDatabase firebaseDB;
     private DatabaseReference jobsRef;
 
@@ -63,6 +61,9 @@ public class JobSearch extends Activity {
 
         firebaseDB = FirebaseUtils.connectFirebase();
         jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
+
+
+        //sharedPreferences.getString();
 
         //citation based on code from Dhrumils lab presentation on march 2nd in this course csci3130
         FirebaseRecyclerOptions<Job> options = new FirebaseRecyclerOptions.Builder<Job>()
@@ -84,11 +85,11 @@ public class JobSearch extends Activity {
      */
     private void init() {
 
-        employerEmailEditText = findViewById(R.id.searchEmployerEmail);
-        jobTitleEditText = findViewById(R.id.searchJobTitle);
-        descriptionEditText = findViewById(R.id.searchDescription);
-        hourlyRateEditText = findViewById(R.id.searchHourlyRate);
-        searchButton = findViewById(R.id.searchJobButton);
+        searchJobEmailET = findViewById(R.id.searchEmployerEmail);
+        searchJobTitleET = findViewById(R.id.searchJobTitle);
+        searchJobDescriptionET = findViewById(R.id.searchDescription);
+        searchJobHourlyRateET = findViewById(R.id.searchHourlyRate);
+        searchJobButton = findViewById(R.id.searchJobButton);
 
         recyclerView = findViewById(R.id.searchJobRecyclerView);
 
@@ -105,7 +106,7 @@ public class JobSearch extends Activity {
         jobLayoutViewOnMap = recyclerView.findViewById(R.id.jobLayoutViewOnMap);
 
         recyclerView.setLayoutManager(new WrapLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
+        
     }
 
     /**
@@ -116,11 +117,13 @@ public class JobSearch extends Activity {
      * @author: Nathanael Bowley
      */
     private void setSearchButtonListener() {
-        searchButton.setOnClickListener(view -> {
-            inputs[0] = employerEmailEditText.getText().toString();
-            inputs[1] = jobTitleEditText.getText().toString();
-            inputs[2] = descriptionEditText.getText().toString();
-            inputs[3] = hourlyRateEditText.getText().toString();
+        searchJobButton.setOnClickListener(view -> {
+            inputs[0] = searchJobEmailET.getText().toString();
+            inputs[1] = searchJobTitleET.getText().toString();
+            inputs[2] = searchJobDescriptionET.getText().toString();
+            inputs[3] = searchJobHourlyRateET.getText().toString();
+
+            putSearchIntoSharedPreferences(inputs);
 
             boolean searchableString = false;
             for (int i = 0; i< inputs.length; i++) {
@@ -136,6 +139,20 @@ public class JobSearch extends Activity {
                 searchJobs(inputs);
             }
         });
+    }
+
+    /**
+     * putSearchIntoSharedPreferences method that puts the current searched strings
+     * into the shared preferences for later retrieval.
+     * @param inputs String[] array of the inputs from the user to be saved
+     * @author: Nathanael Bowley
+     */
+    private void putSearchIntoSharedPreferences(String[] inputs) {
+        editor.putString("searchEmployerEmail", inputs[0]);
+        editor.putString("searchJobTitle", inputs[1]);
+        editor.putString("searchDescription", inputs[2]);
+        editor.putString("searchHourlyRate", inputs[3]);
+        editor.commit();
     }
 
     /**
