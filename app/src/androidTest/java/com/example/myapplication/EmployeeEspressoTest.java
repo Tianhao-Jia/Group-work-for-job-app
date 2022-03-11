@@ -53,7 +53,7 @@ public class EmployeeEspressoTest {
     @Test
     public void testOpenEmployeeActivity() {
 
-        onView(withId(R.id.goToEmployeeActivity)).perform(click());
+        onView(withId(R.id.mainLogin)).perform(click());
         intended(hasComponent(LoginActivity.class.getName()));
 
     }

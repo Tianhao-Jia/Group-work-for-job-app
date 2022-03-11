@@ -50,14 +50,6 @@ public class EmployerEspressoTest {
         assertEquals("com.example.myapplication", appContext.getPackageName());
     }
 
-    @Test
-    public void testOpenEmployerActivity() {
-
-        onView(withId(R.id.goToEmployerActivity)).perform(click());
-        intended(hasComponent(LoginActivity.class.getName()));
-
-    }
-
 
     @Test
     public void testOpenEmployerSearchButton() {
