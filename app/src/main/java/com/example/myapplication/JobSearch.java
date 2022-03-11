@@ -170,10 +170,10 @@ public class JobSearch extends Activity {
      */
     private void putSearchIntoSharedPreferences(String[] inputs) {
         if (editor != null) {
-            editor.putString("searchEmployerEmail", inputs[0]);
-            editor.putString("searchJobTitle", inputs[1]);
-            editor.putString("searchDescription", inputs[2]);
-            editor.putString("searchHourlyRate", inputs[3]);
+            editor.putString("searchEmployerEmail", inputs[0]).apply();
+            editor.putString("searchJobTitle", inputs[1]).apply();
+            editor.putString("searchDescription", inputs[2]).apply();
+            editor.putString("searchHourlyRate", inputs[3]).apply();
             editor.commit();
         }
     }
@@ -187,6 +187,8 @@ public class JobSearch extends Activity {
      * @author: Nathanael Bowley
      */
     private void searchJobs(String[] searchPreferences) {
+
+
 
         jobsRef.addValueEventListener(new ValueEventListener() {
             @Override

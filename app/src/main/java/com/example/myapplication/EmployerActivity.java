@@ -34,7 +34,7 @@ public class EmployerActivity extends AppCompatActivity {
 
     TextView loginDisplay;
     Button logoutButton, createJobButton, searchButton;
-    Bundle extras;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,43 +46,18 @@ public class EmployerActivity extends AppCompatActivity {
         createJobButton = (Button) findViewById(R.id.createJob);
         searchButton = (Button) findViewById(R.id.employerSearchButton);
 
-        extras = getIntent().getExtras();
-        if (extras != null) {
-            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("Key_email", extras.getString("Login Email"));
-            editor.putString("Key_password", extras.getString("Login Password"));
-            editor.putString("Key_type", extras.getString("User Type"));
-            editor.putString("Key_hash", extras.getString("User Hash"));
-            editor.apply();
-
-
-        }
-        //this shouldn't be possible so that means that the user is in the wrong spot
-        else {
-            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
-            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
-            startActivity(intent);
-        }
-
         createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(EmployerActivity.this, CreateJob.class);
-
-                intent.putExtra("User Hash", (String) extras.get("User Hash"));
-                intent.putExtra("Login Email", (String) extras.get("Login Email"));
-                intent.putExtra("Login Password", (String) extras.get("Login Password"));
-                intent.putExtra("User Type", (String) extras.get("User Type"));
-
-                startActivity(intent);
+                Intent newIntent = new Intent(EmployerActivity.this, CreateJob.class);
+                startActivity(newIntent);
             }
         });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout();
+                Session.logout();
             }
         });
 
@@ -90,12 +65,6 @@ public class EmployerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(EmployerActivity.this, JobSearch.class);
-
-                intent.putExtra("User Hash", (String) extras.get("User Hash"));
-                intent.putExtra("Login Email", (String) extras.get("Login Email"));
-                intent.putExtra("Login Password", (String) extras.get("Login Password"));
-                intent.putExtra("User Type", (String) extras.get("User Type"));
-
                 startActivity(intent);
             }
         });

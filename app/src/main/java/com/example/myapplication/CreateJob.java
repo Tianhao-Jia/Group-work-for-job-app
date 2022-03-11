@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,8 +25,6 @@ public class CreateJob extends AppCompatActivity {
     private FirebaseDatabase firebaseDB;
     private DatabaseReference jobsRef;
 
-    Bundle extras;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +32,9 @@ public class CreateJob extends AppCompatActivity {
 
         Button createJobBtn = findViewById(R.id.createJobSubmitButton);
 
-        Intent intent = getIntent();
-        extras = getIntent().getExtras();
-
         TextView email = findViewById(R.id.createJobEmail);
 
-        email.setText(getEmployerEmail());
+        email.setText(Session.getEmail());
 
         createJobBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,15 +44,8 @@ public class CreateJob extends AppCompatActivity {
                 Job job = createJob();
                 if (job != null) {
                     pushJob(job, jobsRef);
-                    Intent intent = new Intent(CreateJob.this, EmployerActivity.class);
-
-                    intent.putExtra("User Hash", (String) extras.get("User Hash"));
-                    intent.putExtra("Login Email", (String) extras.get("Login Email"));
-                    intent.putExtra("Login Password", (String) extras.get("Login Password"));
-                    intent.putExtra("User Type", (String) extras.get("User Type"));
-
-                    startActivity(intent);
-                    //setContentView(R.layout.activity_employer);
+                    Intent newIntent = new Intent(CreateJob.this, EmployerActivity.class);
+                    startActivity(newIntent);
                 }
             }
         });
@@ -77,14 +69,14 @@ public class CreateJob extends AppCompatActivity {
             EditText jobHourlyRateEditText = findViewById(R.id.createJobHourlyRate);
 
             // Dummy values to be used until location functionality is added in another user story
-            double latitude = 100;
             double longitude = 100;
+            double latitude = 100;
             Location location = new Location(latitude, longitude);
 
             String jobEmail = jobEmailEditText.getText().toString();
             String jobTitle = jobTitleEditText.getText().toString();
             String jobDesc = jobDescEditText.getText().toString();
-            String userHash = getUserHash();
+            String userHash = Session.getUserID();
             double jobHourlyRate;
 
             try {
@@ -116,34 +108,6 @@ public class CreateJob extends AppCompatActivity {
         return true;
     }
 
-    protected String getUserHash(){
-        String hash;
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null) {
-            hash = extras.getString("User Hash");;
-        }
-        else{
-            hash = "hashNotFound";
-        }
-        return hash;
-    }
-
-    protected String getEmployerEmail() {
-//        TextView empEmail = findViewById(R.id.employerEmail);
-//        return empEmail.getText().toString();
-
-        String employerEmail;
-        Bundle extras = getIntent().getExtras();
-
-        if (extras != null) {
-            employerEmail = extras.getString("Login Email");;
-        }
-        else{
-            employerEmail = "notFound@dal.ca";
-        }
-        return employerEmail;
-    }
 
     protected boolean validateInput() {
         EditText jobTitle = findViewById(R.id.createJobTitle);

@@ -56,7 +56,6 @@ public class RegisterUser extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
-        Intent intent = getIntent();
 
         nameFNField = findViewById(R.id.registerFirstName);
         nameLNField = findViewById(R.id.registerLastName);
@@ -104,34 +103,8 @@ public class RegisterUser extends AppCompatActivity {
                 } else{
                     if(validateInput()) {
                         String key = addRecord();
-
-                        //implementation of part of US-3
-                        String userType = userTypeField.getText().toString();
-
-                        // if user registers as an Employee, they have essentially logged in as
-                        // an employee; if user type is Employer,  then log in as employer
-                        if (userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
-                            Intent intent = new Intent(RegisterUser.this, EmployeeActivity.class);
-                            intent.putExtra("Login Email", emailField.getText().toString());
-                            intent.putExtra("Login Password", passwordField.getText().toString());
-                            intent.putExtra("User Type", Employee.EMPLOYEE);
-                            intent.putExtra("User Hash", key);
-                            startActivity(intent);
-                        }
-                        else if (userType.equalsIgnoreCase(Employer.EMPLOYER)) {
-                            Intent intent = new Intent(RegisterUser.this, EmployerActivity.class);
-                            intent.putExtra("Login Email", emailField.getText().toString());
-                            intent.putExtra("Login Password", passwordField.getText().toString());
-                            intent.putExtra("User Type", Employer.EMPLOYER);
-                            intent.putExtra("User Hash", key);
-                            startActivity(intent);
-                        }
-                        else {
-                            Log.e("ERROR", "This should never be possible that a user is not employer or emploee!");
-                            //force crash.
-                            System.exit(-1);
-                        }
-                        setContentView(R.layout.login_page);
+                        Intent intent = new Intent(RegisterUser.this, LoginActivity.class);
+                        startActivity(intent);
                     }
                     else {
                         displayToast("Registration Failed!");

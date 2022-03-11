@@ -19,7 +19,9 @@ import androidx.test.espresso.Espresso;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.junit.AfterClass;
@@ -29,9 +31,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @RunWith(AndroidJUnit4.class)
 public class JobSearchEspressoTest {
+    private static String TEST_ID = "123";
 
     @Rule
     public ActivityScenarioRule myRule =
@@ -39,7 +44,20 @@ public class JobSearchEspressoTest {
 
     @BeforeClass
     public static void setup() {
-        Intents.init();
+        Session.startSession(InstrumentationRegistry.getInstrumentation().getTargetContext());
+        Session.login("test@dal.ca", TEST_ID, "Employer");
+
+        Map<String, Object> job = new HashMap<>();
+        job.put("employerEmail", "george.smith@dal.ca");
+        job.put("jobTitle", "Title");
+        job.put("description", "Car Wash");
+        job.put("userHash", TEST_ID);
+        job.put("compensation", 1);
+
+        // Getting an instance of the firebase realtime database
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS_COLLECTION);
+
+        dbRef.child(TEST_ID).setValue(job);
     }
 
     @AfterClass
@@ -49,105 +67,50 @@ public class JobSearchEspressoTest {
         FirebaseDatabase.getInstance().getReference("users").setValue(null);
     }
 
-    @Test
-    public void searchNoJobsExist(){
-
-        ActivityScenario.launch(EmployerActivity.class);
-
-        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.registerButton)).perform(click());
-
-        onView(withId(R.id.employerSearchButton)).perform(click());
-
-        onView(withId(R.id.searchJobButton)).perform(click());
-
-        assertEquals(0,ViewJobAdapter.getHolderArrayList().size());
-
-
-    }
+//    @Test
+//    public void searchNoJobsExist(){
+//
+//        ActivityScenario.launch(EmployerActivity.class);
+//
+//        onView(withId(R.id.employerSearchButton)).perform(click());
+//
+//        onView(withId(R.id.searchJobButton)).perform(click());
+//
+//        assertEquals(0,ViewJobAdapter.getHolderArrayList().size());
+//
+//
+//    }
 
     @Test
     public void searchJobsExistNoJobsInfoProvided(){
 
-        ActivityScenario.launch(RegisterUser.class);
+        ActivityScenario.launch(EmployerActivity.class);
 
-        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.registerButton)).perform(click());
-
-        onView(withId(R.id.createJob)).perform(click());
-
-        onView(withId(R.id.createJobEmail)).perform(typeText("george.smith@dal.ca\n"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash\n"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine\n"));
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("15\n"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
-
-
-
-        //for some reason this one causes it to crash but it doesn't in the previous test.
         onView(withId(R.id.employerSearchButton)).perform(click());
 
         onView(withId(R.id.searchJobButton)).perform(click());
 
-        //shows only the one job.
         assertEquals(1,ViewJobAdapter.getHolderArrayList().size());
-
-
 
     }
 
     @Test
     public void searchJobsExistJobsInfoProvidedEmail(){
 
-        ActivityScenario.launch(RegisterUser.class);
+        Map<String, Object> job = new HashMap<>();
+        job.put("employerEmail", "george.smith@dal.ca");
+        job.put("jobTitle", "Title");
+        job.put("description", "Stuff");
+        job.put("userHash", TEST_ID);
+        job.put("compensation", 1);
 
-        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
-        Espresso.closeSoftKeyboard();
+        // Getting an instance of the firebase realtime database
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS_COLLECTION);
 
-        onView(withId(R.id.registerButton)).perform(click());
+        dbRef.child(TEST_ID).setValue(job);
 
-        onView(withId(R.id.createJob)).perform(click());
+        ActivityScenario.launch(EmployerActivity.class);
 
-        onView(withId(R.id.createJobEmail)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("15"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
-
-        onView(withId(R.id.createJob)).perform(click());
-
-        onView(withId(R.id.createJobEmail)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Destroy"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat Dirty"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("1"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
-
-
-
-        //for some reason this one causes it to crash but it doesn't in the previous test.
         onView(withId(R.id.employerSearchButton)).perform(click());
 
 
@@ -158,8 +121,8 @@ public class JobSearchEspressoTest {
         //shows two jobs.
         ArrayList<Job> jobArrayList = ViewJobAdapter.getJobArrayList();
         for (int i = 0; i<jobArrayList.size(); i++) {
-            Job job = jobArrayList.get(i);
-            String currentEmail = job.getEmployerEmail();
+            Job job_next = jobArrayList.get(i);
+            String currentEmail = job_next.getEmployerEmail();
             assertEquals("george.smith@dal.ca", currentEmail);
         }
 
@@ -168,56 +131,37 @@ public class JobSearchEspressoTest {
 
     @Test
     public void searchJobsExistJobsInfoProvidedTitle(){
-
-        ActivityScenario.launch(RegisterUser.class);
-
-        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.registerButton)).perform(click());
-
-        onView(withId(R.id.createJob)).perform(click());
-
-        onView(withId(R.id.createJobEmail)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("15"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
-
-        onView(withId(R.id.createJob)).perform(click());
-
-        onView(withId(R.id.createJobEmail)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Destroy"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat Dirty"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("1"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
+        // Getting an instance of the firebase realtime database
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS_COLLECTION);
 
 
+        Map<String, Object> job2 = new HashMap<>();
+        job2.put("employerEmail", "george.smith@dal.ca");
+        job2.put("jobTitle", "Title");
+        job2.put("description", "Car Destroy");
+        job2.put("userHash", TEST_ID);
+        job2.put("compensation", 1);
+
+        // Getting an instance of the firebase realtime database
+
+        dbRef.child(TEST_ID).setValue(job2);
+
+        ActivityScenario.launch(EmployerActivity.class);
 
         //for some reason this one causes it to crash but it doesn't in the previous test.
         onView(withId(R.id.employerSearchButton)).perform(click());
 
 
-        onView(withId(R.id.searchJobTitle)).perform(typeText("Car Destroy"));
+        onView(withId(R.id.searchJobTitle)).perform(typeText("Title"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.searchJobButton)).perform(click());
 
         //shows two jobs.
         ArrayList<Job> jobArrayList = ViewJobAdapter.getJobArrayList();
         for (int i = 0; i<jobArrayList.size(); i++) {
-            Job job = jobArrayList.get(i);
-            String currentTitle = job.getJobTitle();
-            assertEquals("Car Destroy", currentTitle);
+            Job job_next = jobArrayList.get(i);
+            String currentTitle = job_next.getJobTitle();
+            assertEquals("Title", currentTitle);
         }
 
     }
@@ -225,46 +169,27 @@ public class JobSearchEspressoTest {
     @Test
     public void searchJobsExistJobsInfoProvidedHourlyRate(){
 
-        ActivityScenario.launch(RegisterUser.class);
-
-        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.registerButton)).perform(click());
-
-        onView(withId(R.id.createJob)).perform(click());
-
-        onView(withId(R.id.createJobEmail)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("15"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
-
-        onView(withId(R.id.createJob)).perform(click());
-
-        onView(withId(R.id.createJobEmail)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Destroy"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat Dirty"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("1"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
+        // Getting an instance of the firebase realtime database
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS_COLLECTION);
 
 
+        Map<String, Object> job2 = new HashMap<>();
+        job2.put("employerEmail", "george.smith@dal.ca");
+        job2.put("jobTitle", "Title");
+        job2.put("description", "Car Destroy");
+        job2.put("userHash", TEST_ID);
+        job2.put("compensation", 1);
+
+        // Getting an instance of the firebase realtime database
+
+        dbRef.child(TEST_ID).setValue(job2);
+
+        ActivityScenario.launch(EmployerActivity.class);
 
         //for some reason this one causes it to crash but it doesn't in the previous test.
         onView(withId(R.id.employerSearchButton)).perform(click());
 
-
-        onView(withId(R.id.searchHourlyRate)).perform(typeText("15"));
+        onView(withId(R.id.searchHourlyRate)).perform(typeText("1.0"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.searchJobButton)).perform(click());
 
@@ -273,7 +198,7 @@ public class JobSearchEspressoTest {
         for (int i = 0; i<jobArrayList.size(); i++) {
             Job job = jobArrayList.get(i);
             String currentRate = String.valueOf(job.getCompensation());
-            assertEquals("15.0", currentRate);
+            assertEquals("1.0", currentRate);
         }
 
     }
@@ -281,42 +206,24 @@ public class JobSearchEspressoTest {
     @Test
     public void searchJobsExistJobsInfoProvidedDescription(){
 
-        ActivityScenario.launch(RegisterUser.class);
+        // Getting an instance of the firebase realtime database
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS_COLLECTION);
 
-        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
-        Espresso.closeSoftKeyboard();
 
-        onView(withId(R.id.registerButton)).perform(click());
+        Map<String, Object> job2 = new HashMap<>();
+        job2.put("employerEmail", "george.smith@dal.ca");
+        job2.put("jobTitle", "Title");
+        job2.put("description", "Make my Hellcat shine");
+        job2.put("userHash", TEST_ID);
+        job2.put("compensation", 1);
 
-        onView(withId(R.id.createJob)).perform(click());
+        // Getting an instance of the firebase realtime database
 
-        onView(withId(R.id.createJobEmail)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("15"));
-        Espresso.closeSoftKeyboard();
+        dbRef.child(TEST_ID).setValue(job2);
 
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
-
-        onView(withId(R.id.createJob)).perform(click());
-
-        onView(withId(R.id.createJobEmail)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Destroy"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat Dirty"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("1"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
-
+        ActivityScenario.launch(EmployerActivity.class);
 
         onView(withId(R.id.employerSearchButton)).perform(click());
-
 
         onView(withId(R.id.searchDescription)).perform(typeText("Make my Hellcat shine"));
         Espresso.closeSoftKeyboard();
@@ -337,27 +244,7 @@ public class JobSearchEspressoTest {
     @Test
     public void searchJobsEmailSaved(){
 
-        ActivityScenario.launch(RegisterUser.class);
-
-        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.registerButton)).perform(click());
-
-        onView(withId(R.id.createJob)).perform(click());
-
-        onView(withId(R.id.createJobEmail)).perform(replaceText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("15"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
+        ActivityScenario.launch(EmployerActivity.class);
 
         onView(withId(R.id.employerSearchButton)).perform(click());
         onView(withId(R.id.searchEmployerEmail)).perform(typeText("george.smith@dal.ca"));
@@ -374,27 +261,39 @@ public class JobSearchEspressoTest {
     @Test
     public void searchJobsTitleSaved(){
 
-        ActivityScenario.launch(RegisterUser.class);
+        ActivityScenario.launch(EmployerActivity.class);
 
-        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
+        onView(withId(R.id.employerSearchButton)).perform(click());
+        onView(withId(R.id.searchJobTitle)).perform(typeText("Title"));
         Espresso.closeSoftKeyboard();
+        onView(withId(R.id.searchJobButton)).perform(click());
+        Espresso.pressBack();
 
-        onView(withId(R.id.registerButton)).perform(click());
+        onView(withId(R.id.employerSearchButton)).perform(click());
+        onView(withId(R.id.searchJobTitle)).check(matches(withText(containsString("Title"))));
 
-        onView(withId(R.id.createJob)).perform(click());
+    }
 
-        onView(withId(R.id.createJobEmail)).perform(replaceText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+    @Test
+    public void searchJobsHourlyRateSaved(){
+
+        ActivityScenario.launch(EmployerActivity.class);
+
+        onView(withId(R.id.employerSearchButton)).perform(click());
+        onView(withId(R.id.searchHourlyRate)).perform(typeText("1"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("15"));
-        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.searchJobButton)).perform(click());
+        Espresso.pressBack();
 
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
+        onView(withId(R.id.employerSearchButton)).perform(click());
+        onView(withId(R.id.searchHourlyRate)).check(matches(withText(containsString("1.0"))));
+
+    }
+
+    @Test
+    public void searchJobsDescriptionSaved(){
+
+        ActivityScenario.launch(EmployerActivity.class);
 
         onView(withId(R.id.employerSearchButton)).perform(click());
         onView(withId(R.id.searchJobTitle)).perform(typeText("Car Wash"));
@@ -405,77 +304,6 @@ public class JobSearchEspressoTest {
         onView(withId(R.id.employerSearchButton)).perform(click());
         onView(withId(R.id.searchJobTitle)).check(matches(withText(containsString("Car Wash"))));
 
-    }
-
-    @Test
-    public void searchJobsHourlyRateSaved(){
-
-        ActivityScenario.launch(RegisterUser.class);
-
-        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.registerButton)).perform(click());
-
-        onView(withId(R.id.createJob)).perform(click());
-
-        onView(withId(R.id.createJobEmail)).perform(replaceText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("15"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
-
-        onView(withId(R.id.employerSearchButton)).perform(click());
-        onView(withId(R.id.searchHourlyRate)).perform(typeText("15"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.searchJobButton)).perform(click());
-        Espresso.pressBack();
-
-        onView(withId(R.id.employerSearchButton)).perform(click());
-        onView(withId(R.id.searchHourlyRate)).check(matches(withText(containsString("15"))));
-
-    }
-
-    @Test
-    public void searchJobsDescriptionSaved(){
-
-        ActivityScenario.launch(RegisterUser.class);
-
-        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.registerButton)).perform(click());
-
-        onView(withId(R.id.createJob)).perform(click());
-
-        onView(withId(R.id.createJobEmail)).perform(replaceText("george.smith@dal.ca"));
-        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.createJobHourlyRate)).perform(typeText("15"));
-        Espresso.closeSoftKeyboard();
-
-        onView(withId(R.id.createJobSubmitButton)).perform(click());
-
-        onView(withId(R.id.employerSearchButton)).perform(click());
-        onView(withId(R.id.searchDescription)).perform(typeText("Make my Hellcat shine"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.searchJobButton)).perform(click());
-        Espresso.pressBack();
-
-        onView(withId(R.id.employerSearchButton)).perform(click());
-        onView(withId(R.id.searchDescription)).check(matches(withText(containsString("Make my Hellcat shine"))));
 
     }
 
