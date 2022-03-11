@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,8 +24,6 @@ public class CreateJob extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDB;
     private DatabaseReference jobsRef;
-
-    Bundle extras;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class CreateJob extends AppCompatActivity {
             EditText jobHourlyRateEditText = findViewById(R.id.createJobHourlyRate);
 
             // Dummy values to be used until location functionality is added in another user story
+            double longitude = 100;
             double latitude = 100;
             Location location = new Location(latitude, longitude);
 

@@ -68,20 +68,6 @@ public class EmployerActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EmployerActivity.this, JobSearch.class);
-
-                intent.putExtra("User Hash", (String) extras.get("User Hash"));
-                intent.putExtra("Login Email", (String) extras.get("Login Email"));
-                intent.putExtra("Login Password", (String) extras.get("Login Password"));
-                intent.putExtra("User Type", (String) extras.get("User Type"));
-
-                startActivity(intent);
-            }
-        });
     }
 
     /**
