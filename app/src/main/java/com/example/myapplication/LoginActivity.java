@@ -56,18 +56,18 @@ public class LoginActivity extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = id.getText().toString();
-                String password = LoginActivity.this.password.getText().toString();
-                if (TextUtils.isEmpty(username)){
+                String usernameInput = id.getText().toString();
+                String passwordInput = LoginActivity.this.password.getText().toString();
+                if (TextUtils.isEmpty(usernameInput)){
                     status.setText(getString(R.string.name_empty));
-                    return;
                 }
-                if (TextUtils.isEmpty(password)){
+                else if (TextUtils.isEmpty(passwordInput)){
                     status.setText(getString(R.string.pwd_empty));
-                    return;
                 }
-                status.setText("");
-                loginEvent();
+                else {
+                    tryLogin(usernameInput, passwordInput);
+                }
+
             }
         });
         signup.setOnClickListener(new View.OnClickListener() {
@@ -86,38 +86,36 @@ public class LoginActivity extends AppCompatActivity {
      * dataSnapshot objects to find the correct child in the Firebase realtime database.
      * @author: everyone
      */
-    private void loginEvent() {
+    private void tryLogin(String usernameInput, String passwordInput) {
         connectFirebase();
         firebaseDBRef.getDatabase();
 
         firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                boolean found = false;
                 for (DataSnapshot dataSnapshot: snapshot.getChildren()){
 
-                    String email = dataSnapshot.child("email").getValue(String.class);
-                    String password = dataSnapshot.child("password").getValue(String.class);
-                    String passwordCompare = LoginActivity.this.password.getText().toString();
-                    String employType = dataSnapshot.child("userType").getValue(String.class);
+                    String checkEmail = dataSnapshot.child("email").getValue(String.class);
+                    String checkPassword = dataSnapshot.child("password").getValue(String.class);
 
-
-//                    boolean passwordNotNull = password!=null;
-//                    boolean emailNotNull = email!=null;
-                    boolean passwordIsSame = password.equals(passwordCompare);
-                    boolean emailIsSame = email.equals(id.getText().toString());
+                    boolean passwordIsSame = passwordInput.equals(checkPassword);
+                    boolean emailIsSame = usernameInput.equals(checkEmail);
 
                     if(passwordIsSame && emailIsSame){
-//                        found = true;
-                        Session.login(dataSnapshot.getRef().getKey(), email, employType);
+                        found = true;
+                        String userType = dataSnapshot.child("userType").getValue(String.class);
+                        String userID = dataSnapshot.getRef().getKey();
                         Intent intent;
-                        if(employType.equalsIgnoreCase(Employee.EMPLOYEE)) {
+                        if(userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
                             intent = new Intent(LoginActivity.this, EmployeeActivity.class);
                         }
                         else {
                             intent = new Intent(LoginActivity.this, EmployerActivity.class);
                         }
+                        Session.login(checkEmail, userID, userType);
                         startActivity(intent);
+                        break;
 
 //                        if (employType.equalsIgnoreCase(Employee.EMPLOYEE)) {
 //                            Intent intent = new Intent(LoginActivity.this, EmployeeActivity.class);
@@ -147,9 +145,9 @@ public class LoginActivity extends AppCompatActivity {
 //                            System.exit(-1);
 //                        }
                     }
-                    else {
-                        Toast.makeText(LoginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
-                    }
+                }
+                if (!found) {
+                    Toast.makeText(LoginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -157,7 +155,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+
+
         });
+//        Toast.makeText(LoginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
+
 
 
     }

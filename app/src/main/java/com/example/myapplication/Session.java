@@ -87,11 +87,18 @@ public class Session  {
         return sharedPref.getString(TYPE, "No User Type");
     }
 
+    public static String getUserID() {
+        return sharedPref.getString(ID, "No user ID found");
+    }
+
+    public static void putString(String key, String value) {
+        editor.putString(key, value);
+        editor.commit();
+    }
+
     private static void redirectToLogin() {
         Intent redirect = new Intent(context, LoginActivity.class);
-        redirect.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        redirect.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
+        redirect.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(redirect);
     }
 

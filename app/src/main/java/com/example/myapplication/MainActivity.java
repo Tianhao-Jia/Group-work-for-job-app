@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Session.startSession(this);
         setContentView(R.layout.activity_main);
+        Session.startSession(getApplicationContext());
 
         firebaseDB = FirebaseUtils.connectFirebase();
         firebaseDBRef = firebaseDB.getReference();
