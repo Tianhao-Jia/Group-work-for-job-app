@@ -30,32 +30,22 @@ public class ViewApplications extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDB;
     private DatabaseReference firebaseDBRef;
-
-    DatabaseReference applications = firebaseDB.getReference().child("applications");
+    private Button homeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.applications_page);
-        Bundle extras = getIntent().getExtras();
+        homeButton = (Button) findViewById(R.id.applicationsToEmployer);
 
-        if (extras != null) {
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewApplications.this, EmployerActivity.class);
+                startActivity(intent);
+            }
+        });
 
-            applications.child(extras.getString("User Hash")).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (extras != null) {
-                        if (snapshot.child(extras.getString("User Hash")).getChildrenCount() > 0) {
-                            // Meaningless statement to be place holder until I figure it out
-                            System.out.println("Idk");
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                }
-            });
-        }
     }
+
 }

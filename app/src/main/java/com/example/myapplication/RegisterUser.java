@@ -144,6 +144,7 @@ public class RegisterUser extends AppCompatActivity {
             map.put("email", emailField.getText().toString());
             map.put("userType", userTypeField.getText().toString());
             map.put("password", passwordField.getText().toString());
+            map.put("hash", key);
             map.put("loginState", true);
 
 

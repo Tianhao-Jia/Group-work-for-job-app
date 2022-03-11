@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 
 /**
@@ -124,6 +134,45 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
             jobLayoutViewOnMap = itemView.findViewById(R.id.jobLayoutViewOnMap);
 
             context = itemView.getContext();
+
+            jobLayoutApply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
+                    DatabaseReference usersRef = firebaseDB.getReference().child(FirebaseUtils.USERS_COLLECTION);
+                    usersRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                Log.d("demo",dataSnapshot.child("email").getValue().toString());
+                                Log.d("demo2",jobLayoutEmployerEmail.getText().toString().substring(7));
+
+                                if (dataSnapshot.child("email").getValue().toString().equals(jobLayoutEmployerEmail.getText().toString().substring(7))){
+                                    Log.d("demo","IT WORKED");
+                                    // Creating a HashMap of user information to store on firebase
+                                    Map<String, Object> map = new HashMap<>();
+                                    map.put("hash", dataSnapshot.child("hash").getValue().toString());
+                                    map.put("email", dataSnapshot.child("email").getValue().toString());
+                                    map.put("First Name", dataSnapshot.child("firstName").getValue().toString());
+                                    map.put("Last Name", dataSnapshot.child("lastName").getValue().toString());
+
+                                    // Getting an instance of the firebase realtime database
+                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+                                            .getReference()
+                                            .child("applications")
+                                            .child(Session.getUserID())
+                                            .setValue(map);
+                                }
+
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            });
 
         }
 
