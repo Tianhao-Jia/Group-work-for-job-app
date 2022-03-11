@@ -11,8 +11,8 @@ public class Job implements Serializable {
     private String employerEmail;
     private String jobTitle;
     private String description;
+    private String userHash;
     private double compensation = 0;
-
 
     private Location location;
 
@@ -30,11 +30,12 @@ public class Job implements Serializable {
      * for API 27 and lower devices or when using the default
      * {@link AppComponentFactory}.
      */
-    public Job(String employerEmail, String jobTitle, String description, Location location) {
+    public Job(String employerEmail, String jobTitle, String description, Location location, String userHash) {
         this.employerEmail = employerEmail;
         this.jobTitle = jobTitle;
         this.description = description;
         this.location = location;
+        this.userHash = userHash;
     }
 
     public String getEmployerEmail() {
@@ -61,6 +62,14 @@ public class Job implements Serializable {
         this.description = description;
     }
 
+    public String getHash() {
+        return userHash;
+    }
+
+    public void setHash(String hash) {
+        this.userHash = hash;
+    }
+
     public double getCompensation() {
         return compensation;
     }
@@ -68,6 +77,8 @@ public class Job implements Serializable {
     public void setCompensation(double compensation) {
         this.compensation = compensation;
     }
+
+
 
     public Location getLocation() {
         return location;

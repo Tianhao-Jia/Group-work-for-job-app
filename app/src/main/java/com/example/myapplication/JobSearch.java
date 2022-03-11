@@ -167,7 +167,7 @@ public class JobSearch extends Activity {
      */
     private void searchJobs(String[] searchPreferences) {
 
-        firebaseDB.getReference().child("jobs").addValueEventListener(new ValueEventListener() {
+        jobsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
