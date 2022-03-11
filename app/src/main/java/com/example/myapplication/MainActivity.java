@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button register = (Button) findViewById(R.id.register);
-        setIntent(register, RegisterUser.class);
+        setIntent(register, GoogleMapsActivity.class);
         redirectIfLoggedIn();
 
     }

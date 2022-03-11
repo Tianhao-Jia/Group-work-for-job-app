@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import java.util.Random;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -145,6 +146,8 @@ public class RegisterUser extends AppCompatActivity {
             map.put("userType", userTypeField.getText().toString());
             map.put("password", passwordField.getText().toString());
             map.put("loginState", true);
+            map.put("user location (latitude)", ((LatLng) getIntent().getExtras().get("user location")).latitude);
+            map.put("user location (longitude)", ((LatLng) getIntent().getExtras().get("user location")).longitude);
 
 
             // Getting an instance of the firebase realtime database
