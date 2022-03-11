@@ -20,7 +20,6 @@ public class Session  {
 
     public static final String SHARED_PREFS = "shared_prefs";
 
-    // key for storing email.
     public static final String EMAIL = "email";
 
     public static final String F_NAME = "first_name";

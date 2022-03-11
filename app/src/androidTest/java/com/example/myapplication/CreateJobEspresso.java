@@ -45,6 +45,7 @@ public class CreateJobEspresso {
 
     private static final FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
     private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
+    private static final String TEST_ID = "123";
 
 
     @Rule
@@ -53,7 +54,13 @@ public class CreateJobEspresso {
 
     @Before
     public void clearNode() {
-        jobsRef.child("hashNotFound").setValue(null);
+        jobsRef.child(TEST_ID).setValue(null);
+    }
+
+    @BeforeClass
+    public static void createSession() {
+        Session.startSession(InstrumentationRegistry.getInstrumentation().getTargetContext());
+        Session.login("test@dal.ca", TEST_ID, "Employer");
     }
 
     @BeforeClass
@@ -74,7 +81,7 @@ public class CreateJobEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submitJobButton)).perform(click());
 
-        jobsRef.child("hashNotFound").addListenerForSingleValueEvent(new ValueEventListener() {
+        jobsRef.child(TEST_ID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 assertEquals(snapshot.getChildrenCount(), 1);
@@ -95,7 +102,7 @@ public class CreateJobEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submitJobButton)).perform(click());
 
-        jobsRef.child("userID").addListenerForSingleValueEvent(new ValueEventListener() {
+        jobsRef.child(TEST_ID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 assertEquals(snapshot.getChildrenCount(), 0);
@@ -116,7 +123,7 @@ public class CreateJobEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submitJobButton)).perform(click());
 
-        jobsRef.child("hashNotFound").addListenerForSingleValueEvent(new ValueEventListener() {
+        jobsRef.child(TEST_ID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 assertEquals(snapshot.getChildrenCount(), 0);
@@ -137,7 +144,7 @@ public class CreateJobEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submitJobButton)).perform(click());
 
-        jobsRef.child("hashNotFound").addListenerForSingleValueEvent(new ValueEventListener() {
+        jobsRef.child(TEST_ID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 assertEquals(snapshot.getChildrenCount(), 0);
@@ -172,25 +179,5 @@ public class CreateJobEspresso {
         onView(withId(R.id.submitJobButton)).perform(click());
         onView(withId(R.id.createJob)).check(matches(isDisplayed()));
     }
-
-    //This method was always returning 0.
-    //Might be due to some threading/asynch stuff
-
-//    protected long getNumChildren(DatabaseReference jobsNode, String userID) {
-//        final long[] numChildren = new long[1];
-//        jobsNode.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                numChildren[0] = snapshot.getChildrenCount();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                numChildren[0] = -1;
-//            }
-//        });
-//
-//        return numChildren[0];
-//    }
 
 }
