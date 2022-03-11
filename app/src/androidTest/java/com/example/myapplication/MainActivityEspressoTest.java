@@ -14,7 +14,10 @@ import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
+import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +27,16 @@ public class MainActivityEspressoTest {
 
     @Rule
     public ActivityScenarioRule<MainActivity> rule = new ActivityScenarioRule<>(MainActivity.class);
+
+    @BeforeClass
+    public static void setUpSession() {
+        Session.startSession(InstrumentationRegistry.getInstrumentation().getTargetContext());
+    }
+
+    @After
+    public void logout() {
+        Session.logout();
+    }
 
     /**
      * US5-AT1: Given that the user is not logged in, when the user closes their application, and
@@ -113,26 +126,6 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void reopenAsEmployeeWhenLoggedIn() {
-
-        ActivityScenario.launch(RegisterUser.class);
-        onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
-        onView(withId(R.id.registerFirstName)).perform(typeText("EmployeeFirstName\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("EmployeeLastName\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("eefirst.eelast@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("employee1\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee\n"));
-        Espresso.closeSoftKeyboard();
-
-        //User is now registered and automatically logged in
-        onView(withId(R.id.registerButton)).perform(click());
-
-        //Verify user at the EmployeeActivity
-        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
-
-        //Close app then reopen
-        rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
-        rule.getScenario().close();
-        ActivityScenario.launch(MainActivity.class);
 
         //Verify the app has opened to EmployeeActivity instead of MainActivity
         onView(withId(R.id.employeeView)).check(matches(isDisplayed()));

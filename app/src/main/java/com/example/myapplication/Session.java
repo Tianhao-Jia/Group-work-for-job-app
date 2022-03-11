@@ -86,6 +86,14 @@ public class Session  {
         return sharedPref.getString(TYPE, "No User Type");
     }
 
+    public static boolean isEmployee() {
+        return sharedPref.getString(TYPE, "Not Stored").equals("Employee");
+    }
+
+    public static boolean isEmployer() {
+        return sharedPref.getString(TYPE, "Not Stored").equals("Employer");
+    }
+
     public static String getUserID() {
         return sharedPref.getString(ID, "No user ID found");
     }

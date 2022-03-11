@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button register = (Button) findViewById(R.id.register);
         setIntent(register, RegisterUser.class);
+        redirectIfLoggedIn();
 
     }
     /**
@@ -66,6 +67,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void redirectIfLoggedIn() {
+        if(Session.checkLogin()) {
+            if(Session.isEmployee()) {
+                Intent i = new Intent(MainActivity.this, EmployeeActivity.class);
+                startActivity(i);
+            }
+            else if(Session.isEmployer()) {
+                Intent i = new Intent(MainActivity.this, EmployerActivity.class);
+            }
+        }
     }
 
     /**

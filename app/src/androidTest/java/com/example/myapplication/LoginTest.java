@@ -82,6 +82,7 @@ public class LoginTest {
         Session.startSession(InstrumentationRegistry.getInstrumentation().getTargetContext());
     }
 
+
     @AfterClass
     public static void tearDown() {
         Intents.release();
