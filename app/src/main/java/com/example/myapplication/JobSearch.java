@@ -62,9 +62,6 @@ public class JobSearch extends Activity {
         firebaseDB = FirebaseUtils.connectFirebase();
         jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
 
-
-        //sharedPreferences.getString();
-
         //citation based on code from Dhrumils lab presentation on march 2nd in this course csci3130
         FirebaseRecyclerOptions<Job> options = new FirebaseRecyclerOptions.Builder<Job>()
                 .setQuery(FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
@@ -107,6 +104,30 @@ public class JobSearch extends Activity {
 
         recyclerView.setLayoutManager(new WrapLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+        String employerEmail = null;
+        String jobTitle = null;
+        String description = null;
+        String hourlyRate = null;
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = sharedPreferences.edit();
+
+        boolean hasJobEmailText = sharedPreferences.contains("searchEmployerEmail");
+        boolean hasJobTitle = sharedPreferences.contains("searchJobTitle");
+        boolean hasDescription = sharedPreferences.contains("searchDescription");
+        boolean hasHourlyRate = sharedPreferences.contains("searchHourlyRate");
+
+        if (hasJobEmailText || hasJobTitle || hasDescription || hasHourlyRate) {
+            employerEmail = sharedPreferences.getString("searchEmployerEmail", null);
+            jobTitle = sharedPreferences.getString("searchJobTitle", null);
+            description = sharedPreferences.getString("searchDescription", null);
+            hourlyRate = sharedPreferences.getString("searchHourlyRate", null);
+            searchJobEmailET.setText(employerEmail);
+            searchJobTitleET.setText(jobTitle);
+            searchJobDescriptionET.setText(description);
+            searchJobHourlyRateET.setText(hourlyRate);
+        }
+
     }
 
     /**
@@ -123,7 +144,7 @@ public class JobSearch extends Activity {
             inputs[2] = searchJobDescriptionET.getText().toString();
             inputs[3] = searchJobHourlyRateET.getText().toString();
 
-            //putSearchIntoSharedPreferences(inputs);
+            putSearchIntoSharedPreferences(inputs);
 
             boolean searchableString = false;
             for (int i = 0; i< inputs.length; i++) {

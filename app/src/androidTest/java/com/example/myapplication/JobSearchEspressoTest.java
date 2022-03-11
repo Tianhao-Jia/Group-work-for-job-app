@@ -439,7 +439,7 @@ public class JobSearchEspressoTest {
         Espresso.pressBack();
 
         onView(withId(R.id.employerSearchButton)).perform(click());
-        onView(withId(R.id.searchHourlyRate)).check(matches(withText(containsString("15.0"))));
+        onView(withId(R.id.searchHourlyRate)).check(matches(withText(containsString("15"))));
 
     }
 
