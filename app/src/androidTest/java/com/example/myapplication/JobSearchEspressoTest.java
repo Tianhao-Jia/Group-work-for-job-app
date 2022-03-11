@@ -2,11 +2,15 @@ package com.example.myapplication;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -325,6 +329,43 @@ public class JobSearchEspressoTest {
             String currentDesc = job.getDescription();
             assertEquals("Make my Hellcat shine", currentDesc);
         }
+
+    }
+
+    //user story 14 tests below.
+    @Test
+    public void searchJobsDescriptionSaved(){
+
+        ActivityScenario.launch(RegisterUser.class);
+
+        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
+        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.registerButton)).perform(click());
+
+        onView(withId(R.id.createJob)).perform(click());
+
+        onView(withId(R.id.createJobEmail)).perform(replaceText("george.smith@dal.ca"));
+        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("15"));
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
+
+        onView(withId(R.id.employerSearchButton)).perform(click());
+        onView(withId(R.id.searchDescription)).perform(typeText("Make my Hellcat shine"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.searchJobButton)).perform(click());
+        Espresso.pressBack();
+
+        onView(withId(R.id.employerSearchButton)).perform(click());
+        onView(withId(R.id.searchDescription)).check(matches(withText(containsString("Make my Hellcat shine"))));
 
     }
 

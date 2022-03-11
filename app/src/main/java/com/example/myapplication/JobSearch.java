@@ -43,9 +43,9 @@ public class JobSearch extends Activity {
     private Button jobLayoutApply;
     private Button jobLayoutViewOnMap;
 
-
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
+
     private FirebaseDatabase firebaseDB;
     private DatabaseReference jobsRef;
 
@@ -106,7 +106,7 @@ public class JobSearch extends Activity {
         jobLayoutViewOnMap = recyclerView.findViewById(R.id.jobLayoutViewOnMap);
 
         recyclerView.setLayoutManager(new WrapLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        
+
     }
 
     /**
@@ -123,7 +123,7 @@ public class JobSearch extends Activity {
             inputs[2] = searchJobDescriptionET.getText().toString();
             inputs[3] = searchJobHourlyRateET.getText().toString();
 
-            putSearchIntoSharedPreferences(inputs);
+            //putSearchIntoSharedPreferences(inputs);
 
             boolean searchableString = false;
             for (int i = 0; i< inputs.length; i++) {
@@ -148,11 +148,13 @@ public class JobSearch extends Activity {
      * @author: Nathanael Bowley
      */
     private void putSearchIntoSharedPreferences(String[] inputs) {
-        editor.putString("searchEmployerEmail", inputs[0]);
-        editor.putString("searchJobTitle", inputs[1]);
-        editor.putString("searchDescription", inputs[2]);
-        editor.putString("searchHourlyRate", inputs[3]);
-        editor.commit();
+        if (editor != null) {
+            editor.putString("searchEmployerEmail", inputs[0]);
+            editor.putString("searchJobTitle", inputs[1]);
+            editor.putString("searchDescription", inputs[2]);
+            editor.putString("searchHourlyRate", inputs[3]);
+            editor.commit();
+        }
     }
 
     /**
