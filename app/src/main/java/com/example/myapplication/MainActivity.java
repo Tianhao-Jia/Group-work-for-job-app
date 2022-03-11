@@ -32,15 +32,15 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference firebaseDBRef;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Session.startSession(this);
         setContentView(R.layout.activity_main);
 
-        checkForLogin();
-
-        connectFirebase();
+        firebaseDB = FirebaseUtils.connectFirebase();
+        firebaseDBRef = firebaseDB.getReference();
 
         Button employeeButton = (Button) findViewById(R.id.goToEmployeeActivity);
         setIntent(employeeButton, LoginActivity.class);
@@ -52,17 +52,6 @@ public class MainActivity extends AppCompatActivity {
         setIntent(register, RegisterUser.class);
 
     }
-
-    /**
-     * connectFirebase method that acts to connect the firebase using the firebase url
-     * @author: everyone
-     */
-    private void connectFirebase() {
-        firebaseDB = FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL);
-        firebaseDBRef = firebaseDB.getReference("message");
-    }
-
-
     /**
      * setIntent method that reduces code clutter and improves switching between intents of buttons.
      * @author Nathanael Bowley

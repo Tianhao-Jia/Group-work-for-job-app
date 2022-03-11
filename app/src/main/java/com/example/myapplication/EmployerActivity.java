@@ -45,38 +45,28 @@ public class EmployerActivity extends AppCompatActivity {
         createJobButton = (Button) findViewById(R.id.createJob);
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("Key_email", extras.getString("Login Email"));
-            editor.putString("Key_password", extras.getString("Login Password"));
-            editor.putString("Key_type", extras.getString("User Type"));
-            editor.putString("Key_hash", extras.getString("User Hash"));
-            editor.apply();
-        }
+//        if (extras != null) {
+//            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPref.edit();
+//            editor.putString("Key_email", extras.getString("Login Email"));
+//            editor.putString("Key_password", extras.getString("Login Password"));
+//            editor.putString("Key_type", extras.getString("User Type"));
+//            editor.putString("Key_hash", extras.getString("User Hash"));
+//            editor.apply();
+//        }
 
         createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent newIntent = new Intent(EmployerActivity.this, CreateJob.class);
-                Bundle extras = getIntent().getExtras();
-                if (extras != null) {
-
-                    newIntent.putExtra("User Hash", extras.getString("User Hash"));
-                    newIntent.putExtra("Login Email", extras.getString("Login Email"));
-                    newIntent.putExtra("Login Password", extras.getString("Login Password"));
-                    newIntent.putExtra("User Type", extras.getString("User Type"));
-                }
                 startActivity(newIntent);
-
             }
         });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout();
+                Session.logout();
             }
         });
     }

@@ -37,8 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDB;
     private DatabaseReference firebaseDBRef;
-    private TextView textView;
-    static Boolean found = false;
 
     EditText id,password;
     Button login,signup;
@@ -104,48 +102,49 @@ public class LoginActivity extends AppCompatActivity {
                     String employType = dataSnapshot.child("userType").getValue(String.class);
 
 
-                    boolean passwordNotNull = password!=null;
-                    boolean emailNotNull = email!=null;
+//                    boolean passwordNotNull = password!=null;
+//                    boolean emailNotNull = email!=null;
                     boolean passwordIsSame = password.equals(passwordCompare);
                     boolean emailIsSame = email.equals(id.getText().toString());
 
-                    if(passwordNotNull && emailNotNull && passwordIsSame && emailIsSame){
-                        found = true;
+                    if(passwordIsSame && emailIsSame){
+//                        found = true;
+                        Session.login(dataSnapshot.getRef().getKey(), email, employType);
+                        Intent intent = new Intent(LoginActivity.this, EmployerActivity.class);
+                        startActivity(intent);
 
-                        if (employType.equalsIgnoreCase(Employee.EMPLOYEE)) {
-                            Intent intent = new Intent(LoginActivity.this, EmployeeActivity.class);
-
-                            intent.putExtra("User Hash", dataSnapshot.getRef().getKey());
-                            intent.putExtra("Login Email", email);
-                            intent.putExtra("Login Password", password);
-                            intent.putExtra("User Type", Employee.EMPLOYEE);
-
-                            dataSnapshot.child("loginState").getRef().setValue(true);
-                            startActivity(intent);
-
-                        }
-                        else if (employType.equalsIgnoreCase(Employer.EMPLOYER)) {
-                            Intent intent = new Intent(LoginActivity.this, EmployerActivity.class);
-
-                            intent.putExtra("User Hash", dataSnapshot.getRef().getKey());
-                            intent.putExtra("Login Email", email);
-                            intent.putExtra("Login Password", password);
-                            intent.putExtra("User Type", Employer.EMPLOYER);
-
-                            dataSnapshot.child("loginState").getRef().setValue(true);
-                            startActivity(intent);
-                        }
-                        else {
-                            Log.e("Error", "User Type is neither Employee or Employer!");
-                            System.exit(-1);
-                        }
+//                        if (employType.equalsIgnoreCase(Employee.EMPLOYEE)) {
+//                            Intent intent = new Intent(LoginActivity.this, EmployeeActivity.class);
+//
+//                            intent.putExtra("User Hash", dataSnapshot.getRef().getKey());
+//                            intent.putExtra("Login Email", email);
+//                            intent.putExtra("Login Password", password);
+//                            intent.putExtra("User Type", Employee.EMPLOYEE);
+//
+//                            dataSnapshot.child("loginState").getRef().setValue(true);
+//                            startActivity(intent);
+//
+//                        }
+//                        else if (employType.equalsIgnoreCase(Employer.EMPLOYER)) {
+//                            Intent intent = new Intent(LoginActivity.this, EmployerActivity.class);
+//
+//                            intent.putExtra("User Hash", dataSnapshot.getRef().getKey());
+//                            intent.putExtra("Login Email", email);
+//                            intent.putExtra("Login Password", password);
+//                            intent.putExtra("User Type", Employer.EMPLOYER);
+//
+//                            dataSnapshot.child("loginState").getRef().setValue(true);
+//                            startActivity(intent);
+//                        }
+//                        else {
+//                            Log.e("Error", "User Type is neither Employee or Employer!");
+//                            System.exit(-1);
+//                        }
+                    }
+                    else {
+                        Toast.makeText(LoginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-                if (!found) {
-                    Toast.makeText(LoginActivity.this, "login failed", Toast.LENGTH_SHORT).show();
-                }
-
             }
 
             @Override
