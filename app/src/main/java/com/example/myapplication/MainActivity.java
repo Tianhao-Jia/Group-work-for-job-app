@@ -43,13 +43,9 @@ public class MainActivity extends AppCompatActivity {
         firebaseDB = FirebaseUtils.connectFirebase();
         firebaseDBRef = firebaseDB.getReference();
 
-        Button employeeButton = (Button) findViewById(R.id.goToEmployeeActivity);
-        //setIntent(employeeButton, LoginActivity.class);
+        Button loginActivity = (Button) findViewById(R.id.mainLogin);
+        setIntent(loginActivity, LoginActivity.class);
 
-        setIntent(employeeButton, JobSearch.class);
-
-        Button employerButton = (Button) findViewById(R.id.goToEmployerActivity);
-        setIntent(employerButton, LoginActivity.class);
 
         Button register = (Button) findViewById(R.id.register);
         setIntent(register, RegisterUser.class);
@@ -80,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
             else if(Session.isEmployer()) {
                 Intent i = new Intent(MainActivity.this, EmployerActivity.class);
+                startActivity(i);
             }
         }
     }
