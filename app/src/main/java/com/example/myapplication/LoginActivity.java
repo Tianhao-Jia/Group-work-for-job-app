@@ -110,7 +110,13 @@ public class LoginActivity extends AppCompatActivity {
                     if(passwordIsSame && emailIsSame){
 //                        found = true;
                         Session.login(dataSnapshot.getRef().getKey(), email, employType);
-                        Intent intent = new Intent(LoginActivity.this, EmployerActivity.class);
+                        Intent intent;
+                        if(employType.equalsIgnoreCase(Employee.EMPLOYEE)) {
+                            intent = new Intent(LoginActivity.this, EmployeeActivity.class);
+                        }
+                        else {
+                            intent = new Intent(LoginActivity.this, EmployerActivity.class);
+                        }
                         startActivity(intent);
 
 //                        if (employType.equalsIgnoreCase(Employee.EMPLOYEE)) {
