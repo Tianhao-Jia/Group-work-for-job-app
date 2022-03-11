@@ -40,12 +40,15 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+
 @RunWith(AndroidJUnit4.class)
 public class CreateJobEspresso {
 
     private static final FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-    private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
+    private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
     private static final String TEST_ID = "123";
+    private static Boolean is_present = false;
+
 
 
     @Rule
@@ -75,16 +78,23 @@ public class CreateJobEspresso {
 
     @Test
     public void createJob(){
-        onView(withId(R.id.jobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
-        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("25"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
+        is_present = false;
+        jobsRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
-        jobsRef.child(TEST_ID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                assertEquals(snapshot.getChildrenCount(), 1);
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Job job = data.getValue(Job.class);
+                    if (job.getHash().toString().equals(TEST_ID)){
+                        is_present = true;
+                    }
+                }
+                assertEquals(true, is_present);
             }
 
             @Override
@@ -96,11 +106,11 @@ public class CreateJobEspresso {
 
     @Test
     public void invalidWage() {
-        onView(withId(R.id.jobTitle)).perform(typeText("Car Wash"));
-        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
-        onView(withId(R.id.hourlyRate)).perform(typeText(""));
+        onView(withId(R.id.createJobTitle)).perform(typeText("Car Wash"));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText(""));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
 
         jobsRef.child(TEST_ID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -117,11 +127,11 @@ public class CreateJobEspresso {
 
     @Test
     public void invalidTitle() {
-        onView(withId(R.id.jobTitle)).perform(typeText(""));
-        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
-        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        onView(withId(R.id.createJobTitle)).perform(typeText(""));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("25"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
 
         jobsRef.child(TEST_ID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -138,16 +148,17 @@ public class CreateJobEspresso {
 
     @Test
     public void invalidDesc() {
-        onView(withId(R.id.jobTitle)).perform(typeText("Title"));
-        onView(withId(R.id.description)).perform(typeText(""));
-        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        onView(withId(R.id.createJobTitle)).perform(typeText("Title"));
+        onView(withId(R.id.createJobDescription)).perform(typeText(""));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("25"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
 
         jobsRef.child(TEST_ID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                assertEquals(snapshot.getChildrenCount(), 0);
+
+                assertEquals(0, snapshot.getChildrenCount());
             }
 
             @Override
@@ -160,23 +171,40 @@ public class CreateJobEspresso {
     // Checks that user is redirected when all fields are filled
     @Test
     public void allFieldsFilled(){
-        onView(withId(R.id.jobTitle)).perform(typeText("Working and stuff."));
-        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
-        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        onView(withId(R.id.createJobTitle)).perform(typeText("Working and stuff."));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("25"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
+        is_present = false;
+        jobsRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
-        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    Job job = data.getValue(Job.class);
+                    if (job.getHash().toString().equals(TEST_ID)){
+                        is_present = true;
+                    }
+                }
+                assertEquals(true, is_present);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                assertFalse(true);
+            }
+        });
     }
 
     // Checks that user is not redirected when all fields are not filled
     @Test
     public void notAllFieldsFilled(){
-        onView(withId(R.id.jobTitle)).perform(typeText(""));
-        onView(withId(R.id.description)).perform(typeText("Make my Hellcat shine"));
-        onView(withId(R.id.hourlyRate)).perform(typeText("25"));
+        onView(withId(R.id.createJobTitle)).perform(typeText(""));
+        onView(withId(R.id.createJobDescription)).perform(typeText("Make my Hellcat shine"));
+        onView(withId(R.id.createJobHourlyRate)).perform(typeText("25"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submitJobButton)).perform(click());
+        onView(withId(R.id.createJobSubmitButton)).perform(click());
         onView(withId(R.id.createJob)).check(matches(isDisplayed()));
     }
 

@@ -33,7 +33,8 @@ public class EmployerActivity extends AppCompatActivity {
     private DatabaseReference firebaseDBRef;
 
     TextView loginDisplay;
-    Button logoutButton, createJobButton;
+    Button logoutButton, createJobButton, searchButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +44,7 @@ public class EmployerActivity extends AppCompatActivity {
         loginDisplay = (TextView) findViewById(R.id.employerLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employerLogoutButton);
         createJobButton = (Button) findViewById(R.id.createJob);
-
-        Bundle extras = getIntent().getExtras();
-//        if (extras != null) {
-//            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
-//            SharedPreferences.Editor editor = sharedPref.edit();
-//            editor.putString("Key_email", extras.getString("Login Email"));
-//            editor.putString("Key_password", extras.getString("Login Password"));
-//            editor.putString("Key_type", extras.getString("User Type"));
-//            editor.putString("Key_hash", extras.getString("User Hash"));
-//            editor.apply();
-//        }
+        searchButton = (Button) findViewById(R.id.employerSearchButton);
 
         createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +58,14 @@ public class EmployerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Session.logout();
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployerActivity.this, JobSearch.class);
+                startActivity(intent);
             }
         });
     }

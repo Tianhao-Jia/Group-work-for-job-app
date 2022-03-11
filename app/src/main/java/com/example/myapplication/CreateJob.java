@@ -30,9 +30,9 @@ public class CreateJob extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_job);
 
-        Button createJobBtn = findViewById(R.id.submitJobButton);
+        Button createJobBtn = findViewById(R.id.createJobSubmitButton);
 
-        TextView email = findViewById(R.id.employerEmail);
+        TextView email = findViewById(R.id.createJobEmail);
 
         email.setText(Session.getEmail());
 
@@ -40,7 +40,7 @@ public class CreateJob extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 firebaseDB = FirebaseUtils.connectFirebase();
-                jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
+                jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
                 Job job = createJob();
                 if (job != null) {
                     pushJob(job, jobsRef);
@@ -53,18 +53,40 @@ public class CreateJob extends AppCompatActivity {
 
     }
 
+    /**
+     * createJob method that takes the EditText contents from create_job.xml and creates a Job
+     * object to be returned.
+     * @return Job object if input is valid, otherwise NULL.
+     * @author: John Corsten
+     * @refactorer: Nathanael Bowley
+     */
     protected Job createJob() {
         if(validateInput()) {
-            EditText jobTitle = findViewById(R.id.jobTitle);
-            EditText jobDesc = findViewById(R.id.description);
-            EditText wage = findViewById(R.id.hourlyRate);
+
+            EditText jobEmailEditText = findViewById(R.id.createJobEmail);
+            EditText jobTitleEditText = findViewById(R.id.createJobTitle);
+            EditText jobDescEditText = findViewById(R.id.createJobDescription);
+            EditText jobHourlyRateEditText = findViewById(R.id.createJobHourlyRate);
+
             // Dummy values to be used until location functionality is added in another user story
             double longitude = 100;
             double latitude = 100;
+            Location location = new Location(latitude, longitude);
 
-            Job job = new Job(Session.getEmail(), jobTitle.getText().toString(),
-                    jobDesc.getText().toString(), longitude, latitude);
-            job.setCompensation(Integer.parseInt((wage.getText().toString())));
+            String jobEmail = jobEmailEditText.getText().toString();
+            String jobTitle = jobTitleEditText.getText().toString();
+            String jobDesc = jobDescEditText.getText().toString();
+            String userHash = Session.getUserID();
+            double jobHourlyRate;
+
+            try {
+                jobHourlyRate = Integer.parseInt(jobHourlyRateEditText.getText().toString());
+            } catch (NumberFormatException e) {
+                jobHourlyRate = 0;
+            }
+
+            Job job = new Job(jobEmail, jobTitle, jobDesc, location, userHash);
+            job.setCompensation(jobHourlyRate);
             return job;
         }
         else {
@@ -80,15 +102,17 @@ public class CreateJob extends AppCompatActivity {
 
         // Stores job in job node on realtime database, filed under the hash corresponding to the user
         // that created the job
-        jobsRef.child(Session.getUserID()).push().setValue(job);
+        //jobsRef.child(getUserHash()).push().setValue(job);
+        jobsRef.push().setValue(job);
+
         return true;
     }
 
 
     protected boolean validateInput() {
-        EditText jobTitle = findViewById(R.id.jobTitle);
-        EditText jobDesc = findViewById(R.id.description);
-        EditText wage = findViewById(R.id.hourlyRate);
+        EditText jobTitle = findViewById(R.id.createJobTitle);
+        EditText jobDesc = findViewById(R.id.createJobDescription);
+        EditText wage = findViewById(R.id.createJobHourlyRate);
 
         boolean validTitle =  validateTitle(jobTitle.getText().toString());
         boolean validDesc = validateJobDescription(jobDesc.getText().toString());
@@ -98,21 +122,21 @@ public class CreateJob extends AppCompatActivity {
 
     }
 
-    protected boolean validateTitle(String jobTitle) {
+    protected static boolean validateTitle(String jobTitle) {
         Pattern fnPattern = Pattern.compile("^.{1,200}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = fnPattern.matcher(jobTitle.trim());
 
         return matcher.matches();
     }
 
-    protected boolean validateJobDescription(String desc) {
+    protected static boolean validateJobDescription(String desc) {
         Pattern fnPattern = Pattern.compile("^.{1,500}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = fnPattern.matcher(desc.trim());
 
         return matcher.matches();
     }
 
-    protected boolean validateWage(String wage) {
+    protected static boolean validateWage(String wage) {
         Pattern fnPattern = Pattern.compile("^[0-9]{1,20}$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = fnPattern.matcher(wage.trim());
 
@@ -120,9 +144,12 @@ public class CreateJob extends AppCompatActivity {
     }
 
     /**
-    Method validates a given longitude or latitude (provided in degrees)
+     * Method validates a given longitude or latitude (provided in degrees)
+     * @param coordinate
+     * @return
+     * @author John Corsten
      */
-    protected boolean validateLongLat(double coordinate){
+    protected static boolean validateLongLat(double coordinate){
         // Valid longitudes and latitudes are both between -180 degrees and 180 degrees
         if (coordinate >= 180 || coordinate <= - 180){
             return false;

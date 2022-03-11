@@ -66,7 +66,7 @@ public class LogoutForEmployeeTest {
         employer.put("loginState", false);
 
         // Getting an instance of the firebase realtime database
-        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.USERS);
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.USERS_COLLECTION);
 
         dbRef.child(employeeKey).setValue(employee);
         dbRef.child(employerKey).setValue(employer);
@@ -122,8 +122,8 @@ public class LogoutForEmployeeTest {
     @AfterClass
     public static void tearDown() {
         Intents.release();
-        FirebaseDatabase.getInstance().getReference(FirebaseUtils.USERS).child(employerKey).setValue(null);
-        FirebaseDatabase.getInstance().getReference(FirebaseUtils.USERS).child(employeeKey).setValue(null);
+        FirebaseDatabase.getInstance().getReference(FirebaseUtils.USERS_COLLECTION).child(employerKey).setValue(null);
+        FirebaseDatabase.getInstance().getReference(FirebaseUtils.USERS_COLLECTION).child(employeeKey).setValue(null);
     }
 
 

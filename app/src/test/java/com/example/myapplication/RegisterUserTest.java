@@ -13,12 +13,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class RegisterUserTest {
-    static RegisterUser registerActivity;
-
-    @BeforeClass
-    public static void setup() {
-        registerActivity = new RegisterUser();
-    }
 
     @AfterClass
     public static void tearDown() {
@@ -27,36 +21,36 @@ public class RegisterUserTest {
 
     @Test
     public void validFirstName() {
-        assertTrue(registerActivity.checkFirstName("George"));
+        assertTrue(RegisterUser.checkFirstName("George"));
     }
 
     @Test
     public void invalidFirstName() {
-        assertFalse(registerActivity.checkFirstName("GMoney$$$"));
+        assertFalse(RegisterUser.checkFirstName("GMoney$$$"));
     }
 
     @Test
     public void validLastName() {
-        assertTrue(registerActivity.checkFirstName("Smith"));
+        assertTrue(RegisterUser.checkFirstName("Smith"));
     }
 
     @Test
     public void validEmail() {
-        assertTrue(registerActivity.checkEmail("george.smith@dal.ca"));
+        assertTrue(RegisterUser.checkEmail("george.smith@dal.ca"));
     }
 
     @Test
     public void invalidEmail() {
-        assertFalse(registerActivity.checkEmail("notAmEmail"));
+        assertFalse(RegisterUser.checkEmail("notAmEmail"));
     }
 
     @Test
     public void validPassword(){
-        assertTrue(registerActivity.checkPassword("1234"));
+        assertTrue(RegisterUser.checkPassword("1234"));
     }
 
     @Test
     public void invalidPassword(){
-        assertFalse(registerActivity.checkPassword("f g"));
+        assertFalse(RegisterUser.checkPassword("f g"));
     }
 }
