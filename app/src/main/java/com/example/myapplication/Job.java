@@ -79,7 +79,13 @@ public class Job implements Serializable {
         this.compensation = compensation;
     }
 
+    public double getLat() {
+        return location.getLatitude();
+    }
 
+    public double getLongitude() {
+        return location.getLongitude();
+    }
 
     public Location getLocation() {
         return location;
