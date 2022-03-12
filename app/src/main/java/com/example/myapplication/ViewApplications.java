@@ -29,9 +29,6 @@ import java.util.ArrayList;
 
 public class ViewApplications extends Activity {
 
-    private RecyclerView recyclerView;
-    private ViewApplicationAdapter viewApplicationAdapter;
-
     private TextView applicationEmail;
     private TextView applicationName;
 
@@ -54,27 +51,41 @@ public class ViewApplications extends Activity {
     private String[] inputs = new String[4];
 
 
+    private RecyclerView recyclerView;
+    applicationAdapter adapter; // Create Object of the Adapter class
+    DatabaseReference mbase; // Create object of the
+    // Firebase Realtime Database
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
+
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.applications_page);
-        init();
 
-        homeButton = findViewById(R.id.applicationsToEmployer);
+        homeButton = (Button) findViewById(R.id.applicationsToEmployer);
 
-        firebaseDB = FirebaseUtils.connectFirebase();
-        appsRef = firebaseDB.getReference().child("applications");
+        // Create a instance of the database and get
+        // its reference
+        mbase = FirebaseDatabase.getInstance().getReference();
 
-        //citation based on code from Dhrumils lab presentation on march 2nd in this course csci3130
-        FirebaseRecyclerOptions<Application> options = new FirebaseRecyclerOptions.Builder<Application>()
-                .setQuery(FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
-                        .getReference().child("applications").child(Session.getUserID()), Application.class)
+        recyclerView = findViewById(R.id.jobApplicationsRecyclerView);
+
+        // To display the Recycler view linearly
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // It is a class provide by the FirebaseUI to make a
+        // query in the database to fetch appropriate data
+        FirebaseRecyclerOptions<Application> options
+                = new FirebaseRecyclerOptions.Builder<Application>()
+                .setQuery(mbase.child("applications").child(Session.getUserID()), Application.class)
                 .build();
 
-        viewApplicationAdapter = new ViewApplicationAdapter(options);
-        recyclerView.setAdapter(viewApplicationAdapter);
-        //end citation
+        // Connecting object of required Adapter class to
+        // the Adapter class itself
+        adapter = new applicationAdapter(options);
+        // Connecting Adapter class with the Recycler view*/
+        recyclerView.setAdapter(adapter);
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,26 +94,23 @@ public class ViewApplications extends Activity {
                 startActivity(intent);
             }
         });
-
     }
 
-    private void init() {
-
-
-        recyclerView = findViewById(R.id.jobApplicationsRecyclerView);
-
-        //textviews for results
-
-        employeeEmailET = findViewById(R.id.jobApplicationEmail);
-        employeeNameET = findViewById(R.id.applicantName);
-
-        ignore = recyclerView.findViewById(R.id.ignoreApplication);
-        accept = recyclerView.findViewById(R.id.acceptApplication);
-
-        recyclerView.setLayoutManager(new WrapLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        editor = sharedPreferences.edit();
+    // Function to tell the app to start getting
+    // data from database on starting of the activity
+    @Override protected void onStart()
+    {
+        super.onStart();
+        adapter.startListening();
     }
+
+    // Function to tell the app to stop getting
+    // data from database on stopping of the activity
+    @Override protected void onStop()
+    {
+        super.onStop();
+        adapter.stopListening();
+    }
+
 
 }

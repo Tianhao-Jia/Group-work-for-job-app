@@ -145,11 +145,11 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
 
                                 if (dataSnapshot.child("email").getValue().toString().equals(jobLayoutEmployerEmail.getText().toString().substring(7))){
 
-                                    Application application = new Application(jobLayoutEmployerEmail.getText().toString().substring(7));
+                                    Application application = new Application(Session.getEmail(), false, false, jobLayoutDescription.getText().toString().substring(13));
 
                                     FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
                                             .getReference()
-                                            .child("applications").child(dataSnapshot.child("hash").getValue().toString()).push().setValue(application);
+                                            .child("applications").child(dataSnapshot.getKey()).push().setValue(application);
 
                                 }
 
