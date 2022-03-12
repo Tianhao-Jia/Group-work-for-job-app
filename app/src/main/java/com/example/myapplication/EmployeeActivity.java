@@ -49,6 +49,15 @@ public class EmployeeActivity extends AppCompatActivity {
         logoutButton = (Button) findViewById(R.id.employeeLogoutButton);
         searchButton = (Button) findViewById(R.id.employeeSearchButton);
 
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployeeActivity.this, JobSearch.class);
+                startActivity(intent);
+            }
+        });
+
+
         Bundle extras = getIntent().getExtras();
 //        if (extras != null) {
 //            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
