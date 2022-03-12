@@ -149,7 +149,7 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
 
                                     FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
                                             .getReference()
-                                            .child("applications").child(Session.getUserID()).push().setValue(application);
+                                            .child("applications").child(dataSnapshot.child("hash").getValue().toString()).push().setValue(application);
 
                                 }
 
