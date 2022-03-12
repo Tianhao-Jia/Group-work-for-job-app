@@ -32,6 +32,10 @@ public class Session  {
 
     public static final String ID = "user_id";
 
+    public static final String LONG = "longitude";
+
+    public static final String LAT = "latitude";
+
     public static void startSession(Context appContext) {
          context = appContext;
          sharedPref = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
@@ -48,6 +52,16 @@ public class Session  {
         return editor.commit();
     }
 
+    public static boolean login(String email, String userID, String userType, Location location) {
+        editor.putString(EMAIL, email);
+        editor.putString(ID, userID);
+        editor.putString(TYPE, userType);
+        editor.putBoolean(LOGIN, true);
+        setLocation(location);
+
+        return editor.commit();
+    }
+
     public static void logout() {
         editor.clear();
         editor.commit();
@@ -58,6 +72,30 @@ public class Session  {
     public static boolean checkLogin() {
         return sharedPref.getBoolean(LOGIN, false);
 
+    }
+
+    public static boolean setLocation(String longitude, String latitude) {
+        editor.putString(LONG, longitude);
+        editor.putString(LAT, latitude);
+
+        return editor.commit();
+    }
+
+    public static boolean setLocation(Location location) {
+        Double longitude = (Double)location.getLongitude();
+        Double latitude = (Double)location.getLatitude();
+
+        editor.putString(LONG, longitude.toString());
+        editor.putString(LAT, latitude.toString());
+
+        return editor.commit();
+    }
+
+    public static Location getLocation() {
+        double latitude  = Double.parseDouble(sharedPref.getString(LAT, "0.0"));
+        double longitude = Double.parseDouble(sharedPref.getString(LAT, "0.0"));
+
+        return new Location(latitude, longitude);
     }
 
     public static void redirectIfNotLoggedIn() {
@@ -98,10 +136,7 @@ public class Session  {
         return sharedPref.getString(ID, "No user ID found");
     }
 
-    public static void putString(String key, String value) {
-        editor.putString(key, value);
-        editor.commit();
-    }
+
 
     private static void redirectToLogin() {
         Intent redirect = new Intent(context, LoginActivity.class);
