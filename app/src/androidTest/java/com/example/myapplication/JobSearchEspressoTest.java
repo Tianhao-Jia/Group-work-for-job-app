@@ -55,7 +55,7 @@ public class JobSearchEspressoTest {
         job.put("compensation", 1);
 
         // Getting an instance of the firebase realtime database
-        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS_COLLECTION);
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS);
 
         dbRef.child(TEST_ID).setValue(job);
     }
@@ -105,7 +105,7 @@ public class JobSearchEspressoTest {
         job.put("compensation", 1);
 
         // Getting an instance of the firebase realtime database
-        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS_COLLECTION);
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS);
 
         dbRef.child(TEST_ID).setValue(job);
 
@@ -132,7 +132,7 @@ public class JobSearchEspressoTest {
     @Test
     public void searchJobsExistJobsInfoProvidedTitle(){
         // Getting an instance of the firebase realtime database
-        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS_COLLECTION);
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS);
 
 
         Map<String, Object> job2 = new HashMap<>();
@@ -170,7 +170,7 @@ public class JobSearchEspressoTest {
     public void searchJobsExistJobsInfoProvidedHourlyRate(){
 
         // Getting an instance of the firebase realtime database
-        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS_COLLECTION);
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS);
 
 
         Map<String, Object> job2 = new HashMap<>();
@@ -207,7 +207,7 @@ public class JobSearchEspressoTest {
     public void searchJobsExistJobsInfoProvidedDescription(){
 
         // Getting an instance of the firebase realtime database
-        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS_COLLECTION);
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.JOBS);
 
 
         Map<String, Object> job2 = new HashMap<>();
