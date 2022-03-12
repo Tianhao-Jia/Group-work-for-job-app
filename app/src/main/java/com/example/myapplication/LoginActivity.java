@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                     if(passwordIsSame && emailIsSame){
                         found = true;
                         String userType = dataSnapshot.child("userType").getValue(String.class);
+
                         String userID = dataSnapshot.getRef().getKey();
                         Intent intent;
                         if(userType.equalsIgnoreCase(Employee.EMPLOYEE)) {

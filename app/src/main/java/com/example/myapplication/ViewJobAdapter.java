@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 
 /**
@@ -79,9 +80,6 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
         holderArrayList.add(holder);
         jobArrayList.add(job);
         //if I want to have the buttons do something this is where they need to be implemented
-
-
-
     }
 
 
@@ -144,24 +142,15 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                                Log.d("demo",dataSnapshot.child("email").getValue().toString());
-                                Log.d("demo2",jobLayoutEmployerEmail.getText().toString().substring(7));
 
                                 if (dataSnapshot.child("email").getValue().toString().equals(jobLayoutEmployerEmail.getText().toString().substring(7))){
-                                    Log.d("demo","IT WORKED");
-                                    // Creating a HashMap of user information to store on firebase
-                                    Map<String, Object> map = new HashMap<>();
-                                    map.put("hash", dataSnapshot.child("hash").getValue().toString());
-                                    map.put("email", dataSnapshot.child("email").getValue().toString());
-                                    map.put("First Name", dataSnapshot.child("firstName").getValue().toString());
-                                    map.put("Last Name", dataSnapshot.child("lastName").getValue().toString());
 
-                                    // Getting an instance of the firebase realtime database
+                                    Application application = new Application(jobLayoutEmployerEmail.getText().toString().substring(7));
+
                                     FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
                                             .getReference()
-                                            .child("applications")
-                                            .child(Session.getUserID())
-                                            .setValue(map);
+                                            .child("applications").child(Session.getUserID()).push().setValue(application);
+
                                 }
 
                             }
