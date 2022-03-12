@@ -40,7 +40,7 @@ public class CreateJob extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 firebaseDB = FirebaseUtils.connectFirebase();
-                jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
+                jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
                 Job job = createJob();
                 if (job != null) {
                     pushJob(job, jobsRef);

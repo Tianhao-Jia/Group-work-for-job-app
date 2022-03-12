@@ -4,4 +4,5 @@
     <string name="pwd_empty">password is empty</string>
     <string name="title_activity_google_maps">GoogleMapsActivity</string>
     <string name="google_maps_key">AIzaSyDR3TcP49rclnuPwjyQUgTltj7kvbBSn8c</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
