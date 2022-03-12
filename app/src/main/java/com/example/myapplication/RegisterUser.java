@@ -146,8 +146,15 @@ public class RegisterUser extends AppCompatActivity {
             map.put("userType", userTypeField.getText().toString());
             map.put("password", passwordField.getText().toString());
             map.put("loginState", true);
-            map.put("user location (latitude)", ((LatLng) getIntent().getExtras().get("user location")).latitude);
-            map.put("user location (longitude)", ((LatLng) getIntent().getExtras().get("user location")).longitude);
+
+            if(getIntent().getExtras() != null){
+                map.put("user location (latitude)", ((LatLng) getIntent().getExtras().get("user location")).latitude);
+                map.put("user location (longitude)", ((LatLng) getIntent().getExtras().get("user location")).longitude);
+            } else{
+                map.put("user location (latitude)", null);
+                map.put("user location (longitude)", null);
+            }
+
 
 
             // Getting an instance of the firebase realtime database
