@@ -11,6 +11,7 @@ public class FirebaseUtils {
     public static final String USERS = "users";
     public static final String JOBS = "jobs";
 
+
     public static FirebaseDatabase connectFirebase(){
         return FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL);
     }

@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "job";
             String description = "new Job";
-            //不同的重要程度会影响通知显示的方式
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel("New Job", name, importance);
             channel.setDescription(description);
