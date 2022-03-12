@@ -6,6 +6,7 @@ import android.app.AppComponentFactory;
 
 import java.io.Serializable;
 
+
 public class Job implements Serializable {
 
     private String employerEmail;
