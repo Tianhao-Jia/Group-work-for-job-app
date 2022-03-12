@@ -7,7 +7,7 @@
     android:id="@+id/jobOffers">
 
     <Button
-        android:id="@+id/applicationsToEmployer"
+        android:id="@+id/offersToEmployee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Home"

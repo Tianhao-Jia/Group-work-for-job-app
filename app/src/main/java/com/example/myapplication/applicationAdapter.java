@@ -90,6 +90,7 @@ public class applicationAdapter extends FirebaseRecyclerAdapter<
                 public void onClick(View view) {
                     FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
                     DatabaseReference appRef = firebaseDB.getReference().child("applications").child(Session.getUserID());
+                    DatabaseReference usersRef = firebaseDB.getReference().child("users");
                     appRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -98,12 +99,29 @@ public class applicationAdapter extends FirebaseRecyclerAdapter<
                                 if (dataSnapshot.child("employeeEmail").getValue().toString().equals(employeeEmail.getText().toString()) && dataSnapshot.child("description").getValue().toString().equals(description.getText().toString())){
 
                                     Application app = dataSnapshot.getValue(Application.class);
+                                    Offer offer = new Offer(Session.getEmail(), false,dataSnapshot.child("description").getValue().toString());
                                     app.setAccepted(true);
-
-
                                     FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
                                             .getReference()
                                             .child("applications").child(Session.getUserID()).child(dataSnapshot.getKey()).setValue(app);
+
+                                    usersRef.addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            for (DataSnapshot user : snapshot.getChildren()) {
+                                                if (user.child("email").getValue().toString().equals(dataSnapshot.child("employeeEmail").getValue().toString())){
+                                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+                                                            .getReference()
+                                                            .child("offers").child(user.getKey()).child(dataSnapshot.getKey()).setValue(offer);
+                                                }
+                                                }
+                                            }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
                                 }
 
                             }
@@ -129,6 +147,7 @@ public class applicationAdapter extends FirebaseRecyclerAdapter<
                                 if (dataSnapshot.child("employeeEmail").getValue().toString().equals(employeeEmail.getText().toString()) && dataSnapshot.child("description").getValue().toString().equals(description.getText().toString())){
 
                                     Application app = dataSnapshot.getValue(Application.class);
+
                                     app.setAccepted(true);
 
                                     FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
