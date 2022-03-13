@@ -4,55 +4,61 @@ package com.example.myapplication;
 
 import android.app.AppComponentFactory;
 
-import java.io.Serializable;
-
-
-public class Job implements Serializable {
-
-    private String employerEmail;
-    private String jobTitle;
-    private String description;
-    private String userHash;
-    private double compensation = 0;
-
-    private Location location;
-
-    /**
-     * REQUIRED FOR JOBSEARCH TO WORK. No args constructor
-     */
+public class Job {
     public Job() {
-
-        this.location = new Location(0,0);
-
     }
+
+    private String employer_email;
+    private String job_title;
+    private String description;
+    private double compensation = 0;
+    private double lat;
+    private double longitude;
 
     /**
      * Default constructor for AppCompatActivity. All Activities must have a default constructor
      * for API 27 and lower devices or when using the default
      * {@link AppComponentFactory}.
      */
-    public Job(String employerEmail, String jobTitle, String description, Location location, String userHash) {
-        this.employerEmail = employerEmail;
-        this.jobTitle = jobTitle;
+    public Job(String employer_email, String job_title, String description) {
+        this.employer_email = employer_email;
+        this.job_title = job_title;
         this.description = description;
-        this.location = location;
-        this.userHash = userHash;
+
     }
 
-    public String getEmployerEmail() {
-        return employerEmail;
+
+
+    public double getLat() {
+        return lat;
     }
 
-    public void setEmployerEmail(String employerEmail) {
-        this.employerEmail = employerEmail;
+    public void setLat(double lat) {
+        this.lat = lat;
     }
 
-    public String getJobTitle() {
-        return jobTitle;
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
+    public void setLongitude(double longitude) {
+        this.longitude =longitude;
+    }
+
+    public String getEmployer_email() {
+        return employer_email;
+    }
+
+    public void setEmployer_email(String employer_email) {
+        this.employer_email = employer_email;
+    }
+
+    public String getJob_title() {
+        return job_title;
+    }
+
+    public void setJob_title(String job_title) {
+        this.job_title = job_title;
     }
 
     public String getDescription() {
@@ -63,14 +69,6 @@ public class Job implements Serializable {
         this.description = description;
     }
 
-    public String getHash() {
-        return userHash;
-    }
-
-    public void setHash(String hash) {
-        this.userHash = hash;
-    }
-
     public double getCompensation() {
         return compensation;
     }
@@ -79,13 +77,4 @@ public class Job implements Serializable {
         this.compensation = compensation;
     }
 
-
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        this.location = location;
-    }
 }
