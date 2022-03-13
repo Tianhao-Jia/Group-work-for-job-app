@@ -17,7 +17,7 @@ public class Offer {
     }
     public void setEmployerEmail(String email){employerEmail = email;}
 
-    public Boolean getDesmissed(){
+    public Boolean getDismissed(){
         return dismissed;
     }
 
