@@ -52,18 +52,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/createJob"
-        android:layout_width="138dp"
-        android:layout_height="51dp"
-        android:text="Create Job"
-        app:layout_constraintBottom_toTopOf="@id/employerLogoutButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.886" />
-
-    <Button
         android:id="@+id/employerLogoutButton"
         android:layout_width="132dp"
         android:layout_height="48dp"

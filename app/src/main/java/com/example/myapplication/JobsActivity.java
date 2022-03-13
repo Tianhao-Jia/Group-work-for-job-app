@@ -80,7 +80,7 @@ public class JobsActivity  extends AppCompatActivity implements GoogleApiClient.
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Job job = snapshot.getValue(Job.class);
                     double m = gps2m(mLastLocation.getLatitude(),mLastLocation.getLongitude(),
-                            job.getLat(),job.getLongitude());
+                            job.getLocation().getLatitude(),job.getLocation().getLongitude());
 
                     if (  m<10000) {
                         list.add(job);
