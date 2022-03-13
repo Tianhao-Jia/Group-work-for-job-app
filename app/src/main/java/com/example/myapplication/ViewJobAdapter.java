@@ -59,8 +59,8 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
         holder.jobLayoutEmployerEmail.setText("Email: " + job.getEmployer_email());
         holder.jobLayoutJobTitle.setText("Job Title: " + job.getJob_title());
         holder.jobLayoutHourlyRate.setText("Hourly Rate: " + String.valueOf(job.getCompensation()));
-        holder.jobLayoutLatitude.setText( "Latitude: " + String.valueOf(job.getLocation().getLatitude()));
-        holder.jobLayoutLongitude.setText("Longitude: " + String.valueOf(job.getLocation().getLongitude()));
+        holder.jobLayoutLatitude.setText( "Latitude: " + String.valueOf(job.getLat()));
+        holder.jobLayoutLongitude.setText("Longitude: " + String.valueOf(job.getLongitude()));
 
         holder.jobLayoutApply.setVisibility(View.VISIBLE);
         holder.jobLayoutViewOnMap.setVisibility(View.VISIBLE);

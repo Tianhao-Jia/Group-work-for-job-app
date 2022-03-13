@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "New Job")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle(job.getJobTitle())
+                .setContentTitle(job.getJob_title())
                 .setContentText(job.getDescription())
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);

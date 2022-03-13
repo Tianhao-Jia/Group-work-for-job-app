@@ -220,8 +220,8 @@ public class JobSearch extends Activity {
 
                         Job job = dataSnapshot.getValue(Job.class);
 
-                        String employerEmail = job.getEmployerEmail();
-                        String jobTitle = job.getJobTitle();
+                        String employerEmail = job.getEmployer_email();
+                        String jobTitle = job.getJob_title();
                         String description = job.getDescription();
                         String compensation = String.valueOf(job.getCompensation());
 
