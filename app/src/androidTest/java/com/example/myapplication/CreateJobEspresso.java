@@ -18,6 +18,7 @@ import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.test.espresso.Espresso;
@@ -183,7 +184,9 @@ public class CreateJobEspresso {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot data : snapshot.getChildren()) {
                     Job job = data.getValue(Job.class);
-                    if (job.getHash().toString().equals(TEST_ID)){
+                    Log.d("demo",job.getHash());
+                    Log.d("demo2",TEST_ID);
+                    if (job.getHash().equals(TEST_ID)){
                         is_present = true;
                     }
                 }

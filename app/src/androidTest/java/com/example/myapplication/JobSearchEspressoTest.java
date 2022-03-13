@@ -251,7 +251,6 @@ public class JobSearchEspressoTest {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.searchJobButton)).perform(click());
         Espresso.pressBack();
-
         onView(withId(R.id.employerSearchButton)).perform(click());
         onView(withId(R.id.searchEmployerEmail)).check(matches(withText(containsString("george.smith@dal.ca"))));
 

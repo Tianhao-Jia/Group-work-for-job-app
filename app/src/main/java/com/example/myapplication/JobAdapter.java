@@ -28,7 +28,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
         Job job = list.get(position);
         holder.tvTitle.setText(job.getJobTitle());
         holder.tvDesc.setText(job.getDescription());
-        holder.tvLocation.setText("location:"+job.getLocation().getLatitude()+"-"+job.getLocation().getLongitude());
+        holder.tvLocation.setText("location:"+job.getLocation().getLatitude() +"-"+job.getLocation().getLongitude());
     }
 
     @Override

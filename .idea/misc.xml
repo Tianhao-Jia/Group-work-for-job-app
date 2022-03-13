@@ -4,8 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/1/Documents/csci-3130-group-4-project/app/src/main/res/layout/activity_create_job.xml" value="0.12132725430597771" />
-        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/activity_employee.xml" value="0.11302083333333333" />
-        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/activity_employer.xml" value="0.16799999999999998" />
+        <entry key="app/src/main/res/layout/activity_employer.xml" value="0.11770833333333333" />
+        <entry key="app/src/main/res/layout/create_job.xml" value="0.11770833333333333" />
       </map>
     </option>
   </component>
