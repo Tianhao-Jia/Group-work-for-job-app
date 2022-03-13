@@ -44,6 +44,7 @@ public class CreateJob extends AppCompatActivity {
                 Job job = createJob();
                 if (job != null) {
                     pushJob(job, jobsRef);
+                    Toast.makeText(CreateJob.this,"Success", Toast.LENGTH_SHORT).show();
                     Intent newIntent = new Intent(CreateJob.this, EmployerActivity.class);
                     startActivity(newIntent);
                 }
