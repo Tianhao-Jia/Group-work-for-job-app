@@ -60,7 +60,7 @@ public class JobSearch extends Activity {
         init();
 
         firebaseDB = FirebaseUtils.connectFirebase();
-        jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
+        jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
 
         //citation based on code from Dhrumils lab presentation on march 2nd in this course csci3130
         FirebaseRecyclerOptions<Job> options = new FirebaseRecyclerOptions.Builder<Job>()

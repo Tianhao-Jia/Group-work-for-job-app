@@ -45,7 +45,7 @@ import org.junit.runner.RunWith;
 public class CreateJobEspresso {
 
     private static final FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-    private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
+    private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
     private static final String TEST_ID = "123";
     private static Boolean is_present = false;
 

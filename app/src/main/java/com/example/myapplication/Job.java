@@ -5,6 +5,8 @@ package com.example.myapplication;
 import android.app.AppComponentFactory;
 
 public class Job {
+    private Location location;
+
     public Job() {
     }
 
@@ -77,4 +79,11 @@ public class Job {
         this.compensation = compensation;
     }
 
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 }
