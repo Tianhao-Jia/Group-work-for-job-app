@@ -101,7 +101,7 @@ public class JobsActivity  extends AppCompatActivity implements GoogleApiClient.
         if (ActivityCompat.checkSelfPermission(this,
                 android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]
-                    {android.Manifest.permission.ACCESS_FINE_LOCATION},100);
+                    {android.Manifest.permission.ACCESS_FINE_LOCATION},111);
             return;
         }
          mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);

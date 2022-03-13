@@ -44,7 +44,7 @@
             android:name="com.example.myapplication.EmployerActivity"
             android:exported="false" />
         <activity
-            android:name=".MapsActivity"
+            android:name="com.example.myapplication.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
