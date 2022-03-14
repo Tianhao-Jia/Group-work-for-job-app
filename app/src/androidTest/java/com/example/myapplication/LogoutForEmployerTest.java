@@ -8,6 +8,7 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -19,6 +20,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.junit.After;
@@ -29,20 +31,58 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RunWith(AndroidJUnit4.class)
 public class LogoutForEmployerTest {
+
+    private static final String employerKey = "tempEmployer";
+    private static final String employeeKey = "tempEmployee";
+
     @Rule
-    public ActivityScenarioRule myRule = new ActivityScenarioRule<>(EmployerActivity.class);
+    public ActivityScenarioRule<LoginActivity> myRule = new ActivityScenarioRule<>(LoginActivity.class);
+
+    @BeforeClass
+    public static void createTestUser() {
+        // Creating a HashMap of user information to store on firebase
+        Map<String, Object> employee = new HashMap<>();
+        employee.put("firstName", "Test");
+        employee.put("lastName", "Employee");
+        employee.put("email", "testEmployee@dal.ca");
+        employee.put("userType", "Employee");
+        employee.put("password", "1234");
+        employee.put("loginState", false);
+
+        Map<String, Object> employer = new HashMap<>();
+        employer.put("firstName", "Test");
+        employer.put("lastName", "Employer");
+        employer.put("email", "testEmployer@dal.ca");
+        employer.put("userType", "Employer");
+        employer.put("password", "1234");
+        employer.put("loginState", false);
+
+        // Getting an instance of the firebase realtime database
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.USERS);
+
+        dbRef.child(employeeKey).setValue(employee);
+        dbRef.child(employerKey).setValue(employer);
+
+    }
 
     @BeforeClass
     public static void setup() {
         Intents.init();
+        Session.startSession(InstrumentationRegistry.getInstrumentation().getTargetContext());
     }
 
     @AfterClass
     public static void tearDown() {
         Intents.release();
+        FirebaseDatabase.getInstance().getReference(FirebaseUtils.USERS).child(employerKey).setValue(null);
+        FirebaseDatabase.getInstance().getReference(FirebaseUtils.USERS).child(employeeKey).setValue(null);
     }
+
     @Test
     public void useAppContext() {
         // Context of the app under test.
@@ -58,27 +98,14 @@ public class LogoutForEmployerTest {
     @Test
     // run isolate
     public void logOutWithIntent() {
-        ActivityScenario.launch(RegisterUser.class);
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerButton)).perform(click());
-
-
-        ActivityScenario.launch(LoginActivity.class);
-        onView(withId(R.id.loginUsernameET)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.loginPasswordET)).perform(typeText("123abc123"));
+        onView(withId(R.id.loginUsernameET)).perform(typeText("testEmployer@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("1234"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.loginButton)).perform(click());
 
-
         onView(withId(R.id.employerLogoutButton)).perform(click());
-        intended(hasComponent(MainActivity.class.getName()));
+
+        assertFalse(Session.checkLogin());
     }
 
     /**
@@ -89,33 +116,18 @@ public class LogoutForEmployerTest {
 
     @Test
     public void testLogOutSp() {
-        ActivityScenario.launch(RegisterUser.class);
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerButton)).perform(click());
-
-
-        ActivityScenario.launch(LoginActivity.class);
-        onView(withId(R.id.loginUsernameET)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.loginPasswordET)).perform(typeText("123abc123"));
+        onView(withId(R.id.loginUsernameET)).perform(typeText("testEmployer@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("1234"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.loginButton)).perform(click());
 
-
         onView(withId(R.id.employerLogoutButton)).perform(click());
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        SharedPreferences sharedPref = appContext.getSharedPreferences("pref", Context.MODE_PRIVATE);
-        assertEquals("", sharedPref.getString("Key_email",""));
+
+        assertFalse(Session.checkLogin());
     }
 
-    @After
-    public void teardown(){
+    @AfterClass
+    public static void teardown(){
         FirebaseDatabase.getInstance().getReference("users").setValue(null);
     }
 

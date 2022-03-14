@@ -46,6 +46,10 @@ import java.util.Map;
 @RunWith(AndroidJUnit4.class)
 public class LoginTest {
 
+    private static final String employerKey = "tempEmployer";
+    private static final String employeeKey = "tempEmployee";
+
+
     @Rule
     public ActivityScenarioRule<LoginActivity> myRule = new ActivityScenarioRule<>(LoginActivity.class);
 
@@ -71,18 +75,19 @@ public class LoginTest {
         employer.put("loginState", false);
 
         // Getting an instance of the firebase realtime database
-        DatabaseReference dbRef = FirebaseDatabase.getInstance("https://quick-cash-55715-default-rtdb.firebaseio.com/")
-                .getReference()
-                .child("users");
+        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child(FirebaseUtils.USERS);
 
-        dbRef.push().setValue(employee);
-        dbRef.push().setValue(employer);
+        dbRef.child(employeeKey).setValue(employee);
+        dbRef.child(employerKey).setValue(employer);
+        Session.startSession(InstrumentationRegistry.getInstrumentation().getTargetContext());
     }
+
 
     @AfterClass
     public static void tearDown() {
         Intents.release();
-        FirebaseDatabase.getInstance().getReference("users").setValue(null);
+        FirebaseDatabase.getInstance().getReference(FirebaseUtils.USERS).child(employerKey).setValue(null);
+        FirebaseDatabase.getInstance().getReference(FirebaseUtils.USERS).child(employeeKey).setValue(null);
 
     }
 
@@ -138,22 +143,8 @@ public class LoginTest {
      */
     @Test
     public void checkIfLoggedInEmployee() {
-
-        ActivityScenario.launch(RegisterUser.class);
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerButton)).perform(click());
-
-
-        ActivityScenario.launch(LoginActivity.class);
-        onView(withId(R.id.loginUsernameET)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.loginPasswordET)).perform(typeText("123abc123"));
+        onView(withId(R.id.loginUsernameET)).perform(typeText("testEmployee@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("1234"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.loginButton)).perform(click());
         onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
@@ -168,22 +159,9 @@ public class LoginTest {
      */
     @Test
     public void checkIfLoggedInEmployer() {
-
-        ActivityScenario.launch(RegisterUser.class);
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerButton)).perform(click());
-
-
         ActivityScenario.launch(LoginActivity.class);
-        onView(withId(R.id.loginUsernameET)).perform(typeText("george.smith@dal.ca"));
-        onView(withId(R.id.loginPasswordET)).perform(typeText("123abc123"));
+        onView(withId(R.id.loginUsernameET)).perform(typeText("testEmployer@dal.ca"));
+        onView(withId(R.id.loginPasswordET)).perform(typeText("1234"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.loginButton)).perform(click());
         onView(withId(R.id.employerView)).check(matches(isDisplayed()));
@@ -198,20 +176,6 @@ public class LoginTest {
      */
     @Test
     public void checkIfAccountExists() {
-
-        ActivityScenario.launch(RegisterUser.class);
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("123abc123"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerButton)).perform(click());
-
-
-        ActivityScenario.launch(LoginActivity.class);
         onView(withId(R.id.loginUsernameET)).perform(typeText("peorge.swift@dal.ca"));
         onView(withId(R.id.loginPasswordET)).perform(typeText("123abc123"));
         Espresso.closeSoftKeyboard();

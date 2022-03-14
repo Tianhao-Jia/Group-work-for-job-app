@@ -5,6 +5,7 @@ package com.example.myapplication;
 import android.app.AppComponentFactory;
 
 public class Job {
+
     public Job() {
     }
 
@@ -76,5 +77,6 @@ public class Job {
     public void setCompensation(double compensation) {
         this.compensation = compensation;
     }
+
 
 }
