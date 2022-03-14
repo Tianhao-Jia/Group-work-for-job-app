@@ -1,0 +1,19 @@
+
+o
+java:S1450!"YRemove the "firebaseDB" field and declare it as a local variable in the relevant methods.(ÃòÕÅ
+K
+java:S1068#"5Remove this unused "sharedPreferences" private field.(„ºÌ¬
+e
+java:S1192="JDefine a constant instead of duplicating this literal "User Hash" 3 times.(…¬¹´şÿÿÿÿ
+`
+java:S1192<"JDefine a constant instead of duplicating this literal "User Type" 3 times.(¯‡¯õ
+b
+java:S1192:"LDefine a constant instead of duplicating this literal "Login Email" 3 times.(Şı–ï
+d
+java:S1192="IDefine a constant instead of duplicating this literal "Key_hash" 3 times.(…¬¹´şÿÿÿÿ
+e
+java:S1192;"ODefine a constant instead of duplicating this literal "Login Password" 3 times.(¸½Í±
+C
+java:S1604H"(Make this anonymous inner class a lambda(ŒÎãøÿÿÿÿ
+>
+java:S1604O"(Make this anonymous inner class a lambda(ş¡ôš

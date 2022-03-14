@@ -1,0 +1,16 @@
+
+J
+java:S3740J"/Provide the parametrized type for this generic.(—ÏÔÛùÿÿÿÿ
+o
+java:S1450"YRemove the "firebaseDB" field and declare it as a local variable in the relevant methods.(ÃòÕÅ
+r
+java:S1450 "\Remove the "firebaseDBRef" field and declare it as a local variable in the relevant methods.(ƒ—ì
+V	java:S125."<This block of commented-out lines of code should be removed.(Ôá‘ìıÿÿÿÿ
+G
+java:S1068 "1Remove this unused "firebaseDBRef" private field.(ƒ—ì
+i
+java:S1192["NDefine a constant instead of duplicating this literal "INVALID EMAIL" 3 times.(Ù«øşÿÿÿÿ
+l
+java:S1192\"QDefine a constant instead of duplicating this literal "INVALID PASSWORD" 3 times.(õ§ìÆüÿÿÿÿ
+C
+java:S1604K"(Make this anonymous inner class a lambda(Êœüûÿÿÿÿ

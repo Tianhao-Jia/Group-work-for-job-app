@@ -1,0 +1,25 @@
+
+x
+java:S1450/"]Remove the "jobLayoutApply" field and declare it as a local variable in the relevant methods.(áõô¾üÿÿÿÿ
+y
+java:S1450+"cRemove the "jobLayoutDescription" field and declare it as a local variable in the relevant methods.(¢½å
+€
+java:S1450*"eRemove the "jobLayoutEmployerEmail" field and declare it as a local variable in the relevant methods.(áÉÈÄûÿÿÿÿ
+}
+java:S1450,"bRemove the "jobLayoutHourlyRate" field and declare it as a local variable in the relevant methods.(ÛüÑøÿÿÿÿ
+{
+java:S1450)"`Remove the "jobLayoutJobTitle" field and declare it as a local variable in the relevant methods.(ğüşÂøÿÿÿÿ
+{
+java:S1450-"`Remove the "jobLayoutLatitude" field and declare it as a local variable in the relevant methods.(ÉÄ£ıÿÿÿÿ
+|
+java:S1450."aRemove the "jobLayoutLongitude" field and declare it as a local variable in the relevant methods.(ÒÎûÇúÿÿÿÿ
+w
+java:S14500"aRemove the "jobLayoutViewOnMap" field and declare it as a local variable in the relevant methods.(¼ÑÑš
+l
+java:S14504"VRemove the "jobsRef" field and declare it as a local variable in the relevant methods.(Ä¶Ü
+i
+java:S3776•"RRefactor this method to reduce its Cognitive Complexity from 28 to the 15 allowed.(ûÇĞª
+A
+java:S10684"+Remove this unused "jobsRef" private field.(Ä¶Ü
+u
+java:S2293¢"YReplace the type specification in this constructor call with the diamond operator ("<>").(ìñ…úÿÿÿÿ

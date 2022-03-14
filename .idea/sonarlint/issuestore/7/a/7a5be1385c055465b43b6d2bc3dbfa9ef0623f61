@@ -1,0 +1,19 @@
+
+g
+java:S1659$"LDeclare "createJobButton" and all following declarations on a separate line.(¤ÏÆýÿÿÿÿ
+o
+java:S1450 "YRemove the "firebaseDB" field and declare it as a local variable in the relevant methods.(ÃòÕÅ
+e
+java:S11928"JDefine a constant instead of duplicating this literal "User Hash" 5 times.(…¬¹´þÿÿÿÿ
+`
+java:S11927"JDefine a constant instead of duplicating this literal "User Type" 5 times.(¯‡¯õ
+b
+java:S11925"LDefine a constant instead of duplicating this literal "Login Email" 5 times.(Þý–ï
+e
+java:S11926"ODefine a constant instead of duplicating this literal "Login Password" 5 times.(¸½Í±
+C
+java:S1604D"(Make this anonymous inner class a lambda(õ©ñ£øÿÿÿÿ
+C
+java:S1604R"(Make this anonymous inner class a lambda(ŒÎãøÿÿÿÿ
+>
+java:S1604Y"(Make this anonymous inner class a lambda(þ¡ôš

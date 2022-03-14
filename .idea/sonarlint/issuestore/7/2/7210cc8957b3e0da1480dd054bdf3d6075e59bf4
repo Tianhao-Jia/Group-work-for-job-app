@@ -1,0 +1,17 @@
+
+@
+java:S1068o"+Remove this unused "context" private field.(êİç
+Œ
+java:S1319¼"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ËÁòãûÿÿÿÿ
+‹
+java:S1319À"oThe type of "holderArrayList" should be an interface such as "List" rather than the implementation "ArrayList".(ë¼“¿ùÿÿÿÿ
+Œ
+java:S1319Ä"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(‘šÓùÿÿÿÿ
+ˆ
+java:S1319È"lThe type of "jobArrayList" should be an interface such as "List" rather than the implementation "ArrayList".(†ŞüÃüÿÿÿÿ
+G
+java:S1153="1Directly append the argument of String.valueOf().(é™¼ã
+L
+java:S1153>"1Directly append the argument of String.valueOf().(úˆ…ˆüÿÿÿÿ
+G
+java:S1153?"1Directly append the argument of String.valueOf().(ğİš

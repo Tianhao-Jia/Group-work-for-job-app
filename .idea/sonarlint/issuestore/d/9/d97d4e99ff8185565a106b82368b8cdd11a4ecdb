@@ -1,0 +1,31 @@
+
+P
+java:S1854;":Remove this useless assignment to local variable "intent".(å¯Ô«
+A
+java:S1481;"+Remove this unused "intent" local variable.(å¯Ô«
+h
+java:S3776Q"RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(¸‰„­
+˜
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+V
+java:S1117œ"?Rename "nameFNField" which hides the field declared at line 47.(¼¿Ò
+[
+java:S1117"?Rename "nameLNField" which hides the field declared at line 48.(Î‘Ô³ùÿÿÿÿ
+U
+java:S1117">Rename "emailField" which hides the field declared at line 49.(ĞÃĞ¸
+X
+java:S1117Ÿ"ARename "userTypeField" which hides the field declared at line 50.(ßÿèò
+X
+java:S1117 "ARename "passwordField" which hides the field declared at line 51.(“®Ğ“
+:
+java:S2119¡"Save and re-use this "Random".(šŸ«íøÿÿÿÿ
+C
+java:S1602·",Remove useless curly braces around statement(§ÀÇ
+A
+java:S5869ä"*Remove duplicates in this character class.(‡Æûû
+N
+java:S1135û"2Complete the task associated to this TODO comment.(í¥ùËÿÿÿÿÿ
+C
+java:S10684"-Remove this unused "imageView" private field.(øû¯
+C
+java:S1604E"(Make this anonymous inner class a lambda(ºÁöïûÿÿÿÿ

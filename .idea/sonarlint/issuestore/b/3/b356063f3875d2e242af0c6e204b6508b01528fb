@@ -1,0 +1,24 @@
+
+P
+java:S1854!":Remove this useless assignment to local variable "intent".(å¯Ô«
+A
+java:S1481!"+Remove this unused "intent" local variable.(å¯Ô«
+V	java:S1258"<This block of commented-out lines of code should be removed.(ªºˆÿþÿÿÿÿ
+V	java:S125p"<This block of commented-out lines of code should be removed.(º“ÐÏûÿÿÿÿ
+P
+java:S1117x":Rename "extras" which hides the field declared at line 24.(µ‹€±
+2
+java:S1116{"Remove this empty statement.(ÝÓèŽ
+W	java:S125„"<This block of commented-out lines of code should be removed.(ðØÞßüÿÿÿÿ
+Q
+java:S1117ˆ":Rename "extras" which hides the field declared at line 24.(µ‹€±
+8
+java:S1116‹"Remove this empty statement.(óŠÌúþÿÿÿÿ
+]
+java:S1126½"AReplace this if-then-else statement by a single return statement.(àèôƒøÿÿÿÿ
+e
+java:S11922"JDefine a constant instead of duplicating this literal "User Hash" 3 times.(íœÌ¨úÿÿÿÿ
+b
+java:S11923"LDefine a constant instead of duplicating this literal "Login Email" 3 times.(™—¾ï
+=
+java:S1604("(Make this anonymous inner class a lambda(ëà°D
