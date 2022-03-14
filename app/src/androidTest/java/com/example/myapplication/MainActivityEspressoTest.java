@@ -114,4 +114,9 @@ public class MainActivityEspressoTest {
         //Verify the app has opened to EmployeeActivity instead of MainActivity
         onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
     }
+    public void checktheJob(){
+        assertFalse(CreateJob.validateJobDescription(""));
+        assertFalse(CreateJob.validateTitle(""));
+        assertTrue(CreateJob.validateJobDescription("This is a job description!"));
+    }
 }

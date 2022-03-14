@@ -60,7 +60,7 @@ public class JobSearch extends Activity {
         init();
 
         firebaseDB = FirebaseUtils.connectFirebase();
-        jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
+        jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS);
 
         //citation based on code from Dhrumils lab presentation on march 2nd in this course csci3130
         FirebaseRecyclerOptions<Job> options = new FirebaseRecyclerOptions.Builder<Job>()
@@ -220,8 +220,8 @@ public class JobSearch extends Activity {
 
                         Job job = dataSnapshot.getValue(Job.class);
 
-                        String employerEmail = job.getEmployerEmail();
-                        String jobTitle = job.getJobTitle();
+                        String employerEmail = job.getEmployer_email();
+                        String jobTitle = job.getJob_title();
                         String description = job.getDescription();
                         String compensation = String.valueOf(job.getCompensation());
 

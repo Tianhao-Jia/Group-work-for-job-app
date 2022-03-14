@@ -56,11 +56,11 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
     @Override
     public void onBindViewHolder(@NonNull JobViewHolder holder, int position, @NonNull Job job) {
         holder.jobLayoutDescription.setText("Description: " + job.getDescription());
-        holder.jobLayoutEmployerEmail.setText("Email: " + job.getEmployerEmail());
-        holder.jobLayoutJobTitle.setText("Job Title: " + job.getJobTitle());
+        holder.jobLayoutEmployerEmail.setText("Email: " + job.getEmployer_email());
+        holder.jobLayoutJobTitle.setText("Job Title: " + job.getJob_title());
         holder.jobLayoutHourlyRate.setText("Hourly Rate: " + String.valueOf(job.getCompensation()));
-        holder.jobLayoutLatitude.setText( "Latitude: " + String.valueOf(job.getLocation().getLatitude()));
-        holder.jobLayoutLongitude.setText("Longitude: " + String.valueOf(job.getLocation().getLongitude()));
+        holder.jobLayoutLatitude.setText( "Latitude: " + String.valueOf(job.getLat()));
+        holder.jobLayoutLongitude.setText("Longitude: " + String.valueOf(job.getLongitude()));
 
         holder.jobLayoutApply.setVisibility(View.VISIBLE);
         holder.jobLayoutViewOnMap.setVisibility(View.VISIBLE);
