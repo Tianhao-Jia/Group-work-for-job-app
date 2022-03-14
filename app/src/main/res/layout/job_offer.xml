@@ -7,29 +7,17 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/jobLayoutJobTitle"
+        android:id="@+id/offerEmployerEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="Job Title: " />
-
-    <TextView
-        android:id="@+id/jobLayoutEmployerEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:hint="Email: " />
+        android:textStyle="bold"/>
 
 
     <TextView
-        android:id="@+id/jobLayoutDescription"
+        android:id="@+id/jobOfferDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -39,7 +27,7 @@
         tools:text="Description: " />
 
     <TextView
-        android:id="@+id/jobLayoutHourlyRate"
+        android:id="@+id/jobOfferHourlyRate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -48,7 +36,7 @@
         android:textStyle="bold"
         tools:text="Hourly Rate: " />
     <TextView
-        android:id="@+id/jobLayoutLatitude"
+        android:id="@+id/jobOfferLatitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -58,7 +46,7 @@
         tools:text="Latitude: " />
 
     <TextView
-        android:id="@+id/jobLayoutLongitude"
+        android:id="@+id/jobOfferLongitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -75,24 +63,15 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/jobLayoutApply"
+            android:id="@+id/dismissOffer"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@android:color/holo_blue_light"
-            android:text="Apply"
+            android:text="Dismiss"
             android:textColor="@color/white"
             />
 
-        <Button
-            android:id="@+id/jobLayoutViewOnMap"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:backgroundTint="@android:color/holo_blue_light"
-            android:text="View on map"
-            android:textColor="@color/white" />
     </LinearLayout>
 
     <View

@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
 
 
 /**
@@ -69,9 +80,6 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
         holderArrayList.add(holder);
         jobArrayList.add(job);
         //if I want to have the buttons do something this is where they need to be implemented
-
-
-
     }
 
 
@@ -124,6 +132,36 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
             jobLayoutViewOnMap = itemView.findViewById(R.id.jobLayoutViewOnMap);
 
             context = itemView.getContext();
+
+            jobLayoutApply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
+                    DatabaseReference usersRef = firebaseDB.getReference().child(FirebaseUtils.USERS_COLLECTION);
+                    usersRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                                if (dataSnapshot.child("email").getValue().toString().equals(jobLayoutEmployerEmail.getText().toString().substring(7))){
+
+                                    Application application = new Application(Session.getEmail(), false, false, jobLayoutDescription.getText().toString().substring(13));
+
+                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+                                            .getReference()
+                                            .child("applications").child(dataSnapshot.getKey()).push().setValue(application);
+
+                                }
+
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            });
 
         }
 

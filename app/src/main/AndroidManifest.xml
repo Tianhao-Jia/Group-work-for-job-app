@@ -50,6 +50,15 @@
         <activity
             android:name="com.example.myapplication.JobSearch"
             android:exported="false" />
+
+        <activity
+            android:name="com.example.myapplication.ViewApplications"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.myapplication.ViewOffers"
+            android:exported="false" />
+
         <activity
             android:name="com.example.myapplication.Newpage"
             android:exported="false" />

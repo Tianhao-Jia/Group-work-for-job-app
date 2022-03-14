@@ -33,7 +33,7 @@ public class EmployerActivity extends AppCompatActivity {
     private DatabaseReference firebaseDBRef;
 
     TextView loginDisplay;
-    Button logoutButton, createJobButton, searchButton;
+    Button logoutButton, createJobButton, searchButton, viewApplications;
     Button openmaps;
 
     @Override
@@ -45,6 +45,8 @@ public class EmployerActivity extends AppCompatActivity {
         logoutButton = (Button) findViewById(R.id.employerLogoutButton);
         createJobButton = (Button) findViewById(R.id.createJob);
         searchButton = (Button) findViewById(R.id.employerSearchButton);
+        viewApplications = (Button) findViewById(R.id.employerApplications);
+
 
         if (!Session.checkLogin()) {
             //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
@@ -69,6 +71,15 @@ public class EmployerActivity extends AppCompatActivity {
                 Session.logout();
             }
         });
+
+        viewApplications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployerActivity.this, ViewApplications.class);
+                startActivity(intent);
+            }
+        });
+
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override

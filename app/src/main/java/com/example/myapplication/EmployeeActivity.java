@@ -35,7 +35,7 @@ public class EmployeeActivity extends AppCompatActivity {
 
     TextView loginDisplay;
     Button logoutButton;
-    Button searchButton;
+    Button searchButton, offersButton;
 
     Button openmap;
     Button jobs;
@@ -50,6 +50,24 @@ public class EmployeeActivity extends AppCompatActivity {
         loginDisplay = (TextView) findViewById(R.id.employeeLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employeeLogoutButton);
         searchButton = (Button) findViewById(R.id.employeeSearchButton);
+        offersButton = (Button) findViewById(R.id.viewOffers);
+
+        offersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployeeActivity.this, ViewOffers.class);
+                startActivity(intent);
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployeeActivity.this, JobSearch.class);
+                startActivity(intent);
+            }
+        });
+
 
         Bundle extras = getIntent().getExtras();
 
