@@ -78,8 +78,6 @@ public class Job implements Serializable {
         this.compensation = compensation;
     }
 
-
-
     public Location getLocation() {
         return location;
     }

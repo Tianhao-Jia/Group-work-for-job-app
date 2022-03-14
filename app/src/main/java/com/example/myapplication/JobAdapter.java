@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Job job = list.get(position);
+        Location location = job.getLocation();
+        Log.d("testing:", location.getLatitude() + " " + location.getLongitude());
         holder.tvTitle.setText(job.getJobTitle());
         holder.tvDesc.setText(job.getDescription());
         holder.tvLocation.setText("location:"+job.getLocation().getLatitude() +"-"+job.getLocation().getLongitude());
