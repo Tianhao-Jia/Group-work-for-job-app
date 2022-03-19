@@ -45,7 +45,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
         TextView tvLocation;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvTitle = itemView.findViewById(R.id.payUserTitle);
             tvDesc = itemView.findViewById(R.id.tvDesc);
             tvLocation = itemView.findViewById(R.id.tvLocation);
         }

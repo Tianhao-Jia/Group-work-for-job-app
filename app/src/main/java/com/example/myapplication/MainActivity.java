@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseDBRef = firebaseDB.getReference();
 
         Button loginActivity = (Button) findViewById(R.id.mainLogin);
-        setIntent(loginActivity, LoginActivity.class);
+        setIntent(loginActivity, SendPayment.class);
 
 
         Button register = (Button) findViewById(R.id.register);

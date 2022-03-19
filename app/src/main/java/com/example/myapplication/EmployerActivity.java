@@ -34,7 +34,7 @@ public class EmployerActivity extends AppCompatActivity {
 
     TextView loginDisplay;
     Button logoutButton, createJobButton, searchButton, viewApplications;
-    Button openmaps;
+    Button openmaps, payButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class EmployerActivity extends AppCompatActivity {
         createJobButton = (Button) findViewById(R.id.createJob);
         searchButton = (Button) findViewById(R.id.employerSearchButton);
         viewApplications = (Button) findViewById(R.id.employerApplications);
+        payButton = (Button) findViewById(R.id.employerPayButton);
 
 
         if (!Session.checkLogin()) {
@@ -95,6 +96,7 @@ public class EmployerActivity extends AppCompatActivity {
                 startActivity(new Intent(EmployerActivity.this, MapsActivity.class));
             }
         });
+
     }
 
     /**
