@@ -11,6 +11,8 @@ import android.widget.Button;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import kotlinx.coroutines.channels.Send;
+
 /**
  * EmployeeActivity class that manages the EmployeeActivity events.
  * @authors: Nathanael Bowley,

@@ -9,11 +9,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.FirebaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -26,14 +34,17 @@ import org.json.JSONObject;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class SendPayment extends AppCompatActivity implements PayAdapter.JobListener{
+public class SendPayment extends AppCompatActivity implements PayAdapter.IJobListener{
     public static final String clientKey = "AUwzd2smvn2XJ8PgS7ZIenq1tCrNNhW8uS8F5D9WQS2lhpnNNYfKhayF95w-c_ZEp_pP_oCgnpayyq5J";
     public static final int PAYPAL_REQUEST_CODE = 123;
 
-    private RecyclerView payRecyclerView;
+    private FirebaseDatabase firebaseDB;
+    private DatabaseReference firebaseDBRef;
 
+
+    private RecyclerView payRecyclerView;
+    private PayAdapter  payAdapter;
     private ArrayList<Job> jobs = new ArrayList<>();
-    private PayAdapter payAdapter;
 
     // Paypal Configuration Object
     private static PayPalConfiguration config = new PayPalConfiguration()
@@ -53,10 +64,63 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.JobList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_payment);
-        payRecyclerView = findViewById(R.id.paymentRecycler);
+        connectFirebase();
+        firebaseDB = FirebaseUtils.connectFirebase();
+        firebaseDBRef = firebaseDB.getReference(FirebaseUtils.JOBS_COLLECTION);
 
-        insertFakeJobs();
-        initRecyclerView();
+
+        payRecyclerView = findViewById(R.id.paymentRecycler);
+        payRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //citation based on code from Dhrumils lab presentation on march 2nd in this course csci3130
+        FirebaseRecyclerOptions<Job> options = new FirebaseRecyclerOptions.Builder<Job>()
+                .setQuery(firebaseDBRef, Job.class)
+                .build();
+
+        payAdapter = new PayAdapter(options);
+        payAdapter.setInterface(this);
+        payRecyclerView.setAdapter(payAdapter);
+
+
+
+        firebaseDBRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                Log.e("Count " ,""+snapshot.getChildrenCount());
+                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                    Job post = postSnapshot.getValue(Job.class);
+                    Log.e("Get Data", post.getDescription());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
+
+
+
+
+
+//        payRecyclerView = findViewById(R.id.paymentRecycler);
+//
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        payRecyclerView.setLayoutManager(linearLayoutManager);
+//
+//
+//
+//        //citation based on code from Dhrumils lab presentation on march 2nd in this course csci3130
+//        FirebaseRecyclerOptions<Job> options
+//                = new FirebaseRecyclerOptions.Builder<Job>()
+//                .setQuery(firebaseDBRef, Job.class)
+//                .build();
+//
+//        payAdapter = new PayAdapter(options);
+//        payAdapter.setInterface(this);
+//        payRecyclerView.setAdapter(payAdapter);
+//        payAdapter.startListening();
 
         // on below line adding click listener to our make payment button.
 //        makePaymentBtn.setOnClickListener(new View.OnClickListener() {
@@ -69,13 +133,20 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.JobList
 
     }
 
-    private void initRecyclerView(){
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        payRecyclerView.setLayoutManager(linearLayoutManager);
-
-        payAdapter = new PayAdapter(jobs, this);
-        payRecyclerView.setAdapter(payAdapter);
-    }
+//    private void initRecyclerView(){
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        payRecyclerView.setLayoutManager(linearLayoutManager);
+//
+//        //citation based on code from Dhrumils lab presentation on march 2nd in this course csci3130
+//        FirebaseRecyclerOptions<Job> options = new FirebaseRecyclerOptions.Builder<Job>()
+//                .setQuery(FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+//                        .getReference().child("jobs"), Job.class)
+//                .build();
+//
+//        payAdapter = new PayAdapter(options);
+//        payAdapter.setInterface(this);
+//        payRecyclerView.setAdapter(payAdapter);
+//    }
 
     private void insertFakeJobs() {
         for(int i = 0; i < 10; i++) {
@@ -155,6 +226,24 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.JobList
                 Log.i("paymentExample", "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
             }
         }
+    }
+
+    private void connectFirebase(){
+        firebaseDB = FirebaseUtils.connectFirebase();
+        firebaseDBRef = firebaseDB.getReference(FirebaseUtils.JOBS_COLLECTION);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        payAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        payAdapter.startListening();
     }
 
 
