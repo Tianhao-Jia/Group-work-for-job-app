@@ -68,7 +68,7 @@ android:orientation="vertical">
     tools:text="Longitude: " />
 
     <Button
-        android:id="@+id/jobEmployerLayoutSeeCurrentApplications"
+        android:id="@+id/jobEmployerLayoutCurrentAppsButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -85,7 +85,7 @@ android:orientation="vertical">
     android:orientation="horizontal">
 
     <Spinner
-        android:id="@+id/jobEmployerLayoutApply"
+        android:id="@+id/jobEmployerLayoutSpinner"
         android:layout_width="6dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -94,7 +94,7 @@ android:orientation="vertical">
         android:textColor="@color/black" />
 
     <Button
-        android:id="@+id/jobEmployerLayoutSeeSuggested"
+        android:id="@+id/jobEmployerLayoutSuggestButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
