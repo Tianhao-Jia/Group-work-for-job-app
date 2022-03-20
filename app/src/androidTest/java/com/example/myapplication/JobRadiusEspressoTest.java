@@ -1,7 +1,7 @@
 package com.example.myapplication;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -9,25 +9,17 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import android.app.Activity;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.ViewAssertion;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.example.myapplication.databinding.ActivityMainBinding;
-import com.google.firebase.database.FirebaseDatabase;
-
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class JobRadiusEspressoTest {
 
@@ -43,7 +35,8 @@ public class JobRadiusEspressoTest {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("employerpassword"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employer"))).perform(click());
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerButton)).perform(click());
 
@@ -96,7 +89,8 @@ public class JobRadiusEspressoTest {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("employeepassword1"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerButton)).perform(click());
         onView(withId(R.id.jobs)).perform(click());
@@ -120,7 +114,8 @@ public class JobRadiusEspressoTest {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("employeepassword2"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerButton)).perform(click());
         onView(withId(R.id.jobs)).perform(click());

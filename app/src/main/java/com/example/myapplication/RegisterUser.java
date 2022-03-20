@@ -3,14 +3,17 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import java.util.Random;
 
@@ -43,42 +46,47 @@ import java.util.regex.Matcher;
  * @group: Group 4
  * @clientTA: Disha Malik
  */
-public class RegisterUser extends AppCompatActivity {
+public class RegisterUser extends AppCompatActivity{
 
     private EditText nameFNField;
     private EditText nameLNField;
     private EditText emailField;
-    private EditText userTypeField;
+    private Spinner userTypeSpinner;
     private EditText passwordField;
     private ImageView imageView;
+    private String[] userTypes;
+    private String userType = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
+        userTypes = new String[]{"Employee", "Employer"};
 
         nameFNField = findViewById(R.id.registerFirstName);
         nameLNField = findViewById(R.id.registerLastName);
         emailField = findViewById(R.id.registerEmail);
-        userTypeField = findViewById(R.id.registerUserType);
         passwordField = findViewById(R.id.registerPasswordET);
+        userTypeSpinner = findViewById(R.id.registerUserSpinner);
 
         Button registerButton = findViewById(R.id.registerButton);
+        registerButton.setOnClickListener(view -> registerUser());
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                registerUser();
-            }
-        });
+        @SuppressLint("ResourceType") ArrayAdapter<String> userTypesAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, userTypes);
+        userTypesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        userTypeSpinner.setAdapter(userTypesAdapter);
+
     }
+
 
     /**
      * registerUser(): if the user doesn't already have an account, and the user inputs the correct
      *                 details, then it successfully registers the user
      */
     public void registerUser(){
+        userType = userTypeSpinner.getSelectedItem().toString();
+        Log.e("user type:", userType);
         // get the reference to the database
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -130,20 +138,18 @@ public class RegisterUser extends AppCompatActivity {
         EditText nameFNField = findViewById(R.id.registerFirstName);
         EditText nameLNField = findViewById(R.id.registerLastName);
         EditText emailField = findViewById(R.id.registerEmail);
-        EditText userTypeField = findViewById(R.id.registerUserType);
         EditText passwordField = findViewById(R.id.registerPasswordET);
         Random rand = new Random();
         String key = Integer.toString(rand.nextInt(1000000000));
 
         //US-3 functionality forcing 2 types of users
-        String userType = userTypeField.getText().toString();
         if (userType.equalsIgnoreCase(Employer.EMPLOYER) || userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
             // Creating a HashMap of user information to store on firebase
             Map<String, Object> map = new HashMap<>();
             map.put("firstName", nameFNField.getText().toString());
             map.put("lastName", nameLNField.getText().toString());
             map.put("email", emailField.getText().toString());
-            map.put("userType", userTypeField.getText().toString());
+            map.put("userType", userType);
             map.put("password", passwordField.getText().toString());
             map.put("hash", key);
             map.put("loginState", true);
@@ -155,8 +161,6 @@ public class RegisterUser extends AppCompatActivity {
                 map.put("user location (latitude)", null);
                 map.put("user location (longitude)", null);
             }
-
-
 
             // Getting an instance of the firebase realtime database
             FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)

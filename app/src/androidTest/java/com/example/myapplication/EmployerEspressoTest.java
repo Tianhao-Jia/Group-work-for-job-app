@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -7,6 +8,9 @@ import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 
 import android.content.Context;
@@ -61,7 +65,8 @@ public class EmployerEspressoTest {
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
         //Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employer"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
