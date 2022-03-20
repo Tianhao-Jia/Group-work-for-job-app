@@ -62,7 +62,7 @@ public class RegisterUser extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
-        userTypes = new String[]{"Employee", "Employer"};
+        userTypes = getResources().getStringArray(R.array.user_types);
 
         nameFNField = findViewById(R.id.registerFirstName);
         nameLNField = findViewById(R.id.registerLastName);
