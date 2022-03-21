@@ -10,4 +10,13 @@
         <item>Employee</item>
         <item>Employer</item>
     </string-array>
+
+    <string-array name="categories">
+        <item>IT/Computers</item>
+        <item>Deliveries</item>
+        <item>Cooking</item>
+        <item>Household Chores</item>
+        <item>Leisure</item>
+        <item>Babysitting</item>
+    </string-array>
 </resources>

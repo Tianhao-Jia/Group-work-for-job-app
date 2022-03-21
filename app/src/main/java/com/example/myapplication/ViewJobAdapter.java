@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -57,6 +59,7 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
         view.findViewById(R.id.jobLayoutHourlyRate);
         view.findViewById(R.id.jobLayoutLatitude);
         view.findViewById(R.id.jobLayoutLongitude);
+        view.findViewById(R.id.jobCategory);
 
         view.findViewById(R.id.jobLayoutApply);
         view.findViewById(R.id.jobLayoutViewOnMap);
@@ -72,6 +75,7 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
         holder.jobLayoutHourlyRate.setText("Hourly Rate: " + String.valueOf(job.getCompensation()));
         holder.jobLayoutLatitude.setText( "Latitude: " + String.valueOf(job.getLocation().getLatitude()));
         holder.jobLayoutLongitude.setText("Longitude: " + String.valueOf(job.getLocation().getLongitude()));
+        holder.jobCategory.setText("Category: "  + job.getCategory());
 
         holder.jobLayoutApply.setVisibility(View.VISIBLE);
         holder.jobLayoutViewOnMap.setVisibility(View.VISIBLE);
@@ -110,7 +114,7 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
         private TextView jobLayoutDescription;
         private TextView jobLayoutHourlyRate;
         private TextView jobLayoutLatitude;
-
+        private TextView jobCategory;
 
 
         private TextView jobLayoutLongitude;
@@ -127,6 +131,7 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
             jobLayoutHourlyRate = itemView.findViewById(R.id.jobLayoutHourlyRate);
             jobLayoutLatitude = itemView.findViewById(R.id.jobLayoutLatitude);
             jobLayoutLongitude = itemView.findViewById(R.id.jobLayoutLongitude);
+            jobCategory = itemView.findViewById(R.id.jobCategory);
 
             jobLayoutApply = itemView.findViewById(R.id.jobLayoutApply);
             jobLayoutViewOnMap = itemView.findViewById(R.id.jobLayoutViewOnMap);

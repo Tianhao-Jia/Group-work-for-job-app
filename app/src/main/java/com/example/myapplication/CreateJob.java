@@ -1,12 +1,15 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +27,7 @@ public class CreateJob extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDB;
     private DatabaseReference jobsRef;
+    private String selectedCategory = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,23 +35,25 @@ public class CreateJob extends AppCompatActivity {
         setContentView(R.layout.create_job);
 
         Button createJobBtn = findViewById(R.id.createJobSubmitButton);
-
         TextView email = findViewById(R.id.createJobEmail);
-
         email.setText(Session.getEmail());
 
-        createJobBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firebaseDB = FirebaseUtils.connectFirebase();
-                jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
-                Job job = createJob();
-                if (job != null) {
-                    pushJob(job, jobsRef);
-                    Toast.makeText(CreateJob.this,"Success", Toast.LENGTH_SHORT).show();
-                    Intent newIntent = new Intent(CreateJob.this, EmployerActivity.class);
-                    startActivity(newIntent);
-                }
+        Spinner jobCategorySpinner = findViewById(R.id.categorySpinner);
+        String[] jobCategories = getResources().getStringArray(R.array.categories);
+        @SuppressLint("ResourceType") ArrayAdapter<String> jobCategoryAdapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, jobCategories);
+        jobCategoryAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        jobCategorySpinner.setAdapter(jobCategoryAdapter);
+
+        createJobBtn.setOnClickListener(view -> {
+            selectedCategory = jobCategorySpinner.getSelectedItem().toString();
+            firebaseDB = FirebaseUtils.connectFirebase();
+            jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);
+            Job job = createJob();
+            if (job != null) {
+                pushJob(job, jobsRef);
+                Toast.makeText(CreateJob.this,"Success", Toast.LENGTH_SHORT).show();
+                Intent newIntent = new Intent(CreateJob.this, EmployerActivity.class);
+                startActivity(newIntent);
             }
         });
 
@@ -87,7 +93,7 @@ public class CreateJob extends AppCompatActivity {
                 jobHourlyRate = 0;
             }
 
-            Job job = new Job(jobEmail, jobTitle, jobDesc, location, userHash);
+            Job job = new Job(jobEmail, jobTitle, jobDesc, location, userHash, selectedCategory);
             job.setCompensation(jobHourlyRate);
             return job;
         }
@@ -96,7 +102,6 @@ public class CreateJob extends AppCompatActivity {
             return null;
         }
     }
-
 
     protected boolean pushJob(Job job, DatabaseReference jobsRef) {
         //Push unique job details under "userID" node in jobs
@@ -109,7 +114,6 @@ public class CreateJob extends AppCompatActivity {
 
         return true;
     }
-
 
     protected boolean validateInput() {
         EditText jobTitle = findViewById(R.id.createJobTitle);
