@@ -10,7 +10,6 @@ import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -25,7 +24,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -40,7 +38,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -51,16 +48,15 @@ import org.junit.runner.RunWith;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @RunWith(AndroidJUnit4.class)
-public class ApplicationEspresso {
+public class OfferEspressoTest {
 
     public static final String TEST_ID = "123";
     // Getting an instance of the firebase realtime database
     public static final DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child("applications");
 
     @Rule
-    public ActivityScenarioRule myRule = new ActivityScenarioRule<>(ViewApplications.class);
+    public ActivityScenarioRule myRule = new ActivityScenarioRule<>(ViewOffers.class);
 
 
     @BeforeClass
@@ -69,38 +65,23 @@ public class ApplicationEspresso {
         Session.login("test@dal.ca", TEST_ID, "Employer");
     }
 
-    public static void pushApplication() {
-        Application app = new Application("test@dal.ca", false, false, "123");
-
-        // Getting an instance of the firebase realtime database
-        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child("applications");
-
-        dbRef.child(TEST_ID).push().setValue(app);
-    }
-
-//    @After
-//    public void clearApplications() {
-//        // Getting an instance of the firebase realtime database
-//        DatabaseReference dbRef = FirebaseUtils.connectFirebase().getReference().child("applications");
-//
-//        dbRef.child(TEST_ID).setValue(null);
-//    }
-
     @Test
-    public void applicationDisplayed() {
-        pushApplication();
-        onView(withId(R.id.jobApplicationsRecyclerView))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+    public void showNoOffers(){
+
     }
 
     @Test
-    public void acceptApplication() {
-        pushApplication();
-//        onView(withId(R.id.jobApplicationsRecyclerView))
-//                .perform(RecyclerViewActions.actionOnItem(
-//                        hasDescendant(withText("ACCEPT")), click()));
-        onView(withId(R.id.jobApplicationsRecyclerView)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, click()));
+    public void offerDeclined(){
+
     }
 
+    @Test
+    public void offerAdded() {
+
+    }
+
+    @Test
+    public void offerAccepted() {
+
+    }
 }
