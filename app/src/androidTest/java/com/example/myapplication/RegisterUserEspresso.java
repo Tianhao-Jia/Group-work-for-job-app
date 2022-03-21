@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -8,6 +9,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.not;
 
 import androidx.test.espresso.Espresso;
@@ -54,11 +58,11 @@ public class RegisterUserEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText(password));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
-
 
         onView(withId(R.id.loginView)).check(matches(isDisplayed()));
     }
@@ -94,7 +98,8 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerLastName)).perform(typeText("Adams"));
         onView(withId(R.id.registerEmail)).perform(typeText("john.adams@dal.ca"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
 
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerButton)).perform(click());
@@ -131,7 +136,8 @@ public class RegisterUserEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
@@ -154,7 +160,8 @@ public class RegisterUserEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employer"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
@@ -174,7 +181,8 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
 
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
@@ -193,7 +201,8 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
@@ -214,7 +223,8 @@ public class RegisterUserEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
@@ -235,7 +245,8 @@ public class RegisterUserEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employer"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
