@@ -35,6 +35,9 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name="com.example.myapplication.JobEmployerActivity"
+            android:exported="false" />
+        <activity
             android:name="com.example.myapplication.RegisterUser"
             android:exported="false" />
         <activity
