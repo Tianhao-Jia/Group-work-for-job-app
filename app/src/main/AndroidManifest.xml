@@ -61,10 +61,6 @@
         <activity
             android:name="com.example.myapplication.ViewOffers"
             android:exported="false" />
-
-        <activity
-            android:name="com.example.myapplication.Newpage"
-            android:exported="false" />
         <activity
             android:name="com.example.myapplication.Register"
             android:exported="false" />
