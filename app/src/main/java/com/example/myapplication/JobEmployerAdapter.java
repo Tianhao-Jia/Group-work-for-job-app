@@ -6,10 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +21,7 @@ import java.util.List;
 public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.ViewHolder> {
     List<Job> list;
 
+    Object selectedItem;
     Context context;
     public JobEmployerAdapter(List<Job> list) {
         this.list = list;
@@ -100,6 +103,43 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                     android.R.layout.simple_spinner_dropdown_item, spinnerArray);
 
             jobSuggestionFilter.setAdapter(spinnerAdapter);
+
+            jobSuggestionFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                    selectedItem = adapterView.getItemAtPosition(position);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+                    selectedItem = "No Item Selected";
+
+                }
+            });
+
+            jobSuggestionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Toast.makeText(view.getContext(), selectedItem.toString(), Toast.LENGTH_SHORT).show();
+
+                    if (selectedItem == null) {
+                        Toast.makeText(itemView.getContext(), "No selected Item", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (selectedItem.equals("Rating")) {
+                        Toast.makeText(itemView.getContext(), "Rating Selected", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else if (selectedItem.equals("Distance")) {
+                        Toast.makeText(itemView.getContext(), "Distance Selected", Toast.LENGTH_SHORT).show();
+
+                    }
+                    else if (selectedItem.equals("Search")) {
+                        Toast.makeText(itemView.getContext(), "Search Selected", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                }
+            });
 
         }
     }
