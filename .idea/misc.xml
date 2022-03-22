@@ -52,10 +52,6 @@
         <entry key="..\:/Users/natha/git/university/CSCI3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/job_offers_page.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/natha/git/university/CSCI3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/job_search.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/natha/git/university/CSCI3130/groupProject/csci-3130-group-4-project/app/src/main/res/layout/login_page.xml" value="0.1" />
-        <entry key="..\:/Users/saher/Dalhousie/Software Engineering/Main/csci-3130-group-4-project/app/src/main/res/layout/activity_main.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/saher/Dalhousie/Software Engineering/Main/csci-3130-group-4-project/app/src/main/res/layout/activity_register.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/saher/Dalhousie/Software Engineering/Main/csci-3130-group-4-project/app/src/main/res/layout/activity_register_user.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/saher/Dalhousie/Software Engineering/Main/csci-3130-group-4-project/app/src/main/res/layout/job_search.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/saher/Dalhousie/Software Engineering/csci-3130-group-4-project/app/src/main/res/layout/activity_employee.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/saher/Dalhousie/Software Engineering/csci-3130-group-4-project/app/src/main/res/layout/activity_employer.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/saher/Dalhousie/Software Engineering/csci-3130-group-4-project/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
@@ -73,6 +69,15 @@
         <entry key="app/src/main/res/layout/activity_employer.xml" value="0.2586050724637681" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20697463768115942" />
         <entry key="app/src/main/res/layout/create_job.xml" value="0.13221884498480244" />
+        <entry key="app/src/main/res/layout/employee_info.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/employer_info.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/item_job.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/job_offer.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/job_offers_page.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/review_employee.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/review_employer.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/review_person_info.xml" value="0.2427536231884058" />
+        <entry key="app/src/main/res/layout/review_user.xml" value="0.2713541666666667" />
       </map>
     </option>
   </component>

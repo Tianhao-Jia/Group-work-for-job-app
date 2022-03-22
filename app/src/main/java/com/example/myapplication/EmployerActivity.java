@@ -34,7 +34,7 @@ public class EmployerActivity extends AppCompatActivity {
 
     TextView loginDisplay;
     Button logoutButton, createJobButton, searchButton, viewApplications;
-    Button openmaps;
+    Button openmaps, reviewEmployee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class EmployerActivity extends AppCompatActivity {
         createJobButton = (Button) findViewById(R.id.createJob);
         searchButton = (Button) findViewById(R.id.employerSearchButton);
         viewApplications = (Button) findViewById(R.id.employerApplications);
+        reviewEmployee = (Button) findViewById(R.id.makeAReview_employer);
 
 
         if (!Session.checkLogin()) {
@@ -54,6 +55,18 @@ public class EmployerActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        Review newReview = new Review();
+        newReview.reviewEmployee(Session.getUserType(), "email@dal.ca", "Tester", "something", 3);;
+        connectFirebase();
+        firebaseDBRef.child("colleagues").getRef().child(Session.getUserID()).setValue(newReview);
+
+        reviewEmployee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newIntent = new Intent(EmployerActivity.this, BrowseReviews.class);
+                startActivity(newIntent);
+            }
+        });
 
         createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
