@@ -110,6 +110,8 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                     selectedItem = adapterView.getItemAtPosition(position);
+                    Toast.makeText(itemView.getContext(),selectedItem.toString() + " Selected", Toast.LENGTH_SHORT).show();
+
                 }
 
                 @Override
@@ -128,15 +130,15 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                         Toast.makeText(itemView.getContext(), "No selected Item", Toast.LENGTH_SHORT).show();
                     }
                     else if (selectedItem.equals("Rating")) {
-                        Toast.makeText(itemView.getContext(), "Rating Selected", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(itemView.getContext(), "Rating Selected", Toast.LENGTH_SHORT).show();
 
                     }
                     else if (selectedItem.equals("Distance")) {
-                        Toast.makeText(itemView.getContext(), "Distance Selected", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(itemView.getContext(), "Distance Selected", Toast.LENGTH_SHORT).show();
 
                     }
                     else if (selectedItem.equals("Search")) {
-                        Toast.makeText(itemView.getContext(), "Search Selected", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(itemView.getContext(), "Search Selected", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(view.getContext(), JobSearch.class);
 
