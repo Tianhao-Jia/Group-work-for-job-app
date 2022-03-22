@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -79,7 +80,7 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
             jobLatitude = itemView.findViewById(R.id.jobEmployerLayoutLatitude);
             jobLongitude = itemView.findViewById(R.id.jobEmployerLayoutLongitude);
             jobSeeApplications = itemView.findViewById(R.id.jobEmployerLayoutCurrentAppsButton);
-            jobSuggestionFilter = itemView.findViewById(R.id.jobEmployerLayoutSpinner);
+            jobSuggestionFilter = (Spinner) itemView.findViewById(R.id.jobEmployerLayoutSpinner);
             jobSuggestionButton = itemView.findViewById(R.id.jobEmployerLayoutSuggestButton);
 
             jobSeeApplications.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +89,17 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                     view.getContext().startActivity(new Intent(view.getContext(), ViewApplications.class));
                 }
             });
+
+            String[] spinnerArray = new String[] {
+                    "Rating",
+                    "Distance",
+                    "Search"
+            };
+
+            ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(itemView.getContext(),
+                    android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+
+            jobSuggestionFilter.setAdapter(spinnerAdapter);
 
         }
     }
