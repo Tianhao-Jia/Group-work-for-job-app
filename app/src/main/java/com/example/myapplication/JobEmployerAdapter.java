@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -135,6 +137,21 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                     }
                     else if (selectedItem.equals("Search")) {
                         Toast.makeText(itemView.getContext(), "Search Selected", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(view.getContext(), JobSearch.class);
+
+                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                        if (editor != null) {
+                            editor.putString("searchEmployerEmail", jobEmail.getText().toString()).apply();
+                            editor.putString("searchJobTitle", jobTitle.getText().toString()).apply();
+                            editor.putString("searchDescription", jobDesc.getText().toString()).apply();
+                            editor.putString("searchHourlyRate", jobHourlyRate.getText().toString()).apply();
+                            editor.commit();
+                        }
+
+                        view.getContext().startActivity(intent);
 
                     }
 
