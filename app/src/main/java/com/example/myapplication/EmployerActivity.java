@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.paypal.android.sdk.payments.PaymentActivity;
 
 /**
  * EmployerActivity class that manages the EmployerActivity events.
@@ -49,11 +50,11 @@ public class EmployerActivity extends AppCompatActivity {
         payButton = (Button) findViewById(R.id.employerPayButton);
 
 
-        if (!Session.checkLogin()) {
-            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
-            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
-            startActivity(intent);
-        }
+//        if (!Session.checkLogin()) {
+//            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
+//            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
+//            startActivity(intent);
+//        }
 
 
         createJobButton.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +95,13 @@ public class EmployerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(EmployerActivity.this, MapsActivity.class));
+            }
+        });
+
+        payButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, SendPayment.class));
             }
         });
 

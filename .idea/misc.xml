@@ -10,8 +10,12 @@
         <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/activity_employer.xml" value="0.24375" />
         <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/activity_newpage.xml" value="0.24375" />
         <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/activity_paypal_test.xml" value="0.333786231884058" />
+        <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/create_job.xml" value="0.12864583333333332" />
         <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/item_job.xml" value="0.20520833333333333" />
-        <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/job_payment.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/job_layout.xml" value="0.1" />
+        <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/job_offer.xml" value="0.12864583333333332" />
+        <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/job_offers_page.xml" value="0.12864583333333332" />
+        <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/job_payment.xml" value="0.33" />
         <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/job_payment_row.xml" value="0.5" />
       </map>
     </option>

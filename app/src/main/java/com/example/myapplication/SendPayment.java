@@ -9,11 +9,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
@@ -27,7 +33,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class SendPayment extends AppCompatActivity implements PayAdapter.JobListener{
-    public static final String clientKey = "AUwzd2smvn2XJ8PgS7ZIenq1tCrNNhW8uS8F5D9WQS2lhpnNNYfKhayF95w-c_ZEp_pP_oCgnpayyq5J";
+    public static final String clientKey = "AXVkxuzPl-5e0NyXjKqv2Q9b7mT142Ujon6FI5hB1xUj8Crgk0Jr86lRIaYvbcg_-taWsO9Xn2pGecES";
     public static final int PAYPAL_REQUEST_CODE = 123;
 
     private RecyclerView payRecyclerView;
@@ -45,19 +51,32 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.JobList
             .clientId(clientKey);
 
 
-    private EditText amountEdt;
-
     private TextView paymentTV;
+    private Button refreshBtn;
+
+    private FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
+    private DatabaseReference firebaseDBRef = firebaseDB.getReference(FirebaseUtils.JOBS_COLLECTION);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Session.startSession(this);
+        Session.login("ted@dal.ca", "123", "Employer");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_payment);
+        paymentTV = findViewById(R.id.paymentTV);
         payRecyclerView = findViewById(R.id.paymentRecycler);
+        refreshBtn = findViewById(R.id.payRefreshBtn);
 
-        insertFakeJobs();
         initRecyclerView();
+        getJobs();
 
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getJobs();
+            }
+        });
         // on below line adding click listener to our make payment button.
 //        makePaymentBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -83,26 +102,49 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.JobList
             x.setCompensation(100);
             jobs.add(x);
         }
+        payAdapter.notifyDataSetChanged();
+    }
+
+    private void getJobs() {
+        firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                jobs.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Job job = snapshot.getValue(Job.class);
+                    jobs.add(job);
+                }
+                payAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
     public void onPayClick(int position) {
-        Job x = jobs.get(position);
-        getPayment(Double.toString(x.getCompensation()));
-        Log.d("yo", "onPayClick: " + x.getHash());
+        Job job = jobs.get(position);
+        double payAmount = job.getCompensation();
+        String jobTitle = job.getJobTitle();
+        getPayment(payAmount, jobTitle);
+        Log.d("yo", "onPayClick: " + job.getHash());
     }
 
     @Override
     public void onCancelClick(int position) {
         Job x = jobs.get(position);
         jobs.remove(position);
+        payAdapter.notifyDataSetChanged();
         Log.d("yo", "onCancelClick: " + x.getHash());
     }
 
-    private void getPayment(String amount) {
+    private void getPayment(double amount, String title) {
 
         // Creating a paypal payment on below line.
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(String.valueOf(amount)), "USD", "Course Fees",
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(amount), "CAD", title,
                 PayPalPayment.PAYMENT_INTENT_SALE);
 
         // Creating Paypal Payment activity intent
