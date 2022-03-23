@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -55,15 +54,14 @@ public class EmployerActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        Review newReview = new Review();
-        newReview.reviewEmployee(Session.getUserType(), "email@dal.ca", "Tester", "something", 3);;
+        Colleague newColl = new Colleague("john@dal.ca","john");
         connectFirebase();
-        firebaseDBRef.child("colleagues").getRef().child(Session.getUserID()).setValue(newReview);
+        firebaseDBRef.child("colleagues").getRef().child(Session.getUserID()).setValue(newColl);
 
         reviewEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newIntent = new Intent(EmployerActivity.this, BrowseReviews.class);
+                Intent newIntent = new Intent(EmployerActivity.this, BrowseColleagues.class);
                 startActivity(newIntent);
             }
         });

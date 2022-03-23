@@ -18,34 +18,32 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class viewReviewAdapter extends FirebaseRecyclerAdapter<Review,viewReviewAdapter.reviewsViewholder> {
+public class viewColleagueAdapter extends FirebaseRecyclerAdapter<Colleague,viewColleagueAdapter.colleaguesViewholder> {
 
     @Override
-    protected void onBindViewHolder(@NonNull reviewsViewholder holder, int position, @NonNull Review model){
+    protected void onBindViewHolder(@NonNull colleaguesViewholder holder, int position, @NonNull Colleague model){
         holder.review_person_name.setText(model.getName());
         holder.review_person_email.setText(model.getEmail());
-        holder.review_person_rating.setText(model.getReview());
     }
 
     @NonNull
     @Override
-    public reviewsViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public colleaguesViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from((parent.getContext())).inflate(R.layout.review_person_info, parent, false);
-        return new viewReviewAdapter.reviewsViewholder(view);
+        return new viewColleagueAdapter.colleaguesViewholder(view);
     }
 
-    public viewReviewAdapter(@NonNull FirebaseRecyclerOptions<Review> options){
+    public viewColleagueAdapter(@NonNull FirebaseRecyclerOptions<Colleague> options){
         super(options);
     }
 
 
-    class reviewsViewholder extends RecyclerView.ViewHolder {
+    class colleaguesViewholder extends RecyclerView.ViewHolder {
         TextView review_person_name;
         TextView review_person_email;
-        TextView review_person_rating;
         Button review_person_btn;
 
-        public reviewsViewholder(@NonNull View itemView){
+        public colleaguesViewholder(@NonNull View itemView){
             super(itemView);
             review_person_btn.setOnClickListener(new View.OnClickListener(){
                 @Override

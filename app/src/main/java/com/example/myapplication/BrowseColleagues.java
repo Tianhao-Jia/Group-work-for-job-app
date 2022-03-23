@@ -31,7 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseReviews extends AppCompatActivity {
+public class BrowseColleagues extends AppCompatActivity {
 
     private TextView review_person_name;
     private TextView review_person_email;
@@ -41,7 +41,7 @@ public class BrowseReviews extends AppCompatActivity {
     private DatabaseReference mbase;
 
     private RecyclerView recyclerView;
-    viewReviewAdapter adapter; // Create Object of the Adapter class
+    viewColleagueAdapter adapter; // Create Object of the Adapter class
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -61,14 +61,16 @@ public class BrowseReviews extends AppCompatActivity {
 
         // It is a class provide by the FirebaseUI to make a
         // query in the database to fetch appropriate data
-        FirebaseRecyclerOptions<Review> options
-                = new FirebaseRecyclerOptions.Builder<Review>()
-                .setQuery(mbase.child("colleagues").child(Session.getUserID()), Review.class)
+        FirebaseRecyclerOptions<Colleague> options
+                = new FirebaseRecyclerOptions.Builder<Colleague>()
+                .setQuery(mbase.child("colleagues").child(Session.getUserID()), Colleague.class)
                 .build();
+
+
 
         // Connecting object of required Adapter class to
         // the Adapter class itself
-        adapter = new viewReviewAdapter(options);
+        adapter = new viewColleagueAdapter(options);
         // Connecting Adapter class with the Recycler view*/
         recyclerView.setAdapter(adapter);
 
