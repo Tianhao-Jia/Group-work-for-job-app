@@ -24,7 +24,7 @@ public class PayAdapter extends FirebaseRecyclerAdapter<Job, PayAdapter.PayViewH
     private ArrayList<Job> jobs = new ArrayList<>(10);
     private ArrayList<PayViewHolder> payViewHolderArrayList = new ArrayList<>(10);
     private IJobListener jobListener;
-    String TAG = "ADAPT";
+    String TAG = "PayAdapter";
 
     public PayAdapter(@NotNull FirebaseRecyclerOptions<Job> options){
         super(options);
@@ -47,7 +47,7 @@ public class PayAdapter extends FirebaseRecyclerAdapter<Job, PayAdapter.PayViewH
     public PayViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d(TAG, "onCreateViewHolder: Creating view");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.job_payment_row, parent, false);
-        PayViewHolder payViewHolder = new PayViewHolder(view, jobListener);
+        PayViewHolder payViewHolder = new PayAdapter.PayViewHolder(view, jobListener);
 
         return payViewHolder;
     }
@@ -55,7 +55,7 @@ public class PayAdapter extends FirebaseRecyclerAdapter<Job, PayAdapter.PayViewH
 
     @Override
     public void onBindViewHolder(@NonNull PayViewHolder holder, int position, @NonNull Job job) {
-        Log.d("const", "onBindViewHolder: addingView");
+        Log.d(TAG, "onBindViewHolder: addingView");
         payViewHolderArrayList.add(holder);
         jobs.add(job);
 

@@ -160,14 +160,14 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     public void onPayClick(int position) {
         Job x = jobs.get(position);
         getPayment(Double.toString(x.getCompensation()));
-        Log.d("yo", "onPayClick: " + x.getHash());
+        Log.d("TEST", "onPayClick: " + x.getHash());
     }
 
     @Override
     public void onCancelClick(int position) {
         Job x = jobs.get(position);
         jobs.remove(position);
-        Log.d("yo", "onCancelClick: " + x.getHash());
+        Log.d("TEST", "onCancelClick: " + x.getHash());
     }
 
     private void getPayment(String amount) {
