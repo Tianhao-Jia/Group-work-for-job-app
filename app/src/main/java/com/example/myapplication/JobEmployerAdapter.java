@@ -136,6 +136,28 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                     else if (selectedItem.equals("Distance")) {
                         //Toast.makeText(itemView.getContext(), "Distance Selected", Toast.LENGTH_SHORT).show();
 
+                        String locationLat = jobLatitude.getText().toString();
+                        String locationLong = jobLongitude.getText().toString();
+
+                        String latitudeStr = locationLat.split(" ")[1];
+                        String longitudeStr = locationLong.split(" ")[1];
+
+                        //Log.d("testing1: ",  + " test.");
+
+                        double latitude = Double.parseDouble(latitudeStr);
+                        double longitude = Double.parseDouble(longitudeStr);
+
+                        Location location = new Location(latitude, longitude);
+
+                        double latOn = 49.64476;
+                        double longOn = -83.56784;
+                        Location locationOther = new Location(latOn, longOn);
+                        Log.d("testing: ", location.getHaversineDistance(locationOther) + " ");
+
+
+
+
+
                     }
                     else if (selectedItem.equals("Search")) {
                         //Toast.makeText(itemView.getContext(), "Search Selected", Toast.LENGTH_SHORT).show();
