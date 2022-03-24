@@ -60,6 +60,7 @@ public class PayAdapter extends FirebaseRecyclerAdapter<Job, PayAdapter.PayViewH
         jobs.add(job);
 
         holder.jobTitle.setText(job.getJobTitle());
+        holder.jobPrice.setText(Double.toString(job.getCompensation()));
 
         holder.payUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +90,7 @@ public class PayAdapter extends FirebaseRecyclerAdapter<Job, PayAdapter.PayViewH
     public static class PayViewHolder extends RecyclerView.ViewHolder {
 
         TextView jobTitle;
+        TextView jobPrice;
         Button cancel;
         Button payUser;
         IJobListener jobListener;
@@ -99,6 +101,7 @@ public class PayAdapter extends FirebaseRecyclerAdapter<Job, PayAdapter.PayViewH
             jobTitle = itemView.findViewById(R.id.payUserTitle);
             payUser = itemView.findViewById(R.id.payUserBtn);
             cancel = itemView.findViewById(R.id.payCancelBtn);
+            jobPrice = itemView.findViewById(R.id.jobCompTV);
 
             this.jobListener = jobListener;
         }
