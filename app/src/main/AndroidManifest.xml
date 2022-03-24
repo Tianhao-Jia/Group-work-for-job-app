@@ -51,6 +51,11 @@
             android:name="com.example.myapplication.BrowseColleagues"
             android:exported="false"
             android:label="@string/title_activity_maps" />
+
+        <activity
+            android:name="com.example.myapplication.reviewView"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
         <activity
             android:name="com.example.myapplication.JobSearch"
             android:exported="false" />

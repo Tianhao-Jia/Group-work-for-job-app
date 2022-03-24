@@ -5,6 +5,10 @@ public class Colleague {
     String email;
     String name;
 
+    public Colleague(){
+
+    }
+
     public Colleague(String email,String name){
         this.email = email;
         this.name = name;

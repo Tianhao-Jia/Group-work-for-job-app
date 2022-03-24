@@ -59,38 +59,36 @@ public class BrowseColleagues extends AppCompatActivity {
         // To display the Recycler view linearly
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // It is a class provide by the FirebaseUI to make a
-        // query in the database to fetch appropriate data
-        FirebaseRecyclerOptions<Colleague> options
-                = new FirebaseRecyclerOptions.Builder<Colleague>()
-                .setQuery(mbase.child("colleagues").child(Session.getUserID()), Colleague.class)
-                .build();
+        ArrayList<Colleague> options = new ArrayList<>();
 
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("colleagues").child(Session.getUserID());
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
 
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("number",Long.toString(snapshot.getChildrenCount()));
 
-        // Connecting object of required Adapter class to
-        // the Adapter class itself
-        adapter = new viewColleagueAdapter(options);
-        // Connecting Adapter class with the Recycler view*/
-        recyclerView.setAdapter(adapter);
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    String email = dataSnapshot.child("email").getValue().toString();
+                    String name = dataSnapshot.child("name").getValue().toString();
+                    Colleague colleague = new Colleague(email, name);
+                    options.add(colleague);
+                }
 
+                // Connecting object of required Adapter class to
+                // the Adapter class itself
+                adapter = new viewColleagueAdapter(options);
+                // Connecting Adapter class with the Recycler view*/
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        Log.d("Length",Integer.toString(options.size()));
 
     }
-
-    // Function to tell the app to start getting
-    // data from database on starting of the activity
-    @Override protected void onStart()
-    {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    // Function to tell the app to stop getting
-    // data from database on stopping of the activity
-    @Override protected void onStop()
-    {
-        super.onStop();
-        adapter.stopListening();
-    }
-
 }

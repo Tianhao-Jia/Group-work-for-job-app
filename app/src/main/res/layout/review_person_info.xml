@@ -6,6 +6,7 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
+
     <TextView
         android:id="@+id/review_person_email"
         android:layout_width="match_parent"
@@ -13,7 +14,6 @@
         android:layout_marginHorizontal="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
-        android:text="Email:"
         android:textStyle="bold"/>
 
     <TextView
@@ -23,26 +23,24 @@
         android:layout_marginHorizontal="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
-        android:text="Name:"
         android:textStyle="bold"/>
 
-    <TextView
-        android:id="@+id/review_person_rating"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/black"
-        android:text="Current rating:"
-        android:textStyle="bold"/>
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/review_person_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:backgroundTint="@android:color/holo_blue_light"
-        android:text="Review Employee"
-        android:textColor="@color/white" />
+        <Button
+            android:id="@+id/review_person_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/holo_blue_light"
+            android:hint="Review"
+            android:textColor="@color/white"
+            />
+    </LinearLayout>
 
 </LinearLayout>

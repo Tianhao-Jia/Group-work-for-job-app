@@ -36,6 +36,8 @@ public class Session  {
 
     public static final String LAT = "latitude";
 
+    public static final String REVIEWING_USER = "reviewing_user";
+
     public static void startSession(Context appContext) {
          context = appContext;
          sharedPref = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
@@ -60,6 +62,10 @@ public class Session  {
         setLocation(location);
 
         return editor.commit();
+    }
+
+    public static void reviewing_user(String email){
+        editor.putString(REVIEWING_USER, email);
     }
 
     public static void logout() {
@@ -110,6 +116,10 @@ public class Session  {
 
     public static String getEmail() {
         return sharedPref.getString(EMAIL, "No Email");
+    }
+
+    public static String getReviewingUserEmail() {
+        return sharedPref.getString(REVIEWING_USER, "No review");
     }
 
     public static String getFName() {
