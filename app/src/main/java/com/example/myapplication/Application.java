@@ -6,6 +6,8 @@ public class Application {
     private Boolean seen;
     private String description;
     private boolean paid;
+    private String employerEmail;
+    private String jobID;
 
     public Application(String employeeEmail, boolean accepted, Boolean seen, String description) {
         this.employeeEmail = employeeEmail;
@@ -13,7 +15,22 @@ public class Application {
         this.accepted = accepted;
         this.description = description;
         this.paid = false;
+    }
 
+    public String getJobID() {
+        return jobID;
+    }
+
+    public void setJobID(String jobID) {
+        this.jobID = jobID;
+    }
+
+    public String getEmployerEmail() {
+        return employerEmail;
+    }
+
+    public void setEmployerEmail(String employerEmail) {
+        this.employerEmail = employerEmail;
     }
 
     public boolean isPaid() {

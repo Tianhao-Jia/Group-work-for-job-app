@@ -62,7 +62,6 @@ public class ViewApplications extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.applications_page);
-
         homeButton = (Button) findViewById(R.id.applicationsToEmployer);
 
         // Create a instance of the database and get
@@ -81,6 +80,7 @@ public class ViewApplications extends Activity {
                 .setQuery(mbase.child("applications").child(Session.getUserID()), Application.class)
                 .build();
 
+
         // Connecting object of required Adapter class to
         // the Adapter class itself
         adapter = new applicationAdapter(options);
@@ -94,6 +94,16 @@ public class ViewApplications extends Activity {
                 startActivity(intent);
             }
         });
+        Application test = new Application("bruh@gmail.com", true, true, "bruh");
+        test.setEmployerEmail(Session.getEmail());
+        test.setPaid(false);
+        test.setJobID("-Mycj7F0xVYJ37zU3pwy");
+        pushApplication(FirebaseDatabase.getInstance().getReference("applications").child(Session.getUserID()),
+                test);
+    }
+
+    protected void pushApplication(DatabaseReference application, Application app) {
+        application.push().setValue(app);
     }
 
     // Function to tell the app to start getting

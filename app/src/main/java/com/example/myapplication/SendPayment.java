@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.paypal.android.sdk.payments.PayPalConfiguration;
 import com.paypal.android.sdk.payments.PayPalPayment;
@@ -40,12 +41,14 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     public static final int PAYPAL_REQUEST_CODE = 123;
 
     private FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-    private DatabaseReference firebaseDBRef = firebaseDB.getReference(FirebaseUtils.JOBS_COLLECTION);
+    private DatabaseReference firebaseDBRefJobs = firebaseDB.getReference(FirebaseUtils.JOBS_COLLECTION);
+    private DatabaseReference firebaseDBRefOffers = firebaseDB.getReference(FirebaseUtils.OFFERS_COLLECTION);
 
 
     private RecyclerView payRecyclerView;
     private PayAdapter  payAdapter;
     private ArrayList<Job> jobs = new ArrayList<>();
+    private ArrayList<Application> applications = new ArrayList<>();
 
     // Paypal Configuration Object
     private static PayPalConfiguration config = new PayPalConfiguration()
@@ -85,29 +88,20 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
             }
         });
         Log.d("yo", Integer.toString(jobs.size()));
-
+        getPaymentPendingApplications("123");
 
     }
 
     private void initRecyclerView(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         payRecyclerView.setLayoutManager(linearLayoutManager);
-        payAdapter = new PayAdapter(jobs, this);
+        payAdapter = new PayAdapter(applications, this);
         payRecyclerView.setAdapter(payAdapter);
-    }
-
-    private void insertFakeJobs() {
-        for(int i = 0; i < 10; i++) {
-            Job x = new Job("email@dal.ca", Integer.toString(i), "", new Location(0, 0), Integer.toString(i));
-            x.setCompensation(100);
-            jobs.add(x);
-        }
-        payAdapter.notifyDataSetChanged();
     }
 
     private void getJobs() {
         Log.d("yo", "Getting jobs");
-        firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseDBRefOffers.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 jobs.clear();
@@ -126,21 +120,69 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
 
     }
 
+
+    private void getPaymentPendingApplications(String employerID) {
+        final Query nameQuery = firebaseDB.getReference("applications").child(employerID);
+
+        nameQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("childCount", Long.toString(snapshot.getChildrenCount()));
+                if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
+                    Application app;
+                    for (DataSnapshot currentSnapShot : snapshot.getChildren()) {
+                        app = currentSnapShot.getValue(Application.class);
+                        Log.d("childCount", app.getEmployerEmail());
+                        if (app != null && !app.isPaid()) {
+                            Log.d("childCount", "Added");
+                            applications.add(app);
+                        }
+                    }
+                }
+                payAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("SearchActivity", error.getMessage());
+            }
+        });
+    }
+
+
     @Override
     public void onPayClick(int position) {
-        Job job = jobs.get(position);
-        double payAmount = job.getCompensation();
-        String jobTitle = job.getJobTitle();
-        getPayment(payAmount, jobTitle);
-        Log.d("yo", "onPayClick: " + job.getHash());
+        Application app = applications.get(position);
+
+        double compensation = getJobPrice(app.getJobID());
+        Log.d("yo", "onPayClick: " + Double.toString(compensation));
     }
 
     @Override
     public void onCancelClick(int position) {
-        Job x = jobs.get(position);
-        jobs.remove(position);
+        Application app = applications.get(position);
+        applications.remove(position);
         payAdapter.notifyDataSetChanged();
-        Log.d("yo", "onCancelClick: " + x.getHash());
+        Log.d("yo", "onPayClick: " + app.getEmployerEmail());
+    }
+
+    public double getJobPrice(String jobID) {
+        final double[] compensation = {0};
+        firebaseDBRefJobs.child(jobID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot != null) {
+                    Job job = dataSnapshot.child(jobID).getValue(Job.class);
+                    compensation[0] = job.getCompensation();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        return compensation[0];
     }
 
     private void getPayment(double amount, String title) {
@@ -213,10 +255,6 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
         }
     }
 
-    private void connectFirebase(){
-        firebaseDB = FirebaseUtils.connectFirebase();
-        firebaseDBRef = firebaseDB.getReference(FirebaseUtils.JOBS_COLLECTION);
-    }
 
 
 

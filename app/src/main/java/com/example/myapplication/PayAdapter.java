@@ -21,14 +21,14 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
-    private ArrayList<Job> jobs = new ArrayList<>(10);
+    private ArrayList<Application> apps = new ArrayList<>(10);
     private IJobListener jobListener;
     String TAG = "PayAdapter";
 
 
 
-    public PayAdapter(ArrayList<Job> jobs, IJobListener jobListener) {
-        this.jobs = jobs;
+    public PayAdapter(ArrayList<Application> apps, IJobListener jobListener) {
+        this.apps = apps;
         this.jobListener = jobListener;
     }
 
@@ -48,10 +48,10 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
 
     @Override
     public void onBindViewHolder(PayViewHolder holder, int position) {
-        Job job = jobs.get(position);
+        Application app = apps.get(position);
 
-        holder.jobTitle.setText(job.getJobTitle());
-        holder.jobPrice.setText(Double.toString(job.getCompensation()));
+        holder.jobTitle.setText(app.getDescription());
+        holder.jobPrice.setText("60");
 
         holder.payUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +75,7 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
      */
     @Override
     public int getItemCount() {
-        return this.jobs.size();
+        return this.apps.size();
     }
 
     public static class PayViewHolder extends RecyclerView.ViewHolder {

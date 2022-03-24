@@ -11,6 +11,7 @@ public class FirebaseUtils {
     public static final String USERS_COLLECTION = "users";
     public static final String JOBS_COLLECTION = "jobs";
     public static final String PAYMENT_COLLECTION = "payments";
+    public static final String OFFERS_COLLECTION = "offers";
 
     public static FirebaseDatabase connectFirebase(){
         return FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL);
