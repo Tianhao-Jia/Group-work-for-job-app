@@ -50,12 +50,6 @@ public class EmployerActivity extends AppCompatActivity {
         payButton = (Button) findViewById(R.id.employerPayButton);
 
 
-//        if (!Session.checkLogin()) {
-//            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
-//            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
-//            startActivity(intent);
-//        }
-
 
         createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override

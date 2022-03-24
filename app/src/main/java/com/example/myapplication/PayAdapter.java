@@ -20,16 +20,16 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-public class PayAdapter extends FirebaseRecyclerAdapter<Job, PayAdapter.PayViewHolder> {
+public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
     private ArrayList<Job> jobs = new ArrayList<>(10);
-    private ArrayList<PayViewHolder> payViewHolderArrayList = new ArrayList<>(10);
     private IJobListener jobListener;
     String TAG = "PayAdapter";
 
-    public PayAdapter(@NotNull FirebaseRecyclerOptions<Job> options){
-        super(options);
-        Log.d(TAG, "PayAdapter: constructed");
-        Log.d(TAG, "PayAdapter: " + options);
+
+
+    public PayAdapter(ArrayList<Job> jobs, IJobListener jobListener) {
+        this.jobs = jobs;
+        this.jobListener = jobListener;
     }
 
     public void setInterface(IJobListener jobListener) {
@@ -37,15 +37,8 @@ public class PayAdapter extends FirebaseRecyclerAdapter<Job, PayAdapter.PayViewH
         Log.d(TAG, "setInterface: Adding interface");
     }
 
-//    public PayAdapter(ArrayList<Job> jobs, JobListener jobListener) {
-//        this.jobs = jobs;
-//        this.jobListener = jobListener;
-//    }
 
-    @NonNull
-    @Override
-    public PayViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d(TAG, "onCreateViewHolder: Creating view");
+    public PayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.job_payment_row, parent, false);
         PayViewHolder payViewHolder = new PayAdapter.PayViewHolder(view, jobListener);
 
@@ -54,9 +47,8 @@ public class PayAdapter extends FirebaseRecyclerAdapter<Job, PayAdapter.PayViewH
 
 
     @Override
-    public void onBindViewHolder(@NonNull PayViewHolder holder, int position, @NonNull Job job) {
-        Log.d(TAG, "onBindViewHolder: addingView");
-        payViewHolderArrayList.add(holder);
+    public void onBindViewHolder(PayViewHolder holder, int position) {
+        Job job = jobs.get(position);
         jobs.add(job);
 
         holder.jobTitle.setText(job.getJobTitle());

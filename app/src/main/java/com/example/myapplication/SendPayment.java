@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,14 +31,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class SendPayment extends AppCompatActivity implements PayAdapter.JobListener{
-    public static final String clientKey = "AXVkxuzPl-5e0NyXjKqv2Q9b7mT142Ujon6FI5hB1xUj8Crgk0Jr86lRIaYvbcg_-taWsO9Xn2pGecES";
+public class SendPayment extends AppCompatActivity implements PayAdapter.IJobListener{
+    public static final String clientKey = "AUvAZuJ0IvHFmyIeOdDhsVPmjFYiHqBwglRNzUBAdmV95xvNZk5DYumlNGpgAesKfoBF0Baf2FFB1z45";
     public static final int PAYPAL_REQUEST_CODE = 123;
 
-    private FirebaseDatabase firebaseDB;
-    private DatabaseReference firebaseDBRef;
+    private FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
+    private DatabaseReference firebaseDBRef = firebaseDB.getReference(FirebaseUtils.JOBS_COLLECTION);
 
 
     private RecyclerView payRecyclerView;
@@ -57,8 +60,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.JobList
     private TextView paymentTV;
     private Button refreshBtn;
 
-    private FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-    private DatabaseReference firebaseDBRef = firebaseDB.getReference(FirebaseUtils.JOBS_COLLECTION);
+
 
 
     @Override
@@ -74,37 +76,27 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.JobList
         initRecyclerView();
         getJobs();
 
+
+        //This should go in or after startActivityForResult
+
+
+
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getJobs();
             }
         });
-        // on below line adding click listener to our make payment button.
-//        makePaymentBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // calling a method to get payment.
-//                getPayment();
-//            }
-//        });
+
 
     }
 
-//    private void initRecyclerView(){
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//        payRecyclerView.setLayoutManager(linearLayoutManager);
-//
-//        //citation based on code from Dhrumils lab presentation on march 2nd in this course csci3130
-//        FirebaseRecyclerOptions<Job> options = new FirebaseRecyclerOptions.Builder<Job>()
-//                .setQuery(FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
-//                        .getReference().child("jobs"), Job.class)
-//                .build();
-//
-//        payAdapter = new PayAdapter(options);
-//        payAdapter.setInterface(this);
-//        payRecyclerView.setAdapter(payAdapter);
-//    }
+    private void initRecyclerView(){
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        payRecyclerView.setLayoutManager(linearLayoutManager);
+        payAdapter = new PayAdapter(jobs, this);
+        payRecyclerView.setAdapter(payAdapter);
+    }
 
     private void insertFakeJobs() {
         for(int i = 0; i < 10; i++) {
@@ -163,12 +155,22 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.JobList
         //putting the paypal configuration to the intent
         intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
 
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        PaymentRecord record = new PaymentRecord(Session.getEmail(), "emp@dal.ca",
+                50.01 ,date);
+
+        storePayment(record, firebaseDB);
         // Putting paypal payment to the intent
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+
+
+
 
         // Starting the intent activity for result
         // the request code will be used on the method onActivityResult
         startActivityForResult(intent, PAYPAL_REQUEST_CODE);
+
+
     }
 
     @Override
@@ -194,6 +196,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.JobList
                         String payID = payObj.getJSONObject("response").getString("id");
                         String state = payObj.getJSONObject("response").getString("state");
                         paymentTV.setText("Payment " + state + "\n with payment id is " + payID);
+
                     } catch (JSONException e) {
                         // handling json exception on below line
                         Log.e("Error", "an extremely unlikely failure occurred: ", e);
@@ -215,17 +218,11 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.JobList
     }
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        payAdapter.startListening();
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        payAdapter.startListening();
-    }
 
+    protected boolean storePayment(PaymentRecord payment, FirebaseDatabase db) {
+        db.getReference(FirebaseUtils.PAYMENT_COLLECTION).push().setValue(payment);
+        return true;
+    }
 
 }
