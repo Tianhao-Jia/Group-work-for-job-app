@@ -49,7 +49,6 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
     @Override
     public void onBindViewHolder(PayViewHolder holder, int position) {
         Job job = jobs.get(position);
-        jobs.add(job);
 
         holder.jobTitle.setText(job.getJobTitle());
         holder.jobPrice.setText(Double.toString(job.getCompensation()));

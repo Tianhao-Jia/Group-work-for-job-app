@@ -60,9 +60,6 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     private TextView paymentTV;
     private Button refreshBtn;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Session.startSession(this);
@@ -87,6 +84,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
                 getJobs();
             }
         });
+        Log.d("yo", Integer.toString(jobs.size()));
 
 
     }
@@ -108,6 +106,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     }
 
     private void getJobs() {
+        Log.d("yo", "Getting jobs");
         firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -124,6 +123,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
 
             }
         });
+
     }
 
     @Override
@@ -144,31 +144,32 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     }
 
     private void getPayment(double amount, String title) {
-
-        // Creating a paypal payment on below line.
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(amount), "CAD", title,
-                PayPalPayment.PAYMENT_INTENT_SALE);
-
-        // Creating Paypal Payment activity intent
-        Intent intent = new Intent(this, PaymentActivity.class);
-
-        //putting the paypal configuration to the intent
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         PaymentRecord record = new PaymentRecord(Session.getEmail(), "emp@dal.ca",
-                50.01 ,date);
+                amount ,date);
 
         storePayment(record, firebaseDB);
-        // Putting paypal payment to the intent
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
 
-
-
-
-        // Starting the intent activity for result
-        // the request code will be used on the method onActivityResult
-        startActivityForResult(intent, PAYPAL_REQUEST_CODE);
+//        // Creating a paypal payment on below line.
+//        PayPalPayment payment = new PayPalPayment(new BigDecimal(amount), "CAD", title,
+//                PayPalPayment.PAYMENT_INTENT_SALE);
+//
+//        // Creating Paypal Payment activity intent
+//        Intent intent = new Intent(this, PaymentActivity.class);
+//
+//        //putting the paypal configuration to the intent
+//        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+//
+//
+//        // Putting paypal payment to the intent
+//        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+//
+//
+//
+//
+//        // Starting the intent activity for result
+//        // the request code will be used on the method onActivityResult
+//        startActivityForResult(intent, PAYPAL_REQUEST_CODE);
 
 
     }

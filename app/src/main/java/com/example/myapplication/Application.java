@@ -5,13 +5,23 @@ public class Application {
     private Boolean accepted;
     private Boolean seen;
     private String description;
+    private boolean paid;
 
-    public Application(String employeeEmail, Boolean accepted, Boolean seen, String description) {
+    public Application(String employeeEmail, boolean accepted, Boolean seen, String description) {
         this.employeeEmail = employeeEmail;
         this.seen = seen;
         this.accepted = accepted;
         this.description = description;
+        this.paid = false;
 
+    }
+
+    public boolean isPaid() {
+        return paid;
+    }
+
+    public void setPaid(boolean paid) {
+        this.paid = paid;
     }
 
     public String getEmployeeEmail(){
