@@ -33,32 +33,23 @@ public class EmployerActivity extends AppCompatActivity {
     private DatabaseReference firebaseDBRef;
 
     TextView loginDisplay;
-    Button logoutButton, createJobButton;
+    Button logoutButton, createJobButton, searchButton, viewApplications, yourJobsButton;
+    Button openmaps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer);
 
-
+        openmaps = findViewById(R.id.check);
         loginDisplay = (TextView) findViewById(R.id.employerLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employerLogoutButton);
         createJobButton = (Button) findViewById(R.id.createJob);
+        searchButton = (Button) findViewById(R.id.employerSearchButton);
+        viewApplications = (Button) findViewById(R.id.employerApplications);
+        yourJobsButton = (Button) findViewById(R.id.employerYourJobsButton);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("Key_email", extras.getString("Login Email"));
-            editor.putString("Key_password", extras.getString("Login Password"));
-            editor.putString("Key_type", extras.getString("User Type"));
-            editor.putString("Key_hash", extras.getString("User Hash"));
-            editor.apply();
-
-
-        }
-        //this shouldn't be possible so that means that the user is in the wrong spot
-        else {
+        if (!Session.checkLogin()) {
             //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
             Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
             startActivity(intent);
@@ -67,14 +58,45 @@ public class EmployerActivity extends AppCompatActivity {
         createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EmployerActivity.this, CreateJob.class));
+                Intent newIntent = new Intent(EmployerActivity.this, CreateJob.class);
+                startActivity(newIntent);
             }
         });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logout();
+                Session.logout();
+            }
+        });
+
+        viewApplications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployerActivity.this, ViewApplications.class);
+                startActivity(intent);
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployerActivity.this, JobSearch.class);
+                startActivity(intent);
+            }
+        });
+
+        openmaps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, MapsActivity.class));
+            }
+        });
+
+        yourJobsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, JobEmployerActivity.class));
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -8,6 +9,9 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.not;
 
 import androidx.test.espresso.Espresso;
@@ -27,7 +31,10 @@ import java.util.Map;
 @RunWith(AndroidJUnit4.class)
 public class RegisterUserEspresso {
 
-    private static final String FIREBASE_DATABASE_URL = "https://quick-cash-55715-default-rtdb.firebaseio.com/";
+    private static String userEmail = "george.smith@dal.ca";
+    private static String userFName = "George";
+    private static String userLName = "Smith";
+    private static String password = "password123";
 
     @Rule
     public ActivityScenarioRule rule  = new ActivityScenarioRule<>(RegisterUser.class);
@@ -37,6 +44,7 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
     }
 
+
     /**
      * US2-AT1:
      * Given that the user is not registered, when the user inputs their details and clicks the
@@ -44,17 +52,19 @@ public class RegisterUserEspresso {
      */
     @Test
     public void userRegistered() {
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
+        onView(withId(R.id.registerFirstName)).perform(typeText(userFName));
+        onView(withId(R.id.registerLastName)).perform(typeText(userLName));
+        onView(withId(R.id.registerEmail)).perform(typeText(userEmail));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText(password));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
 
-        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
+        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
     }
 
     /**
@@ -88,7 +98,8 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerLastName)).perform(typeText("Adams"));
         onView(withId(R.id.registerEmail)).perform(typeText("john.adams@dal.ca"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
 
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerButton)).perform(click());
@@ -125,12 +136,13 @@ public class RegisterUserEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
 
-        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
+        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
     }
 
     /**
@@ -148,12 +160,13 @@ public class RegisterUserEspresso {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employer"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
 
-        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
+        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
     }
 
 
@@ -168,7 +181,8 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
 
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
@@ -187,7 +201,8 @@ public class RegisterUserEspresso {
         onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
@@ -198,43 +213,45 @@ public class RegisterUserEspresso {
     /**
      * US2-AT5:
      * Given that the user is not registered, when the user fills their details and clicks the ‘register button’,
-     * then the user should be directed to the correct landing page.
+     * then the user should be directed to the login page.
      */
     @Test
-    public void redirectToLandingPageEmployee() {
+    public void redirectToLoginPageEmployee() {
         onView(withId(R.id.registerFirstName)).perform(typeText("George"));
         onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
 
-        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
+        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
     }
 
     /**
      * US2-AT5:
      * Given that the user is not registered, when the user fills their details and clicks the ‘register button’,
-     * then the user should be directed to the correct landing page.
+     * then the user should be directed to the correct login page.
      */
     @Test
-    public void redirectToLandingPageEmployer() {
+    public void redirectToLoginPageEmployer() {
         onView(withId(R.id.registerFirstName)).perform(typeText("George"));
         onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
         onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employer"))).perform(click());
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerButton)).perform(click());
 
-        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
+        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
     }
 
     @Before

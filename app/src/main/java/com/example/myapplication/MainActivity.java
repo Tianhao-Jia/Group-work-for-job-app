@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * @group: Group 4
  * @clientTA: Disha Malik
  */
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -32,37 +33,27 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference firebaseDBRef;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+        Session.startSession(getApplicationContext());
 
-        checkForLogin();
+        firebaseDB = FirebaseUtils.connectFirebase();
+        firebaseDBRef = firebaseDB.getReference();
 
-        connectFirebase();
+        Button loginActivity = (Button) findViewById(R.id.mainLogin);
+        setIntent(loginActivity, LoginActivity.class);
 
-        Button employeeButton = (Button) findViewById(R.id.goToEmployeeActivity);
-        setIntent(employeeButton, LoginActivity.class);
-
-        Button employerButton = (Button) findViewById(R.id.goToEmployerActivity);
-        setIntent(employerButton, LoginActivity.class);
+        //for debugging the user story 2 iteration 3
+        //setIntent(loginActivity, JobEmployerActivity.class);
 
         Button register = (Button) findViewById(R.id.register);
-        setIntent(register, RegisterUser.class);
+        setIntent(register, GoogleMapsActivity.class);
+        redirectIfLoggedIn();
 
     }
-
-    /**
-     * connectFirebase method that acts to connect the firebase using the firebase url
-     * @author: everyone
-     */
-    private void connectFirebase() {
-        firebaseDB = FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL);
-        firebaseDBRef = firebaseDB.getReference("message");
-    }
-
-
     /**
      * setIntent method that reduces code clutter and improves switching between intents of buttons.
      * @author Nathanael Bowley
@@ -77,6 +68,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void redirectIfLoggedIn() {
+        if(Session.checkLogin()) {
+            if(Session.isEmployee()) {
+                Intent i = new Intent(MainActivity.this, EmployeeActivity.class);
+                startActivity(i);
+            }
+            else if(Session.isEmployer()) {
+                Intent i = new Intent(MainActivity.this, EmployerActivity.class);
+                startActivity(i);
+            }
+        }
     }
 
     /**

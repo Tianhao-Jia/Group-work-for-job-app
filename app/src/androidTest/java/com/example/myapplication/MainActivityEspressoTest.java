@@ -14,7 +14,11 @@ import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +29,16 @@ public class MainActivityEspressoTest {
     @Rule
     public ActivityScenarioRule<MainActivity> rule = new ActivityScenarioRule<>(MainActivity.class);
 
+    @BeforeClass
+    public static void setUpSession() {
+        Session.startSession(InstrumentationRegistry.getInstrumentation().getTargetContext());
+    }
+
+    @Before
+    public void logout() {
+        Session.logout();
+    }
+
     /**
      * US5-AT1: Given that the user is not logged in, when the user closes their application, and
      * reopens it then the user should still need to login.
@@ -32,10 +46,7 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void requireLoginWhenAppReopen() {
-        ActivityScenario<RegisterUser> activityScenario = ActivityScenario.launch(RegisterUser.class);
-
-        activityScenario.moveToState(Lifecycle.State.DESTROYED);
-        activityScenario.close();
+        rule.getScenario().close();
 
         ActivityScenario.launch(MainActivity.class);
         onView(withId(R.id.mainActivity)).check(matches(isDisplayed()));
@@ -50,7 +61,6 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void reopenToMainActivityWhenLoggedOutEmployee() {
-        rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
         rule.getScenario().close();
 
         ActivityScenario.launch(MainActivity.class);
@@ -65,7 +75,8 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void reopenToMainActivityWhenLoggedOutEmployer() {
-        rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
+        Session.login("test@dal.ca", "123", "Employer");
+        Session.logout();
         rule.getScenario().close();
 
         ActivityScenario.launch(MainActivity.class);
@@ -80,24 +91,7 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void reopenAsEmployerWhenLoggedIn() {
-
-        ActivityScenario.launch(RegisterUser.class);
-        onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
-        onView(withId(R.id.registerFirstName)).perform(typeText("EmployerFirstName\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("EmployerLastName\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("erfirst.erlast@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("employer1\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employer\n"));
-        Espresso.closeSoftKeyboard();
-
-        //User is now registered and automatically logged in
-        onView(withId(R.id.registerButton)).perform(click());
-
-        //Verify user at the EmployerActivity
-        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
-
-        //Close app then reopen
-        rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
+        Session.login("test@dal.ca", "123", "Employer");
         rule.getScenario().close();
         ActivityScenario.launch(MainActivity.class);
 
@@ -113,24 +107,7 @@ public class MainActivityEspressoTest {
      */
     @Test
     public void reopenAsEmployeeWhenLoggedIn() {
-
-        ActivityScenario.launch(RegisterUser.class);
-        onView(withId(R.id.registerUser)).check(matches(isDisplayed()));
-        onView(withId(R.id.registerFirstName)).perform(typeText("EmployeeFirstName\n"));
-        onView(withId(R.id.registerLastName)).perform(typeText("EmployeeLastName\n"));
-        onView(withId(R.id.registerEmail)).perform(typeText("eefirst.eelast@dal.ca\n"));
-        onView(withId(R.id.registerPasswordET)).perform(typeText("employee1\n"));
-        onView(withId(R.id.registerUserType)).perform(typeText("Employee\n"));
-        Espresso.closeSoftKeyboard();
-
-        //User is now registered and automatically logged in
-        onView(withId(R.id.registerButton)).perform(click());
-
-        //Verify user at the EmployeeActivity
-        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
-
-        //Close app then reopen
-        rule.getScenario().moveToState(Lifecycle.State.DESTROYED);
+        Session.login("test@dal.ca", "123", "Employee");
         rule.getScenario().close();
         ActivityScenario.launch(MainActivity.class);
 

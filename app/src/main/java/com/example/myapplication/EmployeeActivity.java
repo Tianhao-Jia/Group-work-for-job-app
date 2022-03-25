@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,35 +31,47 @@ public class EmployeeActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebaseDB;
     private DatabaseReference firebaseDBRef;
-    private SharedPreferences sharedPreferences;
 
     TextView loginDisplay;
     Button logoutButton;
+    Button searchButton, offersButton;
 
+    Button openMap;
+    Button jobs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
-
+        Session.startSession(getApplicationContext());
         connectFirebase();
-
-
+        jobs = findViewById(R.id.jobs);
+        openMap = findViewById(R.id.mapbutton);
         loginDisplay = (TextView) findViewById(R.id.employeeLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employeeLogoutButton);
+        searchButton = (Button) findViewById(R.id.employeeSearchButton);
+        offersButton = (Button) findViewById(R.id.viewOffers);
+
+        offersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployeeActivity.this, ViewOffers.class);
+                startActivity(intent);
+            }
+        });
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EmployeeActivity.this, JobSearch.class);
+                startActivity(intent);
+            }
+        });
+
 
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            SharedPreferences sharedPref = getApplicationContext().getSharedPreferences("pref", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString("Key_email", extras.getString("Login Email"));
-            editor.putString("Key_password", extras.getString("Login Password"));
-            editor.putString("Key_type", extras.getString("User Type"));
-            editor.putString("Key_hash", extras.getString("User Hash"));
-            editor.apply();
 
-        }
         //this shouldn't be possible so that means that the user is in the wrong spot
-        else {
+        if (!Session.checkLogin()) {
             //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
             Intent intent = new Intent(EmployeeActivity.this, RegisterUser.class);
             startActivity(intent);
@@ -69,7 +80,21 @@ public class EmployeeActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logoutAndChangeLoginState();
+                Session.logout();
+            }
+        });
+
+
+        openMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployeeActivity.this, MapsActivity.class));
+            }
+        });
+        jobs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployeeActivity.this,JobsActivity.class));
             }
         });
     }
