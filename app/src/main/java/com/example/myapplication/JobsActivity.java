@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -44,7 +45,15 @@ public class JobsActivity  extends AppCompatActivity implements GoogleApiClient.
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new JobAdapter(list);
         recyclerview.setAdapter(adapter);
-
+        adapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Job job = list.get(position);
+                Intent intent = new Intent(JobsActivity.this,JobDetailActivity.class);
+                intent.putExtra("job",job);
+                startActivity(intent);
+            }
+        });
         init();
     }
 
@@ -79,12 +88,16 @@ public class JobsActivity  extends AppCompatActivity implements GoogleApiClient.
                 list.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Job job = snapshot.getValue(Job.class);
-                    double m = gps2m(mLastLocation.getLatitude(),mLastLocation.getLongitude(),
-                            job.getLocation().getLatitude(),job.getLocation().getLongitude());
-
-                    if (  m<10000) {
+                    if (mLastLocation!=null) {
+                        double m = gps2m(mLastLocation.getLatitude(), mLastLocation.getLongitude(),
+                                job.getLocation().getLatitude(), job.getLocation().getLongitude());
+                        if (  m<10000) {
+                            list.add(job);
+                        }
+                    }else{
                         list.add(job);
                     }
+
                 }
                 adapter.notifyDataSetChanged();
             }
