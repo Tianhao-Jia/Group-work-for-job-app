@@ -27,6 +27,7 @@ import com.paypal.android.sdk.payments.PayPalPayment;
 import com.paypal.android.sdk.payments.PayPalService;
 import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
+import com.paypal.android.sdk.t;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +50,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     private PayAdapter  payAdapter;
     private ArrayList<Job> jobs = new ArrayList<>();
     private ArrayList<Application> applications = new ArrayList<>();
+    private ArrayList<String> appKeys = new ArrayList<>();
 
     // Paypal Configuration Object
     private static PayPalConfiguration config = new PayPalConfiguration()
@@ -74,68 +76,43 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
         refreshBtn = findViewById(R.id.payRefreshBtn);
 
         initRecyclerView();
-        getJobs();
-
-
-        //This should go in or after startActivityForResult
-
 
 
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getJobs();
+                getPaymentPendingApplications("123");
             }
         });
-        Log.d("yo", Integer.toString(jobs.size()));
-        getPaymentPendingApplications("123");
 
     }
 
     private void initRecyclerView(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         payRecyclerView.setLayoutManager(linearLayoutManager);
-        payAdapter = new PayAdapter(applications, this);
+        payAdapter = new PayAdapter(applications, appKeys, this);
         payRecyclerView.setAdapter(payAdapter);
     }
 
-    private void getJobs() {
-        Log.d("yo", "Getting jobs");
-        firebaseDBRefOffers.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                jobs.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Job job = snapshot.getValue(Job.class);
-                    jobs.add(job);
-                }
-                payAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-
     private void getPaymentPendingApplications(String employerID) {
+
         final Query nameQuery = firebaseDB.getReference("applications").child(employerID);
 
         nameQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                applications.clear();
+                appKeys.clear();
                 Log.d("childCount", Long.toString(snapshot.getChildrenCount()));
                 if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
                     Application app;
                     for (DataSnapshot currentSnapShot : snapshot.getChildren()) {
                         app = currentSnapShot.getValue(Application.class);
                         Log.d("childCount", app.getEmployerEmail());
-                        if (app != null && !app.isPaid()) {
+                        if (app != null && !app.isPaid() &&app.getAccepted()) {
                             Log.d("childCount", "Added");
                             applications.add(app);
+                            appKeys.add(currentSnapShot.getKey());
                         }
                     }
                 }
@@ -154,26 +131,19 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     public void onPayClick(int position) {
         Application app = applications.get(position);
 
-        double compensation = getJobPrice(app.getJobID());
-        Log.d("yo", "onPayClick: " + Double.toString(compensation));
-    }
-
-    @Override
-    public void onCancelClick(int position) {
-        Application app = applications.get(position);
-        applications.remove(position);
-        payAdapter.notifyDataSetChanged();
-        Log.d("yo", "onPayClick: " + app.getEmployerEmail());
-    }
-
-    public double getJobPrice(String jobID) {
-        final double[] compensation = {0};
-        firebaseDBRefJobs.child(jobID).addValueEventListener(new ValueEventListener() {
+        firebaseDBRefJobs.child(app.getJobID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot != null) {
-                    Job job = dataSnapshot.child(jobID).getValue(Job.class);
-                    compensation[0] = job.getCompensation();
+                    Job job = dataSnapshot.getValue(Job.class);
+                    Log.d("job fetch", "onDataChange: " + job.getCompensation());
+                    double compensation = job.getCompensation();
+                    getPayment(compensation);
+                    app.setPaid(true);
+                    firebaseDB.getReference("applications").child(Session.getUserID())
+                            .child(appKeys.get(position))
+                            .setValue(app);
+                    getPaymentPendingApplications(Session.getUserID());
                 }
             }
 
@@ -182,10 +152,20 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
 
             }
         });
-        return compensation[0];
+
     }
 
-    private void getPayment(double amount, String title) {
+    @Override
+    public void onCancelClick(int position) {
+        Application app = applications.get(position);
+        app.setAccepted(false);
+        firebaseDB.getReference("applications").child(Session.getUserID())
+                .child(appKeys.get(position)).setValue(app);
+        getPaymentPendingApplications(Session.getUserID());
+    }
+
+
+    private void getPayment(double amount) {
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         PaymentRecord record = new PaymentRecord(Session.getEmail(), "emp@dal.ca",
                 amount ,date);

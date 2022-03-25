@@ -22,13 +22,15 @@ import java.util.ArrayList;
 
 public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
     private ArrayList<Application> apps = new ArrayList<>(10);
+    private ArrayList<String> keys = new ArrayList<>();
     private IJobListener jobListener;
     String TAG = "PayAdapter";
 
 
 
-    public PayAdapter(ArrayList<Application> apps, IJobListener jobListener) {
+    public PayAdapter(ArrayList<Application> apps, ArrayList<String> keys, IJobListener jobListener) {
         this.apps = apps;
+        this.keys = keys;
         this.jobListener = jobListener;
     }
 
@@ -37,6 +39,9 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
         Log.d(TAG, "setInterface: Adding interface");
     }
 
+    public String getElementKey(int position) {
+        return keys.get(position);
+    }
 
     public PayViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.job_payment_row, parent, false);
@@ -77,6 +82,7 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
     public int getItemCount() {
         return this.apps.size();
     }
+
 
     public static class PayViewHolder extends RecyclerView.ViewHolder {
 
