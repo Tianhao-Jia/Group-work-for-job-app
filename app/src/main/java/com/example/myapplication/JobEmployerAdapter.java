@@ -18,6 +18,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.List;
 
 public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.ViewHolder> {
@@ -76,6 +82,9 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
         Button jobSeeApplications;
         Spinner jobSuggestionFilter;
         Button jobSuggestionButton;
+
+
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             jobTitle = itemView.findViewById(R.id.jobEmployerLayoutJobTitle);
@@ -148,6 +157,19 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                         double longitude = Double.parseDouble(longitudeStr);
 
                         Location location = new Location(latitude, longitude);
+
+                        //FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
+                        //DatabaseReference firebaseDBRef = firebaseDB.getReference(FirebaseUtils.USERS_COLLECTION);
+
+                        //have a doubly nested drop down recylcer view.
+
+
+
+
+
+
+
+                        //need to add functionality for checking against each person
 
                         double latOn = 49.64476;
                         double longOn = -83.56784;
