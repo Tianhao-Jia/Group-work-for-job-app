@@ -11,7 +11,7 @@
         android:layout_height="87dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginStart="80dp"
-        android:text="How many stars would you like to rate this user?"
+        android:text="How many stars would you like to rate this user (from 1 - 5)?"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -20,12 +20,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.189" />
 
-    <NumberPicker
+    <EditText
         android:id="@+id/inputReviewNumber"
         android:layout_width="160dp"
         android:layout_height="61dp"
         android:max="5"
         android:min="1"
+        android:inputType="number"
         android:orientation="vertical"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

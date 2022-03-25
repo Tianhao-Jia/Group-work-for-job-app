@@ -79,6 +79,7 @@
         <entry key="app/src/main/res/layout/item_job.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/job_offer.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/job_offers_page.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/login_page.xml" value="0.11875" />
         <entry key="app/src/main/res/layout/review_employee.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/review_employer.xml" value="0.1" />
         <entry key="app/src/main/res/layout/review_person_info.xml" value="0.2427536231884058" />

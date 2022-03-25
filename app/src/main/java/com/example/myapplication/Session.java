@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -66,6 +67,7 @@ public class Session  {
 
     public static void reviewing_user(String email){
         editor.putString(REVIEWING_USER, email);
+        editor.commit();
     }
 
     public static void logout() {

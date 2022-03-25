@@ -54,11 +54,11 @@ public class EmployerActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        Colleague newColl = new Colleague("john@dal.ca","john");
-        Colleague newColl2 = new Colleague("joe@dal.ca","joe");
-        connectFirebase();
-        FirebaseDatabase.getInstance().getReference().child("colleagues").child(Session.getUserID()).child("userID").getRef().setValue(newColl);
-        FirebaseDatabase.getInstance().getReference().child("colleagues").child(Session.getUserID()).child("userID2").getRef().setValue(newColl2);
+//        Colleague newColl = new Colleague("john@dal.ca","john");
+//        Colleague newColl2 = new Colleague("joe@dal.ca","joe");
+//        connectFirebase();
+//        FirebaseDatabase.getInstance().getReference().child("colleagues").child(Session.getUserID()).child("userID").getRef().setValue(newColl);
+//        FirebaseDatabase.getInstance().getReference().child("colleagues").child(Session.getUserID()).child("userID2").getRef().setValue(newColl2);
 
         reviewEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
