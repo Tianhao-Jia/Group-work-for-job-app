@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.paypal.android.sdk.payments.PaymentActivity;
 
 /**
  * EmployerActivity class that manages the EmployerActivity events.
@@ -35,20 +34,26 @@ public class EmployerActivity extends AppCompatActivity {
 
     TextView loginDisplay;
     Button logoutButton, createJobButton, searchButton, viewApplications;
-    Button openmaps, payButton;
+    Button openmaps, payButton, yourJobsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer);
+
         openmaps = findViewById(R.id.check);
         loginDisplay = (TextView) findViewById(R.id.employerLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employerLogoutButton);
         createJobButton = (Button) findViewById(R.id.createJob);
         searchButton = (Button) findViewById(R.id.employerSearchButton);
         viewApplications = (Button) findViewById(R.id.employerApplications);
+        yourJobsButton = (Button) findViewById(R.id.employerYourJobsButton);
         payButton = (Button) findViewById(R.id.employerPayButton);
-
+        if (!Session.checkLogin()) {
+            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
+            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
+            startActivity(intent);
+        }
 
 
         createJobButton.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +104,13 @@ public class EmployerActivity extends AppCompatActivity {
             }
         });
 
+
+        yourJobsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, JobEmployerActivity.class));
+            }
+        });
     }
 
     /**

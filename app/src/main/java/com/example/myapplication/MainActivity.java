@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         Button loginActivity = (Button) findViewById(R.id.mainLogin);
         setIntent(loginActivity, SendPayment.class);
 
+        //for debugging the user story 2 iteration 3
+        //setIntent(loginActivity, JobEmployerActivity.class);
 
         Button register = (Button) findViewById(R.id.register);
         setIntent(register, GoogleMapsActivity.class);

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,7 +36,7 @@ public class EmployeeActivity extends AppCompatActivity {
     Button logoutButton;
     Button searchButton, offersButton;
 
-    Button openmap;
+    Button openMap;
     Button jobs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +45,7 @@ public class EmployeeActivity extends AppCompatActivity {
 
         connectFirebase();
         jobs = findViewById(R.id.jobs);
-        openmap = findViewById(R.id.mapbutton);
+        openMap = findViewById(R.id.mapbutton);
         loginDisplay = (TextView) findViewById(R.id.employeeLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employeeLogoutButton);
         searchButton = (Button) findViewById(R.id.employeeSearchButton);
@@ -86,7 +85,7 @@ public class EmployeeActivity extends AppCompatActivity {
         });
 
 
-        openmap.setOnClickListener(new View.OnClickListener() {
+        openMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(EmployeeActivity.this, MapsActivity.class));
