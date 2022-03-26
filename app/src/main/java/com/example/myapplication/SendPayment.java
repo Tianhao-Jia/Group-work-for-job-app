@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,17 +39,17 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class SendPayment extends AppCompatActivity implements PayAdapter.IJobListener{
+    //This should be a local key. Explained in paypal integration tutorial
     public static final String clientKey = "AUvAZuJ0IvHFmyIeOdDhsVPmjFYiHqBwglRNzUBAdmV95xvNZk5DYumlNGpgAesKfoBF0Baf2FFB1z45";
     public static final int PAYPAL_REQUEST_CODE = 123;
 
+    //Database references
     private FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
     private DatabaseReference firebaseDBRefJobs = firebaseDB.getReference(FirebaseUtils.JOBS_COLLECTION);
-    private DatabaseReference firebaseDBRefOffers = firebaseDB.getReference(FirebaseUtils.OFFERS_COLLECTION);
 
-
+    //Recycler view components
     private RecyclerView payRecyclerView;
     private PayAdapter  payAdapter;
-    private ArrayList<Job> jobs = new ArrayList<>();
     private ArrayList<Application> applications = new ArrayList<>();
     private ArrayList<String> appKeys = new ArrayList<>();
 
@@ -67,8 +68,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Session.startSession(this);
-        Session.login("ted@dal.ca", "123", "Employer");
+        Session.login("123", "123", "Employer");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_payment);
         paymentTV = findViewById(R.id.paymentTV);
@@ -77,16 +77,18 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
 
         initRecyclerView();
 
+        getPaymentPendingApplications(Session.getUserID());
 
         refreshBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getPaymentPendingApplications("123");
+                getPaymentPendingApplications(Session.getUserID());
             }
         });
 
     }
 
+    //Create recycler view
     private void initRecyclerView(){
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         payRecyclerView.setLayoutManager(linearLayoutManager);
@@ -94,23 +96,20 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
         payRecyclerView.setAdapter(payAdapter);
     }
 
+    //Get all applications that have been accepted but no yet paid for currently logged in
+    //employee.
     private void getPaymentPendingApplications(String employerID) {
-
-        final Query nameQuery = firebaseDB.getReference("applications").child(employerID);
-
-        nameQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        final Query appQuery = firebaseDB.getReference("applications").child(employerID);
+        appQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 applications.clear();
                 appKeys.clear();
-                Log.d("childCount", Long.toString(snapshot.getChildrenCount()));
+
                 if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
-                    Application app;
                     for (DataSnapshot currentSnapShot : snapshot.getChildren()) {
-                        app = currentSnapShot.getValue(Application.class);
-                        Log.d("childCount", app.getEmployerEmail());
-                        if (app != null && !app.isPaid() &&app.getAccepted()) {
-                            Log.d("childCount", "Added");
+                        Application app = currentSnapShot.getValue(Application.class);
+                        if (app != null && !app.isPaid() && app.getAccepted()) {
                             applications.add(app);
                             appKeys.add(currentSnapShot.getKey());
                         }
@@ -127,23 +126,35 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     }
 
 
+    //Process paypal payment for associated job
     @Override
     public void onPayClick(int position) {
         Application app = applications.get(position);
 
+
+        //Get payment amount for job and then add payment record to database
         firebaseDBRefJobs.child(app.getJobID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot != null) {
                     Job job = dataSnapshot.getValue(Job.class);
-                    Log.d("job fetch", "onDataChange: " + job.getCompensation());
                     double compensation = job.getCompensation();
-                    getPayment(compensation);
-                    app.setPaid(true);
-                    firebaseDB.getReference("applications").child(Session.getUserID())
-                            .child(appKeys.get(position))
-                            .setValue(app);
-                    getPaymentPendingApplications(Session.getUserID());
+                    String jobTitle = job.getJobTitle();
+                    Log.d("comp", "onDataChange: " + compensation);
+
+                    //Paypal payment
+                    if(getPayment(compensation, jobTitle)) {
+                        //Add payment record to database
+                        storePayment(app, compensation);
+                        app.setPaid(true);
+                        firebaseDB.getReference("applications").child(Session.getUserID())
+                                .child(appKeys.get(position))
+                                .setValue(app);
+
+                        //Refresh recycler view
+                        getPaymentPendingApplications(Session.getUserID());
+                    }
+
                 }
             }
 
@@ -155,6 +166,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
 
     }
 
+    //Un-accept offer
     @Override
     public void onCancelClick(int position) {
         Application app = applications.get(position);
@@ -164,37 +176,38 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
         getPaymentPendingApplications(Session.getUserID());
     }
 
-
-    private void getPayment(double amount) {
+    //Store payment record to database
+    private void storePayment(Application app, double amount) {
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        PaymentRecord record = new PaymentRecord(Session.getEmail(), "emp@dal.ca",
+        PaymentRecord record = new PaymentRecord(app.getEmployerEmail(), app.getEmployeeEmail(),
                 amount ,date);
-
         storePayment(record, firebaseDB);
-
-//        // Creating a paypal payment on below line.
-//        PayPalPayment payment = new PayPalPayment(new BigDecimal(amount), "CAD", title,
-//                PayPalPayment.PAYMENT_INTENT_SALE);
-//
-//        // Creating Paypal Payment activity intent
-//        Intent intent = new Intent(this, PaymentActivity.class);
-//
-//        //putting the paypal configuration to the intent
-//        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-//
-//
-//        // Putting paypal payment to the intent
-//        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
-//
-//
-//
-//
-//        // Starting the intent activity for result
-//        // the request code will be used on the method onActivityResult
-//        startActivityForResult(intent, PAYPAL_REQUEST_CODE);
-
-
     }
+
+    //Paypal stuff from tutorial
+    private boolean getPayment(double amount, String jobTitle) {
+
+        // Creating a paypal payment on below line.
+        PayPalPayment payment = new PayPalPayment(new BigDecimal(amount), "USD", jobTitle,
+                PayPalPayment.PAYMENT_INTENT_SALE);
+
+        // Creating Paypal Payment activity intent
+        Intent intent = new Intent(this, PaymentActivity.class);
+
+        //putting the paypal configuration to the intent
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+
+        // Putting paypal payment to the intent
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+
+        // Starting the intent activity for result
+        // the request code will be used on the method onActivityResult
+        startActivityForResult(intent, PAYPAL_REQUEST_CODE);
+
+        //Need more logic if user wishes to cancel
+        return true;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -218,7 +231,9 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
                         JSONObject payObj = new JSONObject(paymentDetails);
                         String payID = payObj.getJSONObject("response").getString("id");
                         String state = payObj.getJSONObject("response").getString("state");
-                        paymentTV.setText("Payment " + state + "\n with payment id is " + payID);
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Payment " + state + "\n with payment id is " + payID, Toast.LENGTH_SHORT);
+                        toast.show();
 
                     } catch (JSONException e) {
                         // handling json exception on below line
@@ -236,9 +251,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     }
 
 
-
-
-
+    //Paypal store record in database
     protected boolean storePayment(PaymentRecord payment, FirebaseDatabase db) {
         db.getReference(FirebaseUtils.PAYMENT_COLLECTION).push().setValue(payment);
         return true;
