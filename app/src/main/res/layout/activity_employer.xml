@@ -85,15 +85,29 @@
         app:layout_constraintVertical_bias="0.725" />
 
     <Button
+        android:id="@+id/employerPayButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="PAY EMPLOYEE"
+        app:layout_constraintBottom_toTopOf="@+id/employerLogoutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/employerSearchButton"
+        app:layout_constraintVertical_bias="0.035" />
+
+    <Button
         android:id="@+id/employerYourJobsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="312dp"
-        android:text="Your Jobs"
-        app:layout_constraintBottom_toTopOf="@+id/employerLogoutButton"
+        android:layout_marginStart="158dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="159dp"
+        android:layout_marginBottom="243dp"
+        android:text="YOUR JOBS"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/employerLogoutButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

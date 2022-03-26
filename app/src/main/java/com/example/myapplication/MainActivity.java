@@ -11,6 +11,8 @@ import android.widget.Button;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import kotlinx.coroutines.channels.Send;
+
 /**
  * EmployeeActivity class that manages the EmployeeActivity events.
  * @authors: Nathanael Bowley,
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseDBRef = firebaseDB.getReference();
 
         Button loginActivity = (Button) findViewById(R.id.mainLogin);
-        setIntent(loginActivity, LoginActivity.class);
+        setIntent(loginActivity, SendPayment.class);
 
         //for debugging the user story 2 iteration 3
         //setIntent(loginActivity, JobEmployerActivity.class);
