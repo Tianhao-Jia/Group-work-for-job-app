@@ -68,7 +68,6 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Session.login("123", "123", "Employer");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_payment);
         paymentTV = findViewById(R.id.paymentTV);
