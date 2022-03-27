@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.ViewHolder> {
@@ -84,6 +87,13 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
         Button jobSuggestionButton;
 
 
+        List<Employee> list;
+        FirebaseDatabase firebaseDB;
+        DatabaseReference firebaseDBRef;
+        RecyclerView recyclerViewDistance;
+        JobEmployeeAdapter adapter;
+
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +106,18 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
             jobSeeApplications = itemView.findViewById(R.id.jobEmployerLayoutCurrentAppsButton);
             jobSuggestionFilter = (Spinner) itemView.findViewById(R.id.jobEmployerLayoutSpinner);
             jobSuggestionButton = itemView.findViewById(R.id.jobEmployerLayoutSuggestButton);
+
+
+            list = new ArrayList<>();
+            firebaseDB = FirebaseUtils.connectFirebase();
+            firebaseDBRef = firebaseDB.getReference(FirebaseUtils.USERS_COLLECTION);
+            recyclerViewDistance = itemView.findViewById(R.id.employeeJobsRecyclerView);
+            recyclerViewDistance.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
+            adapter = new JobEmployeeAdapter(list);
+            recyclerViewDistance.setAdapter(adapter);
+            recyclerViewDistance.setVisibility(View.GONE);
+
+
 
             jobSeeApplications.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,6 +163,8 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                     else if (selectedItem.equals("Rating")) {
                         //Toast.makeText(itemView.getContext(), "Rating Selected", Toast.LENGTH_SHORT).show();
 
+                        recyclerViewDistance.setVisibility(View.GONE);
+
                     }
                     else if (selectedItem.equals("Distance")) {
                         //Toast.makeText(itemView.getContext(), "Distance Selected", Toast.LENGTH_SHORT).show();
@@ -158,6 +182,39 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
 
                         Location location = new Location(latitude, longitude);
 
+                        recyclerViewDistance.setVisibility(View.VISIBLE);
+
+
+                        firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                list.clear();
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    snapshot.getValue();
+
+                                    String firstName = snapshot.child("firstName").getValue(String.class);
+                                    String lastName = snapshot.child("lastName").getValue(String.class);
+                                    String rating = String.valueOf(snapshot.child("average_rating").getValue(Double.class));
+                                    String email = snapshot.child("email").getValue(String.class);
+
+                                    //check the location and use the locaiton method from Location class.
+                                    //snapshot.child("")
+
+                                    Employee employee = new Employee(firstName, lastName, rating, email);
+                                    if (!employee.getEmail().equals(Session.getEmail())) {
+                                        list.add(employee);
+                                    }
+
+                                }
+
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                         //FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
                         //DatabaseReference firebaseDBRef = firebaseDB.getReference(FirebaseUtils.USERS_COLLECTION);
 

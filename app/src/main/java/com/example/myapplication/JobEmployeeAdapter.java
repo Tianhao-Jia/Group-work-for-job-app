@@ -46,10 +46,11 @@ public class JobEmployeeAdapter extends RecyclerView.Adapter<JobEmployeeAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Employee employee = list.get(position);
 
-        holder.usersEmployeeLayoutFirstName.setText(employee.getFirstName());
-        holder.usersEmployeeLayoutLastName.setText(employee.getLastName());
-        holder.usersEmployeeLayoutRating.setText(employee.getRating() + "");
-        holder.usersEmployeeLayoutEmail.setText(employee.getEmail());
+        holder.usersEmployeeLayoutFirstName.setText("First Name: " + employee.getFirstName());
+        holder.usersEmployeeLayoutLastName.setText("Last Name: " + employee.getLastName());
+        holder.usersEmployeeLayoutRating.setText("Rating: " + employee.getRating() + "");
+        holder.usersEmployeeLayoutEmail.setText("Email: " + employee.getEmail());
+
 
         //TODO set up the buttons to do stuff and the drop down, its not done here but below in ViewHolder class
 //        holder.jobSeeApplications.setOnClickListener(new View.OnClickListener() {

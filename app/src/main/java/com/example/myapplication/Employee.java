@@ -19,13 +19,13 @@ public class Employee {
 
     private String firstName;
     private String lastName;
-    private double rating;
+    private String rating;
     private String email;
     public static String EMPLOYEE = "Employee";
 
-    public Employee(String firstName, String lastName, double rating, String email) {
+    public Employee(String firstName, String lastName, String rating, String email) {
         this.firstName = firstName;
-        this.firstName = lastName;
+        this.lastName = lastName;
         this.rating = rating;
         this.email = email;
     }
@@ -46,11 +46,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public double getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 
