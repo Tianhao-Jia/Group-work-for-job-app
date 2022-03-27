@@ -19,6 +19,7 @@ public class Employee {
 
     private String firstName;
     private String lastName;
+    private double doubleRating;
     private String rating;
     private String email;
     public static String EMPLOYEE = "Employee";
@@ -27,7 +28,16 @@ public class Employee {
         this.firstName = firstName;
         this.lastName = lastName;
         this.rating = rating;
+        try {
+            this.doubleRating = Double.parseDouble(rating);
+        } catch (NumberFormatException e) {
+            this.doubleRating = -1;
+        }
         this.email = email;
+    }
+
+    public double getDoubleRating() {
+        return doubleRating;
     }
 
     public String getFirstName() {

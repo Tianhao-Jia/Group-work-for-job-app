@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.ViewHolder> {
@@ -91,6 +92,7 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
         FirebaseDatabase firebaseDB;
         DatabaseReference firebaseDBRef;
         RecyclerView recyclerViewDistance;
+        RecyclerView recyclerViewRating;
         JobEmployeeAdapter adapter;
 
 
@@ -111,11 +113,21 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
             list = new ArrayList<>();
             firebaseDB = FirebaseUtils.connectFirebase();
             firebaseDBRef = firebaseDB.getReference(FirebaseUtils.USERS_COLLECTION);
-            recyclerViewDistance = itemView.findViewById(R.id.employeeJobsRecyclerView);
+
+
+            recyclerViewDistance = itemView.findViewById(R.id.employeeJobsRecyclerViewDistance);
             recyclerViewDistance.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
             adapter = new JobEmployeeAdapter(list);
             recyclerViewDistance.setAdapter(adapter);
-            recyclerViewDistance.setVisibility(View.GONE);
+            //recyclerViewDistance.setVisibility(View.GONE);
+
+
+
+            recyclerViewRating = itemView.findViewById(R.id.employeeJobsRecyclerViewRating);
+            recyclerViewRating.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
+            adapter = new JobEmployeeAdapter(list);
+            recyclerViewRating.setAdapter(adapter);
+            //recyclerViewRating.setVisibility(View.GONE);
 
 
 
@@ -164,6 +176,54 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                         //Toast.makeText(itemView.getContext(), "Rating Selected", Toast.LENGTH_SHORT).show();
 
                         recyclerViewDistance.setVisibility(View.GONE);
+                        recyclerViewRating.setVisibility(View.VISIBLE);
+
+                        firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                list.clear();
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    snapshot.getValue();
+
+                                    String firstName = snapshot.child("firstName").getValue(String.class);
+                                    String lastName = snapshot.child("lastName").getValue(String.class);
+                                    String rating = String.valueOf(snapshot.child("average_rating").getValue(Double.class));
+                                    if (rating == null) {
+                                        rating = "-1";
+                                    }
+                                    String email = snapshot.child("email").getValue(String.class);
+
+                                    //check the location and use the locaiton method from Location class.
+                                    //snapshot.child("")
+
+                                    Employee employee = new Employee(firstName, lastName, rating, email);
+                                    if (!employee.getEmail().equals(Session.getEmail())) {
+
+                                        list.add(employee);
+                                        list.sort(Comparator.comparing(Employee::getDoubleRating));
+                                    }
+
+                                }
+
+
+                                //show the highest rated first
+                                Collections.reverse(list);
+
+
+
+
+
+
+                                adapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
 
                     }
                     else if (selectedItem.equals("Distance")) {
@@ -183,7 +243,7 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                         Location location = new Location(latitude, longitude);
 
                         recyclerViewDistance.setVisibility(View.VISIBLE);
-
+                        recyclerViewRating.setVisibility(View.GONE);
 
                         firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -240,6 +300,9 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                     }
                     else if (selectedItem.equals("Search")) {
                         //Toast.makeText(itemView.getContext(), "Search Selected", Toast.LENGTH_SHORT).show();
+
+                        recyclerViewDistance.setVisibility(View.GONE);
+                        recyclerViewRating.setVisibility(View.GONE);
 
                         Intent intent = new Intent(view.getContext(), JobSearch.class);
 
