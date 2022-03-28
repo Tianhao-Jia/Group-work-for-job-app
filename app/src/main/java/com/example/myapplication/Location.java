@@ -48,4 +48,39 @@ public class Location {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+
+    //single responsibility principle violation?
+    /**
+     * getHaversineDistance method that uses another location object to calculate the well known and
+     * well published about haversine distance equation from James Andrew in the year 1805. citation
+     * for reference https://www.geeksforgeeks.org/haversine-formula-to-find-distance-between-two-points-on-a-sphere/
+     * @param otherLocation Location: the location object that is to be compared
+     * @return the distance in kilometres to be returned.
+     */
+    public double getHaversineDistance(Location otherLocation) {
+        double otherLatitude = otherLocation.getLatitude();
+        double otherLongitude = otherLocation.getLongitude();
+
+        double differenceInLat = Math.toRadians(otherLatitude) - Math.toRadians(latitude);
+        double differenceInLong = Math.toRadians(otherLongitude) - Math.toRadians(longitude);
+
+        double latitudeRad = Math.toRadians(latitude);
+        double otherLatitudeRad = Math.toRadians(otherLatitude);
+
+        double aValue = Math.pow(Math.sin(differenceInLat / 2), 2) +
+                Math.pow(Math.sin(differenceInLong / 2), 2) * Math.cos(latitudeRad) * Math.cos(otherLatitudeRad);
+        double cValue = 2 * Math.atan2(Math.sqrt(aValue), Math.sqrt(1-aValue));
+
+        //radius according to NASA citation: https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html
+        double radiusOfEarth = 6371.0088;
+        //end of citation
+
+        return radiusOfEarth * cValue;
+
+    }
+
+    public boolean withinDistance(double desiredDistance, double distance) {
+        return distance < desiredDistance;
+    }
 }

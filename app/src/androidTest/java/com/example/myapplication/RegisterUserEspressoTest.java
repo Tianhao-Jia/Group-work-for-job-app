@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RunWith(AndroidJUnit4.class)
-public class RegisterUserEspresso {
+public class RegisterUserEspressoTest {
 
     private static String userEmail = "george.smith@dal.ca";
     private static String userFName = "George";
