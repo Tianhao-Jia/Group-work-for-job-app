@@ -238,9 +238,14 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
         //If within 10km, make green marker
         //If not, make yellow marker
 
+        double latitude = mLastLocation.getLatitude();
+        double longitude = mLastLocation.getLongitude();
+        com.example.myapplication.Location currLocation = new com.example.myapplication.Location(latitude, longitude);
+
+        double x = currLocation.getHaversineDistance(job.getLocation());
        // Location currentLocation = new Location(mLastLocation.getLatitude(), mLastLocation.getLongitude());
 
-        double x = job.getLocation().getHaversineDistance( (com.example.myapplication.Location) mLastLocation);
+        //double x = job.getLocation().getHaversineDistance( (com.example.myapplication.Location) mLastLocation);
 
         LatLng jobLocation = new LatLng(job.getLocation().getLatitude(), job.getLocation().getLongitude());
         String titleStr = getAddress(jobLocation);
