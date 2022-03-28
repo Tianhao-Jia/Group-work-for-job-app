@@ -38,6 +38,9 @@ public class EmployeeActivity extends AppCompatActivity {
 
     Button openMap;
     Button jobs;
+
+    Button showJobsOnMapButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +53,7 @@ public class EmployeeActivity extends AppCompatActivity {
         logoutButton = (Button) findViewById(R.id.employeeLogoutButton);
         searchButton = (Button) findViewById(R.id.employeeSearchButton);
         offersButton = (Button) findViewById(R.id.viewOffers);
+        showJobsOnMapButton = (Button) findViewById(R.id.showJobsOnMapButton);
 
         offersButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +99,13 @@ public class EmployeeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(EmployeeActivity.this,JobsActivity.class));
+            }
+        });
+
+        showJobsOnMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployeeActivity.this, MapsActivity.class));
             }
         });
     }
