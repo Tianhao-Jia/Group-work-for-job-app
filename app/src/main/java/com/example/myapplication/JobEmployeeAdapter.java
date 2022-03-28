@@ -51,6 +51,12 @@ public class JobEmployeeAdapter extends RecyclerView.Adapter<JobEmployeeAdapter.
         holder.usersEmployeeLayoutRating.setText("Rating: " + employee.getRating() + "");
         holder.usersEmployeeLayoutEmail.setText("Email: " + employee.getEmail());
 
+        //TODO implement this
+        if (employee.getDistance() != Double.MAX_VALUE) {
+            holder.usersEmployeeLayoutDistance.setText("Distance: " + employee.getDistance() + " km");
+        }
+
+
 
         //TODO set up the buttons to do stuff and the drop down, its not done here but below in ViewHolder class
 //        holder.jobSeeApplications.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +81,7 @@ public class JobEmployeeAdapter extends RecyclerView.Adapter<JobEmployeeAdapter.
         TextView usersEmployeeLayoutLastName;
         TextView usersEmployeeLayoutRating;
         TextView usersEmployeeLayoutEmail;
+        TextView usersEmployeeLayoutDistance;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,6 +89,7 @@ public class JobEmployeeAdapter extends RecyclerView.Adapter<JobEmployeeAdapter.
             usersEmployeeLayoutLastName = itemView.findViewById(R.id.usersEmployeeLayoutLastName);
             usersEmployeeLayoutRating = itemView.findViewById(R.id.usersEmployeeLayoutRating);
             usersEmployeeLayoutEmail = itemView.findViewById(R.id.usersEmployeeLayoutEmail);
+            usersEmployeeLayoutDistance = itemView.findViewById(R.id.usersEmployeeLayoutDistance);
 
 
         }

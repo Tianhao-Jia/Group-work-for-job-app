@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -89,11 +90,17 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
 
 
         List<Employee> list;
+        List<Employee> listDistance;
+
         FirebaseDatabase firebaseDB;
         DatabaseReference firebaseDBRef;
         RecyclerView recyclerViewDistance;
         RecyclerView recyclerViewRating;
         JobEmployeeAdapter adapter;
+        JobEmployeeAdapter adapterDistance;
+
+        SeekBar distanceSeekBar;
+        TextView distanceTextView;
 
 
 
@@ -110,24 +117,28 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
             jobSuggestionButton = itemView.findViewById(R.id.jobEmployerLayoutSuggestButton);
 
 
-            list = new ArrayList<>();
             firebaseDB = FirebaseUtils.connectFirebase();
             firebaseDBRef = firebaseDB.getReference(FirebaseUtils.USERS_COLLECTION);
 
 
+            listDistance = new ArrayList<>();
             recyclerViewDistance = itemView.findViewById(R.id.employeeJobsRecyclerViewDistance);
             recyclerViewDistance.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
-            adapter = new JobEmployeeAdapter(list);
-            recyclerViewDistance.setAdapter(adapter);
+            adapterDistance = new JobEmployeeAdapter(listDistance);
+            recyclerViewDistance.setAdapter(adapterDistance);
             //recyclerViewDistance.setVisibility(View.GONE);
 
 
-
+            list = new ArrayList<>();
             recyclerViewRating = itemView.findViewById(R.id.employeeJobsRecyclerViewRating);
             recyclerViewRating.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
             adapter = new JobEmployeeAdapter(list);
             recyclerViewRating.setAdapter(adapter);
             //recyclerViewRating.setVisibility(View.GONE);
+
+            distanceSeekBar = itemView.findViewById(R.id.jobEmployerLayoutSeekBar);
+            distanceTextView = itemView.findViewById(R.id.jobEmployerLayoutSeekBarTextView);
+
 
 
 
@@ -155,11 +166,34 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                     selectedItem = adapterView.getItemAtPosition(position);
                     Toast.makeText(itemView.getContext(),selectedItem.toString() + " Selected", Toast.LENGTH_SHORT).show();
 
+                    if (selectedItem.equals("Search")) {
+                        recyclerViewDistance.setVisibility(View.GONE);
+                        recyclerViewRating.setVisibility(View.GONE);
+                        distanceSeekBar.setVisibility(View.GONE);
+                        distanceTextView.setVisibility(View.GONE);
+                    }
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
                     selectedItem = "No Item Selected";
+
+                }
+            });
+
+            distanceSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                    distanceTextView.setText(String.valueOf("Distance: " + i + " km"));
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
 
                 }
             });
@@ -178,12 +212,15 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                         recyclerViewDistance.setVisibility(View.GONE);
                         recyclerViewRating.setVisibility(View.VISIBLE);
 
+                        distanceSeekBar.setVisibility(View.GONE);
+                        distanceTextView.setVisibility(View.GONE);
+
                         firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 list.clear();
                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    snapshot.getValue();
+                                    //snapshot.getValue();
 
                                     String firstName = snapshot.child("firstName").getValue(String.class);
                                     String lastName = snapshot.child("lastName").getValue(String.class);
@@ -245,29 +282,59 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                         recyclerViewDistance.setVisibility(View.VISIBLE);
                         recyclerViewRating.setVisibility(View.GONE);
 
+                        distanceSeekBar.setVisibility(View.VISIBLE);
+                        distanceTextView.setVisibility(View.VISIBLE);
+
+
                         firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                list.clear();
+                                listDistance.clear();
+
                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    snapshot.getValue();
+                                    //snapshot.getValue();
 
                                     String firstName = snapshot.child("firstName").getValue(String.class);
                                     String lastName = snapshot.child("lastName").getValue(String.class);
                                     String rating = String.valueOf(snapshot.child("average_rating").getValue(Double.class));
                                     String email = snapshot.child("email").getValue(String.class);
 
+
+                                    if (rating == null) {
+                                        rating = "Unknown Rating";
+                                    }
+
                                     //check the location and use the locaiton method from Location class.
-                                    //snapshot.child("")
+                                    double latitude = 0, longitude = 0;
+                                    if (snapshot.hasChild("user location (latitude)")) {
+                                        latitude = snapshot.child("user location (latitude)").getValue(Double.class);
+
+                                    }
+                                    if (snapshot.hasChild("user location (longitude)")) {
+                                        longitude = snapshot.child("user location (longitude)").getValue(Double.class);
+
+                                    }
+                                    Location employeeLocation = new Location(latitude, longitude);
 
                                     Employee employee = new Employee(firstName, lastName, rating, email);
                                     if (!employee.getEmail().equals(Session.getEmail())) {
-                                        list.add(employee);
+
+                                        //todo figure out why this bug happens where the list is empty
+                                        //i may need to implement a seperate list for distance.
+
+                                        int desiredDistance = distanceSeekBar.getProgress();
+
+                                        double distanceToEmployee = location.getHaversineDistance(employeeLocation);
+                                        if (location.withinDistance(desiredDistance, distanceToEmployee)) {
+                                            employee.setDistance(distanceToEmployee);
+                                            listDistance.add(employee);
+                                        }
+                                        //list.add(employee);
                                     }
 
                                 }
 
-                                adapter.notifyDataSetChanged();
+                                adapterDistance.notifyDataSetChanged();
                             }
 
                             @Override
@@ -288,10 +355,10 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
 
                         //need to add functionality for checking against each person
 
-                        double latOn = 49.64476;
-                        double longOn = -83.56784;
-                        Location locationOther = new Location(latOn, longOn);
-                        Log.d("testing: ", location.getHaversineDistance(locationOther) + " ");
+//                        double latOn = 49.64476;
+//                        double longOn = -83.56784;
+//                        Location locationOther = new Location(latOn, longOn);
+//                        Log.d("testing: ", location.getHaversineDistance(locationOther) + " ");
 
 
 

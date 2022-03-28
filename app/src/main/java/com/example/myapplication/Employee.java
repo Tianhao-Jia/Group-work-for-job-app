@@ -20,9 +20,10 @@ public class Employee {
     private String firstName;
     private String lastName;
     private double doubleRating;
-    private String rating;
+    private String rating = "Unknown";
     private String email;
     public static String EMPLOYEE = "Employee";
+    private double distance;
 
     public Employee(String firstName, String lastName, String rating, String email) {
         this.firstName = firstName;
@@ -34,6 +35,15 @@ public class Employee {
             this.doubleRating = -1;
         }
         this.email = email;
+        this.distance = Double.MAX_VALUE;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     public double getDoubleRating() {
