@@ -26,6 +26,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -189,9 +190,17 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
         Log.d("JOBS MAP ACTIVITY", "Ready to assign markers with list: " + jobList.size());
         Log.d("JOBS MAP ACTIVITY", "Going to place marker from job 1 (which is: " + jobList.get(1).getJobTitle() + ")");
 
-        LatLng jobLocation = new LatLng(jobList.get(1).getLocation().getLatitude(), jobList.get(1).getLocation().getLongitude());
-        placeJobMarker(jobLocation);
+        //WORKING COMMENT
+        //Iterate through all jobs -> if job has a location -> get LatLng type -> use as argument for placeJobMarker
 
+        for (int i = 0; i < jobList.size(); i++)
+        {
+            if (jobList.get(i).getLocation() != null)
+            {
+                placeJobMarker(jobList.get(i));
+
+            }
+        }
     }
 
     private String getAddress( LatLng latLng ) {
@@ -225,21 +234,28 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     protected void placeMarkerOnMap(LatLng location) {
-        MarkerOptions markerOptions = new MarkerOptions().position(location);
+        MarkerOptions currentLocationMarker = new MarkerOptions().position(location);
 
         String titleStr = getAddress(location);
-        markerOptions.title(titleStr);
+        currentLocationMarker.title(titleStr).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
 
-        mMap.addMarker(markerOptions);
+        mMap.addMarker(currentLocationMarker);
     }
 
-    protected void placeJobMarker(LatLng location) {
-        MarkerOptions markerOptions = new MarkerOptions().position(location);
-        String titleStr = getAddress(location);
-        markerOptions.title(titleStr);
-        mMap.addMarker(markerOptions);
+    protected void placeJobMarker(Job job) {
 
-        Log.d("JOBS MAP ACTIVITY", "Added marker for job 0");
+        //WORKING COMMENT
+        //Get job location, get current location, compare.
+        //Get job location as LatLng, make color accordingly
+
+        LatLng jobLocation = new LatLng(job.getLocation().getLatitude(), job.getLocation().getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions().position(jobLocation);
+        String titleStr = getAddress(jobLocation);
+        markerOptions.title(titleStr).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+
+        //mMap.addMarker(markerOptions);
+
+        mMap.addMarker(markerOptions);
     }
 
     @Override
@@ -266,4 +282,6 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
     public boolean onMarkerClick(@NonNull Marker marker) {
         return false;
     }
+
+
 }
