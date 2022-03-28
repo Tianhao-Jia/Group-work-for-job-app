@@ -160,11 +160,6 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
                     Job job = snapshot.getValue(Job.class);
                     list.add(job);
                 }
-                //MAY BE NEEDED
-                //adapter.notifyDataSetChanged();
-
-//                Log.d("JOBS MAP ACTIVITY", "MYLISTSIZE: " + myList.size());
-
                 firebaseCallback.onCallback(list);
             }
 
@@ -187,12 +182,6 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     private void placeJobMarkersOnMap(ArrayList<Job> jobList) {
-        Log.d("JOBS MAP ACTIVITY", "Ready to assign markers with list: " + jobList.size());
-        Log.d("JOBS MAP ACTIVITY", "Going to place marker from job 1 (which is: " + jobList.get(1).getJobTitle() + ")");
-
-        //WORKING COMMENT
-        //Iterate through all jobs -> if job has a location -> get LatLng type -> use as argument for placeJobMarker
-
         for (int i = 0; i < jobList.size(); i++)
         {
             if (jobList.get(i).getLocation() != null)
@@ -243,19 +232,36 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     protected void placeJobMarker(Job job) {
+        double latitude = mLastLocation.getLatitude();
+        double longitude = mLastLocation.getLongitude();
+        com.example.myapplication.Location currLocation = new com.example.myapplication.Location(latitude, longitude);
 
-        //WORKING COMMENT
-        //Get job location, get current location, compare.
-        //Get job location as LatLng, make color accordingly
+        double distance = currLocation.getHaversineDistance(job.getLocation());
 
-        LatLng jobLocation = new LatLng(job.getLocation().getLatitude(), job.getLocation().getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions().position(jobLocation);
-        String titleStr = getAddress(jobLocation);
-        markerOptions.title(titleStr).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+        if (job.getLocation().withinDistance(10.0, distance))
+        {
+            LatLng jobLocation = new LatLng(job.getLocation().getLatitude(), job.getLocation().getLongitude());
+            String titleStr = getAddress(jobLocation);
 
-        //mMap.addMarker(markerOptions);
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(jobLocation)
+                    .title(titleStr)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
 
-        mMap.addMarker(markerOptions);
+            mMap.addMarker(markerOptions);
+        }
+        else
+        {
+            LatLng jobLocation = new LatLng(job.getLocation().getLatitude(), job.getLocation().getLongitude());
+            String titleStr = getAddress(jobLocation);
+
+            MarkerOptions markerOptions = new MarkerOptions()
+                    .position(jobLocation)
+                    .title(titleStr)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+
+            mMap.addMarker(markerOptions);
+        }
     }
 
     @Override
