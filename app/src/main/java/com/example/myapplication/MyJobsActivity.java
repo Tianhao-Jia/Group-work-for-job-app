@@ -25,6 +25,7 @@ public class MyJobsActivity extends AppCompatActivity  {
     public List<Job> list = new ArrayList<>();
     private String email;
 
+    public static boolean isGetData = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,7 @@ public class MyJobsActivity extends AppCompatActivity  {
                     Job job = snapshot.getValue(Job.class);
                     if (job.getEmployerEmail().equals(email)){
                         list.add(job);
+                        isGetData = true;
                     }
 
                 }
