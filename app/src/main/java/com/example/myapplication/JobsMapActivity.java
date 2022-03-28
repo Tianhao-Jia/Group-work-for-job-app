@@ -134,15 +134,10 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     private void getJobsFromDatabase(){
-        Log.d("JOBS MAP ACTIVITY", "Begin connecting to Firebase1");
-
         //Executed after the jobs have been read and placed in an array from the database
         readData(new FirebaseCallback() {
             @Override
             public void onCallback(ArrayList<Job> list) {
-
-                Log.d("JOBS MAP ACTIVITY", "List size: " + list.size());
-
                 //Place jobs on map
                 placeJobMarkersOnMap(list);
             }
@@ -150,12 +145,10 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     private void readData(FirebaseCallback firebaseCallback) {
-        //firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
         ValueEventListener valueEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Job> list = new ArrayList<Job>();
-                //list.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Job job = snapshot.getValue(Job.class);
                     list.add(job);
@@ -187,7 +180,6 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
             if (jobList.get(i).getLocation() != null)
             {
                 placeJobMarker(jobList.get(i));
-
             }
         }
     }
@@ -241,26 +233,24 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
         if (job.getLocation().withinDistance(10.0, distance))
         {
             LatLng jobLocation = new LatLng(job.getLocation().getLatitude(), job.getLocation().getLongitude());
-            String titleStr = getAddress(jobLocation);
+            String titleStr = job.getJobTitle();
 
-            MarkerOptions markerOptions = new MarkerOptions()
+            Marker greenJob = mMap.addMarker(new MarkerOptions()
                     .position(jobLocation)
                     .title(titleStr)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-
-            mMap.addMarker(markerOptions);
+                    .snippet(job.getDescription())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         }
         else
         {
             LatLng jobLocation = new LatLng(job.getLocation().getLatitude(), job.getLocation().getLongitude());
-            String titleStr = getAddress(jobLocation);
+            String titleStr = job.getJobTitle();
 
-            MarkerOptions markerOptions = new MarkerOptions()
+            Marker yellowJob = mMap.addMarker(new MarkerOptions()
                     .position(jobLocation)
                     .title(titleStr)
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
-
-            mMap.addMarker(markerOptions);
+                    .snippet(job.getDescription())
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
         }
     }
 
@@ -286,8 +276,9 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
 
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
+
+        marker.showInfoWindow();
         return false;
     }
-
 
 }
