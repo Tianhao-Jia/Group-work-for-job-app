@@ -72,6 +72,12 @@
             android:exported="false"
             android:label="@string/title_activity_google_maps" />
         <activity
+            android:name="com.example.myapplication.PayPalTest"
+            android:exported="false" />
+        <activity
+            android:name="com.example.myapplication.SendPayment"
+            android:exported="false" />
+        <activity
             android:name="com.example.myapplication.MainActivity"
             android:exported="true">
             <intent-filter>

@@ -33,8 +33,8 @@ public class EmployerActivity extends AppCompatActivity {
     private DatabaseReference firebaseDBRef;
 
     TextView loginDisplay;
-    Button logoutButton, createJobButton, searchButton, viewApplications, yourJobsButton;
-    Button openmaps;
+    Button logoutButton, createJobButton, searchButton, viewApplications;
+    Button openmaps, payButton, yourJobsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +48,13 @@ public class EmployerActivity extends AppCompatActivity {
         searchButton = (Button) findViewById(R.id.employerSearchButton);
         viewApplications = (Button) findViewById(R.id.employerApplications);
         yourJobsButton = (Button) findViewById(R.id.employerYourJobsButton);
-
+        payButton = (Button) findViewById(R.id.employerPayButton);
         if (!Session.checkLogin()) {
             //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
             Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
             startActivity(intent);
         }
+
 
         createJobButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +63,8 @@ public class EmployerActivity extends AppCompatActivity {
                 startActivity(newIntent);
             }
         });
+
+
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +81,7 @@ public class EmployerActivity extends AppCompatActivity {
             }
         });
 
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +96,14 @@ public class EmployerActivity extends AppCompatActivity {
                 startActivity(new Intent(EmployerActivity.this, MapsActivity.class));
             }
         });
+
+        payButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, SendPayment.class));
+            }
+        });
+
 
         yourJobsButton.setOnClickListener(new View.OnClickListener() {
             @Override
