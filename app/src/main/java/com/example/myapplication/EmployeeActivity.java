@@ -105,7 +105,7 @@ public class EmployeeActivity extends AppCompatActivity {
         showJobsOnMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EmployeeActivity.this, MapsActivity.class));
+                startActivity(new Intent(EmployeeActivity.this, JobsMapActivity.class));
             }
         });
     }
