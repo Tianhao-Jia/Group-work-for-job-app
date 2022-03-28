@@ -41,4 +41,60 @@ public class HaversineDistance {
 
         Assert.assertTrue("different distances than expected", distance == 0);
     }
+
+
+    @Test
+    public void withinDistanceReturnsFalse() {
+
+        double desiredDistance = 0;
+        double distance = 50;
+
+        boolean result = Location.withinDistance(desiredDistance, distance);
+
+        Assert.assertFalse("withinDistance should have returned false", result);
+    }
+
+    @Test
+    public void withinDistanceReturnsTrue() {
+        double distanceFilter = 60;
+        double distance = 50;
+
+        boolean result = Location.withinDistance(distanceFilter, distance);
+
+
+        Assert.assertTrue("withinDistance should have returned ", result);
+    }
+
+    @Test
+    public void withinDistanceReturnsDesiredAndDistanceSame() {
+        double distanceFilter = 50;
+        double distance = 50;
+
+        boolean result = Location.withinDistance(distanceFilter, distance);
+
+
+        Assert.assertTrue("different distances than expected", result);
+    }
+
+    @Test
+    public void withinDistanceWithNegativeDesiredDistance() {
+
+        double distanceFilter = -1;
+        double distance = 50;
+
+        boolean result = Location.withinDistance(distanceFilter, distance);
+
+        Assert.assertFalse("withinDistance should have returned false", result);
+    }
+
+    @Test
+    public void withinDistanceWithNegativeDistance() {
+
+        double distanceFilter = 50;
+        double distance = -5;
+
+        boolean result = Location.withinDistance(distanceFilter, distance);
+
+        Assert.assertFalse("withinDistance should have returned false", result);
+    }
 }

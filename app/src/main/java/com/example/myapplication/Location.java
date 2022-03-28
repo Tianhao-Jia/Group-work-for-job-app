@@ -80,7 +80,7 @@ public class Location {
 
     }
 
-    public boolean withinDistance(double desiredDistance, double distance) {
-        return distance < desiredDistance;
+    public static boolean withinDistance(double distanceFilter, double distance) {
+        return distance <= distanceFilter && distanceFilter >= 0 && distance >= 0;
     }
 }
