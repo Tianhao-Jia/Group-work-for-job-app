@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,30 +7,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.RemoteInput;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 // FirebaseRecyclerAdapter is a class provided by
 // FirebaseUI. it provides functions to bind, adapt and show
 // database contents in a Recycler View
-public class offerAdapter extends FirebaseRecyclerAdapter<
-        Offer, offerAdapter.offersViewholder> {
+public class OfferAdapter extends FirebaseRecyclerAdapter<
+        Offer, OfferAdapter.offersViewholder> {
 
 
     /**
@@ -40,7 +25,7 @@ public class offerAdapter extends FirebaseRecyclerAdapter<
      *
      * @param options
      */
-    public offerAdapter(@NonNull FirebaseRecyclerOptions<Offer> options) {
+    public OfferAdapter(@NonNull FirebaseRecyclerOptions<Offer> options) {
         super(options);
     }
 
@@ -68,7 +53,7 @@ public class offerAdapter extends FirebaseRecyclerAdapter<
         View view
                 = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.job_offer, parent, false);
-        return new offerAdapter.offersViewholder(view);
+        return new OfferAdapter.offersViewholder(view);
     }
 
 
