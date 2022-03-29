@@ -9,6 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
@@ -32,6 +35,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
         holder.tvTitle.setText(job.getJobTitle());
         holder.tvDesc.setText(job.getDescription());
         holder.tvLocation.setText("location:"+job.getLocation().getLatitude() +"-"+job.getLocation().getLongitude());
+        holder.tvJobCategory.setText(job.getCategory());
     }
 
     @Override
@@ -43,11 +47,13 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
         TextView tvTitle;
         TextView tvDesc;
         TextView tvLocation;
+        TextView tvJobCategory;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvTitle = itemView.findViewById(R.id.payUserTitle);
             tvDesc = itemView.findViewById(R.id.tvDesc);
             tvLocation = itemView.findViewById(R.id.tvLocation);
+            tvJobCategory = itemView.findViewById(R.id.jobCategoryTV);
         }
     }
 }

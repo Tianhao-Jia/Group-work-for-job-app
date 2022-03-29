@@ -43,7 +43,7 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(AndroidJUnit4.class)
-public class CreateJobEspresso {
+public class CreateJobEspressoTest {
 
     private static final FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
     private static final DatabaseReference jobsRef = firebaseDB.getReference().child(FirebaseUtils.JOBS_COLLECTION);

@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, RegisterUser.class));
+                startActivity(new Intent(LoginActivity.this, GoogleMapsActivity.class));
             }
         });
 
@@ -99,6 +99,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     String checkEmail = dataSnapshot.child("email").getValue(String.class);
                     String checkPassword = dataSnapshot.child("password").getValue(String.class);
+                    String firstName = dataSnapshot.child("firstName").getValue(String.class);
+                    String lastName = dataSnapshot.child("lastName").getValue(String.class);
 
                     boolean passwordIsSame = passwordInput.equals(checkPassword);
                     boolean emailIsSame = usernameInput.equals(checkEmail);
@@ -116,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                             intent = new Intent(LoginActivity.this, EmployerActivity.class);
                         }
                         Session.login(checkEmail, userID, userType);
+                        Session.name(firstName,lastName);
                         startActivity(intent);
                         break;
 

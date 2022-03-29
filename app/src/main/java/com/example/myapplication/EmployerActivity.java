@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,12 +34,13 @@ public class EmployerActivity extends AppCompatActivity {
 
     TextView loginDisplay;
     Button logoutButton, createJobButton, searchButton, viewApplications;
-    Button openmaps, reviewEmployee;
+    Button openmaps, payButton, yourJobsButton, reviewEmployee;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employer);
+
         openmaps = findViewById(R.id.check);
         loginDisplay = (TextView) findViewById(R.id.employerLoginDisplay);
         logoutButton = (Button) findViewById(R.id.employerLogoutButton);
@@ -46,7 +48,8 @@ public class EmployerActivity extends AppCompatActivity {
         searchButton = (Button) findViewById(R.id.employerSearchButton);
         viewApplications = (Button) findViewById(R.id.employerApplications);
         reviewEmployee = (Button) findViewById(R.id.makeAReview_employer);
-
+        yourJobsButton = (Button) findViewById(R.id.employerYourJobsButton);
+        payButton = (Button) findViewById(R.id.employerPayButton);
 
         if (!Session.checkLogin()) {
             //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
@@ -106,6 +109,27 @@ public class EmployerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(EmployerActivity.this, MapsActivity.class));
+            }
+        });
+
+        payButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, SendPayment.class));
+            }
+        });
+
+
+        yourJobsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, JobEmployerActivity.class));
+            }
+        });
+        findViewById(R.id.employerHistory).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EmployerActivity.this, HistoryActivity.class));
             }
         });
     }

@@ -13,29 +13,35 @@ public class Job implements Serializable {
     private String description;
     private String userHash;
     private double compensation = 0;
-
+    private String category;
     private Location location;
 
     /**
      * REQUIRED FOR JOBSEARCH TO WORK. No args constructor
      */
-    public Job() {
+    public Job() {}
 
-        this.location = new Location(0,0);
-
-    }
 
     /**
      * Default constructor for AppCompatActivity. All Activities must have a default constructor
      * for API 27 and lower devices or when using the default
      * {@link AppComponentFactory}.
      */
-    public Job(String employerEmail, String jobTitle, String description, Location location, String userHash) {
+    public Job(String employerEmail, String jobTitle, String description, Location location, String userHash, String category) {
         this.employerEmail = employerEmail;
         this.jobTitle = jobTitle;
         this.description = description;
         this.location = location;
         this.userHash = userHash;
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getEmployerEmail() {

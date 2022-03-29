@@ -26,18 +26,44 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/employerApplications"
+        android:id="@+id/employerHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Applications"
-        app:layout_constraintBottom_toTopOf="@id/employerSearchButton"
+        android:text="History"
+        app:layout_constraintBottom_toTopOf="@id/check"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+    <Button
+        android:id="@+id/employerApplications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Applications"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createJob" />
+
+
+    <Button
+        android:id="@+id/employerPayButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="PAY EMPLOYEE"
+        app:layout_constraintEnd_toEndOf="@+id/employerSearchButton"
+        app:layout_constraintTop_toBottomOf="@+id/employerSearchButton" />
+
+    <Button
+        android:id="@+id/employerYourJobsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:text="YOUR JOBS"
+        app:layout_constraintStart_toStartOf="@+id/employerLogoutButton"
+        app:layout_constraintTop_toBottomOf="@+id/employerPayButton" />
 
     <Button
         android:id="@+id/createJob"
@@ -93,6 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/employerLoginDisplay"
         app:layout_constraintVertical_bias="0.725" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

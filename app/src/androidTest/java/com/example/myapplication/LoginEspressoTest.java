@@ -44,7 +44,7 @@ import java.util.Map;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class LoginTest {
+public class LoginEspressoTest {
 
     private static final String employerKey = "tempEmployer";
     private static final String employeeKey = "tempEmployee";

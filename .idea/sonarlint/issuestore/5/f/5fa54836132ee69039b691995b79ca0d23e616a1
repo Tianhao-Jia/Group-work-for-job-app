@@ -1,35 +1,0 @@
-
-?
-java:S1659O"$Declare "ignore" on a separate line.(·…ÿÝúÿÿÿÿ
-m
-java:S3776Q"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(ñº¿üÿÿÿÿ
-˜
-java:S1186‚"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
-—
-java:S1186y"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
-˜
-java:S1186¡"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
-4
-java:S1128"Remove this duplicated import.(À¯ÑÇ
-9
-java:S1128"Remove this duplicated import.(Ø½­äþÿÿÿÿ
-4
-java:S1128"Remove this duplicated import.(‹îá
-9
-java:S1128"Remove this duplicated import.(„Ë‚ˆÿÿÿÿÿ
-4
-java:S1128"Remove this duplicated import.(ˆÛúÜ
-4
-java:S1128"Remove this duplicated import.(Ø£®
-b
-java:S1192c"LDefine a constant instead of duplicating this literal "description" 3 times.(„õý×
-d
-java:S1192c"NDefine a constant instead of duplicating this literal "employeeEmail" 3 times.(„õý×
-h
-java:S1192\"MDefine a constant instead of duplicating this literal "applications" 4 times.(ÇŸƒ·ýÿÿÿÿ
->
-java:S1604X"(Make this anonymous inner class a lambda(¤ÿŽ¬
-D
-java:S1604‰"(Make this anonymous inner class a lambda(£þ¡¼ÿÿÿÿÿ
-g	java:S101 "MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ì¬¸îùÿÿÿÿ
-g	java:S101L"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ùÔ¢Øüÿÿÿÿ
