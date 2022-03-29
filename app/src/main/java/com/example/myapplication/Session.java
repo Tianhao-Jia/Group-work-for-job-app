@@ -51,7 +51,12 @@ public class Session  {
 
         return editor.commit();
     }
+    public static boolean name(String first, String last) {
+        editor.putString(F_NAME, first);
+        editor.putString(L_NAME, last);
 
+        return editor.commit();
+    }
     public static boolean login(String email, String userID, String userType, Location location) {
         editor.putString(EMAIL, email);
         editor.putString(ID, userID);
