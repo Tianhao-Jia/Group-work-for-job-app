@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/jobTitleVar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:gravity="center"
+        android:text="jobTitleVar" />
+
+    <TextView
+        android:id="@+id/jobDescVar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:gravity="center"
+        android:text="jobDescVar"
+        android:layout_below="@id/jobTitleVar" />
+
+    <TextView
+        android:id="@+id/jobCompVar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:gravity="center"
+        android:text="jobCompVar"
+        android:layout_below="@id/jobDescVar" />
+
+    <TextView
+        android:id="@+id/jobEmpVar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:gravity="center"
+        android:text="jobEmpVar"
+        android:layout_below="@id/jobCompVar" />
+
+    <TextView
+        android:id="@+id/jobCatVar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:gravity="center"
+        android:text="jobCatVar"
+        android:layout_below="@id/jobEmpVar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/jobCatVar"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/acceptBtn"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:text="Accept"
+            android:layout_weight="1.0" />
+
+        <Button
+            android:id="@+id/declineBtn"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_weight="1.0"
+            android:text="Decline" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

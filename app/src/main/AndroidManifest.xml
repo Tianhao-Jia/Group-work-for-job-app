@@ -91,6 +91,7 @@
         <activity android:name=".JobsActivity" />
         <activity android:name=".MyJobsActivity" />
         <activity android:name=".MyPaymentsActivity" />
+        <activity android:name=".JobPopupWindow"/>
     </application>
 
 </manifest>

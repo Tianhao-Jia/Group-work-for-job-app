@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -285,5 +286,8 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
     @Override
     public void onInfoWindowClick(@NonNull Marker marker) {
 
+        //Get marker's job info, pass to JobPopupWindow
+
+        startActivity(new Intent(JobsMapActivity.this, JobPopupWindow.class));
     }
 }
