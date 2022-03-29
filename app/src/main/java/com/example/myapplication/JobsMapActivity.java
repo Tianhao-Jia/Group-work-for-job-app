@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallback,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener, LocationListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener, LocationListener, GoogleMap.OnInfoWindowClickListener {
 
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
@@ -212,6 +212,7 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.setOnMarkerClickListener(this);
+        mMap.setOnInfoWindowClickListener(this);
     }
 
     protected void placeMarkerOnMap(LatLng location) {
@@ -281,4 +282,8 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
         return false;
     }
 
+    @Override
+    public void onInfoWindowClick(@NonNull Marker marker) {
+
+    }
 }
