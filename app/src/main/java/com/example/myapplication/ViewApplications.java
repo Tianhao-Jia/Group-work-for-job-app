@@ -94,12 +94,12 @@ public class ViewApplications extends Activity {
                 startActivity(intent);
             }
         });
-        Application test = new Application("bruh@gmail.com", true, true, "bruh");
-        test.setEmployerEmail(Session.getEmail());
-        test.setPaid(false);
-        test.setJobID("-Mycj7F0xVYJ37zU3pwy");
-        pushApplication(FirebaseDatabase.getInstance().getReference("applications").child(Session.getUserID()),
-                test);
+//        Application test = new Application("bruh@gmail.com", true, true, "bruh");
+//        test.setEmployerEmail(Session.getEmail());
+//        test.setPaid(false);
+//        test.setJobID("-Mycj7F0xVYJ37zU3pwy");
+//        pushApplication(FirebaseDatabase.getInstance().getReference("applications").child(Session.getUserID()),
+//                test);
     }
 
     protected void pushApplication(DatabaseReference application, Application app) {
