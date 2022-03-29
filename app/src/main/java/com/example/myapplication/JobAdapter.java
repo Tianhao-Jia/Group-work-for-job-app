@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
