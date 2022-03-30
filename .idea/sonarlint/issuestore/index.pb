@@ -1,6 +1,4 @@
 
-i
-9app/src/main/java/com/example/myapplication/Register.java,2\3\23182a29b597853118d18c582d57fb5ad62f43cc
 A
 gradle.properties,2\a\2afbb999f001938c88fa43fc2ef52abf0f8213e4
 F
@@ -74,8 +72,6 @@ Bapp/src/test/java/com/example/myapplication/HaversineDistance.java,0\3\039f75e
 u
 Eapp/src/test/java/com/example/myapplication/MainActivityUnitTest.java,1\8\18eddebf6ba3523321cbefd20ee0721b4eb8d14a
 €
-Papp/src/androidTest/java/com/example/myapplication/RegisterUserEspressoTest.java,9\3\93f3ce514e3c732fc1739e8a64158fd334adfe0f
-€
 Papp/src/androidTest/java/com/example/myapplication/MainActivityEspressoTest.java,7\f\7fcd81a3325cbb60d4181c684fb2117b66f1b18c
 d
 4app/src/main/java/com/example/myapplication/Job.java,c\6\c6b6e4a84b00de43b14dda1a41dddd744b91df38
@@ -87,5 +83,3 @@ i
 9app/src/main/java/com/example/myapplication/Employer.java,f\d\fd286cc91746899ea9bc8393637be6d43b25b9fa
 q
 Aapp/src/main/java/com/example/myapplication/EmployerActivity.java,7\a\7a5be1385c055465b43b6d2bc3dbfa9ef0623f61
-P
- app/src/main/AndroidManifest.xml,8\c\8c55c3ccc257e5907959013f99656e4c8ec3903e
