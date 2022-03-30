@@ -97,7 +97,6 @@ public class JobsActivity  extends AppCompatActivity implements GoogleApiClient.
                     }else{
                         list.add(job);
                     }
-
                 }
                 adapter.notifyDataSetChanged();
             }

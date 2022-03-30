@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseDBRef = firebaseDB.getReference();
 
         Button loginActivity = (Button) findViewById(R.id.mainLogin);
-        setIntent(loginActivity, SendPayment.class);
+        setIntent(loginActivity, LoginActivity.class);
 
         //for debugging the user story 2 iteration 3
         //setIntent(loginActivity, JobEmployerActivity.class);

@@ -17,7 +17,7 @@ public class Job implements Serializable {
     private Location location;
 
     /**
-     * REQUIRED FOR JOBSEARCH TO WORK. No args constructor.
+     * REQUIRED FOR JOBSEARCH TO WORK. No args constructor
      */
     public Job() {}
 
