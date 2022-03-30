@@ -7,6 +7,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import java.util.List;
 public class JobEmployerActivity extends Activity {
     private FirebaseDatabase firebaseDB;
     private DatabaseReference firebaseDBRef;
+    private TextView noJobsTextView;
     private RecyclerView recyclerview;
     private JobEmployerAdapter adapter;
     public List<Job> list = new ArrayList<>();
@@ -39,6 +41,7 @@ public class JobEmployerActivity extends Activity {
         setContentView(R.layout.job_employer);
         firebaseDB = FirebaseUtils.connectFirebase();
         firebaseDBRef = firebaseDB.getReference(FirebaseUtils.JOBS_COLLECTION);
+        noJobsTextView = findViewById(R.id.employerJobsNoJobs);
         recyclerview = findViewById(R.id.employerJobsRecyclerView);
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new JobEmployerAdapter(list);
@@ -68,6 +71,13 @@ public class JobEmployerActivity extends Activity {
                     }
 
                 }
+                if (list.isEmpty()) {
+                    noJobsTextView.setVisibility(View.VISIBLE);
+                }
+                else {
+                    noJobsTextView.setVisibility(View.GONE);
+                }
+                
                 adapter.notifyDataSetChanged();
             }
 

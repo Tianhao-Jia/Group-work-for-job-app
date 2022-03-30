@@ -1,13 +1,0 @@
-
-o
-java:S1450"YRemove the "firebaseDB" field and declare it as a local variable in the relevant methods.(ÃòÕÅ
-q
-java:S1450 "[Remove the "recyclerview" field and declare it as a local variable in the relevant methods.(ß çœ
-—
-java:S1186K"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
-=
-java:S1185R"(Remove this method to simply inherit it.(ºŠñ=
-C
-java:S1185W"(Remove this method to simply inherit it.(èüù±ùÿÿÿÿ
-k
-java:S1104""PMake list a static final constant or non-public and provide accessors if needed.(Àê’Îþÿÿÿÿ
