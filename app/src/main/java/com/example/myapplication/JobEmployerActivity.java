@@ -77,7 +77,7 @@ public class JobEmployerActivity extends Activity {
                 else {
                     noJobsTextView.setVisibility(View.GONE);
                 }
-                
+
                 adapter.notifyDataSetChanged();
             }
 
