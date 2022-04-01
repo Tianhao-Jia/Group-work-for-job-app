@@ -74,8 +74,16 @@ public class reviewView extends AppCompatActivity {
                             }
                         }
                         firebaseDBRef.child(key[0]).setValue(um[0]);
-                        Intent intent = new Intent(reviewView.this, EmployerActivity.class);
-                        startActivity(intent);
+                        if (Session.getUserType().equalsIgnoreCase("employer")) {
+                            Intent intent = new Intent(reviewView.this, EmployerActivity.class);
+                            startActivity(intent);
+                        }
+                        else if (Session.getUserType().equalsIgnoreCase("employee")){
+                            Intent intent = new Intent(reviewView.this, EmployeeActivity.class);
+                            startActivity(intent);
+                        }
+
+
 
                     }
 

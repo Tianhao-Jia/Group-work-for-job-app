@@ -124,7 +124,7 @@ public class applicationAdapter extends FirebaseRecyclerAdapter<
 
                                                     FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
                                                             .getReference()
-                                                            .child("colleagues").child(Session.getUserID()).child(dataSnapshot.getKey()).setValue(employee_col);
+                                                            .child("colleagues").child(Session.getUserID()).child(user.child("hash").getValue().toString()).setValue(employee_col);
                                                 }
                                                 }
                                             }

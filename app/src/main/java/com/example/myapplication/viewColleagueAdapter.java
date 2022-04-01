@@ -60,7 +60,6 @@ public class viewColleagueAdapter extends RecyclerView.Adapter<viewColleagueAdap
         firebaseDBRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //Log.d("message",snapshot.getValue().toString());
                 for (DataSnapshot datasnapshot: snapshot.getChildren()){
                     User um = datasnapshot.getValue(User.class);
 
@@ -82,12 +81,10 @@ public class viewColleagueAdapter extends RecyclerView.Adapter<viewColleagueAdap
         holder.review_person_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 int pos = holder.getAbsoluteAdapterPosition();
                 Session.reviewing_user(options.get(pos).getEmail());
                 Intent intent =  new Intent(context, reviewView.class);
                 context.startActivity(intent);
-
             }
         });
 
