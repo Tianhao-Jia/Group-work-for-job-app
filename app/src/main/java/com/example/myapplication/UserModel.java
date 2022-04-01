@@ -21,6 +21,7 @@ public class UserModel {
     private String imageUrl;
     private String name;
 
+
     // getters and setters
     public String getUid() {
         return uid;
@@ -45,5 +46,7 @@ public class UserModel {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }
 
