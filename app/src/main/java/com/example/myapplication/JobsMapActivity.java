@@ -236,10 +236,15 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
             LatLng jobLocation = new LatLng(job.getLocation().getLatitude(), job.getLocation().getLongitude());
             String titleStr = job.getJobTitle();
 
+            //Get distance to one decimal place
+            double distanceToOneDecimal = Math.round(distance*10.0)/10.0;
+
+            String snip = job.getDescription() + " (Distance: " + distanceToOneDecimal + "km)";
+
             Marker greenJob = mMap.addMarker(new MarkerOptions()
                     .position(jobLocation)
                     .title(titleStr)
-                    .snippet(job.getDescription())
+                    .snippet(snip)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         }
         else
@@ -247,10 +252,15 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
             LatLng jobLocation = new LatLng(job.getLocation().getLatitude(), job.getLocation().getLongitude());
             String titleStr = job.getJobTitle();
 
+            //Get distance to one decimal place
+            double distanceToOneDecimal = Math.round(distance*10.0)/10.0;
+
+            String snip = job.getDescription() + " (Distance: " + distanceToOneDecimal + "km)";
+
             Marker yellowJob = mMap.addMarker(new MarkerOptions()
                     .position(jobLocation)
                     .title(titleStr)
-                    .snippet(job.getDescription())
+                    .snippet(snip)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
         }
     }
