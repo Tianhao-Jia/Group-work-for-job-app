@@ -106,8 +106,7 @@
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/employeeLoginDisplay"
-        app:layout_constraintVertical_bias="0.877" />
-
+        app:layout_constraintVertical_bias="0.774" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
