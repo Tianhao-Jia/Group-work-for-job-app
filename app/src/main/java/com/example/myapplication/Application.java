@@ -2,12 +2,15 @@ package com.example.myapplication;
 
 public class Application {
     private String employeeEmail;
-    private Boolean accepted;
-    private Boolean seen;
+    private boolean accepted;
+    private boolean seen;
     private String description;
     private boolean paid;
     private String employerEmail;
     private String jobID;
+
+
+    public Application(){}
 
     public Application(String employeeEmail, boolean accepted, Boolean seen, String description) {
         this.employeeEmail = employeeEmail;
@@ -62,5 +65,4 @@ public class Application {
     }
     public void setDescription(String description){this.description = description;}
 
-    public Application(){};
 }

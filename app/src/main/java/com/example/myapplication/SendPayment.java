@@ -50,7 +50,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     //Recycler view components
     private RecyclerView payRecyclerView;
     private PayAdapter  payAdapter;
-    private ArrayList<Application> applications = new ArrayList<>();
+    private  ArrayList<Application> applications = new ArrayList<>();
     private ArrayList<String> appKeys = new ArrayList<>();
 
     // Paypal Configuration Object
@@ -68,7 +68,6 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Session.startSession(this);
         setContentView(R.layout.job_payment);
         payRecyclerView = findViewById(R.id.paymentRecycler);
         refreshBtn = findViewById(R.id.payRefreshBtn);
