@@ -1,0 +1,25 @@
+
+i
+java:S1659#"LDeclare "createJobButton" and all following declarations on a separate line.(Üş›·8ÀÕßºı/
+h
+java:S1659$"FDeclare "payButton" and all following declarations on a separate line.(´äÌ†ÿÿÿÿÿ8ÀÕßºı/
+v
+java:S1450"YRemove the "firebaseDB" field and declare it as a local variable in the relevant methods.(ÃòÕÅ8ÁÕßºı/
+A
+java:S1144~"+Remove this unused private "logout" method.(…™®€
+J
+java:S1604:"(Make this anonymous inner class a lambda(õ©ñ£øÿÿÿÿ8‡×ßºı/
+J
+java:S1604D"(Make this anonymous inner class a lambda(ŒÎãøÿÿÿÿ8‡×ßºı/
+J
+java:S1604K"(Make this anonymous inner class a lambda(îÁ½Øşÿÿÿÿ8ˆ×ßºı/
+E
+java:S1604T"(Make this anonymous inner class a lambda(ş¡ôš8ˆ×ßºı/
+E
+java:S1604\"(Make this anonymous inner class a lambda(©†˜Ï8ˆ×ßºı/
+J
+java:S1604c"(Make this anonymous inner class a lambda(Á‚øÀüÿÿÿÿ8‰×ßºı/
+E
+java:S1604k"(Make this anonymous inner class a lambda(ú®²š8‰×ßºı/
+J
+java:S1604q"(Make this anonymous inner class a lambda(¯§óıÿÿÿÿÿ8‰×ßºı/
