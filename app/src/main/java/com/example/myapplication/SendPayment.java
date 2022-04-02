@@ -63,14 +63,13 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
             .clientId(clientKey);
 
 
-    private TextView paymentTV;
     private Button refreshBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Session.startSession(this);
         setContentView(R.layout.job_payment);
-        paymentTV = findViewById(R.id.paymentTV);
         payRecyclerView = findViewById(R.id.paymentRecycler);
         refreshBtn = findViewById(R.id.payRefreshBtn);
 
@@ -129,7 +128,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     @Override
     public void onPayClick(int position) {
         Application app = applications.get(position);
-
+        String userID = Session.getUserID();
 
         //Get payment amount for job and then add payment record to database
         firebaseDBRefJobs.child(app.getJobID()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -146,7 +145,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
                         //Add payment record to database
                         storePayment(app, compensation);
                         app.setPaid(true);
-                        firebaseDB.getReference("applications").child(Session.getUserID())
+                        firebaseDB.getReference("applications").child(userID)
                                 .child(appKeys.get(position))
                                 .setValue(app);
 

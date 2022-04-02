@@ -94,21 +94,22 @@
         android:text="Logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.549" />
+        app:layout_constraintVertical_bias="0.625" />
 
     <Button
         android:id="@+id/makeAReview_employer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Make a review"
+        android:layout_marginTop="148dp"
 
+        android:text="Make a review"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/employerSearchButton"
-        app:layout_constraintVertical_bias="0.725" />
+        app:layout_constraintTop_toBottomOf="@+id/employerSearchButton" />
 
     <Button
         android:id="@+id/check"

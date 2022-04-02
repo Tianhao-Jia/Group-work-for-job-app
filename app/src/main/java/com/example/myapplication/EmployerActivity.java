@@ -50,12 +50,12 @@ public class EmployerActivity extends AppCompatActivity {
         reviewEmployee = (Button) findViewById(R.id.makeAReview_employer);
         yourJobsButton = (Button) findViewById(R.id.employerYourJobsButton);
         payButton = (Button) findViewById(R.id.employerPayButton);
-
-        if (!Session.checkLogin()) {
-            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
-            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
-            startActivity(intent);
-        }
+//
+//        if (!Session.checkLogin()) {
+//            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
+//            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
+//            startActivity(intent);
+//        }
 
 //        Colleague newColl = new Colleague("john@dal.ca","john");
 //        Colleague newColl2 = new Colleague("joe@dal.ca","joe");

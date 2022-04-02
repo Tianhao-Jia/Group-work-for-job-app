@@ -56,7 +56,7 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
         Application app = apps.get(position);
 
         holder.jobTitle.setText(app.getDescription());
-        holder.jobPrice.setText("60");
+        holder.employeeEmail.setText(app.getEmployeeEmail());
 
         holder.payUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +87,7 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
     public static class PayViewHolder extends RecyclerView.ViewHolder {
 
         TextView jobTitle;
-        TextView jobPrice;
+        TextView employeeEmail;
         Button cancel;
         Button payUser;
         IJobListener jobListener;
@@ -98,7 +98,7 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
             jobTitle = itemView.findViewById(R.id.payUserTitle);
             payUser = itemView.findViewById(R.id.payUserBtn);
             cancel = itemView.findViewById(R.id.payCancelBtn);
-            jobPrice = itemView.findViewById(R.id.jobCompTV);
+            employeeEmail = itemView.findViewById(R.id.jobCompTV);
 
             this.jobListener = jobListener;
         }
