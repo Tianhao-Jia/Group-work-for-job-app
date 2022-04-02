@@ -31,10 +31,10 @@ import java.util.Map;
 @RunWith(AndroidJUnit4.class)
 public class RegisterUserEspressoTest {
 
-    private static String userEmail = "george.smith@dal.ca";
-    private static String userFName = "George";
-    private static String userLName = "Smith";
-    private static String password = "password123";
+    private static String userEmail = "george.smith@dal.ca\n";
+    private static String userFName = "George\n";
+    private static String userLName = "Smith\n";
+    private static String password = "password123\n";
 
     @Rule
     public ActivityScenarioRule rule  = new ActivityScenarioRule<>(RegisterUser.class);
@@ -94,9 +94,9 @@ public class RegisterUserEspressoTest {
                 .setValue(map);
 
         // Assume that an 'example' record already exists on Firebase with these details
-        onView(withId(R.id.registerFirstName)).perform(typeText("John"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Adams"));
-        onView(withId(R.id.registerEmail)).perform(typeText("john.adams@dal.ca"));
+        onView(withId(R.id.registerFirstName)).perform(typeText("John\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Adams\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("john.adams@dal.ca\n"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
@@ -113,8 +113,8 @@ public class RegisterUserEspressoTest {
      */
     @Test
     public void requiredFieldNotFilledTest(){
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
+        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
 
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerButton)).perform(click());
@@ -130,11 +130,10 @@ public class RegisterUserEspressoTest {
       */
     @Test
     public void allRequiredFieldsFilledEmployee() {
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
+        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123\n"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
@@ -154,11 +153,10 @@ public class RegisterUserEspressoTest {
     //Also will add database mocks to make sure user doesn't already exist
     @Test
     public void allRequiredFieldsFilledEmployer() {
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
+        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123\n"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Employer"))).perform(click());
@@ -177,8 +175,9 @@ public class RegisterUserEspressoTest {
      */
     @Test
     public void requiredFieldsNotFilled() {
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
+        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
         Espresso.closeSoftKeyboard();
 
         onView(withId(R.id.registerUserSpinner)).perform(click());
@@ -197,9 +196,9 @@ public class RegisterUserEspressoTest {
      */
     @Test
     public void requiredFieldsNotFilledPassword() {
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
+        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
@@ -217,11 +216,10 @@ public class RegisterUserEspressoTest {
      */
     @Test
     public void redirectToLoginPageEmployee() {
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
+        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123\n"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Employee"))).perform(click());
@@ -239,11 +237,10 @@ public class RegisterUserEspressoTest {
      */
     @Test
     public void redirectToLoginPageEmployer() {
-        onView(withId(R.id.registerFirstName)).perform(typeText("George"));
-        onView(withId(R.id.registerLastName)).perform(typeText("Smith"));
-        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123"));
+        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
+        onView(withId(R.id.registerPasswordET)).perform(typeText("Password123\n"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.registerUserSpinner)).perform(click());
         onData(allOf(is(instanceOf(String.class)), is("Employer"))).perform(click());

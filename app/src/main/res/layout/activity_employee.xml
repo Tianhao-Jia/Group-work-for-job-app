@@ -11,7 +11,7 @@
         android:id="@+id/appCompatTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Currently at Employee Activity"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,7 +21,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Hello"
+        android:text="Welcome Employee!"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,84 +33,76 @@
 
 
     <Button
-        android:id="@+id/viewOffers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="96dp"
-        android:text="View Offers"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/employeeSearchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="140dp"
-        android:text="Search for Jobs"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/employeeLogoutButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/employeeLogoutButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Search for Jobs"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        tools:ignore="UnknownId" />
+        app:layout_constraintTop_toBottomOf="@+id/jobs" />
 
     <Button
-        android:id="@+id/mapbutton"
+        android:id="@+id/viewOffers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Check your place"
-        app:layout_constraintBottom_toTopOf="@+id/employeeLogoutButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/employeeLoginDisplay" />
-
-
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="8dp"
+        android:text="View Offers"
+        app:layout_constraintStart_toStartOf="@+id/employeeSearchButton"
+        app:layout_constraintTop_toBottomOf="@+id/employeeSearchButton" />
 
     <Button
         android:id="@+id/makeAReview_employee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="8dp"
         android:text="Make a review"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/mapbutton"
-        app:layout_constraintVertical_bias="0.725" />
-
-    <Button
-        android:id="@+id/jobs"
-        android:layout_width="308dp"
-        android:layout_height="41dp"
-        android:layout_marginTop="24dp"
-        android:text="Get jobs less than 100km"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mapbutton" />
+        app:layout_constraintStart_toStartOf="@+id/mapbutton"
+        app:layout_constraintTop_toBottomOf="@+id/showJobsOnMapButton" />
 
     <Button
         android:id="@+id/showJobsOnMapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="214dp"
         android:text="Find Nearby Jobs"
-        app:layout_constraintBottom_toTopOf="@+id/mapbutton"
+        app:layout_constraintEnd_toEndOf="@+id/mapbutton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/jobs"
+        android:layout_width="0dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="51dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="51dp"
+        android:text="Get jobs less than 10km"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/employeeLoginDisplay"
-        app:layout_constraintVertical_bias="0.774" />
+        app:layout_constraintTop_toBottomOf="@+id/mapbutton" />
+
+    <Button
+        android:id="@+id/mapbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Check your place"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/makeAReview_employee" />
+
+    <Button
+        android:id="@+id/employeeLogoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="Logout"
+        app:layout_constraintStart_toStartOf="@+id/viewOffers"
+        app:layout_constraintTop_toBottomOf="@+id/viewOffers"
+        tools:ignore="UnknownId" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

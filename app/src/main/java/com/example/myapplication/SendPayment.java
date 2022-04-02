@@ -134,7 +134,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
         firebaseDBRefJobs.child(app.getJobID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot != null) {
+                if(dataSnapshot.getValue(Job.class) != null) {
                     Job job = dataSnapshot.getValue(Job.class);
                     double compensation = job.getCompensation();
                     String jobTitle = job.getJobTitle();
@@ -153,6 +153,10 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
                         getPaymentPendingApplications(Session.getUserID());
                     }
 
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Could not find linked job!",
+                            Toast.LENGTH_SHORT ).show();
                 }
             }
 
