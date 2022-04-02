@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDB;
     private DatabaseReference firebaseDBRef;
 
+
     EditText id,password;
     Button login,signup;
     TextView status;

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.myapplication">
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -34,38 +35,50 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name="com.example.myapplication.RegisterUser"
+            android:exported="false" />
+        <activity
             android:name=".JobEmployerActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterUser"
+            android:name="com.example.myapplication.EmployeeActivity"
             android:exported="false" />
         <activity
-            android:name=".EmployeeActivity"
+            android:name="com.example.myapplication.EmployerActivity"
             android:exported="false" />
         <activity
-            android:name=".EmployerActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MapsActivity"
+            android:name="com.example.myapplication.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".JobSearch"
+            android:name="com.example.myapplication.JobSearch"
             android:exported="false" />
         <activity
-            android:name=".ViewApplications"
+            android:name="com.example.myapplication.BrowseColleagues"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+
+        <activity
+            android:name="com.example.myapplication.reviewView"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name="com.example.myapplication.ViewApplications"
+            android:exported="false" />
+
+        <activity
+            android:name="com.example.myapplication.ViewOffers"
+            android:exported="false" />
+
+
+        <activity
+            android:name="com.example.myapplication.Register"
             android:exported="false" />
         <activity
-            android:name=".ViewOffers"
+            android:name="com.example.myapplication.CreateJob"
             android:exported="false" />
         <activity
-            android:name=".Register"
-            android:exported="false" />
-        <activity
-            android:name=".CreateJob"
-            android:exported="false" />
-        <activity
-            android:name=".GoogleMapsActivity"
+            android:name="com.example.myapplication.GoogleMapsActivity"
             android:exported="false"
             android:label="@string/title_activity_google_maps" />
         <activity

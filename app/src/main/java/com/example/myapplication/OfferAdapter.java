@@ -29,24 +29,15 @@ public class OfferAdapter extends FirebaseRecyclerAdapter<
         super(options);
     }
 
-    // Function to bind the view in Card view(here
-    // "person.xml") iwth data in
-    // model class(here "person.class")
     @Override
     protected void
     onBindViewHolder(@NonNull offersViewholder holder,
                      int position, @NonNull Offer model) {
 
-        // Add firstname from model class (here
-        // "person.class")to appropriate view in Card
-        // view (here "person.xml")
         holder.employerEmail.setText(model.getEmployerEmail());
         holder.description.setText(model.getDescription());
     }
 
-    // Function to tell the class about the Card view (here
-    // "person.xml")in
-    // which the data will be shown
     @NonNull
     @Override
     public offersViewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,8 +48,6 @@ public class OfferAdapter extends FirebaseRecyclerAdapter<
     }
 
 
-    // Sub Class to create references of the views in Crad
-    // view (here "person.xml")
     class offersViewholder extends RecyclerView.ViewHolder {
         TextView employerEmail;
         TextView description;

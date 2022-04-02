@@ -116,6 +116,15 @@ public class applicationAdapter extends FirebaseRecyclerAdapter<
                                                     FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
                                                             .getReference()
                                                             .child("offers").child(user.getKey()).child(dataSnapshot.getKey()).setValue(offer);
+                                                    Colleague employer_col = new Colleague(Session.getEmail(), Session.getFName() + " " + Session.getLName());
+                                                    Colleague employee_col = new Colleague(user.child("email").getValue().toString(), user.child("firstName").getValue().toString() + " " + user.child("lastName").getValue().toString());
+                                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+                                                            .getReference()
+                                                            .child("colleagues").child(user.getKey()).child(Session.getUserID()).setValue(employer_col);
+
+                                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+                                                            .getReference()
+                                                            .child("colleagues").child(Session.getUserID()).child(user.child("hash").getValue().toString()).setValue(employee_col);
                                                 }
                                                 }
                                             }
