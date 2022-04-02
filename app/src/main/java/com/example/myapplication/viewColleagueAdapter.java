@@ -27,12 +27,15 @@ import java.util.ArrayList;
 
 public class viewColleagueAdapter extends RecyclerView.Adapter<viewColleagueAdapter.ColleaguesViewholder> {
 
-    private ArrayList<Colleague> options;
+    private static ArrayList<Colleague> options;
 
     public viewColleagueAdapter(ArrayList<Colleague> options) {
         this.options = options;
     }
 
+    public static int getLength(){
+        return options.size();
+    }
 
     public ColleaguesViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.review_person_info, parent, false);

@@ -15,6 +15,9 @@ public class User {
     String userType;
 
     public void addReview(double review){
+        if (review > 5 || review < 1){
+            return;
+        }
         average_rating = ((average_rating * num_reviews) + review)/(num_reviews+1);
         num_reviews++;
     }
