@@ -326,6 +326,10 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
 
                                         double distanceToEmployee = location.getHaversineDistance(employeeLocation);
                                         if (location.withinDistance(desiredDistance, distanceToEmployee)) {
+
+                                            //setting the number of significant digits
+                                            distanceToEmployee = Math.round(distanceToEmployee * 100.0) / 100.0;
+                                            
                                             employee.setDistance(distanceToEmployee);
                                             listDistance.add(employee);
                                         }

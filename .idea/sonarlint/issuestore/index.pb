@@ -31,14 +31,10 @@ s
 Capp/src/main/java/com/example/myapplication/applicationAdapter.java,5\f\5fa54836132ee69039b691995b79ca0d23e616a1
 l
 <app/src/main/java/com/example/myapplication/Application.java,b\1\b12875d299040d99ec07143e7c4b0926652324e3
-m
-=app/src/main/java/com/example/myapplication/JobsActivity.java,2\4\24b4d0f37504f7a283cad1734c07e8cd04ee7b5d
 f
 6app/src/main/java/com/example/myapplication/Offer.java,3\7\370c5782bfa2da969f56d33d0bd7475e04882c0b
 h
 8app/src/main/java/com/example/myapplication/Session.java,c\d\cd7aff7e2be8ef8e72ddeb5f0932d56594aca613
-j
-:app/src/main/java/com/example/myapplication/JobSearch.java,d\e\de0bf7077ca1f2e1cf6b328dd15e810bb662067a
 s
 Capp/src/main/java/com/example/myapplication/JobEmployeeAdapter.java,6\1\61302863d21eddfab18b078a3223126c63600e46
 q
