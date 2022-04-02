@@ -74,6 +74,8 @@
         <activity
             android:name=".ViewOffers"
             android:exported="false" />
+
+
         <activity
             android:name=".Register"
             android:exported="false" />
