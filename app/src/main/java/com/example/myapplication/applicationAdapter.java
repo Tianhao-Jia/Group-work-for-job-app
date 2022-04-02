@@ -116,6 +116,15 @@ public class applicationAdapter extends FirebaseRecyclerAdapter<
                                                     FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
                                                             .getReference()
                                                             .child("offers").child(user.getKey()).child(dataSnapshot.getKey()).setValue(offer);
+                                                    Colleague employer_col = new Colleague(Session.getEmail(), Session.getFName() + " " + Session.getLName());
+                                                    Colleague employee_col = new Colleague(user.child("email").getValue().toString(), user.child("firstName").getValue().toString() + " " + user.child("lastName").getValue().toString());
+                                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+                                                            .getReference()
+                                                            .child("colleagues").child(user.getKey()).child(Session.getUserID()).setValue(employer_col);
+
+                                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+                                                            .getReference()
+                                                            .child("colleagues").child(Session.getUserID()).child(user.child("hash").getValue().toString()).setValue(employee_col);
                                                 }
                                                 }
                                             }
@@ -137,32 +146,32 @@ public class applicationAdapter extends FirebaseRecyclerAdapter<
                 }
             });
 
-//            ignore.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-//                    DatabaseReference appRef = firebaseDB.getReference().child("applications").child(Session.getUserID());
-//                    appRef.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//
-//                                if (dataSnapshot.child("employeeEmail").getValue().toString().equals(employeeEmail.getText().toString()) && dataSnapshot.child("description").getValue().toString().equals(description.getText().toString())){
-//
-//                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
-//                                            .getReference()
-//                                            .child("applications").child(Session.getUserID()).child(dataSnapshot.getKey()).setValue(null);
-//                                }
-//
-//                            }
-//                        }
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//                }
-//            });
+            ignore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
+                    DatabaseReference appRef = firebaseDB.getReference().child("applications").child(Session.getUserID());
+                    appRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                                if (dataSnapshot.child("employeeEmail").getValue().toString().equals(employeeEmail.getText().toString()) && dataSnapshot.child("description").getValue().toString().equals(description.getText().toString())){
+
+                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+                                            .getReference()
+                                            .child("applications").child(Session.getUserID()).child(dataSnapshot.getKey()).setValue(null);
+                                }
+
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            });
         }
 
 

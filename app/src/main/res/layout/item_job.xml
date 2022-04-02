@@ -1,83 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/jobLayoutJobTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="Job Title: " />
-
-    <TextView
-        android:id="@+id/jobLayoutEmployerEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:hint="Email: " />
-
-
-    <TextView
-        android:id="@+id/jobLayoutDescription"
+        android:id="@+id/payUserTitle"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="Description: " />
-
+        android:text="title"/>
     <TextView
-        android:id="@+id/jobLayoutHourlyRate"
+        android:layout_marginTop="6dp"
+        android:id="@+id/tvDesc"
+        app:layout_constraintTop_toBottomOf="@id/payUserTitle"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="Hourly Rate: " />
+        android:text="Desc"/>
     <TextView
-        android:id="@+id/jobLayoutLatitude"
+        android:id="@+id/tvLocation"
+        android:layout_marginTop="6dp"
+        app:layout_constraintTop_toBottomOf="@id/tvDesc"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="Latitude: " />
-
+        android:text="location"/>
     <TextView
-        android:id="@+id/jobLayoutLongitude"
+        android:id="@+id/jobCategoryTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="Longitude: " />
-
-    <TextView
-        android:id="@+id/jobCategory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        tools:text="Category: " />
+        app:layout_constraintTop_toBottomOf="@id/tvLocation"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="6dp"
+        android:text="category"/>
     <View
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/jobCategoryTV"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="10dp"/>
-</LinearLayout>
+        android:layout_height="1px"
+        android:background="#ebebeb"
+       />
+</androidx.constraintlayout.widget.ConstraintLayout>
