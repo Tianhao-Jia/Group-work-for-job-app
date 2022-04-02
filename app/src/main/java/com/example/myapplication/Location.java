@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import java.io.Serializable;
+
 /**
  * Location class that stores the lat and long values of a Job, originally part of Job class and
  * programmed by John Corsten, but Nathanael refactored into this Location class.
@@ -15,7 +17,7 @@ package com.example.myapplication;
  * @group: Group 4
  * @clientTA: Disha Malik
  */
-public class Location {
+public class Location implements Serializable {
 
     // Logitude and latitude representing the location of the job
     private double latitude;
