@@ -9,7 +9,9 @@ package com.example.myapplication;
         import static androidx.test.espresso.intent.Intents.intended;
         import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
         import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+        import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
         import static androidx.test.espresso.matcher.ViewMatchers.withId;
+        import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
         import static org.hamcrest.CoreMatchers.allOf;
         import static org.hamcrest.CoreMatchers.instanceOf;
@@ -17,8 +19,10 @@ package com.example.myapplication;
 
         import androidx.test.core.app.ActivityScenario;
         import androidx.test.espresso.Espresso;
+        import androidx.test.espresso.ViewAssertion;
         import androidx.test.espresso.contrib.RecyclerViewActions;
         import androidx.test.espresso.intent.Intents;
+        import androidx.test.espresso.matcher.ViewMatchers;
         import androidx.test.ext.junit.rules.ActivityScenarioRule;
         import androidx.test.ext.junit.runners.AndroidJUnit4;
         import androidx.test.platform.app.InstrumentationRegistry;
@@ -136,5 +140,19 @@ public class EmployerJobsEspressoTest {
 
         assert JobEmployerActivity.list.isEmpty();
     }
+
+    @Test
+    public void testEmployerJobsButtonShowsNoJobsMessage() {
+        ActivityScenario.launch(EmployerActivity.class);
+
+        //go to your jobs
+        onView(withId(R.id.employerYourJobsButton)).perform(click());
+        
+        onView(allOf(withId(R.id.employerJobsNoJobs),
+                withText("You have no jobs, create a job first."))).check(
+                matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
+    }
+
+
 
 }

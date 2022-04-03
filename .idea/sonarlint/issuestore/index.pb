@@ -29,8 +29,6 @@ s
 Capp/src/main/java/com/example/myapplication/applicationAdapter.java,5\f\5fa54836132ee69039b691995b79ca0d23e616a1
 l
 <app/src/main/java/com/example/myapplication/Application.java,b\1\b12875d299040d99ec07143e7c4b0926652324e3
-f
-6app/src/main/java/com/example/myapplication/Offer.java,3\7\370c5782bfa2da969f56d33d0bd7475e04882c0b
 s
 Capp/src/main/java/com/example/myapplication/JobEmployeeAdapter.java,6\1\61302863d21eddfab18b078a3223126c63600e46
 q
