@@ -177,6 +177,7 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
     private void placeJobMarkersOnMap(ArrayList<Job> jobList) {
         for (int i = 0; i < jobList.size(); i++)
         {
+            //For each job that has a valid location, call the placeJobMarker function with the job information
             if (jobList.get(i).getLocation() != null)
             {
                 placeJobMarker(jobList.get(i));
@@ -225,12 +226,15 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
     }
 
     protected void placeJobMarker(Job job) {
+        //Get current user location
         double latitude = mLastLocation.getLatitude();
         double longitude = mLastLocation.getLongitude();
         com.example.myapplication.Location currLocation = new com.example.myapplication.Location(latitude, longitude);
 
+        //Get distance between current user location and specified job
         double distance = currLocation.getHaversineDistance(job.getLocation());
 
+        //If the distance is within 10km, place green marker on the map
         if (job.getLocation().withinDistance(10.0, distance))
         {
             LatLng jobLocation = new LatLng(job.getLocation().getLatitude(), job.getLocation().getLongitude());
@@ -239,6 +243,7 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
             //Get distance to one decimal place
             double distanceToOneDecimal = Math.round(distance*10.0)/10.0;
 
+            //Add information popup when the marker is clicked
             String snip = job.getDescription() + " (Distance: " + distanceToOneDecimal + "km)";
 
             Marker greenJob = mMap.addMarker(new MarkerOptions()
@@ -247,6 +252,7 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
                     .snippet(snip)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         }
+        //Otherwise if the distance is outside 10km, place yellow marker on the map
         else
         {
             LatLng jobLocation = new LatLng(job.getLocation().getLatitude(), job.getLocation().getLongitude());
@@ -255,6 +261,7 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
             //Get distance to one decimal place
             double distanceToOneDecimal = Math.round(distance*10.0)/10.0;
 
+            //Add information popup when the marker is clicked
             String snip = job.getDescription() + " (Distance: " + distanceToOneDecimal + "km)";
 
             Marker yellowJob = mMap.addMarker(new MarkerOptions()
@@ -288,6 +295,7 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
 
+        //On marker click, show a popup with job information
         marker.showInfoWindow();
         return false;
     }
