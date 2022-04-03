@@ -23,8 +23,6 @@ n
 >app/src/main/java/com/example/myapplication/FirebaseUtils.java,d\c\dce5d9f65829264407e7ecabeafc5d64d950245b
 j
 :app/src/main/java/com/example/myapplication/UserModel.java,2\8\28eb0aad1a385f41baa774a8a163747325533afd
-q
-Aapp/src/main/java/com/example/myapplication/EmployeeActivity.java,5\9\59cd1d423fa628c9cf5395a3cbc086d7d9a89e16
 f
 6app/src/main/java/com/example/myapplication/Offer.java,3\7\370c5782bfa2da969f56d33d0bd7475e04882c0b
 s
@@ -55,8 +53,6 @@ i
 9app/src/main/java/com/example/myapplication/Employee.java,7\f\7f9940f694c9e493396a392323bf95c60fad2c01
 i
 9app/src/main/java/com/example/myapplication/Employer.java,f\d\fd286cc91746899ea9bc8393637be6d43b25b9fa
-q
-Aapp/src/main/java/com/example/myapplication/EmployerActivity.java,7\a\7a5be1385c055465b43b6d2bc3dbfa9ef0623f61
 y
 Iapp/src/androidTest/java/com/example/myapplication/OfferEspressoTest.java,8\0\80d0bb68f69518a0c57671e4e8f8f691cf76bbd1
 €
@@ -69,8 +65,6 @@ m
 =app/src/main/java/com/example/myapplication/JobsActivity.java,2\4\24b4d0f37504f7a283cad1734c07e8cd04ee7b5d
 o
 ?app/src/main/java/com/example/myapplication/MyJobsActivity.java,4\a\4a0155b00253e0f99b1706d2060175239bdbba27
-t
-Dapp/src/main/java/com/example/myapplication/JobEmployerActivity.java,c\4\c4d976e83e2db96c9a17a853655b59b0d1a4fd13
 e
 5app/src/main/java/com/example/myapplication/User.java,7\6\76e30ebea41ec50cc4bd3bb3f9214f783d03a12c
 k

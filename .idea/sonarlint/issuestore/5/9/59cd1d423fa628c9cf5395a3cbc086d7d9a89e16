@@ -1,7 +1,0 @@
-
-E
-java:S1659%"*Declare "offersButton" on a separate line.(¤ò¶éýÿÿÿÿ
-o
-java:S1450 "YRemove the "firebaseDB" field and declare it as a local variable in the relevant methods.(ÃòÕÅ
-T
-java:S1144k">Remove this unused private "logoutAndChangeLoginState" method.(´ÂÇÛ
