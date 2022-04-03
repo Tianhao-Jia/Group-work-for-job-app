@@ -64,7 +64,7 @@ public class RegisterUserEspressoTest {
 
         onView(withId(R.id.registerButton)).perform(click());
 
-        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
+        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
     }
 
     /**
@@ -141,7 +141,7 @@ public class RegisterUserEspressoTest {
 
         onView(withId(R.id.registerButton)).perform(click());
 
-        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
+        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
     }
 
     /**
@@ -164,7 +164,7 @@ public class RegisterUserEspressoTest {
 
         onView(withId(R.id.registerButton)).perform(click());
 
-        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
+        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
     }
 
 
@@ -227,7 +227,7 @@ public class RegisterUserEspressoTest {
 
         onView(withId(R.id.registerButton)).perform(click());
 
-        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
+        onView(withId(R.id.employeeView)).check(matches(isDisplayed()));
     }
 
     /**
@@ -248,7 +248,7 @@ public class RegisterUserEspressoTest {
 
         onView(withId(R.id.registerButton)).perform(click());
 
-        onView(withId(R.id.loginView)).check(matches(isDisplayed()));
+        onView(withId(R.id.employerView)).check(matches(isDisplayed()));
     }
 
     @Before
