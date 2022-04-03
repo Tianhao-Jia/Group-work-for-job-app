@@ -27,4 +27,4 @@
         tools:layout_editor_absoluteY="108dp"
         tools:listitem="@layout/job_application" />
 
-    androidx.constraintlayout.widget.ConstraintLayout/>
+</androidx.constraintlayout.widget.ConstraintLayout>

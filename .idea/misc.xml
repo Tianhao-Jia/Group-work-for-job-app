@@ -111,6 +111,7 @@
         <entry key="app/src/main/res/layout/activity_maps.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/activity_newpage.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.2223731884057971" />
+        <entry key="app/src/main/res/layout/activity_register_user.xml" value="0.14166666666666666" />
         <entry key="app/src/main/res/layout/create_job.xml" value="0.13221884498480244" />
         <entry key="app/src/main/res/layout/employee_info.xml" value="0.335" />
         <entry key="app/src/main/res/layout/employer_info.xml" value="0.14166666666666666" />
