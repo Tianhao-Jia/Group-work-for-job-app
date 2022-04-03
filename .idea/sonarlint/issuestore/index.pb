@@ -31,8 +31,6 @@ l
 <app/src/main/java/com/example/myapplication/Application.java,b\1\b12875d299040d99ec07143e7c4b0926652324e3
 f
 6app/src/main/java/com/example/myapplication/Offer.java,3\7\370c5782bfa2da969f56d33d0bd7475e04882c0b
-h
-8app/src/main/java/com/example/myapplication/Session.java,c\d\cd7aff7e2be8ef8e72ddeb5f0932d56594aca613
 s
 Capp/src/main/java/com/example/myapplication/JobEmployeeAdapter.java,6\1\61302863d21eddfab18b078a3223126c63600e46
 q
@@ -58,8 +56,4 @@ Eapp/src/test/java/com/example/myapplication/MainActivityUnitTest.java,1\8\18ed
 d
 4app/src/main/java/com/example/myapplication/Job.java,c\6\c6b6e4a84b00de43b14dda1a41dddd744b91df38
 i
-9app/src/main/java/com/example/myapplication/Employee.java,7\f\7f9940f694c9e493396a392323bf95c60fad2c01
-i
 9app/src/main/java/com/example/myapplication/Employer.java,f\d\fd286cc91746899ea9bc8393637be6d43b25b9fa
-q
-Aapp/src/main/java/com/example/myapplication/EmployerActivity.java,7\a\7a5be1385c055465b43b6d2bc3dbfa9ef0623f61

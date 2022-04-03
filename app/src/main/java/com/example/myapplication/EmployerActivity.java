@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -51,11 +52,20 @@ public class EmployerActivity extends AppCompatActivity {
         yourJobsButton = (Button) findViewById(R.id.employerYourJobsButton);
         payButton = (Button) findViewById(R.id.employerPayButton);
 //
-//        if (!Session.checkLogin()) {
-//            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
-//            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
-//            startActivity(intent);
-//        }
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        boolean hasLogIn = sharedPreferences.contains(Session.LOGIN);
+        boolean state = false;
+        if (hasLogIn) {
+            state = sharedPreferences.getBoolean(Session.LOGIN, false);
+        }
+
+        //this shouldn't be possible so that means that the user is in the wrong spot
+        if (!state) {
+            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
+            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
+            startActivity(intent);
+        }
 
 //        Colleague newColl = new Colleague("john@dal.ca","john");
 //        Colleague newColl2 = new Colleague("joe@dal.ca","joe");
