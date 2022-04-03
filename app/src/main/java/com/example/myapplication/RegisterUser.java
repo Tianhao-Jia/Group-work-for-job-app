@@ -9,8 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,11 +64,7 @@ public class RegisterUser extends AppCompatActivity{
         setContentView(R.layout.activity_register_user);
         userTypes = getResources().getStringArray(R.array.user_types);
 
-        nameFNField = findViewById(R.id.registerFirstName);
-        nameLNField = findViewById(R.id.registerLastName);
-        emailField = findViewById(R.id.registerEmail);
-        passwordField = findViewById(R.id.registerPasswordET);
-        userTypeSpinner = findViewById(R.id.registerUserSpinner);
+        getInputtedFields();
 
         Button registerButton = findViewById(R.id.registerButton);
         registerButton.setOnClickListener(view -> registerUser());
@@ -79,6 +73,17 @@ public class RegisterUser extends AppCompatActivity{
         userTypesAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         userTypeSpinner.setAdapter(userTypesAdapter);
 
+    }
+
+    /**
+     * getInputtedFields() : gets user inputted fields
+     */
+    private void getInputtedFields() {
+        nameFNField = findViewById(R.id.registerFirstName);
+        nameLNField = findViewById(R.id.registerLastName);
+        emailField = findViewById(R.id.registerEmail);
+        passwordField = findViewById(R.id.registerPasswordET);
+        userTypeSpinner = findViewById(R.id.registerUserSpinner);
     }
 
 
@@ -146,14 +151,7 @@ public class RegisterUser extends AppCompatActivity{
         //US-3 functionality forcing 2 types of users
         if (userType.equalsIgnoreCase(Employer.EMPLOYER) || userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
             // Creating a HashMap of user information to store on firebase
-            Map<String, Object> map = new HashMap<>();
-            map.put("firstName", nameFNField.getText().toString());
-            map.put("lastName", nameLNField.getText().toString());
-            map.put("email", emailField.getText().toString());
-            map.put("userType", userType);
-            map.put("password", passwordField.getText().toString());
-            map.put("hash", key);
-            map.put("loginState", true);
+            Map<String, Object> map = getUserInfo(nameFNField, nameLNField, emailField, passwordField, key);
 
             if(getIntent().getExtras() != null){
                 map.put("user location (latitude)", ((LatLng) getIntent().getExtras().get("user location")).latitude);
@@ -179,6 +177,28 @@ public class RegisterUser extends AppCompatActivity{
         }
         return "none";
 
+    }
+
+    /**
+     * getUserInfo() : gets inputted user information
+     * @param nameFNField EditText : user's first name
+     * @param nameLNField EditText : user's last name
+     * @param emailField EditText : user's email
+     * @param passwordField EditText : user's password
+     * @param key String : database reference key
+     * @return Map<String, Object> : map containing user's information
+     */
+    @NonNull
+    private Map<String, Object> getUserInfo(EditText nameFNField, EditText nameLNField, EditText emailField, EditText passwordField, String key) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("firstName", nameFNField.getText().toString());
+        map.put("lastName", nameLNField.getText().toString());
+        map.put("email", emailField.getText().toString());
+        map.put("userType", userType);
+        map.put("password", passwordField.getText().toString());
+        map.put("hash", key);
+        map.put("loginState", true);
+        return map;
     }
 
     /**
@@ -236,8 +256,6 @@ public class RegisterUser extends AppCompatActivity{
      * @param email : email input to verify
      * @return boolean : true if email is valid; false otherwise
      */
-    //Was using library functions to check email, however we ran into errors with pipeline
-    // TODO: Email checking will be fixed in next iteration!
     protected static boolean checkEmail(String email) {
         Pattern emailPattern = Pattern.compile("^.*@.*$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = emailPattern.matcher(email.trim());
@@ -257,6 +275,10 @@ public class RegisterUser extends AppCompatActivity{
         return pwMatch.find();
     }
 
+    /**
+     * switchActivity() : switches to employee/employer activity (depending on user selection)
+     * @param key String : database reference key
+     */
     private void switchActivity(String key){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
