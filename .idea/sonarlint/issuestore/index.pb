@@ -31,8 +31,6 @@ q
 Aapp/src/test/java/com/example/myapplication/RegisterUserTest.java,e\f\effef5319a57ceb3431041acf6ffacf4d0f6ed13
 n
 >app/src/test/java/com/example/myapplication/CreateJobTest.java,1\8\18e72a9d448af7c7f249342bc71ffd50f60c644b
-|
-Lapp/src/androidTest/java/com/example/myapplication/EmployeeEspressoTest.java,0\1\01e2c1f795c8c9ac3070be6ae2b42dc1c1f229fa
 
 Oapp/src/androidTest/java/com/example/myapplication/ApplicationEspressoTest.java,f\7\f764acb9459e50b4b9d9d223f0bb6a0a0686304e
 }
@@ -43,8 +41,6 @@ Iapp/src/androidTest/java/com/example/myapplication/LoginEspressoTest.java,a\6\
 Mapp/src/androidTest/java/com/example/myapplication/LogoutForEmployeeTest.java,6\9\696cd3ee9b21cabf85dddba1de212622cbd8247f
 n
 >app/src/test/java/com/example/myapplication/LoginUserTest.java,8\b\8b791451d4374f5b3260c79b4194e60d9f6d6159
-r
-Bapp/src/test/java/com/example/myapplication/HaversineDistance.java,0\3\039f75ee84536161a38cc2c7fea1cf30764470c4
 u
 Eapp/src/test/java/com/example/myapplication/MainActivityUnitTest.java,1\8\18eddebf6ba3523321cbefd20ee0721b4eb8d14a
 d
@@ -83,7 +79,5 @@ l
 <app/src/main/java/com/example/myapplication/SendPayment.java,0\4\04c71805ab4550c130d75e161a9053255f370894
 l
 <app/src/main/java/com/example/myapplication/Application.java,b\1\b12875d299040d99ec07143e7c4b0926652324e3
-i
-9app/src/main/java/com/example/myapplication/Location.java,6\0\60c43d5624f10bd22638268685a1132e853067e5
 o
 ?app/src/main/java/com/example/myapplication/ViewJobAdapter.java,7\2\7210cc8957b3e0da1480dd054bdf3d6075e59bf4

@@ -81,8 +81,12 @@ public class EmployerJobsEspressoTest {
     @AfterClass
     public static void tearDown() {
         Intents.release();
-        FirebaseDatabase.getInstance().getReference(FirebaseUtils.USERS_COLLECTION).child(employerKey).setValue(null);
-        FirebaseDatabase.getInstance().getReference(FirebaseUtils.USERS_COLLECTION).child(employeeKey).setValue(null);
+        FirebaseDatabase.getInstance().getReference(FirebaseUtils.USERS_COLLECTION).setValue(null);
+        FirebaseDatabase.getInstance().getReference(FirebaseUtils.JOBS_COLLECTION).setValue(null);
+        FirebaseDatabase.getInstance().getReference(FirebaseUtils.OFFERS_COLLECTION).setValue(null);
+        FirebaseDatabase.getInstance().getReference(FirebaseUtils.PAYMENT_COLLECTION).setValue(null);
+
+
     }
 
     //jobs should be visible as a button for employers
@@ -99,7 +103,7 @@ public class EmployerJobsEspressoTest {
         ActivityScenario.launch(EmployerActivity.class);
 
         onView(withId(R.id.employerYourJobsButton)).perform(click());
-        intended(hasComponent(JobEmployerActivity.class.getName()));
+        onView(withId(R.id.employerJobsRecyclerView)).check(matches(isDisplayed()));
     }
 
 
