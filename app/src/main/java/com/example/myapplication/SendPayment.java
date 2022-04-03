@@ -50,7 +50,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     //Recycler view components
     private RecyclerView payRecyclerView;
     private PayAdapter  payAdapter;
-    private ArrayList<Application> applications = new ArrayList<>();
+    private  ArrayList<Application> applications = new ArrayList<>();
     private ArrayList<String> appKeys = new ArrayList<>();
 
     // Paypal Configuration Object
@@ -63,14 +63,12 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
             .clientId(clientKey);
 
 
-    private TextView paymentTV;
     private Button refreshBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.job_payment);
-        paymentTV = findViewById(R.id.paymentTV);
         payRecyclerView = findViewById(R.id.paymentRecycler);
         refreshBtn = findViewById(R.id.payRefreshBtn);
 
@@ -129,13 +127,13 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
     @Override
     public void onPayClick(int position) {
         Application app = applications.get(position);
-
+        String userID = Session.getUserID();
 
         //Get payment amount for job and then add payment record to database
         firebaseDBRefJobs.child(app.getJobID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot != null) {
+                if(dataSnapshot.getValue(Job.class) != null) {
                     Job job = dataSnapshot.getValue(Job.class);
                     double compensation = job.getCompensation();
                     String jobTitle = job.getJobTitle();
@@ -146,7 +144,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
                         //Add payment record to database
                         storePayment(app, compensation);
                         app.setPaid(true);
-                        firebaseDB.getReference("applications").child(Session.getUserID())
+                        firebaseDB.getReference("applications").child(userID)
                                 .child(appKeys.get(position))
                                 .setValue(app);
 
@@ -154,6 +152,10 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
                         getPaymentPendingApplications(Session.getUserID());
                     }
 
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Could not find linked job!",
+                            Toast.LENGTH_SHORT ).show();
                 }
             }
 

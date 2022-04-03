@@ -54,18 +54,18 @@ public class EmployeeEspressoTest {
     }
 
 
-    @Test
-    public void testOpenEmployeeActivity() {
-
-        onView(withId(R.id.mainLogin)).perform(click());
-        intended(hasComponent(LoginActivity.class.getName()));
-
-    }
+//    @Test
+//    public void testOpenEmployeeActivity() {
+//
+//        onView(withId(R.id.mainLogin)).perform(click());
+//        intended(hasComponent(LoginActivity.class.getName()));
+//
+//    }
 
     @Test
     public void testOpenEmployeeSearchButton() {
 
-        ActivityScenario.launch(EmployeeActivity.class);
+        ActivityScenario.launch(RegisterUser.class);
 
         onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
         onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
