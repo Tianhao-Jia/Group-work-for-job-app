@@ -146,32 +146,32 @@ public class applicationAdapter extends FirebaseRecyclerAdapter<
                 }
             });
 
-//            ignore.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-//                    DatabaseReference appRef = firebaseDB.getReference().child("applications").child(Session.getUserID());
-//                    appRef.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//
-//                                if (dataSnapshot.child("employeeEmail").getValue().toString().equals(employeeEmail.getText().toString()) && dataSnapshot.child("description").getValue().toString().equals(description.getText().toString())){
-//
-//                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
-//                                            .getReference()
-//                                            .child("applications").child(Session.getUserID()).child(dataSnapshot.getKey()).setValue(null);
-//                                }
-//
-//                            }
-//                        }
-//                        @Override
-//                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                        }
-//                    });
-//                }
-//            });
+            ignore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
+                    DatabaseReference appRef = firebaseDB.getReference().child("applications").child(Session.getUserID());
+                    appRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                                if (dataSnapshot.child("employeeEmail").getValue().toString().equals(employeeEmail.getText().toString()) && dataSnapshot.child("description").getValue().toString().equals(description.getText().toString())){
+
+                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+                                            .getReference()
+                                            .child("applications").child(Session.getUserID()).child(dataSnapshot.getKey()).setValue(null);
+                                }
+
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            });
         }
 
 

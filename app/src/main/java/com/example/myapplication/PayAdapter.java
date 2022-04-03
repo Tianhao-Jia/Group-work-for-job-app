@@ -21,7 +21,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
-    private ArrayList<Application> apps = new ArrayList<>(10);
+    private static ArrayList<Application> apps = new ArrayList<>(10);
     private ArrayList<String> keys = new ArrayList<>();
     private IJobListener jobListener;
     String TAG = "PayAdapter";
@@ -56,7 +56,7 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
         Application app = apps.get(position);
 
         holder.jobTitle.setText(app.getDescription());
-        holder.jobPrice.setText("60");
+        holder.employeeEmail.setText(app.getEmployeeEmail());
 
         holder.payUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,7 +87,7 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
     public static class PayViewHolder extends RecyclerView.ViewHolder {
 
         TextView jobTitle;
-        TextView jobPrice;
+        TextView employeeEmail;
         Button cancel;
         Button payUser;
         IJobListener jobListener;
@@ -98,10 +98,15 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
             jobTitle = itemView.findViewById(R.id.payUserTitle);
             payUser = itemView.findViewById(R.id.payUserBtn);
             cancel = itemView.findViewById(R.id.payCancelBtn);
-            jobPrice = itemView.findViewById(R.id.jobCompTV);
+            employeeEmail = itemView.findViewById(R.id.jobCompTV);
 
             this.jobListener = jobListener;
         }
+    }
+
+    //Used in espresso tests
+    public static ArrayList<Application> getApps() {
+        return apps;
     }
 
     //Implement this interface in client class, pass it when constructing RecyclerView

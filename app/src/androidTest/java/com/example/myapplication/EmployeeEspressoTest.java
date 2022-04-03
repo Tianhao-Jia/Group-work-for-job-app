@@ -65,7 +65,7 @@ public class EmployeeEspressoTest {
     @Test
     public void testOpenEmployeeSearchButton() {
 
-        ActivityScenario.launch(EmployeeActivity.class);
+        ActivityScenario.launch(RegisterUser.class);
 
         onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
         onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));

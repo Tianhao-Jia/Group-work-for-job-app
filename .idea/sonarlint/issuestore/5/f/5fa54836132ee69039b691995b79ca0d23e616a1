@@ -1,0 +1,27 @@
+
+?
+java:S1659O"$Declare "ignore" on a separate line.(·…ÿİúÿÿÿÿ
+m
+java:S3776Q"RRefactor this method to reduce its Cognitive Complexity from 29 to the 15 allowed.(ñº¿üÿÿÿÿ
+4
+java:S1128"Remove this duplicated import.(À¯ÑÇ
+9
+java:S1128"Remove this duplicated import.(Ø½­äşÿÿÿÿ
+4
+java:S1128"Remove this duplicated import.(‹îá
+9
+java:S1128"Remove this duplicated import.(„Ë‚ˆÿÿÿÿÿ
+4
+java:S1128"Remove this duplicated import.(ˆÛúÜ
+4
+java:S1128"Remove this duplicated import.(Ø£®
+b
+java:S1192c"LDefine a constant instead of duplicating this literal "description" 3 times.(„õı×
+d
+java:S1192c"NDefine a constant instead of duplicating this literal "employeeEmail" 3 times.(„õı×
+h
+java:S1192\"MDefine a constant instead of duplicating this literal "applications" 4 times.(ÇŸƒ·ıÿÿÿÿ
+>
+java:S1604X"(Make this anonymous inner class a lambda(¤ÿ¬
+g	java:S101 "MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(Ì¬¸îùÿÿÿÿ
+g	java:S101L"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(ùÔ¢Øüÿÿÿÿ
