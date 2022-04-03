@@ -1,14 +1,21 @@
 package com.example.myapplication;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.instanceOf;
+
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.intent.Intents;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -98,5 +105,37 @@ public class EmployerJobsEspressoTest {
     }
 
         // recommend potential employees to an employer for his or her submitted jobs
+
+    //given that im an Employer when I create a job I should be able to see it under your jobs page
+    @Test
+    public void testOpenEmployerSearchButton() {
+
+        ActivityScenario.launch(GoogleMapsActivity.class);
+
+        onView(withId(R.id.setLocationBtn)).perform(click());
+
+        onView(withId(R.id.registerFirstName)).perform(typeText("George\n"));
+        onView(withId(R.id.registerLastName)).perform(typeText("Smith\n"));
+        onView(withId(R.id.registerEmail)).perform(typeText("george.smith@dal.ca\n"));
+        //Espresso.closeSoftKeyboard();
+        onView(withId(R.id.registerPasswordET)).perform(typeText("password123\n"));
+        onView(withId(R.id.registerUserSpinner)).perform(click());
+        onData(allOf(is(instanceOf(String.class)), is("Employer"))).perform(click());
+        Espresso.closeSoftKeyboard();
+
+        onView(withId(R.id.registerButton)).perform(click());
+
+        onView(withId(R.id.employerSearchButton)).perform(click());
+        //intended(hasComponent(JobSearch.class.getName()));
+
+    }
+
+
+    //given that im an Employer when I create a job I should be able to see suggested employees
+    //based on their rating
+
+    //given that i'm an employer when I create a job I should be able to see suggested employees
+    //based on their distance from me.
+
 
 }

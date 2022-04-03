@@ -1,23 +1,29 @@
 
 j
-java:S1845."ORename method "login" to prevent any misunderstanding/clash with field "LOGIN".(†¨ğşÿÿÿÿ
+java:S18451"ORename method "login" to prevent any misunderstanding/clash with field "LOGIN".(†¨ğşÿÿÿÿ
 j
-java:S1845<"ORename method "login" to prevent any misunderstanding/clash with field "LOGIN".(Ø…Ş§øÿÿÿÿ
+java:S1845?"ORename method "login" to prevent any misunderstanding/clash with field "LOGIN".(Ø…Ş§øÿÿÿÿ
+~
+java:S1845I"aRename method "reviewing_user" to prevent any misunderstanding/clash with field "REVIEWING_USER".(¤‚İ8‹ùƒÚş/
 P
-java:S1118":Add a private constructor to hide the implicit public one.(äì£Ä
+java:S1118":Add a private constructor to hide the implicit public one.(äì£Ä
+j	java:S100I"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤‚İ8®ùƒÚş/
 >
-java:S1905Z")Remove this unnecessary cast to "Double".(±„à
+java:S1905b")Remove this unnecessary cast to "Double".(±„à
 ?
-java:S1905[")Remove this unnecessary cast to "Double".(§‘Á¤
+java:S1905c")Remove this unnecessary cast to "Double".(§‘Á¤
 I
 java:S1128".Remove this unused import 'android.os.Bundle'.(°şÊóøÿÿÿÿ
-I
-java:S1128".Remove this unused import 'android.view.View'.(Ø½­äşÿÿÿÿ
-M
-java:S1128"2Remove this unused import 'android.widget.Button'.(²òıÿÿÿÿ
 O
-java:S1128	"4Remove this unused import 'android.widget.TextView'.(„Ë‚ˆÿÿÿÿÿ
-3
-java:S1128"Remove this duplicated import.(íÎÉr
+java:S1128"-Remove this unused import 'android.util.Log'.(Ô¦Ø²øÿÿÿÿ8ÒùƒÚş/
 I
-java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ
+java:S1128".Remove this unused import 'android.view.View'.(Ø½­äşÿÿÿÿ
+M
+java:S1128	"2Remove this unused import 'android.widget.Button'.(²òıÿÿÿÿ
+O
+java:S1128
+"4Remove this unused import 'android.widget.TextView'.(„Ë‚ˆÿÿÿÿÿ
+3
+java:S1128"Remove this duplicated import.(íÎÉr
+I
+java:S1128".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ

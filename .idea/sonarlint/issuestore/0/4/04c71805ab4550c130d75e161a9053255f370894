@@ -1,0 +1,22 @@
+
+o	java:S115+"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(€ñØ’
+n
+java:S1450B"XRemove the "paymentTV" field and declare it as a local variable in the relevant methods.(Ÿ±±
+t
+java:S1450C"YRemove the "refreshBtn" field and declare it as a local variable in the relevant methods.(Œ…ÿÿÿÿÿ
+˜
+java:S1186¡"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Ş‰
+Q
+java:S6213µ":Rename this variable to not match a restricted identifier.(ÌÕ›Å
+8
+java:S2111¾"!Use "BigDecimal.valueOf" instead.(ÿÈ´Œ
+c
+java:S1192e"MDefine a constant instead of duplicating this literal "applications" 3 times.(•£ÿş
+>
+java:S1604Q"(Make this anonymous inner class a lambda(«¿»ç
+@
+java:S5411o"*Use the primitive boolean expression here.(ÅÛ©
+X
+java:S2259Ş"BA "NullPointerException" could be thrown; "data" is nullable here.(»›ô
+M
+java:S2589‘"7Remove this expression which always evaluates to "true"(¶¦ı
