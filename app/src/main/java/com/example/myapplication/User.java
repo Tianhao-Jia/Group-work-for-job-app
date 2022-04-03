@@ -1,11 +1,14 @@
 package com.example.myapplication;
 
 public class User {
-    double average_rating = 5.0;
-    String email;
-    String firstName;
-    String lastName;
+    protected String email;
+    protected String firstName;
+    protected String lastName;
     String hash;
+
+    private double average_rating = 5.0;
+    protected String rating = "Unknown";
+    protected double doubleRating;
 
     Boolean loginState;
     int num_reviews;
@@ -18,7 +21,6 @@ public class User {
         average_rating = ((average_rating * num_reviews) + review)/(num_reviews+1);
         num_reviews++;
     }
-
 
     public void setAverage_rating(double average_rating) {
         this.average_rating = average_rating;
@@ -108,7 +110,15 @@ public class User {
         return userType;
     }
 
+    public double getDoubleRating() {
+        return doubleRating;
+    }
 
+    public String getRating() {
+        return rating;
+    }
 
-
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
 }

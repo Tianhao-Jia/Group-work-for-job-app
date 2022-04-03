@@ -15,9 +15,13 @@ package com.example.myapplication;
  * @group: Group 4
  * @clientTA: Disha Malik
  */
-public class Employer {
+public class Employer extends User {
 
     public static String EMPLOYER = "Employer";
 
-
+    public Employer(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 }

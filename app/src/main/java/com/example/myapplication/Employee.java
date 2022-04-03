@@ -15,13 +15,8 @@ package com.example.myapplication;
  * @group: Group 4
  * @clientTA: Disha Malik
  */
-public class Employee {
+public class Employee extends User {
 
-    private String firstName;
-    private String lastName;
-    private double doubleRating;
-    private String rating = "Unknown";
-    private String email;
     public static String EMPLOYEE = "Employee";
     private double distance;
 
@@ -45,41 +40,4 @@ public class Employee {
     public void setDistance(double distance) {
         this.distance = distance;
     }
-
-    public double getDoubleRating() {
-        return doubleRating;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getRating() {
-        return rating;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
 }

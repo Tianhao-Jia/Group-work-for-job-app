@@ -86,7 +86,6 @@ public class RegisterUser extends AppCompatActivity{
         userTypeSpinner = findViewById(R.id.registerUserSpinner);
     }
 
-
     /**
      * registerUser(): if the user doesn't already have an account, and the user inputs the correct
      *                 details, then it successfully registers the user

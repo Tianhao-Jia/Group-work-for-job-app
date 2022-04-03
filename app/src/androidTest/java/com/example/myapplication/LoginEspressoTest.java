@@ -97,14 +97,6 @@ public class LoginEspressoTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.example.myapplication", appContext.getPackageName());
     }
-    /***sign up**/
-
-    /***sign up**/
-    @Test
-    public void testSignUpActivity() {
-        onView(withId(R.id.loginToSignupButton)).perform(click());
-        intended(hasComponent(RegisterUser.class.getName()));
-    }
 
     /**
      * US1-AT1:
