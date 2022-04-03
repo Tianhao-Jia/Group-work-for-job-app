@@ -21,7 +21,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
-    private ArrayList<Application> apps = new ArrayList<>(10);
+    private static ArrayList<Application> apps = new ArrayList<>(10);
     private ArrayList<String> keys = new ArrayList<>();
     private IJobListener jobListener;
     String TAG = "PayAdapter";
@@ -102,6 +102,11 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
 
             this.jobListener = jobListener;
         }
+    }
+
+    //Used in espresso tests
+    public static ArrayList<Application> getApps() {
+        return apps;
     }
 
     //Implement this interface in client class, pass it when constructing RecyclerView
