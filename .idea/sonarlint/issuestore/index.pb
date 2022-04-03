@@ -25,8 +25,6 @@ n
 >app/src/main/java/com/example/myapplication/FirebaseUtils.java,d\c\dce5d9f65829264407e7ecabeafc5d64d950245b
 j
 :app/src/main/java/com/example/myapplication/UserModel.java,2\8\28eb0aad1a385f41baa774a8a163747325533afd
-q
-Aapp/src/main/java/com/example/myapplication/EmployeeActivity.java,5\9\59cd1d423fa628c9cf5395a3cbc086d7d9a89e16
 s
 Capp/src/main/java/com/example/myapplication/applicationAdapter.java,5\f\5fa54836132ee69039b691995b79ca0d23e616a1
 l
@@ -43,16 +41,10 @@ n
 >app/src/test/java/com/example/myapplication/CreateJobTest.java,1\8\18e72a9d448af7c7f249342bc71ffd50f60c644b
 i
 9app/src/main/java/com/example/myapplication/Location.java,6\0\60c43d5624f10bd22638268685a1132e853067e5
-|
-Lapp/src/androidTest/java/com/example/myapplication/EmployeeEspressoTest.java,0\1\01e2c1f795c8c9ac3070be6ae2b42dc1c1f229fa
 
 Oapp/src/androidTest/java/com/example/myapplication/ApplicationEspressoTest.java,f\7\f764acb9459e50b4b9d9d223f0bb6a0a0686304e
 }
 Mapp/src/androidTest/java/com/example/myapplication/JobRadiusEspressoTest.java,c\d\cd012399b57575b75ea98000ca7049c980dcf0a0
-}
-Mapp/src/androidTest/java/com/example/myapplication/JobSearchEspressoTest.java,d\2\d25f6c1d81a2c1a628d84c3485b56089ab8d6e22
-|
-Lapp/src/androidTest/java/com/example/myapplication/EmployerEspressoTest.java,f\f\ff6c0393236127a0ffbe87513aa43c85583f0165
 y
 Iapp/src/androidTest/java/com/example/myapplication/LoginEspressoTest.java,a\6\a6098930ed54f97a1fe85374b44049f2cbb8ee9b
 }

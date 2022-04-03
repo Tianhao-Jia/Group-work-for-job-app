@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -45,7 +46,7 @@ public class EmployeeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
-
+        Toast.makeText(getApplicationContext(), "Employee Activity", Toast.LENGTH_LONG).show();
         connectFirebase();
         jobs = findViewById(R.id.jobs);
         openMap = findViewById(R.id.mapbutton);

@@ -86,7 +86,7 @@ public class RegisterUser extends AppCompatActivity{
      */
     public void registerUser(){
         userType = userTypeSpinner.getSelectedItem().toString();
-        Log.e("user type:", userType);
+
         // get the reference to the database
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -112,8 +112,7 @@ public class RegisterUser extends AppCompatActivity{
                 } else{
                     if(validateInput()) {
                         String key = addRecord();
-                        Intent intent = new Intent(RegisterUser.this, LoginActivity.class);
-                        startActivity(intent);
+                        switchActivity(key);
                     }
                     else {
                         displayToast("Registration Failed!");
@@ -254,5 +253,30 @@ public class RegisterUser extends AppCompatActivity{
         Matcher pwMatch = pw.matcher(password);
 
         return pwMatch.find();
+    }
+
+    private void switchActivity(String key){
+        if (userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
+            Intent intent = new Intent(RegisterUser.this, EmployeeActivity.class);
+            intent.putExtra("Login Email", emailField.getText().toString());
+            intent.putExtra("Login Password", passwordField.getText().toString());
+            intent.putExtra("User Type", Employee.EMPLOYEE);
+            intent.putExtra("User Hash", key);
+            startActivity(intent);
+        }
+        else if (userType.equalsIgnoreCase(Employer.EMPLOYER)) {
+            Intent intent = new Intent(RegisterUser.this, EmployerActivity.class);
+            intent.putExtra("Login Email", emailField.getText().toString());
+            intent.putExtra("Login Password", passwordField.getText().toString());
+            intent.putExtra("User Type", Employer.EMPLOYER);
+            intent.putExtra("User Hash", key);
+            startActivity(intent);
+        }
+        else {
+            Log.e("ERROR", "This should never be possible that a user is not employer or emploee!");
+            //force crash.
+            System.exit(-1);
+        }
+
     }
 }
