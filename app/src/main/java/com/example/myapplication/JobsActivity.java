@@ -45,14 +45,11 @@ public class JobsActivity  extends AppCompatActivity implements GoogleApiClient.
         recyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new JobAdapter(list);
         recyclerview.setAdapter(adapter);
-        adapter.setOnItemClickListener(new JobAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Job job = list.get(position);
-                Intent intent = new Intent(JobsActivity.this,JobDetailActivity.class);
-                intent.putExtra("job",job);
-                startActivity(intent);
-            }
+        adapter.setOnItemClickListener(position -> {
+            Job job = list.get(position);
+            Intent intent = new Intent(JobsActivity.this,JobDetailActivity.class);
+            intent.putExtra("job",job);
+            startActivity(intent);
         });
         init();
     }

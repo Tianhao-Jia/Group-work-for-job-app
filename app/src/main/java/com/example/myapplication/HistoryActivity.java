@@ -19,7 +19,6 @@ public class HistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        String uid = Session.getUserID();
         String email = Session.getEmail();
         String name = Session.getFName();
         String lastName = Session.getLName();
@@ -29,17 +28,7 @@ public class HistoryActivity extends AppCompatActivity {
         tvEmail = findViewById(R.id.tv_email);
         tvName.setText(name+" "+ lastName);
         tvEmail.setText(email);
-        history.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HistoryActivity.this,MyPaymentsActivity.class));
-            }
-        });
-        jobs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HistoryActivity.this,MyJobsActivity.class));
-            }
-        });
+        history.setOnClickListener(view -> startActivity(new Intent(HistoryActivity.this,MyPaymentsActivity.class)));
+        jobs.setOnClickListener(view -> startActivity(new Intent(HistoryActivity.this,MyJobsActivity.class)));
     }
 }

@@ -142,12 +142,7 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
 
 
 
-            jobSeeApplications.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    view.getContext().startActivity(new Intent(view.getContext(), ViewApplications.class));
-                }
-            });
+            jobSeeApplications.setOnClickListener(view -> view.getContext().startActivity(new Intent(view.getContext(), ViewApplications.class)));
 
             String[] spinnerArray = new String[] {
                     "Rating",
@@ -198,167 +193,163 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
                 }
             });
 
-            jobSuggestionButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //Toast.makeText(view.getContext(), selectedItem.toString(), Toast.LENGTH_SHORT).show();
+            jobSuggestionButton.setOnClickListener(view -> {
 
-                    if (selectedItem == null) {
-                        Toast.makeText(itemView.getContext(), "No selected Item", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (selectedItem.equals("Rating")) {
-                        //Toast.makeText(itemView.getContext(), "Rating Selected", Toast.LENGTH_SHORT).show();
+                if (selectedItem == null) {
+                    Toast.makeText(itemView.getContext(), "No selected Item", Toast.LENGTH_SHORT).show();
+                }
+                else if (selectedItem.equals("Rating")) {
 
-                        recyclerViewDistance.setVisibility(View.GONE);
-                        recyclerViewRating.setVisibility(View.VISIBLE);
+                    recyclerViewDistance.setVisibility(View.GONE);
+                    recyclerViewRating.setVisibility(View.VISIBLE);
 
-                        distanceSeekBar.setVisibility(View.GONE);
-                        distanceTextView.setVisibility(View.GONE);
+                    distanceSeekBar.setVisibility(View.GONE);
+                    distanceTextView.setVisibility(View.GONE);
 
-                        firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                list.clear();
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    //snapshot.getValue();
+                    firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            list.clear();
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                //snapshot.getValue();
 
-                                    String firstName = snapshot.child("firstName").getValue(String.class);
-                                    String lastName = snapshot.child("lastName").getValue(String.class);
-                                    String rating = String.valueOf(snapshot.child("average_rating").getValue(Double.class));
-                                    if (rating == null) {
-                                        rating = "-1";
-                                    }
-                                    String email = snapshot.child("email").getValue(String.class);
+                                String firstName = snapshot.child("firstName").getValue(String.class);
+                                String lastName = snapshot.child("lastName").getValue(String.class);
+                                String rating = String.valueOf(snapshot.child("average_rating").getValue(Double.class));
+                                if (rating == null) {
+                                    rating = "-1";
+                                }
+                                String email = snapshot.child("email").getValue(String.class);
 
-                                    //check the location and use the locaiton method from Location class.
-                                    //snapshot.child("")
+                                //check the location and use the locaiton method from Location class.
+                                //snapshot.child("")
 
-                                    Employee employee = new Employee(firstName, lastName, rating, email);
-                                    if (!employee.getEmail().equals(Session.getEmail())) {
+                                Employee employee = new Employee(firstName, lastName, rating, email);
+                                if (!employee.getEmail().equals(Session.getEmail())) {
 
-                                        list.add(employee);
-                                        list.sort(Comparator.comparing(Employee::getDoubleRating));
-                                    }
-
+                                    list.add(employee);
+                                    list.sort(Comparator.comparing(Employee::getDoubleRating));
                                 }
 
-
-                                //show the highest rated first
-                                Collections.reverse(list);
-
-
-
-
-
-
-                                adapter.notifyDataSetChanged();
                             }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                            //show the highest rated first
+                            Collections.reverse(list);
 
 
 
-                    }
-                    else if (selectedItem.equals("Distance")) {
-                        //Toast.makeText(itemView.getContext(), "Distance Selected", Toast.LENGTH_SHORT).show();
-
-                        String locationLat = jobLatitude.getText().toString();
-                        String locationLong = jobLongitude.getText().toString();
-
-                        String latitudeStr = locationLat.split(" ")[1];
-                        String longitudeStr = locationLong.split(" ")[1];
-
-                        //Log.d("testing1: ",  + " test.");
-
-                        double latitude = Double.parseDouble(latitudeStr);
-                        double longitude = Double.parseDouble(longitudeStr);
-
-                        Location location = new Location(latitude, longitude);
-
-                        recyclerViewDistance.setVisibility(View.VISIBLE);
-                        recyclerViewRating.setVisibility(View.GONE);
-
-                        distanceSeekBar.setVisibility(View.VISIBLE);
-                        distanceTextView.setVisibility(View.VISIBLE);
 
 
-                        firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                listDistance.clear();
 
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    //snapshot.getValue();
+                            adapter.notifyDataSetChanged();
+                        }
 
-                                    String firstName = snapshot.child("firstName").getValue(String.class);
-                                    String lastName = snapshot.child("lastName").getValue(String.class);
-                                    String rating = String.valueOf(snapshot.child("average_rating").getValue(Double.class));
-                                    String email = snapshot.child("email").getValue(String.class);
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
 
-                                    if (rating == null) {
-                                        rating = "Unknown Rating";
-                                    }
 
-                                    //check the location and use the locaiton method from Location class.
-                                    double latitude = 0, longitude = 0;
-                                    if (snapshot.hasChild("user location (latitude)")) {
-                                        latitude = snapshot.child("user location (latitude)").getValue(Double.class);
+                }
+                else if (selectedItem.equals("Distance")) {
+                    //Toast.makeText(itemView.getContext(), "Distance Selected", Toast.LENGTH_SHORT).show();
 
-                                    }
-                                    if (snapshot.hasChild("user location (longitude)")) {
-                                        longitude = snapshot.child("user location (longitude)").getValue(Double.class);
+                    String locationLat = jobLatitude.getText().toString();
+                    String locationLong = jobLongitude.getText().toString();
 
-                                    }
-                                    Location employeeLocation = new Location(latitude, longitude);
+                    String latitudeStr = locationLat.split(" ")[1];
+                    String longitudeStr = locationLong.split(" ")[1];
 
-                                    Employee employee = new Employee(firstName, lastName, rating, email);
-                                    if (!employee.getEmail().equals(Session.getEmail())) {
+                    //Log.d("testing1: ",  + " test.");
 
-                                        //todo figure out why this bug happens where the list is empty
-                                        //i may need to implement a seperate list for distance.
+                    double latitude = Double.parseDouble(latitudeStr);
+                    double longitude = Double.parseDouble(longitudeStr);
 
-                                        int desiredDistance = distanceSeekBar.getProgress();
+                    Location location = new Location(latitude, longitude);
 
-                                        double distanceToEmployee = location.getHaversineDistance(employeeLocation);
-                                        if (location.withinDistance(desiredDistance, distanceToEmployee)) {
+                    recyclerViewDistance.setVisibility(View.VISIBLE);
+                    recyclerViewRating.setVisibility(View.GONE);
 
-                                            //setting the number of significant digits
-                                            distanceToEmployee = Math.round(distanceToEmployee * 100.0) / 100.0;
+                    distanceSeekBar.setVisibility(View.VISIBLE);
+                    distanceTextView.setVisibility(View.VISIBLE);
 
-                                            
-                                            employee.setDistance(distanceToEmployee);
-                                            listDistance.add(employee);
-                                        }
-                                        //list.add(employee);
-                                    }
 
+                    firebaseDBRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            listDistance.clear();
+
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                //snapshot.getValue();
+
+                                String firstName = snapshot.child("firstName").getValue(String.class);
+                                String lastName = snapshot.child("lastName").getValue(String.class);
+                                String rating = String.valueOf(snapshot.child("average_rating").getValue(Double.class));
+                                String email = snapshot.child("email").getValue(String.class);
+
+
+                                if (rating == null) {
+                                    rating = "Unknown Rating";
                                 }
 
-                                adapterDistance.notifyDataSetChanged();
+                                //check the location and use the locaiton method from Location class.
+                                double latitude = 0, longitude = 0;
+                                if (snapshot.hasChild("user location (latitude)")) {
+                                    latitude = snapshot.child("user location (latitude)").getValue(Double.class);
+
+                                }
+                                if (snapshot.hasChild("user location (longitude)")) {
+                                    longitude = snapshot.child("user location (longitude)").getValue(Double.class);
+
+                                }
+                                Location employeeLocation = new Location(latitude, longitude);
+
+                                Employee employee = new Employee(firstName, lastName, rating, email);
+                                if (!employee.getEmail().equals(Session.getEmail())) {
+
+                                    //todo figure out why this bug happens where the list is empty
+                                    //i may need to implement a seperate list for distance.
+
+                                    int desiredDistance = distanceSeekBar.getProgress();
+
+                                    double distanceToEmployee = location.getHaversineDistance(employeeLocation);
+                                    if (location.withinDistance(desiredDistance, distanceToEmployee)) {
+
+                                        //setting the number of significant digits
+                                        distanceToEmployee = Math.round(distanceToEmployee * 100.0) / 100.0;
+
+
+                                        employee.setDistance(distanceToEmployee);
+                                        listDistance.add(employee);
+                                    }
+                                    //list.add(employee);
+                                }
+
                             }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                            adapterDistance.notifyDataSetChanged();
+                        }
 
-                            }
-                        });
-                        //FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-                        //DatabaseReference firebaseDBRef = firebaseDB.getReference(FirebaseUtils.USERS_COLLECTION);
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                        //have a doubly nested drop down recylcer view.
+                        }
+                    });
+                    //FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
+                    //DatabaseReference firebaseDBRef = firebaseDB.getReference(FirebaseUtils.USERS_COLLECTION);
 
-
-
-
-
+                    //have a doubly nested drop down recylcer view.
 
 
-                        //need to add functionality for checking against each person
+
+
+
+
+
+                    //need to add functionality for checking against each person
 
 //                        double latOn = 49.64476;
 //                        double longOn = -83.56784;
@@ -369,31 +360,30 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
 
 
 
+                }
+                else if (selectedItem.equals("Search")) {
+                    //Toast.makeText(itemView.getContext(), "Search Selected", Toast.LENGTH_SHORT).show();
+
+                    recyclerViewDistance.setVisibility(View.GONE);
+                    recyclerViewRating.setVisibility(View.GONE);
+
+                    Intent intent = new Intent(view.getContext(), JobSearch.class);
+
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    if (editor != null) {
+                        editor.putString("searchEmployerEmail", jobEmail.getText().toString()).apply();
+                        editor.putString("searchJobTitle", jobTitle.getText().toString()).apply();
+                        editor.putString("searchDescription", jobDesc.getText().toString()).apply();
+                        editor.putString("searchHourlyRate", jobHourlyRate.getText().toString()).apply();
+                        editor.commit();
                     }
-                    else if (selectedItem.equals("Search")) {
-                        //Toast.makeText(itemView.getContext(), "Search Selected", Toast.LENGTH_SHORT).show();
 
-                        recyclerViewDistance.setVisibility(View.GONE);
-                        recyclerViewRating.setVisibility(View.GONE);
-
-                        Intent intent = new Intent(view.getContext(), JobSearch.class);
-
-                        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(itemView.getContext());
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                        if (editor != null) {
-                            editor.putString("searchEmployerEmail", jobEmail.getText().toString()).apply();
-                            editor.putString("searchJobTitle", jobTitle.getText().toString()).apply();
-                            editor.putString("searchDescription", jobDesc.getText().toString()).apply();
-                            editor.putString("searchHourlyRate", jobHourlyRate.getText().toString()).apply();
-                            editor.commit();
-                        }
-
-                        view.getContext().startActivity(intent);
-
-                    }
+                    view.getContext().startActivity(intent);
 
                 }
+
             });
 
         }

@@ -135,12 +135,9 @@ public class JobsMapActivity extends FragmentActivity implements OnMapReadyCallb
 
     private void getJobsFromDatabase(){
         //Executed after the jobs have been read and placed in an array from the database
-        readData(new FirebaseCallback() {
-            @Override
-            public void onCallback(ArrayList<Job> list) {
-                //Place jobs on map
-                placeJobMarkersOnMap(list);
-            }
+        readData(list -> {
+            //Place jobs on map
+            placeJobMarkersOnMap(list);
         });
     }
 

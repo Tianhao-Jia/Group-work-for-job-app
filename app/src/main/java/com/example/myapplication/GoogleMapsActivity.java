@@ -54,17 +54,14 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
         getCurrentLocation();
 
         setLocationBtn = binding.setLocationBtn;
-        setLocationBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(currentUserLocation != null){
-                    // go to registration page
-                    Intent intent = new Intent(GoogleMapsActivity.this, RegisterUser.class);
-                    intent.putExtra("user location", currentUserLocation);
-                    startActivity(intent);
-                } else{
-                    Toast.makeText(getApplicationContext(), "Please get your location first!", Toast.LENGTH_LONG).show();
-                }
+        setLocationBtn.setOnClickListener(view -> {
+            if(currentUserLocation != null){
+                // go to registration page
+                Intent intent = new Intent(GoogleMapsActivity.this, RegisterUser.class);
+                intent.putExtra("user location", currentUserLocation);
+                startActivity(intent);
+            } else{
+                Toast.makeText(getApplicationContext(), "Please get your location first!", Toast.LENGTH_LONG).show();
             }
         });
     }

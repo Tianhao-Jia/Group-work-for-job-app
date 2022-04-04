@@ -17,27 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ViewOffers extends Activity {
 
-    private TextView offerEmail;
-    private TextView offerName;
-
-    private Button offerAccept;
-    private Button offerIgnore;
-
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
-
-    private TextView employeeEmailET;
-    private TextView employeeNameET;
-    private Button ignore;
-    private Button accept;
-
-    private FirebaseDatabase firebaseDB;
-    private DatabaseReference appsRef;
     private Button homeButton;
-
-    //stored in order of employerEmail, jobTitle, description, hourlyRate
-    private String[] inputs = new String[4];
-
 
     private RecyclerView recyclerView;
     OfferAdapter adapter; // Create Object of the Adapter class
@@ -99,6 +79,4 @@ public class ViewOffers extends Activity {
         super.onStop();
         adapter.stopListening();
     }
-
-
 }

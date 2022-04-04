@@ -73,75 +73,38 @@ public class EmployerActivity extends AppCompatActivity {
 //        FirebaseDatabase.getInstance().getReference().child("colleagues").child(Session.getUserID()).child("userID").getRef().setValue(newColl);
 //        FirebaseDatabase.getInstance().getReference().child("colleagues").child(Session.getUserID()).child("userID2").getRef().setValue(newColl2);
 
-        reviewEmployee.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent newIntent = new Intent(EmployerActivity.this, BrowseColleagues.class);
-                startActivity(newIntent);
-            }
+        reviewEmployee.setOnClickListener(view -> {
+            Intent newIntent = new Intent(EmployerActivity.this, BrowseColleagues.class);
+            startActivity(newIntent);
         });
 
-        createJobButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent newIntent = new Intent(EmployerActivity.this, CreateJob.class);
-                startActivity(newIntent);
-            }
+        createJobButton.setOnClickListener(view -> {
+            Intent newIntent = new Intent(EmployerActivity.this, CreateJob.class);
+            startActivity(newIntent);
         });
 
 
 
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Session.logout();
-            }
-        });
+        logoutButton.setOnClickListener(view -> Session.logout());
 
-        viewApplications.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EmployerActivity.this, ViewApplications.class);
-                startActivity(intent);
-            }
+        viewApplications.setOnClickListener(view -> {
+            Intent intent = new Intent(EmployerActivity.this, ViewApplications.class);
+            startActivity(intent);
         });
 
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EmployerActivity.this, JobSearch.class);
-                startActivity(intent);
-            }
+        searchButton.setOnClickListener(view -> {
+            Intent intent = new Intent(EmployerActivity.this, JobSearch.class);
+            startActivity(intent);
         });
 
-        openmaps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EmployerActivity.this, MapsActivity.class));
-            }
-        });
+        openmaps.setOnClickListener(view -> startActivity(new Intent(EmployerActivity.this, MapsActivity.class)));
 
-        payButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EmployerActivity.this, SendPayment.class));
-            }
-        });
+        payButton.setOnClickListener(view -> startActivity(new Intent(EmployerActivity.this, SendPayment.class)));
 
 
-        yourJobsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EmployerActivity.this, JobEmployerActivity.class));
-            }
-        });
-        findViewById(R.id.employerHistory).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EmployerActivity.this, HistoryActivity.class));
-            }
-        });
+        yourJobsButton.setOnClickListener(view -> startActivity(new Intent(EmployerActivity.this, JobEmployerActivity.class)));
+        findViewById(R.id.employerHistory).setOnClickListener(view -> startActivity(new Intent(EmployerActivity.this, HistoryActivity.class)));
     }
 
     /**

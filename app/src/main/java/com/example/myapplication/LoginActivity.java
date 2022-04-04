@@ -54,29 +54,21 @@ public class LoginActivity extends AppCompatActivity {
         login = findViewById(R.id.loginButton);
         status = findViewById(R.id.loginStatus);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String usernameInput = id.getText().toString();
-                String passwordInput = LoginActivity.this.password.getText().toString();
-                if (TextUtils.isEmpty(usernameInput)){
-                    status.setText(getString(R.string.name_empty));
-                }
-                else if (TextUtils.isEmpty(passwordInput)){
-                    status.setText(getString(R.string.pwd_empty));
-                }
-                else {
-                    tryLogin(usernameInput, passwordInput);
-                }
+        login.setOnClickListener(view -> {
+            String usernameInput = id.getText().toString();
+            String passwordInput = LoginActivity.this.password.getText().toString();
+            if (TextUtils.isEmpty(usernameInput)){
+                status.setText(getString(R.string.name_empty));
+            }
+            else if (TextUtils.isEmpty(passwordInput)){
+                status.setText(getString(R.string.pwd_empty));
+            }
+            else {
+                tryLogin(usernameInput, passwordInput);
+            }
 
-            }
         });
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, GoogleMapsActivity.class));
-            }
-        });
+        signup.setOnClickListener(view -> startActivity(new Intent(LoginActivity.this, GoogleMapsActivity.class)));
 
         connectFirebase();
 

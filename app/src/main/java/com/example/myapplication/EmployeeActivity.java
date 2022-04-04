@@ -58,28 +58,19 @@ public class EmployeeActivity extends AppCompatActivity {
         reviewEmployer = (Button) findViewById(R.id.makeAReview_employee);
         showJobsOnMapButton = (Button) findViewById(R.id.showJobsOnMapButton);
 
-        offersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EmployeeActivity.this, ViewOffers.class);
-                startActivity(intent);
-            }
+        offersButton.setOnClickListener(view -> {
+            Intent intent = new Intent(EmployeeActivity.this, ViewOffers.class);
+            startActivity(intent);
         });
 
-        reviewEmployer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EmployeeActivity.this, BrowseColleagues.class);
-                startActivity(intent);
-            }
+        reviewEmployer.setOnClickListener(view -> {
+            Intent intent = new Intent(EmployeeActivity.this, BrowseColleagues.class);
+            startActivity(intent);
         });
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EmployeeActivity.this, JobSearch.class);
-                startActivity(intent);
-            }
+        searchButton.setOnClickListener(view -> {
+            Intent intent = new Intent(EmployeeActivity.this, JobSearch.class);
+            startActivity(intent);
         });
 
 
@@ -101,33 +92,13 @@ public class EmployeeActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        logoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Session.logout();
-            }
-        });
+        logoutButton.setOnClickListener(view -> Session.logout());
 
 
-        openMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EmployeeActivity.this, MapsActivity.class));
-            }
-        });
-        jobs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EmployeeActivity.this,JobsActivity.class));
-            }
-        });
+        openMap.setOnClickListener(view -> startActivity(new Intent(EmployeeActivity.this, MapsActivity.class)));
+        jobs.setOnClickListener(view -> startActivity(new Intent(EmployeeActivity.this,JobsActivity.class)));
 
-        showJobsOnMapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EmployeeActivity.this, JobsMapActivity.class));
-            }
-        });
+        showJobsOnMapButton.setOnClickListener(view -> startActivity(new Intent(EmployeeActivity.this, JobsMapActivity.class)));
     }
 
     /**

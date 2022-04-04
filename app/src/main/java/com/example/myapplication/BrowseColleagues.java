@@ -33,11 +33,7 @@ import java.util.List;
 
 public class BrowseColleagues extends AppCompatActivity {
 
-    private TextView review_person_name;
-    private TextView review_person_email;
-    private Button review_person_btn;
 
-    private FirebaseDatabase firebaseDB;
     private DatabaseReference mbase;
 
     private RecyclerView recyclerView;

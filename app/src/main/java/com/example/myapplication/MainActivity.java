@@ -63,12 +63,9 @@ public class MainActivity extends AppCompatActivity {
      * @param className Class that represents the class linked to that the window will switch to.
      */
     private void setIntent(Button button, Class className) {
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, className);
-                startActivity(intent);
-            }
+        button.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, className);
+            startActivity(intent);
         });
     }
 

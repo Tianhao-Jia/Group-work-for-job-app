@@ -40,12 +40,9 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.ViewHolder> {
         holder.jobLayoutLatitude.setText("Latitude:"+job.getLocation().getLatitude());
         holder.jobLayoutLongitude.setText("Longitude:"+job.getLocation().getLongitude());
         holder.tvJobCategory.setText(job.getCategory());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (onItemClickListener!=null){
-                    onItemClickListener.onItemClick(position);
-                }
+        holder.itemView.setOnClickListener(view -> {
+            if (onItemClickListener!=null){
+                onItemClickListener.onItemClick(position);
             }
         });
     }
