@@ -67,13 +67,12 @@ public class GoogleMapsActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     private void initMap() {
- //       if (isPermissionGranted) {
-            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-            // manages life cycle of the map
-            mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
- //       }
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        // manages life cycle of the map
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
     }
 
     private void checkLocationPermissions() {

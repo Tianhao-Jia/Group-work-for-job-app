@@ -59,17 +59,6 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
         holder.jobLatitude.setText("latitude: " + location.getLatitude());
         holder.jobLongitude.setText("longitude: " + location.getLongitude());
 
-        //TODO set up the buttons to do stuff and the drop down, its not done here but below in ViewHolder class
-//        holder.jobSeeApplications.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(ViewApplications.class);
-//                startActivity(intent);
-//            }
-//        });
-        //holder.jobSuggestionFilter
-        //holder.jobSuggestionButton
-        //holder needs the rest of the spots filled in.
     }
 
     @Override
@@ -126,7 +115,6 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
             recyclerViewDistance.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
             adapterDistance = new JobEmployeeAdapter(listDistance);
             recyclerViewDistance.setAdapter(adapterDistance);
-            //recyclerViewDistance.setVisibility(View.GONE);
 
 
             list = new ArrayList<>();
@@ -134,7 +122,6 @@ public class JobEmployerAdapter extends RecyclerView.Adapter<JobEmployerAdapter.
             recyclerViewRating.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
             adapter = new JobEmployeeAdapter(list);
             recyclerViewRating.setAdapter(adapter);
-            //recyclerViewRating.setVisibility(View.GONE);
 
             distanceSeekBar = itemView.findViewById(R.id.jobEmployerLayoutSeekBar);
             distanceTextView = itemView.findViewById(R.id.jobEmployerLayoutSeekBarTextView);

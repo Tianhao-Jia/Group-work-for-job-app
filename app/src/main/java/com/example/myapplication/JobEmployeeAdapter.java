@@ -55,20 +55,6 @@ public class JobEmployeeAdapter extends RecyclerView.Adapter<JobEmployeeAdapter.
         if (employee.getDistance() != Double.MAX_VALUE) {
             holder.usersEmployeeLayoutDistance.setText("Distance: " + employee.getDistance() + " km");
         }
-
-
-
-        //TODO set up the buttons to do stuff and the drop down, its not done here but below in ViewHolder class
-//        holder.jobSeeApplications.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(ViewApplications.class);
-//                startActivity(intent);
-//            }
-//        });
-        //holder.jobSuggestionFilter
-        //holder.jobSuggestionButton
-        //holder needs the rest of the spots filled in.
     }
 
     @Override

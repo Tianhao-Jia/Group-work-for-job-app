@@ -55,12 +55,9 @@ public class ViewOffers extends Activity {
         // Connecting Adapter class with the Recycler view*/
         recyclerView.setAdapter(adapter);
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ViewOffers.this, EmployeeActivity.class);
-                startActivity(intent);
-            }
+        homeButton.setOnClickListener(view -> {
+            Intent intent = new Intent(ViewOffers.this, EmployeeActivity.class);
+            startActivity(intent);
         });
     }
 
