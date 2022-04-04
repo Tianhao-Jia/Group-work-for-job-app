@@ -77,8 +77,10 @@ public class BrowseColleagues extends AppCompatActivity {
 
                 // Connecting object of required Adapter class to
                 // the Adapter class itself
+                Log.d("size before",Integer.toString(options.size()));
                 adapter = new viewColleagueAdapter(options);
                 // Connecting Adapter class with the Recycler view*/
+                Log.d("size after",Integer.toString(adapter.getLength()));
                 recyclerView.setAdapter(adapter);
             }
 
