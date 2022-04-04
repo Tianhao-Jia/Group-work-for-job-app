@@ -71,7 +71,8 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
     public void onBindViewHolder(@NonNull JobViewHolder holder, int position, @NonNull Job job) {
         holder.jobLayoutDescription.setText("Description: " + job.getDescription());
         holder.jobLayoutEmployerEmail.setText("Email: " + job.getEmployerEmail());
-        holder.jobLayoutJobTitle.setText("Job Title: " + job.getJobTitle());
+
+        holder.jobLayoutJobTitle.setText(job.getJobTitle());
         holder.jobLayoutHourlyRate.setText("Hourly Rate: " + String.valueOf(job.getCompensation()));
         holder.jobLayoutLatitude.setText( "Latitude: " + String.valueOf(job.getLocation().getLatitude()));
         holder.jobLayoutLongitude.setText("Longitude: " + String.valueOf(job.getLocation().getLongitude()));
@@ -138,31 +139,25 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
 
             context = itemView.getContext();
 
-            jobLayoutApply.setOnClickListener(view -> {
-                FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-                DatabaseReference usersRef = firebaseDB.getReference().child(FirebaseUtils.USERS_COLLECTION);
-                usersRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
-                            if (dataSnapshot.child("email").getValue().toString().equals(jobLayoutEmployerEmail.getText().toString().substring(7))){
+                                
+                                if (dataSnapshot.child("jobTitle").getValue().toString().equals(jobLayoutJobTitle.getText().toString())){
 
-                                Application application = new Application(Session.getEmail(), false, false, jobLayoutDescription.getText().toString().substring(13));
+                                    
+                                    Application application = new Application(Session.getEmail(), false, false, jobLayoutDescription.getText().toString());
+                                    application.setJobID(dataSnapshot.getKey());
 
-                                FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
-                                        .getReference()
-                                        .child("applications").child(dataSnapshot.getKey()).push().setValue(application);
+                                    
+                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+                                            .getReference()
+                                            .child("applications").child(dataSnapshot.child("hash").getValue().toString()).push().setValue(application);
 
-                            }
+
 
                         }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+
+
             });
 
         }
