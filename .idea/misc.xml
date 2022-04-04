@@ -63,6 +63,7 @@
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/activity_create_job.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/activity_employee.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/activity_employer.xml" value="0.2" />
+        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/activity_google_maps.xml" value="0.14270833333333333" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/activity_job.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/activity_jobs.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/activity_login.xml" value="0.24444444444444444" />
@@ -71,7 +72,7 @@
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/activity_newpage.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/activity_register_user.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/item_job.xml" value="0.1" />
+        <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/item_job.xml" value="0.264" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/job_application.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/job_employer.xml" value="0.20277777777777778" />
         <entry key="..\:/Users/natha/git/csci3130/groupProject/csci-3130-group-4/csci-3130-group-4-project/app/src/main/res/layout/job_employer_layout.xml" value="0.24907063197026022" />
@@ -137,9 +138,26 @@
         <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/job_payment.xml" value="0.33" />
         <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/job_payment_row.xml" value="0.5" />
         <entry key="..\:/Users/tedgr/OneDrive/Desktop/Dal/Courses/WInter 2022/CSCI3130/csci-3130-group-4-project/app/src/main/res/layout/login_page.xml" value="0.19010416666666666" />
+        <entry key="app/src/main/res/layout/activity_employee.xml" value="0.13196555217831812" />
         <entry key="app/src/main/res/layout/activity_employer.xml" value="0.2586050724637681" />
+        <entry key="app/src/main/res/layout/activity_jobs.xml" value="0.2223731884057971" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.21920289855072464" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.20697463768115942" />
+        <entry key="app/src/main/res/layout/activity_maps.xml" value="0.21920289855072464" />
+        <entry key="app/src/main/res/layout/activity_newpage.xml" value="0.21920289855072464" />
+        <entry key="app/src/main/res/layout/activity_register.xml" value="0.2223731884057971" />
         <entry key="app/src/main/res/layout/create_job.xml" value="0.13221884498480244" />
+        <entry key="app/src/main/res/layout/employee_info.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/employer_info.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/item_job.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/job_offer.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/job_offers_page.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/login_page.xml" value="0.11875" />
+        <entry key="app/src/main/res/layout/review_employee.xml" value="0.14166666666666666" />
+        <entry key="app/src/main/res/layout/review_employer.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/review_person_info.xml" value="0.2427536231884058" />
+        <entry key="app/src/main/res/layout/review_user.xml" value="0.2713541666666667" />
+        <entry key="app/src/main/res/layout/review_view.xml" value="0.21920289855072464" />
       </map>
     </option>
   </component>

@@ -1,0 +1,21 @@
+
+˜
+java:S1186¤"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+G
+java:S1068{"+Remove this unused "context" private field.(êİç8šÛåÖş/
+Œ
+java:S1319ç"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(ËÁòãûÿÿÿÿ
+‹
+java:S1319ë"oThe type of "holderArrayList" should be an interface such as "List" rather than the implementation "ArrayList".(ë¼“¿ùÿÿÿÿ
+Œ
+java:S1319ï"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(‘šÓùÿÿÿÿ
+ˆ
+java:S1319ó"lThe type of "jobArrayList" should be an interface such as "List" rather than the implementation "ArrayList".(†ŞüÃüÿÿÿÿ
+D
+java:S1604"(Make this anonymous inner class a lambda(Ì¥¯Éùÿÿÿÿ
+N
+java:S1153K"1Directly append the argument of String.valueOf().(é™¼ã8°ÛåÖş/
+S
+java:S1153L"1Directly append the argument of String.valueOf().(úˆ…ˆüÿÿÿÿ8°ÛåÖş/
+N
+java:S1153M"1Directly append the argument of String.valueOf().(ğİš8±ÛåÖş/
