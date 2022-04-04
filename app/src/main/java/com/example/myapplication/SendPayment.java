@@ -76,12 +76,7 @@ public class SendPayment extends AppCompatActivity implements PayAdapter.IJobLis
 
         getPaymentPendingApplications(Session.getUserID());
 
-        refreshBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getPaymentPendingApplications(Session.getUserID());
-            }
-        });
+        refreshBtn.setOnClickListener(view -> getPaymentPendingApplications(Session.getUserID()));
 
     }
 

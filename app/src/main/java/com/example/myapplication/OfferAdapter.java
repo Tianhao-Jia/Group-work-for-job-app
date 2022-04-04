@@ -59,10 +59,7 @@ public class OfferAdapter extends FirebaseRecyclerAdapter<
             employerEmail = itemView.findViewById(R.id.offerEmployerEmail);
             description = itemView.findViewById(R.id.jobOfferDescription);
 
-            dismissed.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                }
+            dismissed.setOnClickListener(view -> {
             });
         }
 

@@ -58,19 +58,9 @@ public class PayAdapter extends RecyclerView.Adapter<PayAdapter.PayViewHolder> {
         holder.jobTitle.setText(app.getDescription());
         holder.employeeEmail.setText(app.getEmployeeEmail());
 
-        holder.payUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jobListener.onPayClick(holder.getAbsoluteAdapterPosition());
-            }
-        });
+        holder.payUser.setOnClickListener(view -> jobListener.onPayClick(holder.getAbsoluteAdapterPosition()));
 
-        holder.cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                jobListener.onCancelClick(holder.getAbsoluteAdapterPosition());
-            }
-        });
+        holder.cancel.setOnClickListener(view -> jobListener.onCancelClick(holder.getAbsoluteAdapterPosition()));
     }
 
     /**

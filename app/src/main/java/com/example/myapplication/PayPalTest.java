@@ -52,12 +52,9 @@ public class PayPalTest extends AppCompatActivity {
         paymentTV = findViewById(R.id.idTVStatus);
 
         // on below line adding click listener to our make payment button.
-        makePaymentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // calling a method to get payment.
-                getPayment();
-            }
+        makePaymentBtn.setOnClickListener(v -> {
+            // calling a method to get payment.
+            getPayment();
         });
     }
 

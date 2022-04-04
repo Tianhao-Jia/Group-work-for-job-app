@@ -54,12 +54,7 @@ public class Register extends AppCompatActivity {
         name = findViewById(R.id.name);
         signupButton = findViewById(R.id.loginToSignupButton);
 
-        signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signup();
-            }
-        });
+        signupButton.setOnClickListener(view -> signup());
     }
 
 
@@ -68,40 +63,32 @@ public class Register extends AppCompatActivity {
         String idText = id.getText().toString();
         String passwordText = password.getText().toString();
 
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(idText, passwordText).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(idText, passwordText).addOnCompleteListener(task -> {
+            if(task.isSuccessful()){
 
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
+                StorageReference storageReference= FirebaseStorage.getInstance().getReference().child("users").child(uid);
 
-                    String uid=FirebaseAuth.getInstance().getCurrentUser().getUid();
-                    StorageReference storageReference= FirebaseStorage.getInstance().getReference().child("users").child(uid);
+                storageReference.putFile(imageUri).addOnCompleteListener(task1 -> {
+                    if(task1.isSuccessful()){
 
-                    storageReference.putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
 
-                        @Override
-                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                            if(task.isSuccessful()){
-
-                                storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-
-                                    @Override
-                                    public void onComplete(@NonNull Task<Uri> task) {
-                                        String imageUrl = task.toString();
-                                        UserModel userModel = new UserModel();
-                                        userModel.setName(name.getText().toString());
-                                        userModel.setUid(uid);
-                                        userModel.setImageUrl(imageUrl);
-                                        FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
-                                    }
-                                });
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task1) {
+                                String imageUrl = task1.toString();
+                                UserModel userModel = new UserModel();
+                                userModel.setName(name.getText().toString());
+                                userModel.setUid(uid);
+                                userModel.setImageUrl(imageUrl);
+                                FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
                             }
-                        }
-                    });
-                }
-                else{
-                    Toast.makeText(Register.this,"Failed to create",Toast.LENGTH_SHORT).show();
-                }
+                        });
+                    }
+                });
+            }
+            else{
+                Toast.makeText(Register.this,"Failed to create",Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -138,34 +138,31 @@ public class ViewJobAdapter extends FirebaseRecyclerAdapter<Job, ViewJobAdapter.
 
             context = itemView.getContext();
 
-            jobLayoutApply.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
-                    DatabaseReference usersRef = firebaseDB.getReference().child(FirebaseUtils.USERS_COLLECTION);
-                    usersRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+            jobLayoutApply.setOnClickListener(view -> {
+                FirebaseDatabase firebaseDB = FirebaseUtils.connectFirebase();
+                DatabaseReference usersRef = firebaseDB.getReference().child(FirebaseUtils.USERS_COLLECTION);
+                usersRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
-                                if (dataSnapshot.child("email").getValue().toString().equals(jobLayoutEmployerEmail.getText().toString().substring(7))){
+                            if (dataSnapshot.child("email").getValue().toString().equals(jobLayoutEmployerEmail.getText().toString().substring(7))){
 
-                                    Application application = new Application(Session.getEmail(), false, false, jobLayoutDescription.getText().toString().substring(13));
+                                Application application = new Application(Session.getEmail(), false, false, jobLayoutDescription.getText().toString().substring(13));
 
-                                    FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
-                                            .getReference()
-                                            .child("applications").child(dataSnapshot.getKey()).push().setValue(application);
-
-                                }
+                                FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL)
+                                        .getReference()
+                                        .child("applications").child(dataSnapshot.getKey()).push().setValue(application);
 
                             }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
 
                         }
-                    });
-                }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             });
 
         }
