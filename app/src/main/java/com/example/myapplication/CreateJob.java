@@ -34,6 +34,7 @@ public class CreateJob extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_job);
 
+        //
         Button createJobBtn = findViewById(R.id.createJobSubmitButton);
         TextView email = findViewById(R.id.createJobEmail);
         email.setText(Session.getEmail());
