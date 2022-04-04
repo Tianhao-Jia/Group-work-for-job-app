@@ -33,7 +33,7 @@ public class JobEmployerActivity extends Activity {
     private TextView noJobsTextView;
     private RecyclerView recyclerview;
     private JobEmployerAdapter adapter;
-    public List<Job> list = new ArrayList<>();
+    public static List<Job> list = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
