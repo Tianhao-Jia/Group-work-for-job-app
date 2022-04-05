@@ -52,6 +52,7 @@ public class Session  {
         editor.putString(TYPE, userType);
         editor.putBoolean(LOGIN, true);
 
+        
         return editor.commit();
     }
     public static boolean name(String first, String last) {
