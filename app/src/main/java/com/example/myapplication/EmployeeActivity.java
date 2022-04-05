@@ -77,20 +77,6 @@ public class EmployeeActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        boolean hasLogIn = sharedPreferences.contains(Session.LOGIN);
-        boolean state = false;
-        if (hasLogIn) {
-            state = sharedPreferences.getBoolean(Session.LOGIN, false);
-        }
-
-        //this shouldn't be possible so that means that the user is in the wrong spot
-        if (!state) {
-            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
-            Intent intent = new Intent(EmployeeActivity.this, RegisterUser.class);
-            startActivity(intent);
-        }
 
         logoutButton.setOnClickListener(view -> Session.logout());
 

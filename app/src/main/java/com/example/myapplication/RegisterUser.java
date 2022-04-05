@@ -279,34 +279,28 @@ public class RegisterUser extends AppCompatActivity{
      * @param key String : database reference key
      */
     private void switchActivity(String key){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Session.login(emailField.getText().toString(), key, userType);
 
-        if (editor != null) {
-            editor.putBoolean(Session.LOGIN, true);
-            editor.commit();
-        }
+//        if (editor != null) {
+//            editor.putBoolean(Session.LOGIN, true);
+//            editor.commit();
+//        }
 
         if (userType.equalsIgnoreCase(Employee.EMPLOYEE)) {
             Intent intent = new Intent(RegisterUser.this, EmployeeActivity.class);
-            intent.putExtra("Login Email", emailField.getText().toString());
-            intent.putExtra("Login Password", passwordField.getText().toString());
-            intent.putExtra("User Type", Employee.EMPLOYEE);
-            intent.putExtra("User Hash", key);
+//            intent.putExtra("Login Email", emailField.getText().toString());
+//            intent.putExtra("Login Password", passwordField.getText().toString());
+//            intent.putExtra("User Type", Employee.EMPLOYEE);
+//            intent.putExtra("User Hash", key);
             startActivity(intent);
         }
         else if (userType.equalsIgnoreCase(Employer.EMPLOYER)) {
             Intent intent = new Intent(RegisterUser.this, EmployerActivity.class);
-            intent.putExtra("Login Email", emailField.getText().toString());
-            intent.putExtra("Login Password", passwordField.getText().toString());
-            intent.putExtra("User Type", Employer.EMPLOYER);
-            intent.putExtra("User Hash", key);
+//            intent.putExtra("Login Email", emailField.getText().toString());
+//            intent.putExtra("Login Password", passwordField.getText().toString());
+//            intent.putExtra("User Type", Employer.EMPLOYER);
+//            intent.putExtra("User Hash", key);
             startActivity(intent);
-        }
-        else {
-            Log.e("ERROR", "This should never be possible that a user is not employer or emploee!");
-            //force crash.
-            System.exit(-1);
         }
 
     }

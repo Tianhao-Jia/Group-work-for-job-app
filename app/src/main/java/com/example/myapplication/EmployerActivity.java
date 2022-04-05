@@ -51,21 +51,6 @@ public class EmployerActivity extends AppCompatActivity {
         reviewEmployee = (Button) findViewById(R.id.makeAReview_employer);
         yourJobsButton = (Button) findViewById(R.id.employerYourJobsButton);
         payButton = (Button) findViewById(R.id.employerPayButton);
-//
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        boolean hasLogIn = sharedPreferences.contains(Session.LOGIN);
-        boolean state = false;
-        if (hasLogIn) {
-            state = sharedPreferences.getBoolean(Session.LOGIN, false);
-        }
-
-        //this shouldn't be possible so that means that the user is in the wrong spot
-        if (!state) {
-            //DO NOT REMOVE THIS IS FOR US-3 ACCEPTANCE TEST FUNCTIONALITY.
-            Intent intent = new Intent(EmployerActivity.this, RegisterUser.class);
-            startActivity(intent);
-        }
 
         reviewEmployee.setOnClickListener(view -> {
             Intent newIntent = new Intent(EmployerActivity.this, BrowseColleagues.class);
