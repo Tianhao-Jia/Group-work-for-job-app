@@ -1,17 +1,28 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import kotlinx.coroutines.channels.Send;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * EmployeeActivity class that manages the EmployeeActivity events.
@@ -54,8 +65,67 @@ public class MainActivity extends AppCompatActivity {
         Button register = (Button) findViewById(R.id.register);
         setIntent(register, GoogleMapsActivity.class);
         redirectIfLoggedIn();
+        registerNewJobListener();
 
     }
+    private boolean isNewJob = false;
+    public List<String> list = new ArrayList<>();
+    private void registerNewJobListener() {
+        createNotificationChannel();
+        DatabaseReference jobRef = FirebaseDatabase.getInstance(FirebaseUtils.FIREBASE_URL).getReference("jobs");
+        jobRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (!isNewJob){
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        list.add(dataSnapshot.getKey());
+                    }
+                }else{
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        if (!list.contains(dataSnapshot.getKey())){
+                            //
+                            Job job = dataSnapshot.getValue(Job.class);
+                            showNotification(job);
+                        }
+
+                    }
+                }
+                isNewJob = true;
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "job";
+            String description = "new Job";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel("New Job", name, importance);
+            channel.setDescription(description);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+    private void showNotification(Job job) {
+
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "New Job")
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(job.getJobTitle())
+                .setContentText(job.getDescription())
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(0, builder.build());
+    }
+
     /**
      * setIntent method that reduces code clutter and improves switching between intents of buttons.
      * @author Nathanael Bowley
@@ -84,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+
 
     /**
      * checkForLogin method that checks the SharedPreferences for previously stored login credentials.
